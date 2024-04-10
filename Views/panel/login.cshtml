@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/webAssets/AdminPanel/loginasset/css/main.css">
+    <!--===============================================================================================-->
+
+   
+</head>
+<body style="background-color: #666666;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-more" style="background-image: url('/WebAssets/AdminPanel/loginasset/images/bg-01.jpg');">
+                </div>
+                <form method="post" id="loginform" class="login100-form validate-form" action="/panel/setCode">
+                    @Html.AntiForgeryToken()
+                    <span class="login100-form-title p-b-43">
+                        Fill The Form To Proceed
+                    </span>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input id="login-urser" class="input100" type="text" name="phone">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Username </span>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input id="login-password" class="input100" type="password" name="code">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">password </span>
+                    </div>
+
+
+
+
+                    <div class="container-login100-form-btn">
+                        <p class="login100-form-btn" id="lgnsubmitt">
+                            Login
+                        </p>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/bootstrap/js/popper.js"></script>
+    <script src="/webAssets/AdminPanel/loginasset/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/webAssets/AdminPanel/loginasset/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/webAssets/AdminPanel/loginasset/js/main.js"></script>
+    <script>
+
+        document.getElementById("lgnsubmitt").onclick = function () {
+
+
+
+            var ischecked;
+            if ($("#rememberme").is(":checked")) {
+                ischecked = "checked";
+            }
+            else {
+                ischecked = "unchecked";
+            }
+
+            var Phone = $("#login-urser").val();
+            var Pass = $("#login-password").val();
+
+
+
+
+            if (Phone != "" & Pass != "") {
+
+                $("#loginform").submit();
+               
+            }
+            else {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 8000,
+                    "extendedTimeOut": 1000,
+
+
+                }
+                toastr.error("Fill All Fields")
+
+
+            }
+
+
+
+        }
+    </script>
+</body>
+</html>

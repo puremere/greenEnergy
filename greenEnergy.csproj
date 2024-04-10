@@ -1,0 +1,1024 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{94B320BB-251C-40C6-8C44-51D037544A7A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>greenEnergy</RootNamespace>
+    <AssemblyName>greenEnergy</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44394</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BotDetect, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>packages\Captcha.4.4.2\lib\net35\BotDetect.dll</HintPath>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>packages\Captcha.4.4.2\lib\net35\BotDetect.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT, Version=10.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>packages\JWT.10.1.1\lib\net40\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Abstractions.6.35.0\lib\net45\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.JsonWebTokens.6.35.0\lib\net45\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Logging.6.35.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Tokens.6.35.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Cors.5.3.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Cors.5.3.0\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Classes\customMethodes.cs" />
+    <Compile Include="Classes\dateTimeConvert.cs" />
+    <Compile Include="Classes\methods.cs" />
+    <Compile Include="Classes\SessionCheck.cs" />
+    <Compile Include="Classes\TokenManager.cs" />
+    <Compile Include="Controllers\appController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\panelController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\sectionVM.cs" />
+    <Compile Include="webAssets\AdminPanel\ViewModel\CatPageViewModel.cs" />
+    <Compile Include="webAssets\AdminPanel\ViewModel\producDetailPageViewModel.cs" />
+    <Compile Include="webAssets\AdminPanel\ViewModel\productinfoviewdetail.cs" />
+    <Compile Include="webAssets\AdminPanel\ViewModel\variabli.cs" />
+    <Compile Include="webAssets\AdminPanel\ViewModel\ViewModelClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Uploads\banner1.png" />
+    <Content Include="Uploads\banner2.png" />
+    <Content Include="Uploads\banner3.png" />
+    <Content Include="Uploads\heading1.png" />
+    <Content Include="Uploads\intro1.png" />
+    <Content Include="Uploads\list1.png" />
+    <Content Include="Uploads\mainlayout.png" />
+    <Content Include="Uploads\rightsidelayout.png" />
+    <Content Include="Uploads\slider1.png" />
+    <Content Include="Uploads\slider2.png" />
+    <Content Include="Views\Shared\_AdminPanel.cshtml" />
+    <Content Include="Views\Home\login.cshtml" />
+    <Content Include="webAssets\AdminPanel\build\css\bootstrap-rlt.css" />
+    <Content Include="webAssets\AdminPanel\build\css\custom.css" />
+    <Content Include="webAssets\AdminPanel\build\css\custom.min.css" />
+    <Content Include="webAssets\AdminPanel\build\css\toastr.css" />
+    <Content Include="webAssets\AdminPanel\build\images\back_disabled.png" />
+    <Content Include="webAssets\AdminPanel\build\images\back_enabled.png" />
+    <Content Include="webAssets\AdminPanel\build\images\back_enabled_hover.png" />
+    <Content Include="webAssets\AdminPanel\build\images\forward_disabled.png" />
+    <Content Include="webAssets\AdminPanel\build\images\forward_enabled.png" />
+    <Content Include="webAssets\AdminPanel\build\images\forward_enabled_hover.png" />
+    <Content Include="webAssets\AdminPanel\build\images\loading.gif" />
+    <Content Include="webAssets\AdminPanel\build\js\custom.js" />
+    <Content Include="webAssets\AdminPanel\build\js\custom.min.js" />
+    <Content Include="webAssets\AdminPanel\Content\bootstrap.css" />
+    <Content Include="webAssets\AdminPanel\Content\bootstrap.min.css" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome.min.css" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\css\font-awesome.css" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="webAssets\AdminPanel\Content\nprogress.css" />
+    <Content Include="webAssets\AdminPanel\Content\PagedList.css" />
+    <Content Include="webAssets\AdminPanel\Content\prettify.min.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\accordion.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\all.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\autocomplete.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\base.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\button.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\core.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\datepicker.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\dialog.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\draggable.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\jquery-ui.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\jquery-ui.min.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\menu.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\progressbar.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\resizable.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\selectable.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\selectmenu.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\slider.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\sortable.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\spinner.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\tabs.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\theme.css" />
+    <Content Include="webAssets\AdminPanel\Content\themes\base\tooltip.css" />
+    <Content Include="webAssets\AdminPanel\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="webAssets\AdminPanel\images\american-express.png" />
+    <Content Include="webAssets\AdminPanel\images\cropper.jpg" />
+    <Content Include="webAssets\AdminPanel\images\favicon.ico" />
+    <Content Include="webAssets\AdminPanel\images\img.jpg" />
+    <Content Include="webAssets\AdminPanel\images\inbox.png" />
+    <Content Include="webAssets\AdminPanel\images\mastercard.png" />
+    <Content Include="webAssets\AdminPanel\images\media.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Chrysanthemum.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Delete.png" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Desert.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Hydrangeas.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Jellyfish.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Koala.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Lighthouse.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Penguins.jpg" />
+    <Content Include="webAssets\AdminPanel\images\panelimages\Tulips.jpg" />
+    <Content Include="webAssets\AdminPanel\images\paypal.png" />
+    <Content Include="webAssets\AdminPanel\images\picture.jpg" />
+    <Content Include="webAssets\AdminPanel\images\prod-1.jpg" />
+    <Content Include="webAssets\AdminPanel\images\prod-2.jpg" />
+    <Content Include="webAssets\AdminPanel\images\prod-3.jpg" />
+    <Content Include="webAssets\AdminPanel\images\prod-4.jpg" />
+    <Content Include="webAssets\AdminPanel\images\prod-5.jpg" />
+    <Content Include="webAssets\AdminPanel\images\user.png" />
+    <Content Include="webAssets\AdminPanel\images\visa.png" />
+    <Content Include="webAssets\AdminPanel\loginasset\css\main.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\css\util.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\OFL.txt" />
+    <Content Include="webAssets\AdminPanel\loginasset\images\bg-01.jpg" />
+    <Content Include="webAssets\AdminPanel\loginasset\images\icons\favicon.ico" />
+    <Content Include="webAssets\AdminPanel\loginasset\js\main.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\animate\animate.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\animsition\css\animsition.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\animsition\css\animsition.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\animsition\js\animsition.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\animsition\js\animsition.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\js\popper.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\countdowntime\countdowntime.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\daterangepicker\moment.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\daterangepicker\moment.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\select2\select2.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\select2\select2.js" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\select2\select2.min.css" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\select2\select2.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\assets\images\landing\email-bg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\assets\images\landing\title.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\datatables.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\linearicon.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\ratio.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\remixicon.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\select2.min.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\style.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vector-map.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\animate.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\bootstrap-tagsinput.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\bootstrap.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\bootstrap0.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\chartist.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\date-picker.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\dropzone-spritemap.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\dropzone.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\feather-icon.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\font-awesome.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\fonts\slick-2.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\fonts\slick-3.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\fonts\slick-4.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\fonts\slick.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\fonts\slickd41d.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\scrollbar.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\slick.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\css\vendors\themify.css" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\remixicondf6d.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\themify\themify9f24.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\ajax-loader.gif" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\bg.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\dashboard\bg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\favicon.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\hour.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\icon\down-.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\landing\leaf-right.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\landing\left-left.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\1-white.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\1.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\full-white.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\logo-white.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\logo.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\logo\short.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\min.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\bg-profile.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\boxbg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\calender-bg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\clock-face.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\coming-soon-bg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\maintenance-bg.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\other-images\mobile-clock-wallpaper.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\1.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\10.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\11.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\13.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\14.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\16.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\2.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\20.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\3.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\4.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\5.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\6.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\7.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\8.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\product\9.png" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\profile\1.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\profile\2.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\profile\3.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\sec.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\social-app\social-image.html" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\users\1.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\users\2.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\users\3.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\users\4.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\images\users\5.jpg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\bootstrap-tagsinput.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\apex-chart.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\apex-chart1.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\chart-custom.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\chart-custom1.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\moment.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\chart\apex-chart\stock-prices.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\checkbox-all-check.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\ckeditor-custom.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\ckeditor.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\config.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\custom-data-table.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\custom-slick.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\customizer.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\dropzone\dropzone-script.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\dropzone\dropzone.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\icons\feather-icon\feather-icon.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\icons\feather-icon\feather.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\jquery-3.6.0.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\jquery.dataTables.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\notify\bootstrap-notify.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\notify\index.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\ratio.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\script.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\scrollbar\custom.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\scrollbar\simplebar.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\select2-custom.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\select2.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\sidebar-menu.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\sidebareffect.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\slick.min.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\js\tooltip-init.js" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\breakfast.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\cup.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\frozen.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\meats.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\milk.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\pet.svg" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\svg\vegetable.svg" />
+    <Content Include="webAssets\AdminPanel\Scripts\bootstrap-wysiwyg.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\bootstrap.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\bootstrap.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\date.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\fastclick.js" />
+    <Content Include="Views\panel\dashboard.cshtml" />
+    <Content Include="Views\panel\Page.cshtml" />
+    <Content Include="Views\panel\Type.cshtml" />
+    <Content Include="Views\panel\language.cshtml" />
+    <Content Include="Views\panel\category.cshtml" />
+    <Content Include="Views\panel\Content.cshtml" />
+    <Content Include="Views\panel\Data.cshtml" />
+    <Content Include="Views\Shared\sections\_intro1.cshtml" />
+    <Content Include="Views\Shared\sections\_banner1.cshtml" />
+    <Content Include="Views\panel\Layout.cshtml" />
+    <Content Include="Views\panel\LayoutPart.cshtml" />
+    <Content Include="Views\panel\LayoutPartData.cshtml" />
+    <None Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.hotkeys.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="webAssets\AdminPanel\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.validate.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.validate.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\modernizr-2.6.2.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\nprogress.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\prettify.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\respond.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\respond.min.js" />
+    <Content Include="webAssets\AdminPanel\Scripts\toastr.js" />
+    <None Include="webAssets\AdminPanel\Scripts\_references.js" />
+    <Content Include="webAssets\green\assets\css\aos.css" />
+    <Content Include="webAssets\green\assets\css\bootstrap.min.css" />
+    <Content Include="webAssets\green\assets\css\jquery.multiscroll.css" />
+    <Content Include="webAssets\green\assets\css\locomotive-scroll.css" />
+    <Content Include="webAssets\green\assets\css\responsive.css" />
+    <Content Include="webAssets\green\assets\css\style.css" />
+    <Content Include="webAssets\green\assets\css\swiper.min.css" />
+    <Content Include="webAssets\green\assets\imgs\aboug-breadcrumb-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-1x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-9-shape.jpg" />
+    <Content Include="webAssets\green\assets\imgs\about-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\author.jpg" />
+    <Content Include="webAssets\green\assets\imgs\bg-line-shape.png" />
+    <Content Include="webAssets\green\assets\imgs\bg-shape-2.png" />
+    <Content Include="webAssets\green\assets\imgs\bg-shape-3.png" />
+    <Content Include="webAssets\green\assets\imgs\bg-shape-4.png" />
+    <Content Include="webAssets\green\assets\imgs\bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\blog-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\blog-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\blog-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\blog-detail-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\border-shape-2.png" />
+    <Content Include="webAssets\green\assets\imgs\border-shape-3.png" />
+    <Content Include="webAssets\green\assets\imgs\border-shape.png" />
+    <Content Include="webAssets\green\assets\imgs\breadcrimb-pricing-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\breadcrumb-course-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\breadcrumb-faq-bg.jpeg" />
+    <Content Include="webAssets\green\assets\imgs\breadcrumb-ticket-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\breadcrumb-work-query-bg.jpeg" />
+    <Content Include="webAssets\green\assets\imgs\coming-soon-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\comment-1.png" />
+    <Content Include="webAssets\green\assets\imgs\contact-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact-breadcrumb-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\contact.jpg" />
+    <Content Include="webAssets\green\assets\imgs\course-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\course-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\course-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\faq-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\faq-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\faq-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\faq.jpg" />
+    <Content Include="webAssets\green\assets\imgs\footer-bg.png" />
+    <Content Include="webAssets\green\assets\imgs\gallery-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\gallery-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-10.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-11.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-12.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-1xx.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-2x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-3xx.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\hero10-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\home-interactive.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-10.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-11.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-12.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-13.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-blog-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-blog.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-contact.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-course.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-faq.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-ft-1.png" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-ft-2.png" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-portfolio.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-portfolio2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-pricing.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\demo-work-query.jpg" />
+    <Content Include="webAssets\green\assets\imgs\landing\hero-1.png" />
+    <Content Include="webAssets\green\assets\imgs\landing\hero-2.png" />
+    <Content Include="webAssets\green\assets\imgs\landing\ipad.png" />
+    <Content Include="webAssets\green\assets\imgs\logo-white.png" />
+    <Content Include="webAssets\green\assets\imgs\logo-white.svg" />
+    <Content Include="webAssets\green\assets\imgs\logo.png" />
+    <Content Include="webAssets\green\assets\imgs\logo.svg" />
+    <Content Include="webAssets\green\assets\imgs\logox.png" />
+    <Content Include="webAssets\green\assets\imgs\m-logo-2.png" />
+    <Content Include="webAssets\green\assets\imgs\m-logo-2.svg" />
+    <Content Include="webAssets\green\assets\imgs\m-logo.png" />
+    <Content Include="webAssets\green\assets\imgs\m-logo.svg" />
+    <Content Include="webAssets\green\assets\imgs\mentor-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\mentor-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\mentor-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\newsletter-bg.png" />
+    <Content Include="webAssets\green\assets\imgs\newsletter-border-shape.png" />
+    <Content Include="webAssets\green\assets\imgs\our-expert.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-breadcrumb-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-breadcrumb-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-breadcrumb-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-breadcrumb-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\portfolio-single-img-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-10.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-11.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-12.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-13.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-14.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-1x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-2x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-3x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-4x.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-6.jpeg" />
+    <Content Include="webAssets\green\assets\imgs\service-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-bg2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-bg3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-bg4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-1.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-2.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-3.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-4.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-5.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-6.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-7.svg" />
+    <Content Include="webAssets\green\assets\imgs\service-icon-8.svg" />
+    <Content Include="webAssets\green\assets\imgs\signature.png" />
+    <Content Include="webAssets\green\assets\imgs\star-shape.svg" />
+    <Content Include="webAssets\green\assets\imgs\story-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\story-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\story-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-1.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-10.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-3.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-4.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-5.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-6.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-7.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-8.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-9.jpg" />
+    <Content Include="webAssets\green\assets\imgs\team-breadcrumb-bg.jpg" />
+    <Content Include="webAssets\green\assets\imgs\testimonial.png" />
+    <Content Include="webAssets\green\assets\imgs\video-img.jpg" />
+    <Content Include="webAssets\green\assets\imgs\video-img2.jpg" />
+    <Content Include="webAssets\green\assets\imgs\video-imgxx.jpg" />
+    <Content Include="webAssets\green\assets\js\ajaxform.js" />
+    <Content Include="webAssets\green\assets\js\ajaxform2.js" />
+    <Content Include="webAssets\green\assets\js\aos.js" />
+    <Content Include="webAssets\green\assets\js\bootstrap.bundle.min.js" />
+    <Content Include="webAssets\green\assets\js\countdown.js" />
+    <Content Include="webAssets\green\assets\js\horizontal-slider.js" />
+    <Content Include="webAssets\green\assets\js\jquery-3.7.1.js" />
+    <Content Include="webAssets\green\assets\js\jquery-migrate.min.js" />
+    <Content Include="webAssets\green\assets\js\jquery.counterup.min.js" />
+    <Content Include="webAssets\green\assets\js\jquery.easings.min.js" />
+    <Content Include="webAssets\green\assets\js\jquery.multiscroll.js" />
+    <Content Include="webAssets\green\assets\js\locomotive-scroll.min.js" />
+    <Content Include="webAssets\green\assets\js\main.js" />
+    <Content Include="webAssets\green\assets\js\subscribeform.js" />
+    <Content Include="webAssets\green\assets\js\swiper.min.js" />
+    <Content Include="webAssets\green\assets\js\waypoints.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\page.cshtml" />
+    <Content Include="Views\Shared\Layouts\_Layout.cshtml" />
+    <Content Include="Views\Shared\sections\_slider1.cshtml" />
+    <Content Include="Views\panel\login.cshtml" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\.bower.json" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\.gitignore" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\.npmignore" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\bower.json" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\css\font-awesome.css.map" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\animated.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\core.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\fixed-width.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\font-awesome.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\icons.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\larger.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\list.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\mixins.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\path.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\screen-reader.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\stacked.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\less\variables.less" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_animated.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_core.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_icons.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_larger.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_list.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_path.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="webAssets\AdminPanel\Content\font-awesome\scss\_variables.scss" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29_Black.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29_Bold.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29_Light.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29_Medium.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\eot\IRANSansWeb%28FaNum%29_UltraLight.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="webAssets\AdminPanel\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29_Black.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29_Bold.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29_Light.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff2\IRANSansWeb%28FaNum%29_UltraLight.woff2" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29_Black.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29_Bold.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29_Light.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29_Medium.woff" />
+    <Content Include="webAssets\AdminPanel\fonts\woff\IRANSansWeb%28FaNum%29_UltraLight.woff" />
+    <Content Include="webAssets\AdminPanel\loginasset.zip" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="webAssets\AdminPanel\loginasset\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="webAssets\AdminPanel\Portal.zip" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400.ttf" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400.woff" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400.woff2" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-brands-400d41d.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400.ttf" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400.woff" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400.woff2" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-regular-400d41d.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900.ttf" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900.woff" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900.woff2" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\fa-solid-900d41d.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\remixicondf6d.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\remixicondf6d.ttf" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\remixicondf6d.woff" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\remixicondf6d.woff2" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\themify\themify9f24.eot" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\themify\themify9f24.ttf" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\themify\themify9f24.woff" />
+    <Content Include="webAssets\AdminPanel\Portal\assets\fonts\themify\themifyd41d.eot" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.min.map" />
+    <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="webAssets\AdminPanel\Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\Login.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\Manage.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\Register.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\About.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Contact.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Edit.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Index.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Menu.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Product.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Profile.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Home\Slider.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\Error.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_Layout.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_OrderList.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_SubCatList.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_SubCatListForEdit.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_SubCatVoid.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Shared\_UserProfile.cshtml" />
+    <Content Include="webAssets\AdminPanel\Views\Web.config" />
+    <Content Include="webAssets\AdminPanel\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\app\" />
+    <Folder Include="webAssets\AdminPanel\images\scarfimages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58160</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44394/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

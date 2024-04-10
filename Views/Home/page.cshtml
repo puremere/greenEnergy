@@ -1,0 +1,23 @@
+﻿@model greenEnergy.ViewModel.pageVM
+
+
+@{
+    ViewBag.Title = "page";
+    Layout = "~/Views/Shared/" + @ViewBag.layout;
+}
+
+@section heading{
+
+    @{
+        if (Model.meta.Count() > 0)
+        {
+            foreach (var item in Model.meta)
+            {
+                <meta name="@item.key" content="@item.value" />
+            }
+        }
+        
+    }
+
+
+}

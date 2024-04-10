@@ -1,0 +1,158 @@
+﻿@model greenEnergy.ViewModel.typePageVM
+@{
+    ViewBag.Title = "language";
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+
+
+<div style=" ">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Type List </button>
+            <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Add New Type </button>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Details Start -->
+
+                    <div class="card">
+                        <div id="prnt" class="card-body">
+                            <div class="title-header option-title">
+                                <h5>Language List </h5>
+                            </div>
+                            <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                                <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                    <thead>
+
+                                        <tr>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @if (Model.list != null)
+                                        {
+
+                                            foreach (var prod in Model.list)
+                                            {
+
+                                                int i = Model.list.IndexOf(prod) + 1;
+                                                string cls = (Model.list.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                                <tr class="@cls">
+                                                    <td>
+                                                        @i
+                                                    </td>
+
+
+                                                    <td>@prod.title</td>
+
+
+
+
+                                                    @*<td>
+                                                            <ul>
+                                                                @if (@prod.status == "0")
+                                                        {
+                                                            <li>
+                                                                <a href="javascript:void(0)"  style="margin:0 6px">
+                                                                    <i id="@prod.orderID" class="ri-checkbox-circle-line verifyOrder"></i>
+
+                                                                </a>
+                                                            </li>
+
+                                                        }
+
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+
+
+                                                                        <i idtoView=@prod.orderID class="ri-eye-fill viewDetail" id="" style="margin:0 6px"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <i style="margin:0 6px" lat="@prod.latitude" lon="@prod.longitude" id="@prod.orderID" class="ri-user-location-fill showMap"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </td>*@
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Details Start -->
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="title-header option-title">
+                                <h5>Add New Type</h5>
+                            </div>
+                            <div class="row">
+                                <form method="post" action="setType">
+                                    @Html.AntiForgeryToken()
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-2 mb-0">Title  :</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
+                                            <button type="submit" class="btn btn-primary lgnsubmitt">OK </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
