@@ -14,11 +14,11 @@ namespace greenEnergy.App_Start
         {
             
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi0",
-                routeTemplate: "api/modelList/{*name}",
-                defaults: new { controller = "app", action = "getModel", name = UrlParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi0",
+            //    routeTemplate: "api/modelList/{*name}",
+            //    defaults: new { controller = "app", action = "getModel", name = UrlParameter.Optional }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

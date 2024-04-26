@@ -1,23 +1,43 @@
-﻿@model greenEnergy.ViewModel.pageVM
+﻿@model greenEnergy.ViewModel.pageSectionVM
 
 
 @{
-    ViewBag.Title = "page";
-    Layout = "~/Views/Shared/" + @ViewBag.layout;
+    ViewBag.Title = ViewBag.metaTitle;
+    Layout = "~/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/" + @ViewBag.layout;
 }
+
 
 @section heading{
 
     @{
-        if (Model.meta.Count() > 0)
+        if (Model.Metas != null)
         {
-            foreach (var item in Model.meta)
+            if (Model.Metas.Count() > 0)
             {
-                <meta name="@item.key" content="@item.value" />
+                foreach (var item in Model.Metas)
+                {
+                    <meta name="@item.Name" content="@item.Content" />
+                }
             }
         }
-        
+
+
     }
 
 
+}
+
+
+
+@if (Model.Contents != null)
+{
+    greenEnergy.ViewModel.partialSectionVM data = new greenEnergy.ViewModel.partialSectionVM();
+    data.list = Model.Contents;
+
+    foreach (var item in Model.Contents.Where(x=>x.parentID == null))
+    {
+        data.itemModel = item;
+        string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+        @Html.RenderPartial(partialPath, data);
+    }
 }

@@ -1,0 +1,56 @@
+﻿@model greenEnergy.ViewModel.partialSectionVM
+
+@if (Model.itemModel != null)
+{
+
+    if (Model.itemModel.dataList != null)
+    {
+        if (Model.itemModel.dataList.Count > 0)
+        {
+            <section class="section-highlight about-area" style="margin-top: 0px;">
+                <div class="custom-container">
+                    <div class="custom-row">
+
+                        <div class="left">
+                            <div class="img-box" data-aos="fade-left" data-aos-duration="1500">
+                                <div class="img-box-inner">
+                                    <img class="myheight" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.itemModel.dataList[0].mediaURL" alt="about">
+                                </div>
+                                <img src="~/webAssets/green/assets/imgs/border-shape-2.png" alt="shape" class="border-shape">
+                            </div>
+                        </div>
+                        <div class="content section-header-default-content">
+                            <div class="section-header">
+                                <h4 class="subtitle subtitle2">
+                                    <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                    @Model.itemModel.dataList[0].title
+                                    <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                </h4>
+                                <h1 class="title">
+                                    @Model.itemModel.dataList[0].title2
+                                </h1>
+                            </div>
+                            <p style="line-height:30px;">@Model.itemModel.dataList[0].description</p>
+                            <a href="#" class="theme-btn">
+                                <span></span>
+                                @Model.itemModel.dataList[0].description2
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+          
+
+        }
+    }
+
+}
+<script>
+    $(".video-popover").click(function(){
+
+      $(this).removeClass("active")
+    })
+</script>
+

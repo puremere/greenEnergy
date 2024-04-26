@@ -38,7 +38,7 @@ var swiperOptions = {
         el: '.hero-slider-thumbnail',
         clickable: true,
         renderBullet: function (index, className) {
-            return '<div class="thumb-content ' + className + '"><span>' + items[index].title + '</span><h1>' + items[index].desc + '</h1></div>';
+            return '<div class="thumb-content ' + className + '"><span class="'+index+'"></span><h1 class="'+index+'"></h1></div>';
         },
     },
     on: {

@@ -1,0 +1,67 @@
+﻿
+@model greenEnergy.ViewModel.partialSectionVM
+
+<section class="hero-slider-wrap hero-style-1">
+    <div class="swiper-container hero-slide-container">
+        <div class="swiper-wrapper">
+
+            @foreach (var item in @Model.itemModel.dataList)
+            {
+                if (@Model.itemModel.dataList.Count() > 0)
+                {
+                    int index = @Model.itemModel.dataList.IndexOf(item);
+                    <div id="@item.title" class="swiper-slide slide-bg-image">
+                        <div class="slide-inner" style="background-image : url(../../../../Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL)">
+                            <div class="hero-slide-content-wrap">
+                                <div class="hero-slide-content">
+                                    <!--                                    <h4 class="slide-subtitle">-->
+                                    <!--                                        Green Energy-->
+                                    <!--                                    </h4>-->
+                                    <h1 class="slide-title">
+                                        @item.title
+                                    </h1>
+                                    <p class="slide-content">
+                                        @item.description
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="#" class="theme-btn">
+                                            <span></span>
+                                            EXPLORE
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end slide-inner -->
+                    </div>
+                    <script>
+
+                          $(document).ready(function () {
+                          setSlidePagination('@index','@item.title2','@item.description2')
+                          })
+                    </script>
+
+
+
+                }
+
+            }
+
+
+            <!-- end swiper-slide -->
+        </div>
+        <!-- end swiper-wrapper -->
+    </div>
+    <div class="hero-slider-thumbnail">
+
+    </div>
+</section>
+<script>
+                        var setSlidePagination = function(index,title,description) {
+                            var spanclass = "thumb-content >span."+index;
+                            var h1class = "thumb-content >h1."+index;
+
+                            $("."+spanclass).text(description);
+                            $("."+h1class).text(title);
+                        }
+</script>

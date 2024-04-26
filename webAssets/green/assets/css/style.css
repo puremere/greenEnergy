@@ -1006,7 +1006,7 @@ main section {
 .hero-style-1 .swiper-slide.slide-bg-image .slide-inner:before {
     content: '';
     position: absolute;
-    background-image: url(../imgs/hero-1.jpg);
+    /*background-image: url(../imgs/hero-1.jpg);*/
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -1038,10 +1038,10 @@ main section {
     }
 }
 .hero-style-1 .swiper-slide.slide-bg-image2 .slide-inner:before {
-    background-image: url(../imgs/hero-2.jpg);
+    /*background-image: url(../imgs/hero-2.jpg);*/
 }
 .hero-style-1 .swiper-slide.slide-bg-image3 .slide-inner:before {
-    background-image: url(../imgs/hero-3.jpg);
+    /*background-image: url(../imgs/hero-3.jpg);*/
 }
 .hero-slider-wrap .swiper-slide {
     overflow: hidden;
@@ -2119,14 +2119,14 @@ home6-page {
 
 /* # Service */
 .service-area {
-    padding: 185px 0 185px 0;
+    padding: 85px 0 85px 0;
 }
 .service-area .section-header {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 154px;
-    margin-bottom: 150px;
+    margin-bottom: 0px;
 }
 .service-area .section-header .left {
     max-width: 403px;
@@ -4251,7 +4251,7 @@ section.active .section-header .subtitle::before {
     max-width: 1065px;
 }
 .story-area .section-header {
-    max-width: 353px;
+    /*max-width: 353px;*/
     width: 100%;
     margin-bottom: 60px;
 }

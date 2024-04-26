@@ -199,7 +199,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -226,20 +226,32 @@ namespace greenEnergy.Controllers
                 TempData["er"] = responsemodel.message;
             else
             {
-                string image = responsemodel.message;
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+           
             return RedirectToAction("Page", new { id = model.sectinoTypeID });
         }
 
 
 
         // contents
-        public async Task<ActionResult> Content(Guid id)
+        public async Task<ActionResult> Content(string id,string contentID)
         {
             sectionVM model = new sectionVM();
-            model.sectinoID = id;
+           
+            model.sectinoID = !string.IsNullOrEmpty(id) ? new Guid(id) : new Guid();
+            model.contentParent = !string.IsNullOrEmpty(contentID) ? new Guid(contentID) : new Guid();
+            
+
             contentListVM responsemodel = new contentListVM();
             responsemodel = await methods.PostData(model, responsemodel, "/getContent", Request.Cookies["adminToken"].Value);
             if (Request.Cookies["typelist"] != null)
@@ -261,12 +273,12 @@ namespace greenEnergy.Controllers
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.sectionID });
+            return RedirectToAction("Content", new { id = model.sectionID, contentID = model.contentParent });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeContent(setContentVM model)
+        public async Task<ActionResult> removeContent(removeContentPageVM model)
         {
             responseModel responsemodel = new responseModel();
             responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
@@ -277,7 +289,7 @@ namespace greenEnergy.Controllers
                 
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -286,9 +298,64 @@ namespace greenEnergy.Controllers
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.sectionID });
+            return RedirectToAction("Content", new { id = model.sectionID , contentID = model.parentID });
         }
+
+        //meta 
         
+        public async Task<ActionResult> meta(Guid id)
+        {
+            sectionVM model = new sectionVM();
+            model.sectinoID = id;
+            metaListVM responsemodel = new metaListVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getMeta", Request.Cookies["adminToken"].Value);
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return View(responsemodel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setMeta(MetaVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setMeta", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                string image = responsemodel.message;
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("meta", new { id = model.sectionID });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> removeMeta(MetaVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("meta", new { id = model.sectionID });
+        }
+
 
         // data
         public async Task<ActionResult> Data(Guid id)
@@ -309,7 +376,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -336,7 +403,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -362,7 +429,7 @@ namespace greenEnergy.Controllers
 
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -371,7 +438,7 @@ namespace greenEnergy.Controllers
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.dataID });
+            return RedirectToAction("Data", new { id = model.contentID });
         }
 
 
@@ -425,7 +492,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -452,7 +519,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -474,7 +541,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);

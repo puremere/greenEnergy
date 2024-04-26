@@ -270,18 +270,22 @@ if (Session["lang"] as string == "fa")
                                                         if (!string.IsNullOrEmpty(ViewBag.menu))
                                                         {
                                                             greenEnergy.ViewModel.typePageVM model = JsonConvert.DeserializeObject<greenEnergy.ViewModel.typePageVM>(ViewBag.menu);
-                                                            foreach (var item in model.list)
+                                                            if (model != null)
                                                             {
+                                                                foreach (var item in model.list)
+                                                                {
 
-                                                                <li class="sidebar-list">
+                                                                    <li class="sidebar-list">
 
-                                                                    <a class="sidebar-link sidebar-title link-nav active" href="/panel/page/@item.typeID" data-bs-original-title="" title="">
-                                                                        <i class="ri-home-line"></i>
-                                                                        <span>@item.title Management</span>
-                                                                        <div class="according-menu"><i class="ri-arrow-right-s-line"></i></div>
-                                                                    </a>
-                                                                </li>
+                                                                        <a class="sidebar-link sidebar-title link-nav active" href="/panel/page/@item.typeID" data-bs-original-title="" title="">
+                                                                            <i class="ri-home-line"></i>
+                                                                            <span>@item.title Management</span>
+                                                                            <div class="according-menu"><i class="ri-arrow-right-s-line"></i></div>
+                                                                        </a>
+                                                                    </li>
+                                                                }
                                                             }
+
                                                         }
                                                     }
 

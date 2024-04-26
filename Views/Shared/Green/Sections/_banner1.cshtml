@@ -1,0 +1,60 @@
+﻿@model greenEnergy.ViewModel.partialSectionVM
+
+
+@section scripts{
+    }
+<section class="section-highlight service-area">
+    <div class="custom-container">
+
+
+        <div class="service-items">
+
+            @{
+                if (Model.itemModel.dataList != null)
+                {
+                    foreach (var banner in Model.itemModel.dataList)
+                    {
+                        <div class="service-box" data-aos="fade-right">
+                            <a href="#" class="service-img">
+                                <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@banner.mediaURL" alt="service">
+                            </a>
+                            <div class="content">
+                                <h4 class="subtitle">@banner.title</h4>
+                                <h2><a href="#">@banner.title2</a></h2>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+            @*<div class="service-box" data-aos="fade-right" data-aos-duration="1000">
+                    <a href="#" class="service-img">
+                        <img src="~/webAssets/green/assets/imgs/service-2.jpg" alt="service">
+                    </a>
+                    <div class="content">
+                        <h4 class="subtitle">Comoany number three</h4>
+                        <h2><a href="#">Sustainability Consulting Services</a></h2>
+                    </div>
+                </div>
+                <div class="service-box" data-aos="fade-right" data-aos-duration="2000">
+                    <a href="#" class="service-img">
+                        <img src="~/webAssets/green/assets/imgs/service-3.jpg" alt="service">
+                    </a>
+                    <div class="content">
+                        <h4 class="subtitle">Comoany number Four</h4>
+                        <h2><a href="#">Solar Panel Installation</a></h2>
+                    </div>
+                </div>
+                <div class="service-box" data-aos="fade-right" data-aos-duration="2000">
+                    <a href="#" class="service-img">
+                        <img src="~/webAssets/green/assets/imgs/service-4.jpg" alt="service">
+                    </a>
+                    <div class="content">
+                        <h4 class="subtitle">Comoany number Five</h4>
+                        <h2><a href="#">Wind Turbine Manufacturing</a></h2>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</section>
+

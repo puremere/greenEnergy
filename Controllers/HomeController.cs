@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace greenEnergy.Controllers
 {
-    [homeCheck]
+    //[homeCheck]
     [doForAll]
     public class HomeController : Controller
     {
@@ -23,14 +23,25 @@ namespace greenEnergy.Controllers
             pageSectionVM responsemodel = new pageSectionVM();
             getURLVM model = new getURLVM();
             
-            model.lang = Session["lan"] == null ?  "En" : Session["lan"].ToString();
+            model.lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
             model.url = (first + "/" + second).Trim('/');
-            responsemodel = await methods.PostData(model, responsemodel, "/getURL", "");
-            ViewBag.layout = responsemodel.layout;
-            ViewBag.Title = responsemodel.title;
-            
+            responsemodel = await methods.PostData(model, responsemodel, "/getURL","" ); //Request.Cookies["clientToken"].Value  فقط برای گرین
 
-            return View();
+            //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
+            //{
+            //    getsectionLayoutVM layoutresponse = new getsectionLayoutVM();
+            //    sectionLayoutVM layoutinput = new sectionLayoutVM();
+            //    layoutinput.menuTitle = "";
+            //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
+            //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout", Request.Cookies["clientToken"].Value);
+            //}
+            ViewBag.layoutModel = responsemodel.layoutModel;
+            ViewBag.title = responsemodel.title;
+            ViewBag.image = responsemodel.image;
+            ViewBag.layout = responsemodel.layoutModel.title+".cshtml";
+            ViewBag.metaTitle = responsemodel.metatitle;
+            
+            return View(responsemodel);
         }
         public ActionResult Index()
         {
@@ -51,15 +62,26 @@ namespace greenEnergy.Controllers
             return View();
         }
         [HttpPost]
-        public async  Task<ActionResult> setCode(string phone, string code)
+        public async  Task<ActionResult> setCode(doSignIn mdl)
         {
             string result = "";
+            mdl.phone = "100";
+            mdl.userType = "0";
             responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/Verify", "");
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(responsemodel.message + ":" + phone);
-            string tkn = System.Convert.ToBase64String(plainTextBytes);
-            Response.Cookies["clientToken"].Value = tkn;
-            return RedirectToAction("orders");
+            responsemodel = await methods.PostData(mdl, responsemodel, "/Verify", "");
+            if (responsemodel.status == 200)
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(responsemodel.message + ":" + mdl.phone);
+                string tkn = System.Convert.ToBase64String(plainTextBytes);
+                Response.Cookies["clientToken"].Value = tkn;
+                return RedirectToAction("");
+            }
+            else
+            {
+                TempData["error"] = 1;
+                return RedirectToAction("login");
+            }
+           
 
         }
     }

@@ -1,0 +1,282 @@
+﻿@model greenEnergy.ViewModel.partialSectionVM
+
+@{
+    if (ViewBag.from == "web")
+    {
+        string classname = ViewBag.classname;
+       
+
+        <div class="ms-section ms-table qodef-m-slide-content @classname" style="" data-header-skin="light">
+            <div class="qodef-m-template-content">
+                <div data-elementor-type="section" data-elementor-id="3360" class="elementor elementor-3360">
+                    <section class="elementor-section elementor-top-section elementor-element elementor-element-23dcd160 elementor-section-full_width elementor-section-height-min-height elementor-section-items-bottom elementor-section-height-default qodef-elementor-content-no" data-id="23dcd160" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+                        <div class="elementor-container elementor-column-gap-default">
+                            <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-695fc4cc" data-id="695fc4cc" data-element_type="column">
+                                <div class="elementor-widget-wrap elementor-element-populated">
+
+                                    @{
+                                        if (Model.itemModel.dataList != null)
+                                        {
+                                            if (Model.itemModel.dataList.Count > 0)
+                                            {
+
+                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-2c07f3c elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="2c07f3c" data-element_type="section">
+                                                    <div class="elementor-container elementor-column-gap-default">
+                                                        <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5c7df583" data-id="5c7df583" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-bf905cb elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="bf905cb" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                                    <div class="elementor-widget-container">
+                                                                                                            <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-350 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.itemModel.dataList[0].title</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="elementor-element elementor-element-7aa336c1 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="7aa336c1" data-element_type="widget" data-widget_type="divider.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <style>
+                                                                            /*! elementor - v3.9.1 - 14-12-2022 */
+                                                                            .elementor-widget-divider {
+                                                                                --divider-border-style: none;
+                                                                                --divider-border-width: 1px;
+                                                                                --divider-color: #2c2c2c;
+                                                                                --divider-icon-size: 20px;
+                                                                                --divider-element-spacing: 10px;
+                                                                                --divider-pattern-height: 24px;
+                                                                                --divider-pattern-size: 20px;
+                                                                                --divider-pattern-url: none;
+                                                                                --divider-pattern-repeat: repeat-x
+                                                                            }
+
+                                                                                .elementor-widget-divider .elementor-divider {
+                                                                                    display: flex
+                                                                                }
+
+                                                                                .elementor-widget-divider .elementor-divider__text {
+                                                                                    font-size: 15px;
+                                                                                    line-height: 1;
+                                                                                    max-width: 95%
+                                                                                }
+
+                                                                                .elementor-widget-divider .elementor-divider__element {
+                                                                                    margin: 0 var(--divider-element-spacing);
+                                                                                    flex-shrink: 0
+                                                                                }
+
+                                                                                .elementor-widget-divider .elementor-icon {
+                                                                                    font-size: var(--divider-icon-size)
+                                                                                }
+
+                                                                                .elementor-widget-divider .elementor-divider-separator {
+                                                                                    display: flex;
+                                                                                    margin: 0;
+                                                                                    direction: ltr
+                                                                                }
+
+                                                                            .elementor-widget-divider--view-line_icon .elementor-divider-separator, .elementor-widget-divider--view-line_text .elementor-divider-separator {
+                                                                                align-items: center
+                                                                            }
+
+                                                                                .elementor-widget-divider--view-line_icon .elementor-divider-separator:after, .elementor-widget-divider--view-line_icon .elementor-divider-separator:before, .elementor-widget-divider--view-line_text .elementor-divider-separator:after, .elementor-widget-divider--view-line_text .elementor-divider-separator:before {
+                                                                                    display: block;
+                                                                                    content: "";
+                                                                                    border-bottom: 0;
+                                                                                    flex-grow: 1;
+                                                                                    border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color)
+                                                                                }
+
+                                                                            .elementor-widget-divider--element-align-left .elementor-divider .elementor-divider-separator > .elementor-divider__svg:first-of-type {
+                                                                                flex-grow: 0;
+                                                                                flex-shrink: 100
+                                                                            }
+
+                                                                            .elementor-widget-divider--element-align-left .elementor-divider-separator:before {
+                                                                                content: none
+                                                                            }
+
+                                                                            .elementor-widget-divider--element-align-left .elementor-divider__element {
+                                                                                margin-left: 0
+                                                                            }
+
+                                                                            .elementor-widget-divider--element-align-right .elementor-divider .elementor-divider-separator > .elementor-divider__svg:last-of-type {
+                                                                                flex-grow: 0;
+                                                                                flex-shrink: 100
+                                                                            }
+
+                                                                            .elementor-widget-divider--element-align-right .elementor-divider-separator:after {
+                                                                                content: none
+                                                                            }
+
+                                                                            .elementor-widget-divider--element-align-right .elementor-divider__element {
+                                                                                margin-right: 0
+                                                                            }
+
+                                                                            .elementor-widget-divider:not(.elementor-widget-divider--view-line_text):not(.elementor-widget-divider--view-line_icon) .elementor-divider-separator {
+                                                                                border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color)
+                                                                            }
+
+                                                                            .elementor-widget-divider--separator-type-pattern {
+                                                                                --divider-border-style: none
+                                                                            }
+
+                                                                                .elementor-widget-divider--separator-type-pattern.elementor-widget-divider--view-line .elementor-divider-separator, .elementor-widget-divider--separator-type-pattern:not(.elementor-widget-divider--view-line) .elementor-divider-separator:after, .elementor-widget-divider--separator-type-pattern:not(.elementor-widget-divider--view-line) .elementor-divider-separator:before, .elementor-widget-divider--separator-type-pattern:not([class*=elementor-widget-divider--view]) .elementor-divider-separator {
+                                                                                    width: 100%;
+                                                                                    min-height: var(--divider-pattern-height);
+                                                                                    -webkit-mask-size: var(--divider-pattern-size) 100%;
+                                                                                    mask-size: var(--divider-pattern-size) 100%;
+                                                                                    -webkit-mask-repeat: var(--divider-pattern-repeat);
+                                                                                    mask-repeat: var(--divider-pattern-repeat);
+                                                                                    background-color: var(--divider-color);
+                                                                                    -webkit-mask-image: var(--divider-pattern-url);
+                                                                                    mask-image: var(--divider-pattern-url)
+                                                                                }
+
+                                                                            .elementor-widget-divider--no-spacing {
+                                                                                --divider-pattern-size: auto
+                                                                            }
+
+                                                                            .elementor-widget-divider--bg-round {
+                                                                                --divider-pattern-repeat: round
+                                                                            }
+
+                                                                            .rtl .elementor-widget-divider .elementor-divider__text {
+                                                                                direction: rtl
+                                                                            }
+
+                                                                            .e-con-inner > .elementor-widget-divider, .e-con > .elementor-widget-divider {
+                                                                                width: var(--container-widget-width);
+                                                                                --flex-grow: var(--container-widget-flex-grow)
+                                                                            }
+                                                                        </style>
+                                                                        <div class="elementor-divider">
+                                                                            <span class="elementor-divider-separator">
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-52b7ad32 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="52b7ad32" data-element_type="section">
+                                                    <div class="elementor-container elementor-column-gap-default">
+                                                        <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5a801c11" data-id="5a801c11" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-5f9557b2 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="5f9557b2" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-367 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.itemModel.dataList[0].description</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-2a7bbae0" data-id="2a7bbae0" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-655c2d6a elementor-widget elementor-widget-text-editor" data-id="655c2d6a" data-element_type="widget" data-widget_type="text-editor.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <style>
+                                                                            /*! elementor - v3.9.1 - 14-12-2022 */
+                                                                            .elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap {
+                                                                                background-color: #818a91;
+                                                                                color: #fff
+                                                                            }
+
+                                                                            .elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap {
+                                                                                color: #818a91;
+                                                                                border: 3px solid;
+                                                                                background-color: transparent
+                                                                            }
+
+                                                                            .elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap {
+                                                                                margin-top: 8px
+                                                                            }
+
+                                                                            .elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter {
+                                                                                width: 1em;
+                                                                                height: 1em
+                                                                            }
+
+                                                                            .elementor-widget-text-editor .elementor-drop-cap {
+                                                                                float: left;
+                                                                                text-align: center;
+                                                                                line-height: 1;
+                                                                                font-size: 50px
+                                                                            }
+
+                                                                            .elementor-widget-text-editor .elementor-drop-cap-letter {
+                                                                                display: inline-block
+                                                                            }
+                                                                        </style>
+                                                                        <p class="definitionP">@Model.itemModel.dataList[0].description2 </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+
+                                            }
+                                            if (Model.itemModel.dataList.Count > 1)
+                                            {
+                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-a970b40 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="a970b40" data-element_type="section">
+                                                    <div class="elementor-container elementor-column-gap-default">
+                                                        <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-1af62978" data-id="1af62978" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-4634647 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4634647" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-696 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.itemModel.dataList[1].title</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="elementor-element elementor-element-3c573d28 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="3c573d28" data-element_type="widget" data-widget_type="divider.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <div class="elementor-divider">
+                                                                            <span class="elementor-divider-separator">
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-60d14e57 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="60d14e57" data-element_type="section">
+                                                    <div class="elementor-container elementor-column-gap-default">
+                                                        <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5a778307" data-id="5a778307" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-4d54055c elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4d54055c" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-858 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.itemModel.dataList[1].description</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-57a593f1" data-id="57a593f1" data-element_type="column">
+                                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                                <div class="elementor-element elementor-element-22bac7d2 elementor-widget elementor-widget-text-editor" data-id="22bac7d2" data-element_type="widget" data-widget_type="text-editor.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <p class="definitionP">@Model.itemModel.dataList[1].description2</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+
+                                            }
+
+                                        }
+
+                                    }
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    }
+
+    else
+    {
+
+    }
+}

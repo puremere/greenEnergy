@@ -51,12 +51,13 @@ namespace greenEnergy.Model
             modelBuilder.Entity<layoutData>().HasRequired(s=>s.LayoutPart).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.layoutPartID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.sectionType).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.parentData).WithMany(l=>l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<html>().HasOptional(s=>s.htlmparent).WithMany(l=>l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
             
 
 
             modelBuilder.Entity<sectionLayout>().HasRequired(s=>s.Language).WithMany(l=>l.SectionLayouts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasRequired(s=>s.sectionType).WithMany(x=>x.sections).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); ;
-            modelBuilder.Entity<section>().HasOptional(s=>s.SectionLayout).WithMany(x=>x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false); 
+            modelBuilder.Entity<section>().HasRequired(s=>s.SectionLayout).WithMany(x=>x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasOptional(s=>s.Category).WithMany(x=>x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasRequired(s=>s.Language).WithMany(x=>x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); 
@@ -73,7 +74,7 @@ namespace greenEnergy.Model
         public Guid metaID { get; set; }
         public string  name { get; set; }
         public string content { get; set; }
-        public Guid? sectionID { get; set; }
+        public Guid sectionID { get; set; }
         [ForeignKey("sectionID")]
         public virtual section Section { get; set; }
 
@@ -100,7 +101,7 @@ namespace greenEnergy.Model
         [ForeignKey("languageID")]
         public virtual language Language { get; set; }
 
-        public Guid? sectionLayoutID { get; set; }
+        public Guid sectionLayoutID { get; set; }
         [ForeignKey("sectionLayoutID")]
         public virtual sectionLayout SectionLayout { get; set; }
 
@@ -148,10 +149,19 @@ namespace greenEnergy.Model
         public string  title { get; set; }
         public string  image { get; set; }
         public string  partialView { get; set; }
+        public int  multilayer { get; set; }
+        public string dataField { get; set; }
+
+
+        public Guid? parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual html htlmparent { get; set; }
+
         public Guid? layout { get; set; }
         [ForeignKey("layout")]
         public virtual layout Layout { get; set; }
         public virtual ICollection<content> Contents { get; set; }
+        public virtual ICollection<html> childHtmls { get; set; }
     }
     public class content
     {
@@ -169,7 +179,7 @@ namespace greenEnergy.Model
         [ForeignKey("htmlID")]
         public virtual html HTML { get; set; }
 
-        public Guid sectionID { get; set; }
+        public Guid? sectionID { get; set; }
         [ForeignKey("sectionID")]
         public virtual section Section { get; set; }
 
@@ -190,6 +200,8 @@ namespace greenEnergy.Model
         public string title2 { get; set; }
         public string description { get; set; }
         public string description2 { get; set; }
+        public string url { get; set; }
+        public int priority { get; set; }
         public string mediaURL { get; set; }
         public string viedoIframe { get; set; }
         public Guid? contentID { get; set; }

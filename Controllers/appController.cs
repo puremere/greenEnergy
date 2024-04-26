@@ -25,36 +25,63 @@ namespace greenEnergy.Controllers
 {
     public class appController : System.Web.Http.ApiController
     {
-        [BasicAuthentication]
+        //[BasicAuthentication]
         [System.Web.Http.HttpPost]
         public async Task<pageSectionVM> getURL([FromBody] getURLVM model)
+        
         {
             pageSectionVM response = new pageSectionVM();
-            using (Context dbcontext = new Context())
+            try
             {
-                language lng = await dbcontext.languages.SingleOrDefaultAsync(x => x.title == model.lang);
-                section section =await dbcontext.sections.Include(x=>x.SectionLayout).Include(x => x.Contents).Include(x => x.Contents.Select(y => y.Datas)).SingleOrDefaultAsync(x => x.url == model.url && x.languageID == lng.languageID);
+                model.url = model.url == null ? "" : model.url;
 
-                
-                response.date = section.date;
-                response.title = section.title;
-                response.image = section.image;
-                response.url = section.url;
-                List<pageContentVM> contents = new List<pageContentVM>();
-                foreach(var item in response.Contents)
+               
+                using (Context dbcontext = new Context())
                 {
-                    pageContentVM content = new pageContentVM();
-                    content.partialName = item.partialName;
-                    List<dataVM> datas = item.dataList;
-                    contents.Add(item);
+                    language lng = await dbcontext.languages.SingleOrDefaultAsync(x => x.title == model.lang);
+                    var responseList = await dbcontext.sections.Include(x => x.SectionLayout).Include(x => x.Contents).Include(x => x.Metas).Include(x => x.Contents.Select(l => l.HTML)).Include(x => x.Contents.Select(y => y.Datas)).Include(x=>x.Contents.Select(y=>y.childContent)).Include(x => x.Contents.Select(y => y.childContent.Select(z=>z.Datas))).Where(x => x.url == model.url && x.languageID == lng.languageID).Select(x => new pageSectionVM {  Metas = x.Metas.Select(p => new MetaVM { Name = p.name, Content = p.content }).ToList(), date = x.date, title = x.title, image = x.image, url = x.url, sectionLayoutID = x.sectionLayoutID, Contents = x.Contents.OrderBy(l=>l.priority).Select(l => new pageContentVM { typeID = l.sectionTypeID,  priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToList() }).ToListAsync();
+                    response = responseList.First();
+                    var list = await dbcontext.sectionLayouts.Include(x => x.LayoutParts).Include(x => x.Layout).Include(x => x.LayoutParts.Select(l => l.LayoutDatas)).Where(x => x.sectionLayoutID == response.sectionLayoutID).Select(x => new getsectionLayoutVM { menuTitle = x.menuTitle, title = x.Layout.name, LayoutParts = x.LayoutParts.Select(l => new getlayoutPartVM { title = l.typeName, LayoutDatas = l.LayoutDatas.Select(m => new getlayoutDataVM { layoutDataID = m.layoutDataID, parentID = m.parentID == null ? null : m.parentID, image = m.image, priority = m.priority, url = m.url, urlTitle = m.urlTitle }).OrderBy(m=>m.priority).ToList() }).ToList() }).ToListAsync();
+                    response.layoutModel = list.First();
+                    
+                    foreach (var item in response.Contents)
+                    {
+                        if (item.typeID != new Guid("00000000-0000-0000-0000-000000000000") && item.typeID != null)
+                        {
+                            item.childList = await dbcontext.sections.Include(x => x.Category).Where(x => x.sectionTypeID == item.typeID).Select(x => new sectionVM { categoryName = x.Category.title, title = x.title, description = x.description, metaTitle = x.metatitle, image = x.image, writer = x.writer , date = x.date,url =  x.url}).ToListAsync();
+                        }
+                    }
                 }
-                response.Contents = contents;
             }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
 
 
            return response;
         }
 
+
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<getsectionLayoutVM> getPageLayout([FromBody] sectionLayoutVM model)
+        {
+            getsectionLayoutVM response = new getsectionLayoutVM();
+            using (Context dbcontext = new Context())
+            {
+
+                var list = await dbcontext.sectionLayouts.Include(x => x.LayoutParts).Include(x => x.Layout).Include(x => x.LayoutParts.Select(l => l.LayoutDatas)).Where(x=>x.sectionLayoutID == model.sectionLayoutID).Select(x => new getsectionLayoutVM { menuTitle = x.menuTitle, title = x.Layout.title, LayoutParts = x.LayoutParts.Select(l => new getlayoutPartVM { title = l.title, LayoutDatas = l.LayoutDatas.Select(m => new getlayoutDataVM { image = m.image, priority = m.priority, url = m.url, urlTitle = m.urlTitle }).ToList() }).ToList() }).ToListAsync();
+
+                getsectionLayoutVM mymodel = list.First();
+              
+            }
+
+
+            return response;
+        }
 
         //verify
         [System.Web.Http.HttpPost]
@@ -320,7 +347,7 @@ namespace greenEnergy.Controllers
             {
                 output.categoryList = await dbcontext.categories.Where(x => x.sectionTypeID == model.typeID).Select(x => new categoryVM { categoryID = x.categoryID, title = x.title }).ToListAsync();
                 output.langauageList = await dbcontext.languages.Select(x => new languagVM { languageID = x.languageID, title = x.title }).ToListAsync();
-                output.sectionList = await dbcontext.sections.Select(x => new sectionVM { title = x.title, url = x.url, sectinoID = x.sectionID, writer = x.writer }).ToListAsync();
+                output.sectionList = await dbcontext.sections.Select(x => new sectionVM { languateID = x.languageID, sectionLayoutID = x.sectionLayoutID, image = x.image, metaTitle = x.metatitle, title = x.title, url = x.url, sectinoID = x.sectionID, writer = x.writer }).ToListAsync();
                 output.layoutList = await dbcontext.sectionLayouts.Select(x => new sectionLayoutVM { menuTitle = x.menuTitle, sectionLayoutID = x.sectionLayoutID }).ToListAsync();
                 sectionType sections = await dbcontext.sectionTypes.FirstOrDefaultAsync(x => x.sectionTypeID == model.typeID);
 
@@ -341,14 +368,28 @@ namespace greenEnergy.Controllers
         public async Task<JObject> setSection([FromBody] sectionVM model)
         {
             responseModel response = new responseModel();
-
+            model.url = model.url == null ? "" : model.url;
             using (Context dbcontext = new Context())
             {
                 try
                 {
                     if (model.sectinoID != new Guid("00000000-0000-0000-0000-000000000000"))
                     {
-
+                        section exist = await dbcontext.sections.SingleOrDefaultAsync(x => x.sectionID == model.sectinoID);
+                        string lastmessag = exist.image;
+                        exist.title = model.title;
+                        exist.metatitle = model.metaTitle;
+                        exist.url = model.url;
+                        exist.image = model.image;
+                        if (model.sectionLayoutID != new Guid("00000000-0000-0000-0000-000000000000"))
+                            exist.sectionLayoutID = model.sectionLayoutID;
+                        if (model.sectinoTypeID != new Guid("00000000-0000-0000-0000-000000000000"))
+                            exist.sectionTypeID = model.sectinoTypeID;
+                        if (model.languateID != new Guid("00000000-0000-0000-0000-000000000000"))
+                            exist.languageID = model.languateID;
+                        response.message = lastmessag;
+                        response.status = 200;
+                        await dbcontext.SaveChangesAsync();
                     }
                     else
                     {
@@ -408,18 +449,53 @@ namespace greenEnergy.Controllers
         }
 
 
-        // page 
+        // content 
         [System.Web.Http.HttpPost]
         public async Task<contentListVM> getContent([FromBody] sectionVM model)
         {
             contentListVM output = new contentListVM();
             using (Context dbcontext = new Context())
             {
-                output.contentList = await dbcontext.contents.Where(x => x.sectionID == model.sectinoID).Include(x => x.sectionType).Include(x => x.HTML).Select(x => new contentVM { image = x.HTML.image, contentID = x.contentID, htmlName = x.title, typeName = x.sectionType != null ? x.sectionType.title : "" }).ToListAsync();
-                output.htmlList = await dbcontext.htmls.Select(x => new HTMLVM { partialView = x.partialView, image = x.image, htmlName = x.title, htmlID = x.htmlID }).ToListAsync();
+                content content = await dbcontext.contents.Include(x=>x.HTML).FirstOrDefaultAsync(x => x.contentID == model.contentParent);
+                Guid parentHTML = new Guid();
+                if (content!= null){
+                    parentHTML = content.HTML.htmlID;
+                    model.sectinoID = content.sectionID;
+                    output.parentSelected = new contentVM
+                    {
+                        title = content.title,
+                         contentID = content.contentID
+                    };
+                } 
+                section section = await dbcontext.sections.Include(x=>x.SectionLayout).FirstOrDefaultAsync(x => x.sectionID == model.sectinoID);
+                
+                var querycontent=  dbcontext.contents.Include(x=> x.HTML).Include(x => x.sectionType).Include(x => x.HTML).AsQueryable();
+                if (model.contentParent != new Guid("00000000-0000-0000-0000-000000000000"))
+                {
+                    querycontent = querycontent.Where(x => x.parentID == model.contentParent);
+                }
+                else
+                {
+                    querycontent = querycontent.Where(x => x.sectionID == model.sectinoID && x.parentID == null);
+                }
+                output.contentList = await querycontent.Select(x => new contentVM {  multilayer = x.HTML.multilayer, priority = x.priority, title = x.title, image = x.HTML.image, contentID = x.contentID, htmlName = x.title, typeName = x.sectionType != null ? x.sectionType.title : "" }).OrderBy(x => x.priority).ToListAsync();
+                
+                var htmlquery=  dbcontext.htmls.Where( x=> x.layout == section.SectionLayout.layoutID ).AsQueryable();
+                if (parentHTML != new Guid("00000000-0000-0000-0000-000000000000"))
+                {
+                    htmlquery = htmlquery.Where(x => x.parentID == parentHTML);
+                }
+                else
+                {
+                    htmlquery = htmlquery.Where(x => x.parentID == null);
+
+                }
+                output.htmlList = await htmlquery.Select(x => new HTMLVM { partialView = x.partialView, image = x.image, htmlName = x.title, htmlID = x.htmlID }).ToListAsync();
+
+
+
                 output.typeList = await dbcontext.sectionTypes.Select(x => new typeVM { title = x.title, typeID = x.sectionTypeID }).ToListAsync();
-              
-                section section = await dbcontext.sections.FirstOrDefaultAsync(x => x.sectionID == model.sectinoID);
+
 
                 output.selectedSection = new sectionVM()
                 {
@@ -448,13 +524,17 @@ namespace greenEnergy.Controllers
                         contentID = Guid.NewGuid(),
                         htmlID = model.htmlID,
                         priority = model.priority,
-                        sectionID = model.sectionID,
-                        title = model.title
+                        
+                        title = model.title,
+                        sectionID = model.sectionID
+                };
 
-
-                    };
                     if (model.typeID != new Guid("00000000-0000-0000-0000-000000000000"))
                         newlItem.sectionTypeID = model.typeID;
+                    if (model.contentParent != new Guid("00000000-0000-0000-0000-000000000000"))
+                        newlItem.parentID = model.contentParent;
+                    
+
 
                     dbcontext.contents.Add(newlItem);
                     response.status = 200;
@@ -523,7 +603,109 @@ namespace greenEnergy.Controllers
             JObject jObject = JObject.Parse(result);
             return jObject;
         }
-        
+
+
+        // meta 
+        [System.Web.Http.HttpPost]
+        public async Task<metaListVM> getMeta([FromBody] sectionVM model)
+        {
+            metaListVM output = new metaListVM();
+            using (Context dbcontext = new Context())
+            {
+                output.metaList = await dbcontext.metas.Where(x => x.sectionID == model.sectinoID).Select(x => new MetaVM {  Name = x.name, Content = x.content,  metaID = x.metaID,  sectionID = x.sectionID}).ToListAsync();
+                section section = await dbcontext.sections.FirstOrDefaultAsync(x => x.sectionID == model.sectinoID);
+
+                output.selectedSection = new sectionVM()
+                {
+                    sectinoID = section.sectionID,
+                    title = section.title
+                };
+            }
+            return output;
+
+        }
+
+
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<JObject> setMeta([FromBody] MetaVM model)
+        {
+            responseModel response = new responseModel();
+
+            using (Context dbcontext = new Context())
+            {
+                try
+                {
+                    meta newlItem = new meta()
+                    {
+                         metaID = Guid.NewGuid(),
+                         name  = model.Name,
+                         content = model.Content,
+                         sectionID = model.sectionID,
+                        
+
+
+                    };
+                   
+
+                    dbcontext.metas.Add(newlItem);
+                    response.status = 200;
+                    response.message = "";
+                    await dbcontext.SaveChangesAsync();
+
+                }
+                catch (Exception e)
+                {
+                    response.status = 400;
+                    response.message = "Error ! ";
+
+                }
+
+
+            }
+
+            string result = JsonConvert.SerializeObject(response);
+            JObject jObject = JObject.Parse(result);
+            return jObject;
+        }
+
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<JObject> removeMeta([FromBody] MetaVM model)
+        {
+            responseModel response = new responseModel();
+
+            using (Context dbcontext = new Context())
+            {
+                try
+                {
+                    meta selectedContent = await dbcontext.metas.SingleOrDefaultAsync(x => x.metaID == model.metaID);
+                    if (selectedContent != null)
+                    {
+                        dbcontext.metas.Remove(selectedContent);
+                        response.status = 200;
+                        response.message = "";
+                        await dbcontext.SaveChangesAsync();
+                    }
+
+
+
+                }
+                catch (Exception e)
+                {
+                    response.status = 400;
+                    response.message = "Error ! ";
+
+                }
+
+
+            }
+
+            string result = JsonConvert.SerializeObject(response);
+            JObject jObject = JObject.Parse(result);
+            return jObject;
+        }
+
 
 
         // data
@@ -531,17 +713,18 @@ namespace greenEnergy.Controllers
         public async Task<dataListVM> getData([FromBody] contentVM model)
         {
             dataListVM output = new dataListVM();
+            
             using (Context dbcontext = new Context())
             {
-                output.dataList = await dbcontext.datas.Where(x => x.contentID == model.contentID).Select(x => new dataVM { dataID = x.dataID, title = x.title, title2 = x.title2, description = x.description, description2 = x.description2, mediaURL = x.mediaURL, viedoIframe = x.viedoIframe }).ToListAsync();
-
-                content content = await dbcontext.contents.FirstOrDefaultAsync(x => x.contentID == model.contentID);
-
+                content content = await dbcontext.contents.Include(x=>x.HTML).FirstOrDefaultAsync(x => x.contentID == model.contentID);
+                
+                output.dataList = await dbcontext.datas.Where(x => x.contentID == model.contentID).Select(x => new dataVM { priority = x.priority, URL = x.url, dataID = x.dataID, title = x.title, title2 = x.title2, description = x.description, description2 = x.description2, mediaURL = x.mediaURL, viedoIframe = x.viedoIframe }).ToListAsync();
                 output.selectedContent = new contentVM()
                 {
                     contentID = content.contentID,
                     title = content.title,
-                    image = content.title
+                    image = content.title,
+                    fields = content.HTML.dataField
                 };
             }
 
@@ -570,11 +753,15 @@ namespace greenEnergy.Controllers
                         selectedData.description = model.description;
                         selectedData.description2 = model.description2;
                         selectedData.viedoIframe = model.viedoIframe;
+                        selectedData.priority = model.priority;
+                        selectedData.url = model.url;
+                        
 
                         if (!string.IsNullOrEmpty(model.mediaURL))
                         {
-                            selectedData.mediaURL = model.mediaURL;
                             lastimage = selectedData.mediaURL;
+                            selectedData.mediaURL = model.mediaURL;
+                            
                         }
                        
 
@@ -596,6 +783,8 @@ namespace greenEnergy.Controllers
                             mediaURL = model.mediaURL,
                             viedoIframe = model.viedoIframe,
                             contentID = model.contentID,
+                             url = model.url,
+                              priority = model.priority
 
 
                         };

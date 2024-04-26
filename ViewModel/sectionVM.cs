@@ -6,6 +6,45 @@ using System.Web;
 namespace greenEnergy.ViewModel
 {
 
+
+    public class metaListVM
+    {
+        public List<MetaVM> metaList { get; set; }
+        public sectionVM selectedSection { get; set; }
+    }
+    public class MetaVM
+    {
+        public string Name { get; set; }
+        public Guid sectionID { get; set; }
+        public Guid metaID { get; set; }
+        public string Content { get; set; }
+    }
+    public class getlayoutDataVM
+    {
+        public Guid layoutDataID { get; set; }
+        public Guid? parentID { get; set; }
+        public string urlTitle { get; set; }
+        public string url { get; set; }
+        public int priority { get; set; }
+        public string image { get; set; }
+        public List<getlayoutDataVM> childes { get; set; }
+    }
+    public class getlayoutPartVM
+    {
+        public string title { get; set; }
+        public Guid layoutPartID { get; set; }
+        public List<getlayoutDataVM> LayoutDatas { get; set; }
+    }
+    public class getsectionLayoutVM
+    {
+        public Guid sectionLayoutID { get; set; }
+        public string menuTitle { get; set; }
+        public string title { get; set; }
+        public  ICollection<getlayoutPartVM> LayoutParts { get; set; }
+    }
+
+
+
     public class layoutPartDataPageVM
     {
         public List<layoutpartDataVM> datalist { get; set; }
@@ -102,6 +141,8 @@ namespace greenEnergy.ViewModel
     {
         public Guid contentID { get; set; }
         public Guid dataID { get; set; }
+        public string url { get; set; }
+        public int priority { get; set; }
         public string title { get; set; }
         public string title2 { get; set; }
         public string description { get; set; }
@@ -110,13 +151,22 @@ namespace greenEnergy.ViewModel
         public string viedoIframe { get; set; }
     }
 
+    public class removeContentPageVM
+    {
+        public Guid contentID { get; set; }
+        public Guid sectionID { get; set; }
+        public Guid parentID { get; set; }
+        
+    }
     public class setContentVM
     {
         public Guid contentID { get; set; }
         public Guid sectionID { get; set; }
+        public Guid contentParent { get; set; }
         public Guid htmlID { get; set; }
         public int priority { get; set; }
         public string title { get; set; }
+        public string parentCategory { get; set; }
         public Guid typeID { get; set; }
     }
     public class contentVM
@@ -128,6 +178,11 @@ namespace greenEnergy.ViewModel
         public Guid htmlID { get; set; }
         public string typeName { get; set; }
         public string title  { get; set; }
+        public string parentCategory { get; set; }
+        public string fields { get; set; }
+        public int priority  { get; set; }
+        public int multilayer  { get; set; }
+        public string categories  { get; set; }
 
         public string htmlName { get; set; }
         public string image{ get; set; }
@@ -145,17 +200,22 @@ namespace greenEnergy.ViewModel
         public List<typeVM> typeList { get; set; }
         public List<contentVM> contentList { get; set; }
         public sectionVM selectedSection { get; set; }
+        public contentVM parentSelected { get; set; }
     }
 
     public class dataListVM
     {
         public List<dataVM> dataList { get; set; }
         public contentVM selectedContent { get; set; }
+        
+        
     }
 
     public class dataVM
     {
         public Guid dataID { get; set; }
+        public string URL { get; set; }
+        public int priority { get; set; }
         public string title { get; set; }
         public string title2 { get; set; }
         public string description { get; set; }
@@ -242,7 +302,7 @@ namespace greenEnergy.ViewModel
     {
        
         public string url { get; set; }
-        public Guid sectinoID { get; set; }
+        public Guid? sectinoID { get; set; }
         public Guid sectinoTypeID { get; set; }
         public Guid languateID { get; set; }
         public Guid categoryID { get; set; }
@@ -251,21 +311,37 @@ namespace greenEnergy.ViewModel
         public string metaTitle { get; set; }
         public string description { get; set; }
         public string writer { get; set; }
+        public DateTime date { get; set; }
         public string image { get; set; }
+        public string typeName { get; set; }
+        public string categoryName { get; set; }
+        public string languageName { get; set; }
+
+
+        public Guid contentParent { get; set; }
+        public Guid layoutID { get; set; }
     }
 
 
     public class pageContentVM
     {
         public List<dataVM> dataList { get; set; }
+        public List<sectionVM> childList { get; set; }
         public string partialName { get; set; } // از روی اچ تی ام میاد
+        public string title { get; set; } // از روی اچ تی ام میاد
+        public int priority { get; set; }
+        public Guid? typeID { get; set; } // از روی اچ تی ام میاد
+        public Guid conentID { get; set; } // از روی اچ تی ام میاد
+        public Guid? parentID { get; set; } // از روی اچ تی ام میاد
     }
 
-    public class meta
+
+    public class partialSectionVM
     {
-        public string key { get; set; }
-        public string value { get; set; }
+        public List<pageContentVM> list { get; set; }
+        public pageContentVM itemModel { get; set; }
     }
+    
     public class pageSectionVM
     {
        
@@ -274,22 +350,28 @@ namespace greenEnergy.ViewModel
         public DateTime date { get; set; }
         public string title { get; set; }
         public string description { get; set; }
+       
         public string metatitle { get; set; }
         public string image { get; set; }
         public string writer { get; set; }
+       
         public List<pageContentVM> Contents { get; set; }
-        public  List<meta> Metas { get; set; }
-        public string layout { get; set; }
+        public  List<MetaVM> Metas { get; set; }
+        public Guid sectionLayoutID { get; set; }
 
-       
-
-
+        public getsectionLayoutVM layoutModel { get; set; }
 
 
 
 
-       
-       
+
+
+
+
+
+
+
+
     }
 
     public class responseModel

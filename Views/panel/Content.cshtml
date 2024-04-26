@@ -9,9 +9,9 @@
 @section scripts{
     <script>
         $(".removeButton").click(function () {
-           
+
             $("#removeID").val($(this).attr("idtogo"));
-           
+
 
         })
     </script>
@@ -22,7 +22,10 @@
 
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> @Model.selectedSection.title  Content List </button>
+            @{
+                string final = @Model.parentSelected != null ? @Model.parentSelected.title : Model.selectedSection.title;
+            }
+            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> @final  Content List </button>
             <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Add New Content</button>
 
         </div>
@@ -46,6 +49,11 @@
                                         <tr>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Priority </th>
+                                            @if (Model.parentSelected != null)
+                                            {
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Category </th>
+                                            }
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">image </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Incoming Type </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
@@ -65,31 +73,50 @@
                                                 string cls = (Model.contentList.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
 
 
-                                                <tr class="@cls">
-                                                    <td>
-                                                        @i
-                                                    </td>
+                                        <tr class="@cls">
+                                            <td>
+                                                @i
+                                            </td>
 
 
-                                                    <td>@prod.htmlName</td>
-                                                    <td><img style="max-width:100%" src="/Uploads/@prod.image" /></td>
+                                            <td>@prod.htmlName</td>
+                                            <td>@prod.priority</td>
 
-                                                    <td>@prod.typeName</td>
-                                                    <td style="display:flex">
-                                                        <a href="/panel/data/@prod.contentID">
-                                                            <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
-                                                        </a>
-                                                        <div style="margin:0 5px"></div>
-                                                        @*<button data-bs-target="#editModal" data-bs-toggle="modal"  titletogo="@prod.title" typetogo="@prod.typeID" htmltogo="@prod.htmlID"   type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>*@
-                                                        <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                            @if (Model.parentSelected != null)
+                                            {
+                                                <td>@prod.parentCategory</td>
+                                            }
+                                            <td><img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" /></td>
 
-
-                                                    </td>
+                                            <td>@prod.typeName</td>
+                                            <td style="display:flex">
 
 
 
+                                                @if (prod.multilayer == 1)
+                                                {
+                                                    <a target="_blank" href="/panel/Content?contentID=@prod.contentID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">child Content</div>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a target="_blank" href="/panel/data?id=@prod.contentID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
+                                                    </a>
+                                                }
 
-                                                </tr>
+                                                <div style="margin:0 5px"></div>
+                                                @*<button data-bs-target="#editModal" data-bs-toggle="modal"  titletogo="@prod.title" typetogo="@prod.typeID" htmltogo="@prod.htmlID"   type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>*@
+                                                <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+
+                                            </td>
+
+
+
+
+                                        </tr>
                                             }
 
                                         }
@@ -131,7 +158,13 @@
                             </div>
                             <div class="row">
                                 <form method="post" action="/panel/setContnet">
+
                                     @Html.AntiForgeryToken()
+                                    @if (Model.parentSelected != null)
+                                    {
+                                        <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                    }
+
                                     <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-3 mb-0">Priority:</label>
@@ -152,6 +185,7 @@
                                             @Html.DropDownList("typeID", new SelectList(Model.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
                                         </div>
                                     </div>
+
 
                                     <div class="col-lg-12 mb-12 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-2 mb-0">choose content:</label>
@@ -178,9 +212,9 @@
                                                                     <div class="col-md-3">
                                                                         <div class="card htmlcard">
                                                                             <div class="card-img">
-                                                                                <img src="~/Uploads/@item.image" class="img-fluid">
+                                                                                <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="img-fluid">
                                                                             </div>
-                                                                            <div urltogo="~/Uploads/@item.image" class="card-img-overlay">@item.htmlName</div>
+                                                                            <div urltogo="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="card-img-overlay">@item.htmlName</div>
                                                                         </div>
                                                                         <input @ischecked type="radio" value="@item.htmlID" name="htmlID" />
                                                                     </div>
@@ -325,6 +359,10 @@
                 @Html.AntiForgeryToken()
                 <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
                 <input hidden name="contentID" id="removeID" />
+                @if (Model.parentSelected != null)
+                {
+                    <input hidden name="parentID" value="@Model.parentSelected.contentID" />
+                }
 
                 <div class="modal-footer">
                     <button class="btn ripple btn-primary" type="submit">Verify</button>

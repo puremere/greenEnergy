@@ -1,0 +1,27 @@
+﻿@model greenEnergy.ViewModel.partialSectionVM
+
+@if (Model.itemModel != null)
+{
+
+    if (Model.itemModel.dataList != null)
+    {
+        if (Model.itemModel.dataList.Count > 0)
+        {
+            <section class="section-highlight story-area padding0">
+                <div class="custom-container">
+                    <div class="section-header fullwidth">
+                        <h4 class="subtitle">
+                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                              @Model.itemModel.dataList[0].title
+                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                        </h4>
+                        <h1 class="title"> @Model.itemModel.dataList[0].title2</h1>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+
+}
+
+

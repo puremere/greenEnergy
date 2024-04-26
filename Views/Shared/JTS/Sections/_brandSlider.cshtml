@@ -1,0 +1,38 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+<section class="elementor-section elementor-top-section elementor-element elementor-element-faf5f25 elementor-section-boxed elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="faf5f25" data-element_type="section">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8c49b55" data-id="8c49b55" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-20fb575 elementor-widget elementor-widget-manufaktursolutions_core_clients_list" data-id="20fb575" data-element_type="widget" data-widget_type="manufaktursolutions_core_clients_list.default">
+                    <div class="elementor-widget-container">
+                        <div class="qodef-shortcode qodef-m  qodef-clients-list qodef-grid qodef-swiper-container  qodef-gutter--small qodef-col-num--5 qodef-item-layout--image-only qodef-responsive--custom qodef-col-num--1440--5 qodef-col-num--1366--5 qodef-col-num--1024--3 qodef-col-num--768--2 qodef-col-num--680--1 qodef-col-num--480--1 qodef-hover-animation--roll" data-options="{&quot;slidesPerView&quot;:&quot;5&quot;,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;autoplay&quot;:true,&quot;speed&quot;:&quot;&quot;,&quot;speedAnimation&quot;:&quot;&quot;,&quot;slideAnimation&quot;:&quot;&quot;,&quot;direction&quot;:&quot;&quot;,&quot;centeredSlides&quot;:false,&quot;sliderScroll&quot;:false,&quot;loopAdditionalSlides&quot;:&quot;&quot;,&quot;customStages&quot;:true,&quot;slidesPerView1440&quot;:&quot;5&quot;,&quot;slidesPerView1366&quot;:&quot;5&quot;,&quot;slidesPerView1024&quot;:&quot;3&quot;,&quot;slidesPerView768&quot;:&quot;2&quot;,&quot;slidesPerView680&quot;:&quot;1&quot;,&quot;slidesPerView480&quot;:&quot;1&quot;}">
+                            <div class="swiper-wrapper">
+                               
+                                @foreach (var item in Model.dataList)
+                                {
+                                    <span class="qodef-e swiper-slide ">
+                                        <span class="qodef-e-inner" style="min-height: 290px">
+                                            <span class="qodef-e-image">
+                                                <a itemprop="url" href="#" target="_blank">
+                                                    <span class="qodef-e-logo">
+                                                        <img loading="lazy" decoding="async" width="65" height="65" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" class="attachment-full size-full" alt="d" />
+                                                    </span>
+                                                    <span class="qodef-e-hover-logo">
+                                                        <img loading="lazy" decoding="async" width="65" height="65" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" class="attachment-full size-full" alt="d" />
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        </span>
+                                    </span>
+                                }
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

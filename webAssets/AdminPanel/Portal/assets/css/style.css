@@ -14182,7 +14182,10 @@ table tr th {
 .all-package tbody tr td {
     text-align: center !important;
     white-space: initial;
-    max-width:250px
+    max-width:200px;
+    max-height:200px;
+    overflow-y:hidden
+    
 }
 
     .all-package tbody tr td.td-price {

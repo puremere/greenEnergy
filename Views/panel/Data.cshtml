@@ -5,17 +5,38 @@
 @{
     ViewBag.Title = "language";
     Layout = "~/Views/Shared/_AdminPanel.cshtml";
+
+
+    string titleclass = Model.selectedContent.fields.Contains("title") ? "show" : "hide";
+    string title2class = Model.selectedContent.fields.Contains("title2") ? "show" : "hide";
+    string descriptionclass = Model.selectedContent.fields.Contains("description") ? "show" : "hide";
+    string description2class = Model.selectedContent.fields.Contains("description2") ? "show" : "hide";
+    string imageclass = Model.selectedContent.fields.Contains("image") ? "show" : "hide";
+    string videoclass = Model.selectedContent.fields.Contains("video") ? "show" : "hide";
+    string urlclass = Model.selectedContent.fields.Contains("url") ? "show" : "hide";
 }
 
 
 @section scripts{
+    <style>
+        .show {
+            display: inline-block;
+            visibility:visible
+        }
+
+        .hide {
+            display: none;
+            visibility: hidden
+        }
+    </style>
     <script>
         $(".editButton").click(function () {
 
             $("#editID").val($(this).attr("idtogo"));
             $("#editTitle").val($(this).attr("titletogo"));
             $("#editTitle2").val($(this).attr("title2togo"));
-
+            $("#editURL").val($(this).attr("URLtogo"));
+            $("#editPriority").val($(this).attr("prioritytogo"));
             $("#editDesc").val($(this).attr("desctogo"));
             $("#editDesc2").val($(this).attr("desc2togo"));
             $("#editVideoURL").val($(this).attr("iframetogo"));
@@ -47,20 +68,22 @@
                     <div class="card">
                         <div id="prnt" class="card-body">
                             <div class="title-header option-title">
-                                <h5>Language List </h5>
+                                <h5>Data List </h5>
                             </div>
                             <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
                                 <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
                                     <thead>
 
                                         <tr>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title1 </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">description1 </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">description2 </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">image </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">video </th>
+
+                                            <th class="sorting_disabled @urlclass" rowspan="1" colspan="1" style="width: 170px;">URL </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">priority </th>
+                                            <th class="sorting_disabled @titleclass" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                            <th class="sorting_disabled @title2class" rowspan="1" colspan="1" style="width: 170px;">Title1 </th>
+                                            <th class="sorting_disabled @descriptionclass" rowspan="1" colspan="1" style="width: 170px;">description1 </th>
+                                            <th class="sorting_disabled @description2class" rowspan="1" colspan="1" style="width: 170px;">description2 </th>
+                                            <th class="sorting_disabled @imageclass" rowspan="1" colspan="1" style="width: 170px;">image </th>
+                                            <th class="sorting_disabled @videoclass" rowspan="1" colspan="1" style="width: 170px;">video </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
 
 
@@ -79,22 +102,21 @@
 
 
                                                 <tr class="@cls">
-                                                    <td>
-                                                        @i
-                                                    </td>
 
 
-                                                    <td>@prod.title</td>
-                                                    <td>@prod.title2</td>
-                                                    <td>@prod.description</td>
-                                                    <td>@prod.description2</td>
-                                                    <td>
+                                                    <td class="@urlclass">@prod.URL</td>
+                                                    <td>@prod.priority</td>
+                                                    <td class=" @titleclass">@prod.title</td>
+                                                    <td class="@title2class">@prod.title2</td>
+                                                    <td class="@descriptionclass">@prod.description</td>
+                                                    <td class="@description2class">@prod.description2</td>
+                                                    <td class="@imageclass">
                                                         @if (!string.IsNullOrEmpty(prod.mediaURL))
                                                         {
-                                                            <img style="max-width:100%" src="~/Uploads/@prod.mediaURL" />
+                                                            <img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.mediaURL" />
                                                         }
                                                     </td>
-                                                    <td>
+                                                    <td class="@videoclass">
                                                         @if (!string.IsNullOrEmpty(prod.viedoIframe))
                                                         {
                                                             <div style="max-width:100%">
@@ -104,11 +126,14 @@
                                                         }
                                                     </td>
 
-                                                    <td>
-                                                        <button data-bs-target="#editModal" data-bs-toggle="modal" idtogo="@prod.dataID" titletogo="@prod.title" title2togo="@prod.title2" desctogo="@prod.description" desc2togo="@prod.description2" iframetogo="@prod.viedoIframe" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
-                                                       <div style="margin:0 5px"></div>
-                                                        <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.dataID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                                    <td >
+                                                        <div style="display:flex">
+                                                            <button data-bs-target="#editModal" data-bs-toggle="modal" prioritytogo="@prod.priority" URLtogo="@prod.URL" idtogo="@prod.dataID" titletogo="@prod.title" title2togo="@prod.title2" desctogo="@prod.description" desc2togo="@prod.description2" iframetogo="@prod.viedoIframe" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                            <div style="margin:0 5px"></div>
+                                                            <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.dataID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
 
+                                                        </div>
+                                                       
                                                     </td>
 
 
@@ -145,57 +170,75 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="title-header option-title">
-                                <h5>Add New Language</h5>
+                                <h5>Add New Data</h5>
                             </div>
                             <div class="row">
                                 <form method="post" action="/panel/setData" enctype="multipart/form-data">
                                     @Html.AntiForgeryToken()
                                     <input hidden name="contentID" value="@Model.selectedContent.contentID" />
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">Title:</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
+                                    <div style="display:flex; flex-direction:column">
+                                        <div class=" align-items-center @urlclass">
+                                            <label class="form-label-title col-sm-12 mb-0">URL:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="seachQuery" name="url" class="form-control col-md-7 col-xs-12">
 
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center">
+                                            <label class="form-label-title col-sm-12 mb-0">Priority:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="seachQuery" name="priority" class="form-control col-md-7 col-xs-12">
+
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @titleclass">
+                                            <label class="form-label-title col-sm-12 mb-0">Title:</label>
+                                            <div class="col-sm-10">
+                                                <input required type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
+
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @title2class">
+                                            <label class="form-label-title col-sm-12 mb-0">Second Title :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="seachQuery" name="title2" class="form-control col-md-7 col-xs-12">
+
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @descriptionclass">
+                                            <label class="form-label-title col-sm-12 mb-0">Description:</label>
+                                            <div class="col-sm-10">
+
+                                                <textarea cols="5" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @description2class">
+                                            <label class="form-label-title col-sm-12 mb-0">Second Description :</label>
+                                            <div class="col-sm-10">
+
+                                                <textarea cols="5" id="seachQuery" name="description2" class="form-control col-md-7 col-xs-12"></textarea>
+
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @imageclass">
+                                            <label class="form-label-title col-sm-12 mb-0">image  :</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
+
+                                            </div>
+                                        </div>
+                                        <div class=" align-items-center @videoclass">
+                                            <label class="form-label-title col-sm-12 mb-0">Viedo Iframe:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="" name="viedoIframe" class="form-control col-md-7 col-xs-12">
+
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">Second Title (Optinal):</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" id="seachQuery" name="title2" class="form-control col-md-7 col-xs-12">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">Description:</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">Second Description (Optinal):</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" id="seachQuery" name="description2" class="form-control col-md-7 col-xs-12">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">image  :</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                        <label class="form-label-title col-sm-12 mb-0">Viedo Iframe:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" id="" name="viedoIframe" class="form-control col-md-7 col-xs-12">
-
-                                        </div>
-                                    </div>
+                                   
 
 
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                    <div class="col-lg-6 mb-4 row align-items-center" >
                                         <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
                                             <button type="submit" class="btn btn-primary lgnsubmitt">OK </button>
                                         </div>
@@ -250,26 +293,55 @@
             </div>
             <form action="/panel/setData" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
-                <div class="modal-body">
+                <div class="modal-body" style="display:flex; flex-direction:column">
                     <input hidden name="dataID" id="editID" value="" />
                     <input hidden name="contentID" value="@Model.selectedContent.contentID" />
-                    <p>Title</p>
-                    <input type="text" id="editTitle" class="form-control" name="title" value="" />
-                    <p style="margin:10px"></p>
-                    <p>Title 2</p>
-                    <input type="text" id="editTitle2" class="form-control" name="title2" value="" />
-                    <p style="margin:10px"></p>
-                    <p>Description </p>
-                    <input type="text" id="editDesc" class="form-control" name="description" value="" />
-                    <p style="margin:10px"></p>
-                    <p>Description 2</p>
-                    <input type="text" id="editDesc2" class="form-control" name="description2" value="" />
-                    <p style="margin:10px"></p>
-                    <p>video URL</p>
-                    <input type="text" id="editVideoURL" class="form-control" name="viedoIframe" value="" />
-                    <p style="margin:10px"></p>
-                    <p>Image</p>
-                    <input class="form-control" type="file" name="file" value="" />
+                    <div  class="@urlclass">
+                        <p>URL</p>
+                        <input type="text" id="editURL" class="form-control" name="url" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Priority</p>
+                        <input type="text" id="editPriority" class="form-control" name="priority" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                   
+                    <div class="@titleclass">
+                        <p>Title</p>
+                        <input type="text" id="editTitle" class="form-control" name="title" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                   
+                    <div class="@title2class">
+                        <p>Title 2</p>
+                        <input type="text" id="editTitle2" class="form-control" name="title2" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div class="@descriptionclass">
+                        <p>Description </p>
+                        <textarea cols="10" id="editDesc" name="description" class="form-control"></textarea>
+
+                      
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div class="@description2class">
+                        <p>Description 2</p>
+                        <textarea cols="10" id="editDesc2" name="description2" class="form-control "></textarea>
+
+                       
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div class="@videoclass">
+                        <p>video URL</p>
+                        <input type="text" id="editVideoURL" class="form-control" name="viedoIframe" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div class="@imageclass">
+                        <p>Image</p>
+                        <input class="form-control" type="file" name="file" value="" />
+                    </div>
+                  
 
                 </div>
                 <div class="modal-footer">
