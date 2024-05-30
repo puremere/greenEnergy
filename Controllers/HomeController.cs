@@ -24,7 +24,7 @@ namespace greenEnergy.Controllers
             getURLVM model = new getURLVM();
             
             model.lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
-            model.url = (first + "/" + second).Trim('/');
+            model.slug = (first + "/" + second).Trim('/');
             responsemodel = await methods.PostData(model, responsemodel, "/getURL","" ); //Request.Cookies["clientToken"].Value  فقط برای گرین
 
             //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
@@ -35,6 +35,8 @@ namespace greenEnergy.Controllers
             //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
             //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout", Request.Cookies["clientToken"].Value);
             //}
+
+
             ViewBag.layoutModel = responsemodel.layoutModel;
             ViewBag.title = responsemodel.title;
             ViewBag.image = responsemodel.image;

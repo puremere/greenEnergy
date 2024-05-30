@@ -1,4 +1,4 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
 @{
     if (ViewBag.from == "web")
@@ -15,9 +15,9 @@
                                 <div class="elementor-widget-wrap elementor-element-populated">
 
                                     @{
-                                        if (Model.itemModel.dataList != null)
+                                        if (Model.dataList != null)
                                         {
-                                            if (Model.itemModel.dataList.Count > 0)
+                                            if (Model.dataList.Count > 0)
                                             {
 
                                                 <section class="elementor-section elementor-inner-section elementor-element elementor-element-2c07f3c elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="2c07f3c" data-element_type="section">
@@ -26,7 +26,7 @@
                                                             <div class="elementor-widget-wrap elementor-element-populated">
                                                                 <div class="elementor-element elementor-element-bf905cb elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="bf905cb" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                     <div class="elementor-widget-container">
-                                                                                                            <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-350 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.itemModel.dataList[0].title</p>
+                                                                                                            <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-350 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.dataList[0].title</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="elementor-element elementor-element-7aa336c1 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="7aa336c1" data-element_type="widget" data-widget_type="divider.default">
@@ -161,7 +161,7 @@
                                                             <div class="elementor-widget-wrap elementor-element-populated">
                                                                 <div class="elementor-element elementor-element-5f9557b2 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="5f9557b2" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                     <div class="elementor-widget-container">
-                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-367 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.itemModel.dataList[0].description</h1>
+                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-367 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.dataList[0].description</h1>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -203,7 +203,7 @@
                                                                                 display: inline-block
                                                                             }
                                                                         </style>
-                                                                        <p class="definitionP">@Model.itemModel.dataList[0].description2 </p>
+                                                                        <p class="definitionP">@Model.dataList[0].description2 </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -212,7 +212,7 @@
                                                 </section>
 
                                             }
-                                            if (Model.itemModel.dataList.Count > 1)
+                                            if (Model.dataList.Count > 1)
                                             {
                                                 <section class="elementor-section elementor-inner-section elementor-element elementor-element-a970b40 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="a970b40" data-element_type="section">
                                                     <div class="elementor-container elementor-column-gap-default">
@@ -220,7 +220,7 @@
                                                             <div class="elementor-widget-wrap elementor-element-populated">
                                                                 <div class="elementor-element elementor-element-4634647 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4634647" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                     <div class="elementor-widget-container">
-                                                                        <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-696 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.itemModel.dataList[1].title</p>
+                                                                        <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-696 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.dataList[1].title</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="elementor-element elementor-element-3c573d28 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="3c573d28" data-element_type="widget" data-widget_type="divider.default">
@@ -241,7 +241,7 @@
                                                             <div class="elementor-widget-wrap elementor-element-populated">
                                                                 <div class="elementor-element elementor-element-4d54055c elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4d54055c" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                     <div class="elementor-widget-container">
-                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-858 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.itemModel.dataList[1].description</h1>
+                                                                        <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-858 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.dataList[1].description</h1>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -250,7 +250,7 @@
                                                             <div class="elementor-widget-wrap elementor-element-populated">
                                                                 <div class="elementor-element elementor-element-22bac7d2 elementor-widget elementor-widget-text-editor" data-id="22bac7d2" data-element_type="widget" data-widget_type="text-editor.default">
                                                                     <div class="elementor-widget-container">
-                                                                        <p class="definitionP">@Model.itemModel.dataList[1].description2</p>
+                                                                        <p class="definitionP">@Model.dataList[1].description2</p>
                                                                     </div>
                                                                 </div>
                                                             </div>

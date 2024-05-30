@@ -1,0 +1,308 @@
+﻿@model greenEnergy.ViewModel.getCoDriverResponse
+
+@{
+    ViewBag.Title = "coDriver";
+    Layout = "~/Views/Shared/_portalLayout.cshtml";
+}
+
+
+<div class="">
+    <div class="border">
+        <div class="bg-gray-300 nav-bg" style="border-radius:6px; margin:0 30px">
+            <nav class="nav nav-tabs">
+                <a class="nav-link active" data-bs-toggle="tab" href="#tabCont1">لیست رانندگان </a>
+                <a class="nav-link " data-bs-toggle="tab" href="#tabCont2"> افزودن راننده جدید </a>
+
+            </nav>
+        </div>
+        <div class="card-body tab-content">
+            <div class="tab-pane active show" id="tabCont1">
+                <div class="row row-sm">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+
+                                <div class="row row-sm mg-b-20">
+                                    <div>
+                                        <h6 class="main-content-label mb-1">پنل جستجو</h6>
+                                        <p class="text-muted card-sub-title">با استفاده از پنل زیر میتوانید خودرو مورد نظر خود را جستجو کنید</p>
+                                    </div>
+
+                                    <div class="col-lg-3 form-group">
+                                        <h6 style="margin-bottom:15px" class="main-content-label mb-1">نام ، شماره موبایل ، نام کاربری </h6>
+                                        <input id="iran" class="form-control" name="pelak1" placeholder="پلاک" required="" type="text">
+                                    </div>
+
+                                    <div class="col-lg-3 form-group">
+                                        <h6 style="margin-bottom:15px" class="main-content-label mb-1">  اهراز هویت </h6>
+                                        <div class="form-group mb-0">
+                                            <select id="verifyStatusID" name="country" class="form-control ">
+                                                <option value="">همه</option>
+                                                @if (Model.verifyList != null)
+                                                {
+
+                                                    foreach (var item in Model.verifyList)
+                                                    {
+                                                        <option value="@item.verifyStatusID">@item.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <h6 style="margin-bottom:15px" class="main-content-label mb-1">  وضعیت شغلی </h6>
+                                        <div class="form-group mb-0">
+                                            <select id="workingStatusID" name="country" class="form-control ">
+                                                <option value="">همه</option>
+                                                @if (Model.worikingstatusList != null)
+                                                {
+
+                                                    foreach (var item in Model.worikingstatusList)
+                                                    {
+                                                        <option value="@item.workingStatusID">@item.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+
+                                        <button id="reloadList" style="margin-top:20px" class="btn ripple btn-main-primary btn-block">تایید</button>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <div>
+                                <h6 class="main-content-label mb-1">جدول ماهیت سفارشات</h6>
+                                <p class="text-muted card-sub-title">لیست انواع پروسه های جاری شرکت قابل مشاهده خواهد بود</p>
+                            </div>
+                            <div class="table-responsive border">
+                                <style>
+                                    td {
+                                        direction: ltr
+                                    }
+                                </style>
+                                <table class="table text-nowrap text-md-nowrap table-hover mg-b-0">
+                                    <thead>
+                                        <tr>
+
+                                            <th>ردیف</th>
+                                            <th>موبایل</th>
+                                            <th>نام راننده</th>
+                                            <th>خودرو اختصاص یافته</th>
+                                            <th>اهراز هویت</th>
+                                            <th>وضعیت شغلی</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="codriverListTable">
+                                        @if (Model.codrivers != null)
+                                        {
+                                            foreach (var item in Model.codrivers)
+                                            {
+                                                int index = Model.codrivers.IndexOf(item) + 1;
+                                        <tr>
+                                            <td>@index</td>
+                                            <td>@item.phone</td>
+                                            <td>@item.dname</td>
+                                            <td style="direction:rtl">@item.plateNumber</td>
+                                            <td>@item.verifyStatus</td>
+                                            <td>@item.workingStatus</td>
+                                            <td>
+                                                @if (String.IsNullOrEmpty(item.plateNumber))
+                                                {
+                                                    <a idtogo="@item.did" class="setVehicle btn ripple btn-info btn-sm" data-bs-target="#vehicleModal" data-bs-toggle="modal" href="#">ثبت خودرو</a>
+                                                }
+                                                else
+                                                {
+                                                    <a idtogo="@item.did" class="vstatusWorkingModal btn ripple btn-danger btn-sm" data-bs-target="#vehicleModal" data-bs-toggle="modal" href="#">تغییر وضعیت خودرو</a>
+
+                                                }
+                                                <a idtogo="@item.did" class="setVerifStatus btn ripple btn-info btn-sm" data-bs-target="#verifModal" data-bs-toggle="modal" href="#">تغییر وضیعیت احراز</a>
+
+                                            </td>
+                                        </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="tabCont2">
+                <div class="row row-sm">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+
+                                <form action="addDriverAsync" method="post">
+                                    <div class="row row-sm mg-b-20">
+
+
+                                        <div class="col-lg-3 form-group">
+                                            <h6 style="margin-bottom:15px" class="main-content-label mb-1"> شماره مو بایل راننده را وارد کنید </h6>
+                                            <input class="form-control" name="phone" placeholder="شماره موبایل" required="" type="text">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+
+                                            <button style="margin-top:20px" class="btn ripple btn-main-primary btn-block">تایید</button>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="vehicleModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">انتخاب خودرو</h6><button aria-label="بستن" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="setInfoForDriver" method="post">
+                <div class="modal-body">
+
+                    <h6>انتخاب خودرو</h6>
+                    <h6>لطفاخودرو مورد نظر را انتخاب نمایید</h6>
+                    <select name="vehicleID" class="form-control select-lg select2">
+                        @if (Model.vehicleList != null)
+                        {
+                            foreach (var item in Model.vehicleList)
+                            {
+                        <option value="@item.vehicleID">
+                            <text>@item.iran</text> <text>&nbsp;ایران&nbsp;</text><text>&nbsp;@item.pelak2&nbsp;</text><text>&nbsp;@item.pelakHarf&nbsp;</text> <text>&nbsp;@item.pelak1&nbsp;</text>
+                        </option>
+                            }
+                        }
+                    </select>
+                    <input id="chosendriverID" hidden name="driverID" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">تایید</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="verifModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">تغییر وضعیت هویتی</h6><button aria-label="بستن" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="setInfoForDriver" method="post">
+                <div class="modal-body">
+
+                    <h6>انتخاب خورد</h6>
+                    <!-- Select2 -->
+
+                    <h6>لطفا وضعیت هویتی مورد نظر را انتخاب نمایید</h6>
+                    <select name="verifStatID" class="form-control select-lg select2">
+                        @if (Model.vehicleList != null)
+                        {
+                            foreach (var item in Model.verifyList)
+                            {
+                                <option value="@item.verifyStatusID">
+                                    <text>@item.title</text>
+                                </option>
+                            }
+                        }
+                    </select>
+                    <input id="VdriverID" hidden name="driverID" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">تایید</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">لغو</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="vstatusWorkingModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">تغییر وضعیت کاری</h6><button aria-label="بستن" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="changeVehicleInfo" method="post">
+                <div class="modal-body">
+
+                    <h6>انتخاب وضعیت</h6>
+                    <h6>لطفا وضعیت خودرو مورد نظر را انتخاب نمایید</h6>
+                    <select name="vehicleStatusID" class="form-control select-lg select2">
+                        @if (Model.vehicleStatList != null)
+                        {
+                            foreach (var item in Model.vehicleStatList)
+                            {
+                                <option value="@item.statid">
+                                    <text>@item.title</text>
+                                </option>
+                            }
+                        }
+                    </select>
+                    <input id="statusdriverID" hidden name="dirverID" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">تایید</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        
+        $(".changeVehicleStatus").click(function () {
+            var id = $(this).attr('idtogo');
+            $("#statusdriverID").val(id);
+        })
+        $(".setVehicle").click(function () {
+            var id = $(this).attr('idtogo');
+            $("#chosendriverID").val(id);
+        })
+        $(".setVerifStatus").click(function () {
+            var id = $(this).attr('idtogo');
+            $("#VdriverID").val(id);
+        })
+       
+        $("#reloadList").click(function () {
+            var query = $("#iran").val();
+            var verifyStatusID = $("#verifyStatusID").val();
+            var workingStatusID = $("#workingStatusID").val();
+            $.post("getCodriverList", { query: query, workingStatusID: workingStatusID, verifyStatusID: verifyStatusID }, function (result) {
+                $("#codriverListTable").html(result);
+            });
+        })
+    </script>
+
+}

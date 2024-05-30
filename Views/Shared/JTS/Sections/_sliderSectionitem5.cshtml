@@ -1,11 +1,11 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
 @{
     if (ViewBag.from == "web")
     {
 
         string classname = ViewBag.classname;
-        if (Model.itemModel != null)
+        if (Model != null)
         {
             <div class="ms-section ms-table qodef-m-slide-content @classname" style="" data-header-skin="light">
                 <div class="qodef-m-template-content">
@@ -30,10 +30,10 @@
                                                         <div class="elementor-element elementor-element-bd8a44a elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="bd8a44a" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
                                                             <div class="elementor-widget-container">
                                                                 <div class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
-                                                                    @if (@Model.itemModel.dataList.Count > 0)
+                                                                    @if (@Model.dataList.Count > 0)
                                                                     {
                                                                         <h6 class="qodef-m-title dirRight" style="color: #FFFFFF">
-                                                                            @Model.itemModel.dataList[0].title
+                                                                            @Model.dataList[0].title
                                                                         </h6>
                                                                     }
 
@@ -48,15 +48,15 @@
                                                             </div>
                                                         </div>
 
-                                                        @if (@Model.itemModel.dataList.Count > 1)
+                                                        @if (@Model.dataList.Count > 1)
                                                         {
-                                                            for (int i = 1; i < Model.itemModel.dataList.Count; i++)
+                                                            for (int i = 1; i < Model.dataList.Count; i++)
                                                             {
                                                                 <div class="elementor-element elementor-element-bd8a44a elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="bd8a44a" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
                                                                     <div class="elementor-widget-container">
                                                                         <div class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
                                                                             <h6 class="qodef-m-title dirRight" style="color: #FFFFFF">
-                                                                                @Model.itemModel.dataList[i].title
+                                                                                @Model.dataList[i].title
                                                                             </h6>
                                                                         </div>
                                                                     </div>
@@ -65,7 +65,7 @@
                                                         }
 
 
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,5 +1,5 @@
 ﻿
-@model greenEnergy.ViewModel.partialSectionVM
+@model greenEnergy.ViewModel.pageContentVM
 
 
 <div id="qodef-page-outer">
@@ -18,15 +18,12 @@
                                                     <div class="ms-left">
 
                                                         @{
-                                                            List<greenEnergy.ViewModel.pageContentVM> listItems = Model.list.Where(x => x.parentID == Model.itemModel.conentID).ToList();
-                                                            foreach (var childitem in listItems)
+                                                            foreach (var childitem in Model.contentChild)
                                                             {
-                                                                List<greenEnergy.ViewModel.pageContentVM> listItemsDetail = Model.list.Where(x => x.parentID == childitem.conentID).Where(x => x.parentID == childitem.conentID).OrderBy(x => x.priority).ToList();
-                                                                Model.itemModel = listItemsDetail[0];
-                                                                string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + Model.itemModel.partialName + ".cshtml";
+                                                                string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + childitem.contentChild[0].partialName + ".cshtml";
                                                                 ViewBag.from = "web";
                                                                 ViewBag.classname = "qodef-slide-layout--image-left";
-                                                                @Html.RenderPartial(partialPath, Model);
+                                                                @Html.RenderPartial(partialPath, childitem.contentChild[0]);
 
                                                             }
                                                         }
@@ -35,14 +32,12 @@
                                                     <div class="ms-right">
                                                         @{
 
-                                                            foreach (var childitem in listItems)
+                                                            foreach (var childitem in Model.contentChild)
                                                             {
-                                                                List<greenEnergy.ViewModel.pageContentVM> listItemsDetail = Model.list.Where(x => x.parentID == childitem.conentID).Where(x => x.parentID == childitem.conentID).OrderBy(x => x.priority).ToList();
-                                                                Model.itemModel = listItemsDetail.Count > 0 ? listItemsDetail[1] : listItemsDetail[0];
                                                                 ViewBag.from = "web";
                                                                 ViewBag.classname = "qodef-slide-layout--image-right";
-                                                                string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + Model.itemModel.partialName + ".cshtml";
-                                                                @Html.RenderPartial(partialPath, Model);
+                                                                string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + childitem.contentChild[1].partialName + ".cshtml";
+                                                                @Html.RenderPartial(partialPath, childitem.contentChild[1]);
 
                                                             }
                                                         }

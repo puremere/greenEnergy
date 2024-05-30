@@ -9,6 +9,10 @@ using greenEnergy.ViewModel;
 using greenEnergy.Model;
 using Newtonsoft.Json;
 using System.IO;
+using greenEnergy.ViewModel;
+using System.Net;
+using System.Collections.Specialized;
+using Newtonsoft.Json.Linq;
 
 namespace greenEnergy.Controllers
 {
@@ -16,68 +20,397 @@ namespace greenEnergy.Controllers
     [doForAll]
     public class portalController : Controller
     {
+        string baseServer = System.Configuration.ConfigurationManager.AppSettings["baseurl"];// "http://daynamic.jbar.app";//"https://localhost:44389/api/app";// "https://jbar.app/api/app"; // "https://localhost:44389/api/app";// 
         // GET: panel
-        public ActionResult login()
+        public ActionResult Login()
         {
-            //try
+            //Context dbcontext = new Context();
+            //newOrderStatus status1 = new newOrderStatus()
             //{
-            //    Context dbcontext = new Context();
-            //    html html = new html()
-            //    {
-            //        htmlID = Guid.NewGuid(),
-            //        image = "list1.png",
-            //        partialView = "_list1",
-            //        title = "list1",
-            //    };
-            //    dbcontext.htmls.Add(html);
-            //    //html html1 = new html()
-            //    //{
-            //    //    htmlID = Guid.NewGuid(),
-            //    //    image = "intro1.png",
-            //    //    partialView = "_intro1",
-            //    //    title = "slider1",
-            //    //};
-            //    //dbcontext.htmls.Add(html1);
-            //    //html html2 = new html()
-            //    //{
-            //    //    htmlID = Guid.NewGuid(),
-            //    //    image = "banner1.png",
-            //    //    partialView = "_banner1",
-            //    //    title = "banner1",
-            //    //};
-            //    //dbcontext.htmls.Add(html2);
-            //    dbcontext.SaveChanges();
-            //}
-            //catch (Exception e)
-            //{
-
-            //    throw;
-            //}
-
-            //user user1 = new user()
-            //{
-            //     code = "enterGreen",
-            //      phone = "100",
-            //       userID = Guid.NewGuid(),
-            //        username = "client",
-            //         userType = "0"
+            //    newOrderStatusID = Guid.NewGuid(),
+            //    statusCode = "1",
+            //    title = "در انتظار"
             //};
-            //dbcontext.users.Add(user1);
-            //user user2 = new user()
+            //dbcontext.newOrderStatuses.Add(status1);
+            //dbcontext.SaveChanges();
+            //status1 = new newOrderStatus()
             //{
-            //    code = "enterPanel",
-            //    phone = "999",
-            //    userID = Guid.NewGuid(),
-            //    username = "admin",
-            //    userType = "1"
+            //    newOrderStatusID = Guid.NewGuid(),
+            //    statusCode = "2",
+            //    title = "عملیاتی"
             //};
-            //dbcontext.users.Add(user2);
+            //dbcontext.newOrderStatuses.Add(status1);
+            //dbcontext.SaveChanges();
+            //status1 = new newOrderStatus()
+            //{
+            //    newOrderStatusID = Guid.NewGuid(),
+            //    statusCode = "3",
+            //    title = "رد شده"
+            //};
+            //dbcontext.newOrderStatuses.Add(status1);
+            //dbcontext.SaveChanges();
+            //status1 = new newOrderStatus()
+            //{
+            //    newOrderStatusID = Guid.NewGuid(),
+            //    statusCode = "4",
+            //    title = "تمام شده"
+            //};
+            //dbcontext.newOrderStatuses.Add(status1);
             //dbcontext.SaveChanges();
 
+            //Guid userid = new Guid("9f82f3e1-df02-46aa-86cb-7bdbd9887147");
+            //formItemDesign ftd = new formItemDesign()
+            //{
+            //    formItemDesignID = Guid.NewGuid(),
+            //    title = "چند انتخابی - اسلایدر",
+            //    number = 1
+
+            //};
+            //dbcontext.formItemDesigns.Add(ftd);
+            //dbcontext.SaveChanges();
+            //formItemType frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم آپلود",
+            //    formItemTypeCode = "7",
+
+
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم چند گزینه ای",
+            //    formItemTypeCode = "1"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم انتخابی",
+            //    formItemTypeCode = "6"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم تاریخ",
+            //    formItemTypeCode = "5"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم موقعیت",
+            //    formItemTypeCode = "8"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم متنی",
+            //    formItemTypeCode = "3"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //frmt = new formItemType()
+            //{
+            //    formItemTypeID = Guid.NewGuid(),
+            //    title = "آیتم متنی عکس دار",
+            //    formItemTypeCode = "2"
+
+            //};
+            //dbcontext.formItemTypes.Add(frmt);
+            //dbcontext.SaveChanges();
+
+
+            //userWorkingStatus yd = new userWorkingStatus()
+            //{
+            //    title = "در حال اجرا",
+            //    workingStatusID = Guid.NewGuid(),
+
+            //};
+            //dbcontext.userWorkingStatuses.Add(yd);
+            //dbcontext.SaveChanges();
+            //yd = new userWorkingStatus()
+            //{
+            //    title = "بدون اقدام",
+            //    workingStatusID = Guid.NewGuid(),
+            //};
+            //dbcontext.userWorkingStatuses.Add(yd);
+            //dbcontext.SaveChanges();
+            //yd = new userWorkingStatus()
+            //{
+            //    title = "غیر عملیاتی",
+            //    workingStatusID = Guid.NewGuid(),
+            //};
+            //dbcontext.userWorkingStatuses.Add(yd);
+            //dbcontext.SaveChanges();
+
+
+
+            //verifyStatus vs = new verifyStatus()
+            //{
+            //    title = "تایید نشده",
+            //    verifyStatusID = Guid.NewGuid(),
+            //    message = "لازم است برای احراز قویت اقدام نمایید",
+            //    statusCode = "0"
+
+            //};
+            //dbcontext.verifyStatuses.Add(vs);
+            //dbcontext.SaveChanges();
+
+            //vs = new verifyStatus()
+            //{
+            //    title = "دردست بررسی",
+            //    verifyStatusID = Guid.NewGuid(),
+            //    message = "مدارک شما در دست بررسی می باشد",
+            //    statusCode = "1"
+
+            //};
+            //dbcontext.verifyStatuses.Add(vs);
+            //dbcontext.SaveChanges();
+
+            //vs = new verifyStatus()
+            //{
+            //    title = "رد شده",
+            //    verifyStatusID = Guid.NewGuid(),
+            //    message = "به دلیل عدم ارائه مدارک کافی هویت شما احراز نشدهد است",
+            //    statusCode = "2"
+
+            //};
+            //dbcontext.verifyStatuses.Add(vs);
+            //dbcontext.SaveChanges();
+
+
+            //vs = new verifyStatus()
+            //{
+            //    title = "تایید شده",
+            //    verifyStatusID = Guid.NewGuid(),
+            //    message = " هویت شما احراز شده است",
+            //    statusCode = "3"
+
+            //};
+            //dbcontext.verifyStatuses.Add(vs);
+            //dbcontext.SaveChanges();
+
+
+
+
+
+            //dbcontext.SaveChanges();
+
+            //namad formula = new namad()
+            //{
+
+            //    namadID = Guid.NewGuid(),
+            //    value = "&#43;",
+            //    title = "plus",
+            //    userID = userid,
+
+            //};
+            //dbcontext.namads.Add(formula);
+            //dbcontext.SaveChanges();
+            //formula = new namad()
+            //{
+
+            //    namadID = Guid.NewGuid(),
+            //    value = "&#8722;",
+            //    title = "minus",
+            //    userID = userid,
+            //};
+            //dbcontext.namads.Add(formula);
+            //dbcontext.SaveChanges();
+
+            //formula = new namad()
+            //{
+
+            //    namadID = Guid.NewGuid(),
+            //    value = "&#215;",
+            //    title = "multiple",
+            //    userID = userid,
+            //};
+            //dbcontext.namads.Add(formula);
+            //dbcontext.SaveChanges();
+            //formula = new namad()
+            //{
+
+            //    namadID = Guid.NewGuid(),
+            //    value = "&#8260;",
+            //    title = "fraction",
+            //    userID = userid,
+            //};
+            //dbcontext.namads.Add(formula);
+            //dbcontext.SaveChanges();
+
+            //formula = new namad()
+            //{
+
+            //    namadID = Guid.NewGuid(),
+            //    value = "&#61;",
+            //    title = "equal",
+            //    userID = userid,
+            //};
+            //dbcontext.namads.Add(formula);
+            //dbcontext.SaveChanges();
 
             return View();
 
         }
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+
+        public async Task<ActionResult> setOrder()
+        {
+
+            panelSetOrder fmodel = new panelSetOrder();
+            fmodel = await methods.PostData(new nullclass(), fmodel, "/setOrderAction", Request.Cookies["adminToken"].Value);
+            return View(fmodel);
+        }
+
+        public PartialViewResult getCityPartail(string name, string ID)
+        {
+
+            string result = "";
+
+            using (WebClient client = new WebClient())
+            {
+                var collection = new NameValueCollection();
+                collection.Add("ID", ID);
+
+                byte[] response = client.UploadValues(baseServer + "/getCity", collection);
+
+                result = System.Text.Encoding.UTF8.GetString(response);
+
+            }
+            sendCityVM res = JsonConvert.DeserializeObject<sendCityVM>(result);
+            panelCityVM model = new panelCityVM()
+            {
+                listname = name,
+                cityList = res
+            };
+
+            return PartialView("/Views/Shared/panel/_cityPartial.cshtml", model);
+        }
+
+        public ActionResult getCity(string ID, string search)
+        {
+            string result = "";
+            using (WebClient client = new WebClient())
+            {
+                var collection = new NameValueCollection();
+                collection.Add("ID", ID);
+                collection.Add("search", search);
+                byte[] response = client.UploadValues(baseServer + "/getCity", collection);
+                result = System.Text.Encoding.UTF8.GetString(response);
+            }
+            sendCityVM res = JsonConvert.DeserializeObject<sendCityVM>(result);
+            if (ID == null && search == null)
+            {
+                return PartialView("/Views/Shared/_statePartial.cshtml", res);
+
+            }
+            else
+            {
+                return PartialView("/Views/Shared/_cityPartial.cshtml", res);
+
+            }
+        }
+        public ActionResult Orders()
+        {
+            if (Request.Cookies["adminToken"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            string token = Request.Cookies["adminToken"].Value;
+            string result = "";
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Set("Authorization", "Basic " + token);
+                    var collection = new NameValueCollection();
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; // .NET 4.5
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // .NET 4.0
+                    byte[] response = client.UploadValues(baseServer + "/getOrderClient", collection);
+
+                    result = System.Text.Encoding.UTF8.GetString(response);
+                    getOrderVM model = JsonConvert.DeserializeObject<getOrderVM>(result);
+                    return View(model);
+                }
+            }
+            catch (Exception e)
+            {
+
+                HttpCookie nameCookie = Request.Cookies["adminToken"];
+                nameCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(nameCookie);
+                return RedirectToAction("Login");
+            }
+
+        }
+
+        public async Task<ActionResult> OrderDetail(string ID)
+        {
+            if (Request.Cookies["adminToken"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            sendDetailVM mdl = new sendDetailVM();
+            sendDetailVM responsemodel = new sendDetailVM();
+            string token = Request.Cookies["adminToken"].Value;
+            string result = "";
+            try
+            {
+                if (TempData["er"] != null)
+                    ViewBag.error = TempData["er"].ToString();
+
+
+                mdl.orderID = ID;
+                responsemodel = await methods.PostData(mdl, responsemodel, "/getOrderDetailClientAsync", Request.Cookies["adminToken"].Value);
+                return View(responsemodel);
+
+                //using (WebClient client = new WebClient())
+                //{
+                //    client.Headers.Set("Authorization", "Basic " + token);
+                //    var collection = new NameValueCollection();
+                //    collection.Add("orderID", ID);
+                //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; // .NET 4.5
+                //    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // .NET 4.0
+                //    byte[] response = client.UploadValues(baseServer + "/getOrderDetailClient", collection);
+
+                //    result = System.Text.Encoding.UTF8.GetString(response);
+
+                //    model.orderID = ID;
+
+                //}
+            }
+            catch (Exception e)
+            {
+
+
+                HttpCookie nameCookie = Request.Cookies["adminToken"];
+                nameCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(nameCookie);
+                return RedirectToAction("Login");
+
+            }
+            return View(responsemodel);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
@@ -103,446 +436,147 @@ namespace greenEnergy.Controllers
 
 
         }
-        public async Task<ActionResult> dashboard()
-        {
-            dashbaordVM responsemodel = new dashbaordVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getDashboard", Request.Cookies["adminToken"].Value);
-            typePageVM menuTable = new typePageVM();
-            menuTable.list = responsemodel.typelist;
-            string typeList = JsonConvert.SerializeObject(menuTable);
-            Response.Cookies["typelist"].Value = typeList;
-            ViewBag.menu = typeList;
-            return View();
-        }
-
-        public async Task<ActionResult> language()
-        {
-            LanguagePageVM responsemodel = new LanguagePageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getLanguageList", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-
-
-
-            return View(responsemodel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setlanguage(languagVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setLanguage", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-
-            return RedirectToAction("language");
-        }
-
-
-
-
-        public async Task<ActionResult> Type()
-        {
-            typePageVM responsemodel = new typePageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getTypeList", Request.Cookies["adminToken"].Value);
-            return View(responsemodel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setType(typeVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setType", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("type");
-        }
-        public async Task<ActionResult> category()
-        {
-            categoryPageVM responsemodel = new categoryPageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getCategoryList", Request.Cookies["adminToken"].Value);
-            return View(responsemodel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setCategory(categoryVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setCategory", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("category");
-        }
-
-        // page
-        public async Task<ActionResult> Page(Guid id)
-        {
-            typeVM model = new typeVM();
-            model.typeID = id;
-            pageListVM responsemodel = new pageListVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getPage", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setPage(sectionVM model)
+        public ActionResult getCode(string phone)
         {
 
-            if (System.Web.HttpContext.Current.Request.Files.Count > 0)
+
+            string result = "";
+
+            using (WebClient client = new WebClient())
             {
-                //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
 
+                var collection = new NameValueCollection();
+                collection.Add("phone", phone);
+                collection.Add("userType", "0");
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; // .NET 4.5
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // .NET 4.0
+                byte[] response = client.UploadValues(baseServer + "/register", collection);
 
-                if (postedFile.ContentLength != 0)
-                {
-                    string fileName = "";
-                    string name = methods.RandomString(5);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    model.image = fileName;
-                }
+                result = System.Text.Encoding.UTF8.GetString(response);
             }
+            ViewBag.phone = phone;
+            return View("Verify");
+        }
 
 
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setSection", Request.Cookies["adminToken"].Value);
+
+        [HttpPost]
+        public async Task<ActionResult> setOrder(setOrderVM model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            JObject responsemodel = new JObject();
+            responsemodel = await methods.PostData(model, responsemodel, "/setOrder", Request.Cookies["adminToken"].Value);
+            return RedirectToAction("Orders");
+        }
+
+
+
+        // process
+        public async Task<ActionResult> Process()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            processActionVM responsemodel = new processActionVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getProcess", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+        }
+
+        public async Task<ActionResult> setNewProcess(process model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setProcess", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("process");
+        }
+
+        // processForm
+
+
+        public async Task<ActionResult> processForm(Guid processID)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            processFormActionVM responsemodel = new processFormActionVM();
+            process model = new process();
+            model.processID = processID;
+            responsemodel = await methods.PostData(model, responsemodel, "/getProcessForm", Request.Cookies["adminToken"].Value);
+            responsemodel.process = model;
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> setNewFormProcess(setNewFormProcessVM model)
+        {
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setNewFormProcess", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+
+            return RedirectToAction("processForm", new { processID = model.processID });
+        }
+        [HttpPost]
+        public async Task<ActionResult> removeProcessForm(setNewFormProcessVM model)
+        {
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/removeProcessForm", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+
+
+            return RedirectToAction("processForm", new { processID = model.processID });
+        }
+
+
+        // formItem
+
+        public async Task<ActionResult> formItem(Guid formID)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            formItemActionVM responsemodel = new formItemActionVM();
+            form model = new form();
+            model.formID = formID;
+            responsemodel = await methods.PostData(model, responsemodel, "/getFormItem", Request.Cookies["adminToken"].Value);
+            responsemodel.form = model;
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> addFormItem(formItemVM model)
+        {
+            HttpFileCollectionBase files = Request.Files;
+            for (int i = 0; i < files.Count; i++)
+            {
+                HttpPostedFileBase file = files[i];
+                if (file.ContentLength > 0)
+                {
+                    string fname = file.FileName;
+
+
+                    file.SaveAs(Server.MapPath("~/Uploads/") + fname);
+                    model.itemtImage = file.FileName;
+                }
+
+            }
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setFormItem", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+
+            return RedirectToAction("formItem", new { formID = model.formID });
+        }
+        [HttpPost]
+        public async Task<ActionResult> removeFormItem(formItemVM model)
+        {
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/removeFormItem", Request.Cookies["adminToken"].Value);
             if (responsemodel.status != 200)
                 TempData["er"] = responsemodel.message;
             else
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-
-            return RedirectToAction("Page", new { id = model.sectinoTypeID });
-        }
-
-
-
-        // contents
-        public async Task<ActionResult> Content(string id, string contentID)
-        {
-            sectionVM model = new sectionVM();
-
-            model.sectinoID = !string.IsNullOrEmpty(id) ? new Guid(id) : new Guid();
-            model.contentParent = !string.IsNullOrEmpty(contentID) ? new Guid(contentID) : new Guid();
-
-
-            contentListVM responsemodel = new contentListVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getContent", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setContnet(setContentVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setContent", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-                string image = responsemodel.message;
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.sectionID, contentID = model.contentParent });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeContent(removeContentPageVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.sectionID, contentID = model.parentID });
-        }
-
-        //meta 
-
-        public async Task<ActionResult> meta(Guid id)
-        {
-            sectionVM model = new sectionVM();
-            model.sectinoID = id;
-            metaListVM responsemodel = new metaListVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getMeta", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setMeta(MetaVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setMeta", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-                string image = responsemodel.message;
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("meta", new { id = model.sectionID });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeMeta(MetaVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("meta", new { id = model.sectionID });
-        }
-
-
-        // data
-        public async Task<ActionResult> Data(Guid id)
-        {
-            contentVM model = new contentVM();
-            model.contentID = id;
-            dataListVM responsemodel = new dataListVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getData", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setData(setDataVM model)
-        {
-            if (System.Web.HttpContext.Current.Request.Files.Count > 0)
-            {
-                //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
-
-
-                if (postedFile.ContentLength != 0)
-                {
-                    string fileName = "";
-                    string name = methods.RandomString(5);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    model.mediaURL = fileName;
-                }
-            }
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setData", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Data", new { id = model.contentID });
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeData(setDataVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeData", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Content", new { id = model.dataID });
-        }
-
-
-        //layoutPart
-        public async Task<ActionResult> LayoutPart()
-        {
-            layoutPartPageVM responsemodel = new layoutPartPageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getLayoutPart", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setLayoutPart(layoutPartSetVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setLayoutPart", Request.Cookies["adminToken"].Value);
-            return RedirectToAction("LayoutPart");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeLayoutpart(layoutPartSetVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeLayoutPart", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-
-            return RedirectToAction("LayoutPart");
-        }
-
-
-
-        //layoutPartData
-        public async Task<ActionResult> LayoutPartData(Guid id)
-        {
-            layoutpartVM model = new layoutpartVM();
-            model.layoutPartID = id;
-            layoutPartDataPageVM responsemodel = new layoutPartDataPageVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getLayoutPartData", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return View(responsemodel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setLayoutPartData(layoutpartDataVM model)
-        {
-            if (System.Web.HttpContext.Current.Request.Files.Count > 0)
-            {
-                //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
-
-
-                if (postedFile.ContentLength != 0)
-                {
-                    string fileName = "";
-                    string name = methods.RandomString(6);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    model.image = fileName;
-                }
-            }
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setLayoutPartData", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
-
-                }
-            }
-            return RedirectToAction("LayoutPartData", new { id = model.layoutPartID });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> removeLayoutpartData(layoutpartDataVM model)
-        {
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeLayoutPartData", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
-            {
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -550,34 +584,378 @@ namespace greenEnergy.Controllers
                 }
             }
 
-            return RedirectToAction("LayoutPartData", new { id = model.layoutPartID });
+            return RedirectToAction("formItem", new { formID = model.formID });
         }
 
-
-        //layout
-        public async Task<ActionResult> Layout()
+        // processFormula
+        [HttpPost]
+        public async Task<ActionResult> processFormula(process model)
         {
-            layoutPageVM responsemodel = new layoutPageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getLayout", Request.Cookies["adminToken"].Value);
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            processFormulaActionVM responsemodel = new processFormulaActionVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getProcessFormula", Request.Cookies["adminToken"].Value);
+            responsemodel.process = model;
             return View(responsemodel);
-
-
         }
         [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public async Task<ActionResult> setNewSectionLayout(setSectionLayoutVM model)
+        public async Task<ActionResult> addFormulaToProcess(processFormula model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setProcessFormula", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            process pr = new process();
+            pr.processID = model.proccessID;
+            return RedirectToAction("processFormula", pr);
+        }
+
+
+
+        // formula
+        public async Task<ActionResult> Formula(Guid processID)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            process pr = new process();
+            pr.processID = processID;
+            formulaActionVM responsemodel = await methods.PostData(pr, new formulaActionVM(), "/getFormula", Request.Cookies["adminToken"].Value);
+            responsemodel.process = pr;
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> setNewFormula(formula model)
         {
 
-            responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/setSectionLayout", Request.Cookies["adminToken"].Value);
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setFormula", Request.Cookies["adminToken"].Value);
             if (responsemodel.status != 200)
                 TempData["er"] = responsemodel.message;
 
-            return RedirectToAction("Layout");
+
+            return RedirectToAction("Formula", new { processID = model.processID });
         }
 
 
+        //coding
+        public async Task<ActionResult> Coding()
+        {
+
+            //Context dbcontext = new Context();
+            //dbcontext.Database.ExecuteSqlCommand("TRUNCATE TABLE [codings]");
+            //dbcontext.SaveChanges();
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            List<coding> responsemodel = new List<coding>();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getCoding", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> setNewCoding(coding model)
+        {
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setCoding", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("Coding");
+        }
+
+
+
+        //coDriver
+        public async Task<ActionResult> coDriver()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getCoDriverResponse responsemodel = new getCoDriverResponse();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getCoDriverAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> getCodriverList(coDriverSearchVM model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getCoDriverResponse responsemodel = new getCoDriverResponse();
+            responsemodel = await methods.PostData(model, responsemodel, "/getCodriverList", Request.Cookies["adminToken"].Value);
+            return PartialView("/Views/Shared/panel/_codriverList.cshtml", responsemodel);
+
+        }
+        public async Task<ActionResult> addDriverAsync(addDriverVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/addDriverAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("coDriver");
+        }
+        [HttpPost]
+        public async Task<ActionResult> setInfoForDriver(setVehicleForVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/changeUserInfoAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("coDriver");
+        }
+
+
+
+        //vehicle
+
+        public async Task<ActionResult> vehicle()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getVehicleResponce responsemodel = new getVehicleResponce();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getVehicleAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> getVehicleList(vehicleSearchVM model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getVehicleResponce responsemodel = new getVehicleResponce();
+            responsemodel = await methods.PostData(model, responsemodel, "/getVehicleList", Request.Cookies["adminToken"].Value);
+            return PartialView("/Views/Shared/panel/_vehicleList.cshtml", responsemodel);
+
+        }
+
+
+        
+
+        [HttpPost]
+        public async Task<ActionResult> changeVehicleInfo(setYadakForVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/changeVehicleInfoAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("vehicle");
+        }
+
+        //yadak
+
+        public async Task<ActionResult> yadak()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getYadakResponce responsemodel = new getYadakResponce();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getYadakAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> getYadakList(vehicleSearchVM model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            getYadakResponce responsemodel = new getYadakResponce();
+            responsemodel = await methods.PostData(model, responsemodel, "/getYadakList", Request.Cookies["adminToken"].Value);
+            return PartialView("/Views/Shared/panel/_yadakList.cshtml", responsemodel);
+
+        }
+       
+
+        [HttpPost]
+        public async Task<ActionResult> changeYadakInfo(setYadakForVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/changeYadakInfoAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("vehicle");
+        }
+
+
+        // product
+        public async Task<ActionResult> products()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            productActionVM responsemodel = new productActionVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getProductsAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+        }
+
+        public async Task<ActionResult> setProductAsync(addProductVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setProductAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("products");
+        }
+
+        public async Task<ActionResult> removeProductAsync(addProductVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/removeProductAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction("products");
+        }
+        //productType
+        public async Task<ActionResult> productType()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            productTypeActionVM responsemodel = new productTypeActionVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getProductTypeAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> addProductTypeAsync(addProductTypeVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/addProductTypeAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction(model.from);
+        }
+
+        // tag 
+        public async Task<ActionResult> setTag(tagVM model)
+        {
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setTag", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            return RedirectToAction(model.from);
+        }
+
+
+        //orderOptions
+        public async Task<ActionResult> orderOptions()
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            orderOptionActionVM responsemodel = new orderOptionActionVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getOrderOptionAsync", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> addOrderOptionsAsync(addOrderOptionVM model)
+        {
+            HttpFileCollectionBase files = Request.Files;
+            if (files.Count > 0)
+            {
+                for (int i = 0; i < files.Count; i++)
+                {
+                    if (files[i].ContentLength > 0)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname = file.FileName;
+
+
+                        file.SaveAs(Server.MapPath("~/Uploads/") + fname);
+                        model.image = file.FileName;
+                    }
+
+                }
+            }
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/addOrderOptionAsync", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                if (responsemodel.message != "")
+                {
+                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            return RedirectToAction("orderOptions");
+        }
+
+        //form
+
+
+        public async Task<ActionResult> Form(process model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            processFormActionVM responsemodel = new processFormActionVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getForm", Request.Cookies["adminToken"].Value);
+
+            return View(responsemodel);
+        }
+        public async Task<ActionResult> setNewForm(formVM model)
+        {
+            string path = System.Web.HttpContext.Current.Server.MapPath("~/PDF/");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string pdfBase = methods.RandomString(5) + ".pdf";
+            string pdf = methods.RandomString(6) + ".pdf";
+            if (model.baseFile != null)
+            {
+                if (model.baseFile.ContentLength > 0)
+                {
+                    model.baseFile.SaveAs(path + pdfBase);
+                }
+
+
+
+
+
+
+            }
+            if (model.file != null)
+            {
+                if (model.file.ContentLength > 0)
+                {
+                    model.file.SaveAs(path + pdf);
+                }
+
+
+
+            }
+            model.pdfBase = null;
+            model.pdf = null;
+            form modeltogo = new form()
+            {
+                title = model.title,
+                pdfBase = pdfBase,
+                pdf = pdf,
+                formID = model.formID
+            };
+            responseModel responsemodel = await methods.PostData(modeltogo, new responseModel(), "/setForm", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                List<string> lst = responsemodel.message.Trim(',').Split(',').ToList();
+                if (lst.Count() > 0)
+                {
+                    foreach (var file in lst)
+                    {
+                        if (!string.IsNullOrEmpty(file))
+                        {
+                            string fname = Path.Combine(Server.MapPath("~/PDF/"), file);
+                            bool exists = System.IO.File.Exists(fname);
+                            if (exists)
+                                System.IO.File.Delete(fname);
+                        }
+
+                    }
+                }
+            }
+            return RedirectToAction("form");
+        }
+
+        public async Task<ActionResult> updateFormItemPostion(Guid formID)
+        {
+            form form = new form();
+            form.formID = formID;
+            responseModel responsemodel = await methods.PostData(form, new responseModel(), "/updateFormItemPostion", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+            {
+                TempData["er"] = responsemodel.message;
+            }
+
+
+            return RedirectToAction("Form");
+        }
     }
 }

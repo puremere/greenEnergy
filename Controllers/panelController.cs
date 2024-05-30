@@ -19,9 +19,59 @@ namespace greenEnergy.Controllers
         // GET: panel
         public ActionResult login()
         {
+
+
+            //int finalindex = srt.IndexOf(",");
+            //string stringBeforeChar = srt.Substring(index, srt.IndexOf(","));
+
+            //string final = "";
+
+            //Context dbcontext = new Context();
+            //roleStartPage role = new roleStartPage();
+            //Guid roleID = Guid.NewGuid();
+            //role.roleStartPageID = roleID;
+            //role.isNav = 1;
+            //role.startPage = "";
+            //dbcontext.roleStartPages.Add(role);
+            //dbcontext.SaveChanges();
+
+            //roleNavURL newnav = new roleNavURL()
+            //{
+            //    roleStartPageID = roleID,
+            //    orleNavURLID = Guid.NewGuid(),
+            //    startPageURL = "app/searchOrderPageManager",
+            //    startPagetitle = "بيت",
+            //    startPageIcon = "https://img.icons8.com/?size=128&id=73&format=png"
+
+            //};
+            //dbcontext.roleNavURLs.Add(newnav);
+            //newnav = new roleNavURL()
+            //{
+            //    roleStartPageID = roleID,
+            //    orleNavURLID = Guid.NewGuid(),
+            //    startPageURL = "app/searchChartManager",
+            //    startPagetitle = "چارت",
+            //    startPageIcon = "https://img.icons8.com/?size=128&id=73&format=png"
+
+            //};
+            //dbcontext.roleNavURLs.Add(newnav);
+            //newnav = new roleNavURL()
+            //{
+            //    roleStartPageID = roleID,
+            //    orleNavURLID = Guid.NewGuid(),
+            //    startPageURL = "app/searchBarcodeManager",
+            //    startPagetitle = "بارکد",
+            //    startPageIcon = "https://img.icons8.com/?size=128&id=73&format=png"
+
+            //};
+            //dbcontext.roleNavURLs.Add(newnav);
+
+            //dbcontext.SaveChanges();
+            string srt = "";
+
             //try
             //{
-            //    Context dbcontext = new Context();
+            //    
             //    html html = new html()
             //    {
             //        htmlID = Guid.NewGuid(),
@@ -138,10 +188,6 @@ namespace greenEnergy.Controllers
 
             return RedirectToAction("language");
         }
-
-       
-
-
         public async Task<ActionResult> Type()
         {
             typePageVM responsemodel = new typePageVM();
@@ -281,23 +327,34 @@ namespace greenEnergy.Controllers
         public async Task<ActionResult> removeContent(removeContentPageVM model)
         {
             responseModel responsemodel = new responseModel();
-            responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
-            if (responsemodel.status != 200)
-                TempData["er"] = responsemodel.message;
-            else
+            try
             {
-                
-                if (!string.IsNullOrEmpty(responsemodel.message))
+                responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
+                if (responsemodel.status != 200)
+                    TempData["er"] = responsemodel.message;
+                else
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
 
+                    if (!string.IsNullOrEmpty(responsemodel.message))
+                    {
+                        string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                        bool exists = System.IO.File.Exists(fname);
+                        if (exists)
+                            System.IO.File.Delete(fname);
+
+                    }
                 }
+                if (Request.Cookies["typelist"] != null)
+                    ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
             }
-            if (Request.Cookies["typelist"] != null)
-                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            catch (Exception e)
+            {
+
+                return Content(e.InnerException.Message);
+            }
+            
+
+            //return Content("");
             return RedirectToAction("Content", new { id = model.sectionID , contentID = model.parentID });
         }
 
@@ -358,10 +415,11 @@ namespace greenEnergy.Controllers
 
 
         // data
-        public async Task<ActionResult> Data(Guid id)
+        public async Task<ActionResult> Data(Guid id,string del)
         {
             contentVM model = new contentVM();
             model.contentID = id;
+            model.fields = del;
             dataListVM responsemodel = new dataListVM();
             responsemodel = await methods.PostData(model, responsemodel, "/getData", Request.Cookies["adminToken"].Value);
             if (Request.Cookies["typelist"] != null)
@@ -438,9 +496,54 @@ namespace greenEnergy.Controllers
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
-            return RedirectToAction("Data", new { id = model.contentID });
+            return RedirectToAction("Data", new { id = model.contentID , del = "1"});
         }
 
+        // pose
+
+        public async Task<ActionResult> Pose(Guid id)
+        {
+
+            poseparent posemodel = new poseparent();
+            string posestring = JsonConvert.SerializeObject(posemodel);
+            contentVM model = new contentVM();
+            model.contentID = id;
+            poseListVM responsemodel = new poseListVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getPose", Request.Cookies["adminToken"].Value);
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return View(responsemodel);
+        }
+        //{"viewID":"ViewIDsrt","top2top":top2topsrt,"bottom2bottom":bottom2bottomsrt,"lead2lead":lead2leadsrt,"trail2trail":trail2trailsrt,"top2bottom":top2bottomsrt,"bottom2top":bottom2topsrt,"trail2lead":trail2leadsrt,"lead2trail":"lead2trailsrt","centerX":centerXsrt,"centerY":centerYsrt}
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setPose(setPoseVM model)
+        {
+            
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setPose", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("Pose", new { id = model.contentID });
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> removePose(setPoseVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/removePose", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+           
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("Pose", new { id = model.contentID });
+        }
 
         //layoutPart
         public async Task<ActionResult> LayoutPart()

@@ -7,7 +7,7 @@
 @model greenEnergy.ViewModel.pageListVM
 @{
     ViewBag.Title = "language";
-    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+    Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
 
 
@@ -22,7 +22,10 @@
             $("#editLayoutID").val($(this).attr("layouttogo"));
             $("#editLanguageID").val($(this).attr("languagetogo"));
             $("#editCatetoryID").val($(this).attr("categorytogo"));
+              
+            $("#editButtonText").val($(this).attr("buttontxttogo"));
         
+
 
         })
         $(".removeButton").click(function () {
@@ -52,7 +55,7 @@
                     <div class="card">
                         <div id="prnt" class="card-body">
                             <div class="title-header option-title">
-                                <h5>Language List </h5>
+                                <h5> List </h5>
                             </div>
                             <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
                                 <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
@@ -61,6 +64,8 @@
                                         <tr>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">buttonText </th>
+                                            
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Image </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">URL </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
@@ -87,20 +92,20 @@
 
 
                                             <td>@prod.title</td>
+                                            <td>@prod.buttonText</td>
 
                                             <td>
-                                                @if (string.IsNullOrEmpty(prod.image))
+                                                @if (!string.IsNullOrEmpty(prod.image))
                                                 {
                                                     <img style="max-width:100%" src="/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" />
-
-
                                                 }
 
                                             </td>
                                                 <td>@prod.url</td>
 
                                                 <td style="display:flex">
-                                                    <a  target="_blank" href="/panel/content?id=@prod.sectinoID">
+                                                   
+                                                    <a target="_blank" href="/panel/content?id=@prod.sectinoID">
                                                         <div class="btn btn-primary btn-sm lgnsubmitt">Content List</div>
                                                     </a>
                                                     <div style="margin:0 5px"></div>
@@ -108,9 +113,9 @@
                                                         <div class="btn btn-primary btn-sm lgnsubmitt">meta List</div>
                                                     </a>
                                                     <div style="margin:0 5px"></div>
-                                                    <button data-bs-target="#editModal" data-bs-toggle="modal" categorytogo="@prod.categoryID" languagetogo ="@prod.languateID" layouttogo="@prod.sectionLayoutID" titletogo="@prod.title" metatitletogo="@prod.metaTitle" idtogo="@prod.sectinoID" urltogo="@prod.url" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                    <button data-bs-target="#editModal" data-bs-toggle="modal" buttontxttogo="@prod.buttonText" categorytogo="@prod.categoryID" languagetogo="@prod.languateID" layouttogo="@prod.sectionLayoutID" titletogo="@prod.title" metatitletogo="@prod.metaTitle" idtogo="@prod.sectinoID" urltogo="@prod.url" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
                                                     <div style="margin:0 5px"></div>
-                                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectinoID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                                   @* <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectinoID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>*@
 
                                                 </td>
 
@@ -162,12 +167,20 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-3 mb-0">Button Text:</label>
+                                        <div class="col-sm-10">
+                                            <input required type="text" id="seachQuery" name="buttonText" class="form-control col-md-7 col-xs-12">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-3 mb-0">Description:</label>
                                         <div class="col-sm-10">
                                             <input required type="text" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12">
 
                                         </div>
                                     </div>
+                                    
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-2 mb-0">URL:</label>
                                         <div class="col-sm-10">
@@ -283,6 +296,11 @@
                     <p>Title</p>
                     <input type="text" id="editTitle" class="form-control" name="title" value="" />
                     <p style="margin:10px"></p>
+
+                    <p>Button Text</p>
+                    <input type="text" id="editButtonText" class="form-control" name="buttonText" value="" />
+                    <p style="margin:10px"></p>
+                    
                     <p>Meta Title </p>
                     <input type="text" id="editMetaTitle" class="form-control" name="title2" value="" />
                     <p style="margin:10px"></p>

@@ -12,7 +12,7 @@ namespace greenEnergy.App_Start
     {
         public static void Register(HttpConfiguration config)
         {
-            
+
 
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi0",
@@ -20,6 +20,7 @@ namespace greenEnergy.App_Start
             //    defaults: new { controller = "app", action = "getModel", name = UrlParameter.Optional }
             //);
 
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",

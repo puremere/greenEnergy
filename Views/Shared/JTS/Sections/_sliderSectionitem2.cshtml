@@ -1,15 +1,15 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
 @{
     if (ViewBag.from == "web")
     {
         string classname = ViewBag.classname;
-        if (Model.itemModel.dataList != null)
+        if (Model.dataList != null)
         {
-            if (Model.itemModel.dataList.Count > 0)
+            if (Model.dataList.Count > 0)
             {
                 <div class="ms-section ms-table qodef-m-slide-image @classname" data-header-skin="light">
-                    <div class="qodef-m-image-inner" style="background-image: url(/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.itemModel.dataList[0].mediaURL)"></div>
+                    <div class="qodef-m-image-inner" style="background-image: url(/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL)"></div>
                 </div>
             }
 

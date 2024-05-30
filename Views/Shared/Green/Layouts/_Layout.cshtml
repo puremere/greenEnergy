@@ -1,5 +1,9 @@
 ﻿
 <!DOCTYPE html>
+@using greenEnergy.ViewModel;
+@{
+    greenEnergy.ViewModel.getsectionLayoutVM layoutmodel = @ViewBag.layoutModel;
+}
 <html lang="en">
 
 
@@ -47,13 +51,18 @@
     <main class="home-page">
 
         <!-- Fixed Sidebar
-        ============================================= -->
+    ============================================= -->
         <div id="fixed-sidebar">
             <span id="close-sidebar">
                 <span></span>
                 <span></span>
             </span>
             <div class="sidebar-inner">
+                @{ 
+                    getlayoutPartVM slidePart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "slide");
+
+                }
+
                 <div class="content">
                     <a href="#" class="logo">
                         <img src="~/webAssets/green/assets/imgs/logo-white.png" alt="Logo">
@@ -79,7 +88,7 @@
         </div>
         <!-- End Fixed Sidebar -->
         <!-- Header Bar
-        ============================================= -->
+    ============================================= -->
         <div class="header-bar-wrap">
             <div class="custom-container">
                 <div class="custom-row">
@@ -111,109 +120,56 @@
         </div>
         <!-- End Header Bar -->
         <!-- Header
-        ============================================= -->
+    ============================================= -->
         <header class="header-wrap header-style-1">
             <div class="responsive-menu">
                 <nav>
                     <ul>
-                        <!--                        <li class="active dropdown-item">-->
-                        <!--                            <a href="index.html">-->
-                        <!--                                <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> Home-->
-                        <!--                            </a>-->
-                        <!--                            <i class="las la-angle-right"></i>-->
-                        <!--                            <ul class="dropdown">-->
-                        <!--                                <li class="active-menu"><a href="index.html">Main Home</a></li>-->
-                        <!--                                <li><a href="home-2.html">Company Home</a></li>-->
-                        <!--                                <li><a href="home-3.html">Consulting Home</a></li>-->
-                        <!--                                <li><a href="home-4.html">Business Home</a></li>-->
-                        <!--                                <li><a href="home-5.html">Conference Home</a></li>-->
-                        <!--                                <li><a href="home-6.html">Sidebar Home</a></li>-->
-                        <!--                                <li><a href="home-7.html">Courses Home</a></li>-->
-                        <!--                                <li><a href="home-8.html">Interactive</a></li>-->
-                        <!--                                <li><a href="home-9.html">Split Screen Slide</a></li>-->
-                        <!--                                <li><a href="home-10.html">Horizontal Slider</a></li>-->
-                        <!--                                <li><a href="coming-soon.html">Coming Soon</a></li>-->
-                        <!--                                <li><a href="landing.html">Landing Page</a></li>-->
-                        <!--                            </ul>-->
-                        <!--                        </li>-->
-                        <!--                        <li class="dropdown-item">-->
-                        <!--                            <a href="about.html">Pages</a>-->
-                        <!--                            <i class="las la-angle-right"></i>-->
-                        <!--                            <ul class="dropdown">-->
-                        <!--                                <li><a href="about.html">About Us</a></li>-->
-                        <!--                                <li><a href="team.html">Team</a></li>-->
-                        <!--                                <li><a href="faq.html">FAQ</a></li>-->
-                        <!--                                <li><a href="work-query.html">Work Query</a></li>-->
-                        <!--                                <li><a href="service-single.html">Service Single</a></li>-->
-                        <!--                                <li><a href="pricing.html">Pricing</a></li>-->
-                        <!--                                <li><a href="ticket.html">Ticket</a></li>-->
-                        <!--                                <li><a href="course.html">Course</a></li>-->
-                        <!--                                <li class="dropdown-item-inner">-->
-                        <!--                                    <a href="blog.html">Blog</a> <i class="las la-angle-right"></i>-->
-                        <!--                                    <ul class="dropdown">-->
-                        <!--                                        <li><a href="blog-detail.html">Blog Detail</a></li>-->
-                        <!--                                    </ul>-->
-                        <!--                                </li>-->
-                        <!--                            </ul>-->
-                        <!--                        </li>-->
-                        <!--                        <li class="dropdown-item">-->
-                        <!--                            <a href="portfolio.html">Portfolio</a>-->
-                        <!--                            <i class="las la-angle-right"></i>-->
-                        <!--                            <ul class="dropdown">-->
-                        <!--                                <li><a href="portfolio.html">Portfolio</a></li>-->
-                        <!--                                <li><a href="portfolio-single-1.html">Portfolio Single 1</a></li>-->
-                        <!--                                <li><a href="portfolio-single-2.html">Portfolio Single 2</a></li>-->
-                        <!--                                <li><a href="portfolio-single-3.html">Portfolio Single 3</a></li>-->
-                        <!--                            </ul>-->
-                        <!--                        </li>-->
+                        @{
+                            getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
+                            foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
+                            {
+                                List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
+                                if (firstChilds.Count() > 0)
+                                {
+                                    <li class="active dropdown-item">
 
-                        <li>
-                            <a href="#">Photovoltaics</a>
-                        </li>
-                        <li>
-                            <a href="#">Wind Power</a>
-                        </li>
-                        <li>
-                            <a href="#">Battery Storage</a>
-                        </li>
-                        <li class="active dropdown-item">
-                            <a href="index.html">
-                                <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> Services
-                            </a>
-                            <i class="las la-angle-right"></i>
-                            <ul class="dropdown">
-                                <li><a href="#">Area Acquisition</a></li>
-                                <li><a href="#">Project Planning</a></li>
-                                <li><a href="#">Project Progress</a></li>
-                                <li><a href="#">Investments</a></li>
-                                <li><a href="#">Project Purchasing</a></li>
-                                <li><a href="#">Operational Management</a></li>
-                            </ul>
-                        </li>
+                                        <a href="@item.url">
+                                            <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> @item.urlTitle
+                                        </a>
+                                        <i class="las la-angle-right"></i>
 
-                        <li class="active dropdown-item">
-                            <a href="index.html">
-                                <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape">Pursue
-                            </a>
-                            <i class="las la-angle-right"></i>
-                            <ul class="dropdown">
-                                <li><a href="#">Overview</a></li>
-                                <li><a href="#">Story</a></li>
-                                <li><a href="#">credentials</a></li>
-                                <li><a href="#">Career</a></li>
-                                <li><a href="#">Compliance</a></li>
-                            </ul>
-                        </li>
+                                        <ul class="dropdown">
+                                            @foreach (var secitem in firstChilds)
+                                            {
+                                                <li><a href="@secitem.url">@secitem.urlTitle</a></li>
+                                            }
 
-                        <li>
-                            <a href="#">News</a>
-                        </li>
-                        <li>
-                            <a href="#">Jobs</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
+
+                                        </ul>
+
+
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li class=" dropdown-item">
+
+                                        <a href="@item.url">@item.urlTitle</a>
+
+
+                                    </li>
+                                }
+
+
+
+
+                            }
+                        }
+
+
+
 
                     </ul>
                 </nav>
@@ -293,7 +249,54 @@
                                     <!--                                        </ul>-->
                                     <!--                                    </li>-->
 
-                                    <li>
+
+
+                                    @{
+
+                                        foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
+                                        {
+                                            List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
+                                            if (firstChilds.Count() > 0)
+                                            {
+                                                <li class="active dropdown-item">
+
+                                                    <a href="@item.url">
+                                                        <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> @item.urlTitle
+                                                    </a>
+                                                    <i class="las la-angle-right"></i>
+
+                                                    <ul class="dropdown">
+                                                        @foreach (var secitem in firstChilds)
+                                                        {
+                                                            <li><a href="@secitem.url">@secitem.urlTitle</a></li>
+                                                        }
+
+
+                                                    </ul>
+
+
+                                                </li>
+
+                                            }
+                                            else
+                                            {
+                                                <li class=" dropdown-item">
+
+                                                    <a href="@item.url">@item.urlTitle</a>
+
+
+                                                </li>
+                                            }
+
+
+
+
+                                        }
+                                    }
+
+
+
+                                    @*<li>
                                         <a href="#">Photovoltaics</a>
                                     </li>
                                     <li>
@@ -341,7 +344,7 @@
                                     </li>
                                     <li>
                                         <a href="#">Contact</a>
-                                    </li>
+                                    </li>*@
 
                                 </ul>
                             </nav>
@@ -360,6 +363,8 @@
         <!-- End Header -->
 
         @RenderBody()
+
+        
 
         <!-- Start Footer -->
         <footer class="footer-area">
@@ -503,10 +508,9 @@
     <!--        </section>-->
     <!-- End Testimonial -->
     <!-- Start Video Popover -->
- 
     <!-- End Video Popover -->
     <!-- Scripts -->
-   
+
     <script src="~/webAssets/green/assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/webAssets/green/assets/js/aos.js"></script>
     <script src="~/webAssets/green/assets/js/swiper.min.js"></script>

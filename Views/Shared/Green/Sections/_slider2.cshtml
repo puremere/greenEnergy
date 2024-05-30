@@ -1,0 +1,72 @@
+﻿
+
+
+<section class="gallery-area">
+    <div class="custom-container">
+
+        <div class="section-header" style="margin-bottom:45px">
+            <h4 class="subtitle">
+                <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                TOP STORIES
+                <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+            </h4>
+            <h1 class="title">Stay Informed with the Latest Happenings!</h1>
+        </div>
+
+        <div class="swiper gallery-slider">
+            <div class="swiper-wrapper">
+                @{
+                    if (Model.itemModel.typeID == new Guid("00000000-0000-0000-0000-000000000000"))
+                    {
+                        if (Model.itemModel.dataList != null)
+                        {
+                            if (Model.itemModel.dataList.Count() > 0)
+                            {
+                                foreach (var item in Model.itemModel.dataList)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="gallery-box">
+                                            <img src="~/webAssets/green/assets/imgs/mygallery-1.jpg" alt="gallery">
+                                            <div class="gallery-content">
+                                                <img class="shape" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" alt="shape">
+                                                <h1 class="title"><a href="@item.url">@item.title</a></h1>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (Model.itemModel.childList != null)
+                        {
+                            if (Model.itemModel.childList.Count() > 0)
+                            {
+                                foreach (var item in Model.itemModel.childList)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="gallery-box">
+                                            <img src="~/webAssets/green/assets/imgs/mygallery-1.jpg" alt="gallery">
+                                            <div class="gallery-content">
+                                                <img class="shape" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" alt="shape">
+                                                <h1 class="title"><a href="@item.URL">@item.title</a></h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -2,7 +2,7 @@
 @model greenEnergy.ViewModel.layoutPartDataPageVM
 @{
     ViewBag.Title = "Content";
-    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+    Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
 
 
@@ -23,6 +23,7 @@
             $("#editimage").val($(this).attr("imagetogo"));
             $("#editparent").val($(this).attr("parenttogo"));
             $("#editcount").val($(this).attr("counttogo"));
+            $("#editdatatype").val($(this).attr("datatypetogo"));
 
         })
 
@@ -60,13 +61,14 @@
                                         <tr>
 
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">title </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">dataType </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">url </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">url title </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">priority </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">image </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">parent name </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">probabale Child Group </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">child Count </th>
+                                            @*<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">probabale Child Group </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">child Count </th>*@
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
 
 
@@ -89,22 +91,23 @@
 
 
                                             <td>@prod.title</td>
+                                            <td>@prod.dataType</td>
                                             <td>@prod.url</td>
                                             <td>@prod.urlTitle</td>
                                             <td>@prod.priority</td>
                                             <td>
                                                 @if (!string.IsNullOrEmpty(prod.image))
                                                 {
-                                                    <img src="~/Uploads/@prod.image" style="max-width:100%" />
+                                                    <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" style="max-width:100%" />
                                                 }
                                             </td>
                                             <td>@prod.parentName</td>
-                                            <td>@prod.typeTitle</td>
-                                            <td>@prod.typeCount</td>
+                                            @*<td>@prod.typeTitle</td>
+                                            <td>@prod.typeCount</td>*@
 
                                             <td style="display:flex">
                                                 <div style="margin:0 5px"></div>
-                                                <button data-bs-target="#editModal" data-bs-toggle="modal" prioritytogo="@prod.priority" urltitletogo="@prod.urlTitle" urltogo="@prod.url" idtogo="@prod.layoutDataID" titletogo="@prod.title" typetogo="@prod.sectionTypeID" imagetogo="@prod.image" parenttogo="@prod.parentID" counttogo="@prod.typeCount" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                <button data-bs-target="#editModal" data-bs-toggle="modal" datatypetogo="@prod.dataType" prioritytogo="@prod.priority" urltitletogo="@prod.urlTitle" urltogo="@prod.url" idtogo="@prod.layoutDataID" titletogo="@prod.title" typetogo="@prod.sectionTypeID" imagetogo="@prod.image" parenttogo="@prod.parentID" counttogo="@prod.typeCount" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
                                                 <div style="margin:0 5px"></div>
                                                 <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.layoutDataID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
                                             </td>
@@ -153,7 +156,7 @@
                                 <h5>Add New Content</h5>
                             </div>
                             <div class="row">
-                                <form method="post" action="/panel/setLayoutPartData">
+                                <form method="post" action="/panel/setLayoutPartData" enctype="multipart/form-data">
                                     @Html.AntiForgeryToken()
                                     <input hidden name="layoutPartID" value="@Model.layoutpart.layoutPartID" />
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
@@ -164,9 +167,21 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-12 mb-0">Section Type:</label>
+                                        <div class="col-sm-10">
+                                           
+                                            <select name="dataType" class="form-control">
+                                                <option value="link">Link Section</option>
+                                                <option value="info">Info Section</option>
+                                                <option value="social">Social Section</option>
+                                                <option value="copyright">Copyright Section</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-12 mb-0">URL:</label>
                                         <div class="col-sm-10">
-                                            <input  type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
 
                                         </div>
                                     </div>
@@ -181,26 +196,26 @@
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-12 mb-0">Priority:</label>
                                         <div class="col-sm-10">
-                                            <input  type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
 
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                    @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-12 mb-0">Optional Child:</label>
                                         <div class="col-sm-10">
 
                                             @Html.DropDownList("sectionTypeID", new SelectList(Model.typelist, "typeID", "title"), "select type ", new { @class = "form-control", name = "sectionTypeID" })
 
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                    </div>*@
+                                    @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-12 mb-0">Child Count:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="" name="typeCount" class="form-control col-md-7 col-xs-12">
 
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-12 mb-0">Parent:</label>
                                         <div class="col-sm-10">
@@ -284,6 +299,14 @@
                     <p>Title</p>
                     <input type="text" id="edittitle" class="form-control" name="title" value="" />
                     <p style="margin:10px"></p>
+                    <p>Data Type</p>
+                    <select id="editdatatype" name="dataType" class="form-control">
+                        <option value="link">Link Section</option>
+                        <option value="social">Social Section</option>
+                        <option value="copyright">Copyright Section</option>
+                    </select>
+                    <p style="margin:10px"></p>
+
                     <p>URL</p>
                     <input type="text" id="editurl" class="form-control" name="url" value="" />
                     <p style="margin:10px"></p>

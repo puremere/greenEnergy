@@ -90,5 +90,82 @@ namespace greenEnergy.Classes
 
             return inputstring;
         }
+
+        public static DateTime returnFirstDayWeekTime()
+        {
+            DateTime nowDate = DateTime.Now;
+            DateTime startDate = new DateTime();
+            string dayname = nowDate.DayOfWeek.ToString();
+            string persianName = "";
+            switch (dayname.ToLower())
+            {
+                case "saturday":
+                    persianName = "شنبه";
+                    startDate = nowDate;
+                    break;
+                case "sunday":
+                    persianName = "یک شنبه";
+                    startDate = nowDate.AddDays(-1);
+                    break;
+                case "monday":
+                    persianName = "دو شنبه";
+                    startDate = nowDate.AddDays(-2);
+                    break;
+                case "tuesday":
+                    persianName = "سه شنبه";
+                    startDate = nowDate.AddDays(-3);
+                    break;
+                case "wednesday":
+                    persianName = "چهار شنبه";
+                    startDate = nowDate.AddDays(-4);
+                    break;
+                case "thursday":
+                    persianName = "پنج شنبه";
+                    startDate = nowDate.AddDays(-5);
+                    break;
+                case "friday":
+                    persianName = "جمعه ";
+                    startDate = nowDate.AddDays(-6);
+                    break;
+            }
+            return startDate;
+        }
+
+        public static string returnDayName(DateTime startDate)
+        {
+            string dayname = startDate.DayOfWeek.ToString();
+            string persianName = "";
+            switch (dayname.ToLower())
+            {
+                case "saturday":
+                    persianName = "شنبه";
+                    break;
+                case "sunday":
+                    persianName = "یک شنبه";
+                    startDate = startDate.AddDays(-1);
+                    break;
+                case "monday":
+                    persianName = "دو شنبه";
+                    startDate = startDate.AddDays(-2);
+                    break;
+                case "tuesday":
+                    persianName = "سه شنبه";
+                    startDate = startDate.AddDays(-3);
+                    break;
+                case "wednesday":
+                    persianName = "چهار شنبه";
+                    startDate = startDate.AddDays(-4);
+                    break;
+                case "thursday":
+                    persianName = "پنج شنبه";
+                    startDate = startDate.AddDays(-5);
+                    break;
+                case "friday":
+                    persianName = "جمعه ";
+                    startDate = startDate.AddDays(-6);
+                    break;
+            }
+            return persianName;
+        }
     }
 }

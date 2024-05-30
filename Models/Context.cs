@@ -16,14 +16,16 @@ namespace greenEnergy.Model
     class Context : DbContext
     {
 
-        public Context() : base("green")
+        public Context() : base("TailorIggDynamic")
         {
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
            // Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
 
-
+        
+        public DbSet<roleNavURL>  roleNavURLs { get; set; }
+        public DbSet<roleStartPage> roleStartPages { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<language> languages { get; set; }
         public DbSet<content> contents { get; set; }
@@ -34,17 +36,56 @@ namespace greenEnergy.Model
         public DbSet<html> htmls { get; set; }
         public DbSet<meta> metas { get; set; }
         public DbSet<data> datas { get; set; }
+        public DbSet<pose> poses { get; set; }
         public DbSet<layout> layouts { get; set; }
         public DbSet<layoutData> layoutDatas { get; set; }
         public DbSet<layoutPart> layoutParts { get; set; }
-        
+
+        //public DbSet<user> users { get; set; }
+       
+        public DbSet<city> cities { get; set; }
+       
+        public DbSet<orderResponse> orderResponses { get; set; }
+        public DbSet<Comment> comments { get; set; }
+
+        public DbSet<process> processes { get; set; }
+      
+        public DbSet<coding> codings { get; set; }
+        public DbSet<sanad> sanads { get; set; }
+        public DbSet<article> articles { get; set; }
+        public DbSet<sanadSource> sanadSources { get; set; }
+        public DbSet<formula> formulas { get; set; }
+        public DbSet<namad> namads { get; set; }
+    
+        public DbSet<processFormula> processFormulas { get; set; }
+     
+        public DbSet<userWorkingStatus> userWorkingStatuses { get; set; }
+        public DbSet<verifyStatus> verifyStatuses { get; set; }
+        public DbSet<product> products { get; set; }
+        public DbSet<tag> tags { get; set; }
+        public DbSet<productType> productTypes { get; set; }
+        public DbSet<orderOption> orderOptions { get; set; }
+    
+        public DbSet<formItemType> formItemTypes { get; set; }
+        public DbSet<formItemDesign> formItemDesigns { get; set; }
+        public DbSet<form> forms { get; set; }
+        public DbSet<formItem> formItems { get; set; }
+
+        public DbSet<newOrderFields> newOrderFields { get; set; }
+        public DbSet<newOrder> NewOrders { get; set; }
+        public DbSet<newOrderFlow> newOrderFlows { get; set; }
+        public DbSet<newOrderStatus> newOrderStatuses { get; set; }
+        public DbSet<flowCoding> flowCodings { get; set; }
+        public DbSet<flowProduct> flowProducts { get; set; }
+        public DbSet<JAView> jAViews { get; set; }
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<data>().HasOptional(s => s.Content).WithMany(x=>x.Datas).HasForeignKey(x => x.contentID).WillCascadeOnDelete(false); 
+            modelBuilder.Entity<data>().HasOptional(s => s.Content).WithMany(x=>x.Datas).HasForeignKey(x => x.contentID).WillCascadeOnDelete(true); 
             modelBuilder.Entity<content>().HasOptional(s=>s.sectionType).WithMany(x=>x.contents).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false) ;
             modelBuilder.Entity<content>().HasOptional(s=>s.HTML).WithMany(x=>x.Contents).HasForeignKey(x => x.htmlID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<layoutPart>().HasRequired(s=>s.Language).WithMany(l=>l.LayoutParts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
@@ -52,22 +93,61 @@ namespace greenEnergy.Model
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.sectionType).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.parentData).WithMany(l=>l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<html>().HasOptional(s=>s.htlmparent).WithMany(l=>l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
-            
+            modelBuilder.Entity<content>().HasOptional(s=>s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
+           
 
 
             modelBuilder.Entity<sectionLayout>().HasRequired(s=>s.Language).WithMany(l=>l.SectionLayouts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasRequired(s=>s.sectionType).WithMany(x=>x.sections).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); ;
-            modelBuilder.Entity<section>().HasRequired(s=>s.SectionLayout).WithMany(x=>x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false); 
+            modelBuilder.Entity<section>().HasOptional(s=>s.SectionLayout).WithMany(x=>x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasOptional(s=>s.Category).WithMany(x=>x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasRequired(s=>s.Language).WithMany(x=>x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); 
+            modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
+           
+
+
+
+            // قسمت مرتبط با تیلور
+
+            modelBuilder.Entity<user>().HasOptional(s => s.workingStatus).WithMany().HasForeignKey(x => x.workingStatusID);
+           
+            modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
+            modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.ServentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<roleNavURL>().HasRequired(m => m.RoleStartPage).WithMany(t => t.RoleNavURLs).HasForeignKey(m => m.roleStartPageID).WillCascadeOnDelete(false);
+
             
+
         }
 
     }
 
+ 
+    public class roleNavURL
+    {
+        [Key]
+        public Guid orleNavURLID { get; set; }
 
+        public Guid roleStartPageID { get; set; }
+        [ForeignKey("roleStartPageID")]
+        public virtual roleStartPage RoleStartPage { get; set; }
 
+        public string startPageURL { get; set; }
+        public string startPagetitle { get; set; }
+        public string startPageIcon { get; set; }
+    }
+    public class roleStartPage
+    {
+        [Key]
+        public Guid roleStartPageID { get; set; }
+        public string userType { get; set; }
+        public int isNav { get; set; }
+        public string startPage { get; set; }
+        public virtual ICollection<roleNavURL> RoleNavURLs { get; set; }
+    }
     public class meta
     {
         [Key]
@@ -84,13 +164,16 @@ namespace greenEnergy.Model
         
         [Key]
         public Guid sectionID { get; set; }
+        public JAView JAView { get; set; }
         public string url { get; set; }
+        public string buttonText  { get; set; }
         public DateTime date { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public string metatitle { get; set; }
         public string image { get; set; }
         public string writer { get; set; }
+        
         
 
         public Guid? categoryID { get; set; }
@@ -101,7 +184,7 @@ namespace greenEnergy.Model
         [ForeignKey("languageID")]
         public virtual language Language { get; set; }
 
-        public Guid sectionLayoutID { get; set; }
+        public Guid? sectionLayoutID { get; set; }
         [ForeignKey("sectionLayoutID")]
         public virtual sectionLayout SectionLayout { get; set; }
 
@@ -134,7 +217,7 @@ namespace greenEnergy.Model
         [ForeignKey("parentID")]
         public virtual layoutData parentData { get; set; }
 
-
+        public string dataType { get; set; }
         public string url { get; set; }
         public int priority     { get; set; }
         public string image { get; set; }
@@ -142,20 +225,30 @@ namespace greenEnergy.Model
 
         public virtual ICollection<layoutData> childs { get; set; }
     }
+
+    
     public class html
     {
         [Key]
         public Guid htmlID { get; set; }
         public string  title { get; set; }
+        public string appMeta { get; set; }
+        public string poseMeta { get; set; }
+        public string appType { get; set; }
         public string  image { get; set; }
+        public string formLink { get; set; }
         public string  partialView { get; set; }
+        public string ispublic { get; set; }
         public int  multilayer { get; set; }
         public string dataField { get; set; }
-
+        public string poseField { get; set; }
+        public int childCapable { get; set; }
 
         public Guid? parentID { get; set; }
         [ForeignKey("parentID")]
         public virtual html htlmparent { get; set; }
+
+        
 
         public Guid? layout { get; set; }
         [ForeignKey("layout")]
@@ -163,7 +256,67 @@ namespace greenEnergy.Model
         public virtual ICollection<content> Contents { get; set; }
         public virtual ICollection<html> childHtmls { get; set; }
     }
-    public class content
+
+
+    public class JAView
+    {
+        [Key]
+        public Guid JAViewID { get; set; }
+        public string viewID { get; set; }
+        public string type { get; set; }
+        public string meta { get; set; }
+        public int height { get; set; }
+        public int width { get; set; }
+
+        public Guid? parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual JAView parent { get; set; }
+
+        public virtual ICollection<JAView> childList { get; set; }
+
+
+
+    }
+    //public class JAStackView : JAView
+    //{
+    //    public int orientation { get; set; }
+    //    public string backColor { get; set; }
+    //    public int cornerRadius { get; set; }
+
+
+    //}
+    
+    //public class JAPerTextView : JAView
+    //{
+    //    public string keyText { get; set; }
+    //    public string valueText { get; set; }
+    //    public string keyColor { get; set; }
+    //    public string valueColor { get; set; }
+
+
+    //}
+    //public class JALable : JAView
+    //{
+    //    public int orientation { get; set; }
+    //    public string backColor { get; set; }
+    //    public int cornerRadius { get; set; }
+
+
+    //}
+    
+    //public class JATextInput : JAView
+    //{
+    //    public string ID { get; set; } // formKey
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //    public string backColor { get; set; }
+    //}
+    public class content  // JAView for app
     {
         
         [Key]
@@ -174,6 +327,18 @@ namespace greenEnergy.Model
 
         public int priority { get; set; }
         public string title { get; set; }
+        public string description { get; set; }
+        public string cycleFields { get; set; }
+        public string cycleFormItem { get; set; }
+        public string stackWeight { get; set; }
+        
+
+
+
+
+        public Guid? formID { get; set; }
+        [ForeignKey("formID")]
+        public virtual form form { get; set; }
 
         public Guid? htmlID { get; set; }
         [ForeignKey("htmlID")]
@@ -187,16 +352,30 @@ namespace greenEnergy.Model
         [ForeignKey("parentID")]
         public virtual content paretn { get; set; }
         public virtual ICollection<data> Datas { get; set; }
+        public virtual ICollection<pose> Poses { get; set; }
         public virtual ICollection<content> childContent { get; set; }
     }
 
 
-    
+    public class pose
+    {
+        [Key]
+        public Guid poseID { get; set; }
+
+        public string title { get; set; }
+        public string title2 { get; set; }
+       
+        public Guid? contentID { get; set; }
+        [ForeignKey("contentID")]
+        public virtual content Content { get; set; }
+    }
     public class data
     {
         [Key]
         public Guid dataID { get; set; }
         public string title { get; set; }
+        public DateTime Date { get; set; }
+        public string writer { get; set; }
         public string title2 { get; set; }
         public string description { get; set; }
         public string description2 { get; set; }
@@ -294,17 +473,670 @@ namespace greenEnergy.Model
         public virtual ICollection<layoutPart> LayoutParts { get; set; }
         public virtual ICollection<sectionLayout> SectionLayouts { get; set; }
     }
-    public class user
-    {
+    //public class user
+    //{
         
+    //    [Key]
+    //    public Guid userID { get; set; }
+    //    public string username { get; set; }
+    //    public string phone { get; set; }
+    //    public string code { get; set; }
+    //    public string userType { get; set; }
+
+    //}
+
+
+
+    // بخش مرتبط با تیلور
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+    public class orderOption
+    {
+
+
         [Key]
-        public Guid userID { get; set; }
-        public string username { get; set; }
-        public string phone { get; set; }
-        public string code { get; set; }
-        public string userType { get; set; }
+        public Guid orderOptionID { get; set; }
+        public string title { get; set; }
+        public string image { get; set; }
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+        public Guid? parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual orderOption optionParent { get; set; }
+        public virtual ICollection<orderOption> childList { get; set; }
+
 
     }
+
+    public class product
+    {
+
+        public product()
+        {
+            this.Tags = new HashSet<tag>();
+        }
+        [Key]
+        public Guid productID { get; set; }
+        public string title { get; set; }
+        public string code { get; set; }
+        public string barcode { get; set; }
+        public string address { get; set; }
+
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+
+
+        public virtual ICollection<productType> productTypes { get; set; }
+        public virtual ICollection<tag> Tags { get; set; }
+        public virtual ICollection<flowProduct> FlowProducts { get; set; }
+
+
+
+    }
+
+    public class productType
+    {
+        public productType()
+        {
+            this.Products = new HashSet<product>();
+        }
+
+        [Key]
+        public Guid productTypeID { get; set; }
+        public string title { get; set; }
+
+
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+        public Guid parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual productType ProductType { get; set; }
+
+        public virtual ICollection<productType> childItems { get; set; }
+        public virtual ICollection<product> Products { get; set; }
+    }
+
+    public class tag
+    {
+        public tag()
+        {
+            this.Products = new HashSet<product>();
+        }
+        [Key]
+        public Guid tagID { get; set; }
+        public string title { get; set; }
+        public virtual ICollection<product> Products { get; set; }
+
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+
+
+    }
+
+    public class coding
+    {
+        [Key]
+        public Guid codingID { get; set; }
+        public Guid parentID { get; set; }
+
+        public int codingType { get; set; }
+        public int codeHesab { get; set; }
+        public string title { get; set; }
+        public string inList { get; set; }
+
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+        public virtual ICollection<processFormula> ProcessFormulas { get; set; }
+
+
+    }
+    public class sanad
+    {
+        [Key]
+        public Guid sanadID { get; set; }
+        public int number { get; set; }
+        public int atf { get; set; }
+        public int status { get; set; }
+        public DateTime date { get; set; }
+        public string description { get; set; }
+        public Guid userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+    }
+    public class article
+    {
+        [Key]
+        public Guid articleID { get; set; }
+
+        public Guid sanadID { get; set; }
+        public int tarafHesab { get; set; }
+        public int status { get; set; }
+        public DateTime date { get; set; }
+        public string description { get; set; }
+        public double price { get; set; }
+        public int koll { get; set; }
+        public int grooh { get; set; }
+        public int moin { get; set; }
+        public int tafsil1 { get; set; }
+        public int tafsil2 { get; set; }
+        public int tafsil3 { get; set; }
+        public int tafsil4 { get; set; }
+        public int tafsil5 { get; set; }
+        public int type { get; set; }
+        public Guid userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+    }
+    public class sanadSource
+    {
+        [Key]
+        public Guid sanadSourceID { get; set; }
+        public string title { get; set; }
+        public Guid codingID { get; set; }
+        public Guid userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+    }
+
+
+
+    public class namad   // این آیتم مقداریه که به عنوان بیس در نظر گرفته میشه مثل ارزش کل بار 
+    {
+        [Key]
+        public Guid namadID { get; set; }
+        public string title { get; set; }
+        public string value { get; set; }
+        public Guid userID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+        public virtual ICollection<formula> Formulas { get; set; }
+
+    }
+   
+
+    public class formula
+    {
+        [Key]
+        public Guid formulaID { get; set; }
+        public int col { get; set; }
+        public int leftID { get; set; }
+        public int rightID { get; set; }
+
+
+        public Guid? processID { get; set; }
+        [ForeignKey("processID")]
+        public virtual process process { get; set; }
+
+
+        public Guid? formItemID { get; set; }
+        [ForeignKey("formItemID")]
+        public virtual formItem FormItem { get; set; }
+
+
+
+
+        public Guid namadID { get; set; }
+        [ForeignKey("namadID")]
+        public virtual namad namad { get; set; }
+
+        public Guid userID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+        public decimal number { get; set; }
+
+        public string name { get; set; }
+        public string result { get; set; }
+
+        public virtual ICollection<processFormula> ProcessFormulas { get; set; }
+    }
+
+    public class formItemDesign
+    {
+        [Key]
+        public Guid formItemDesignID { get; set; }
+        public string title { get; set; }
+        public int number { get; set; }
+    }
+    public class formItemType
+    {
+        [Key]
+        public Guid formItemTypeID { get; set; }
+        public string title { get; set; }
+        public string formItemTypeCode { get; set; }
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user User { get; set; }
+
+
+
+    }
+
+    public class formItem
+    {
+
+        [Key]
+        public Guid formItemID { get; set; }
+        public string itemName { get; set; }
+        public string groupNumber { get; set; }
+        public string itemDesc { get; set; }
+        public string itemx { get; set; }
+        public string itemy { get; set; }
+        public string itemLenght { get; set; }
+        public string itemHeight { get; set; }
+        public int pageNumber { get; set; }
+        public int formpage { get; set; }
+        public int itempage { get; set; }
+        public string itemPlaceholder { get; set; }
+        public string itemtImage { get; set; }
+        public string catchUrl { get; set; }
+        public string isMultiple { get; set; }
+        public string mediaType { get; set; }
+        public string collectionName { get; set; }
+
+
+        public Guid? OptionID { get; set; }
+        [ForeignKey("OptionID")]
+        public virtual orderOption op { get; set; }
+
+        public Guid? formItemDesingID { get; set; }
+        [ForeignKey("formItemDesingID")]
+        public virtual formItemDesign FormItemDesign { get; set; }
+
+
+        public Guid formItemTypeID { get; set; }
+        [ForeignKey("formItemTypeID")]
+        public virtual formItemType FormItemType { get; set; }
+
+
+
+        public Guid formID { get; set; }
+        [ForeignKey("formID")]
+        public virtual form form { get; set; }
+
+
+        public virtual ICollection<formula> Formulas { get; set; }
+    }
+    public class form
+    {
+
+        [Key]
+        public Guid formID { get; set; }
+        public string title { get; set; }
+        public string zaribWidth { get; set; }
+        public string zaribHeight { get; set; }
+        public string pdfBase { get; set; }
+        public string pdf { get; set; }
+        public string image { get; set; }
+        public string imageWidth { get; set; }
+        public string imageHeight { get; set; }
+        public int priority { get; set; }
+        public Guid? userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user User { get; set; }
+
+        public virtual ICollection<formItem> FormItems { get; set; }
+
+        public Guid? processID { get; set; }
+        [ForeignKey("processID")]
+        public virtual process process { get; set; }
+
+    }
+
+    public class processform
+    {
+        public Guid formID { get; set; }
+        [ForeignKey("formID")]
+        public virtual form form { get; set; }
+        public Guid processID { get; set; }
+        [ForeignKey("processID")]
+        public virtual process Process { get; set; }
+    }
+
+    public class newOrderFields
+    {
+        [Key]
+        public Guid newOrderFieldsID { get; set; }
+        public int? valueInt { get; set; }
+        public bool? valueBool { get; set; }
+        public double? valueDuoble { get; set; }
+        public DateTime? valueDateTime { get; set; }
+        public Guid? valueGuid { get; set; }
+        public string? valueString { get; set; }
+        public string name { get; set; }
+        public string usedFeild { get; set; }
+
+        public Guid formItemID { get; set; }
+        [ForeignKey("formItemID")]
+        public virtual formItem FormItem { get; set; }
+
+        public Guid newOrderFlowID { get; set; }
+        [ForeignKey("newOrderFlowID")]
+        public virtual newOrderFlow NewOrderFlow { get; set; }
+    }
+
+
+    public class newOrderStatus
+    {
+        [Key]
+        public Guid newOrderStatusID { get; set; }
+        public string title { get; set; }
+        public string statusCode { get; set; }
+
+    }
+    public class newOrder
+    {
+        [Key]
+        public Guid newOrderID { get; set; }
+        public string orderName { get; set; }
+
+   
+
+        public Guid newOrderStatusID { get; set; }
+        [ForeignKey("newOrderStatusID")]
+        public virtual newOrderStatus newOrderStatus { get; set; }
+
+
+
+        public DateTime creationDate { get; set; }
+        public DateTime terminationDate { get; set; }
+
+        public virtual ICollection<newOrderFlow> orderFlowList { get; set; }
+
+    }
+
+    public class newOrderFlow
+    {
+        [Key]
+        public Guid newOrderFlowID { get; set; }
+
+
+        public Guid newOrderID { get; set; }
+        [ForeignKey("newOrderID")]
+        public virtual newOrder NewOrder { get; set; }
+
+        public Guid ServentID { get; set; }
+        [ForeignKey("ServentID")]
+        public virtual user newOrderFlowServent { get; set; }
+
+        public Guid processID { get; set; }
+        [ForeignKey("processID")]
+        public virtual process newOrderProcess { get; set; }
+
+        public string isFinished { get; set; }
+        public string isAccepted { get; set; }
+        public DateTime creationDate { get; set; }
+        public DateTime actionDate { get; set; }
+        public DateTime terminationDate { get; set; }
+
+        public virtual ICollection<newOrderFields> NewOrderFields { get; set; }
+        public virtual ICollection<flowCoding> flowCodings { get; set; }
+        public virtual ICollection<flowProduct> flowProducts { get; set; }
+    }
+    public class flowProduct
+    {
+        [Key]
+        public Guid flowCodingID { get; set; }
+        public Guid productID { get; set; }
+        [ForeignKey("productID")]
+        public virtual product product { get; set; }
+        public Guid flowID { get; set; }
+        [ForeignKey("flowID")]
+        public virtual newOrderFlow orderflow { get; set; }
+        public double amount { get; set; }
+        public DateTime date { get; set; }
+
+    }
+
+    public class flowCoding
+    {
+        [Key]
+        public Guid flowCodingID { get; set; }
+        public Guid CodingID { get; set; }
+        [ForeignKey("CodingID")]
+        public virtual coding coding { get; set; }
+        public Guid flowID { get; set; }
+        [ForeignKey("flowID")]
+        public virtual newOrderFlow orderflow { get; set; }
+        public double amount { get; set; }
+        public DateTime date { get; set; }
+
+    }
+
+    public class process// پروسه ای که بابری برای خدش توولید میکنه و اردرهاشو تطبیق میده
+    {
+        [Key]
+        public Guid processID { get; set; }
+        public process()
+        {
+            //this.orderHistoryList = new HashSet<newOrder>();
+            this.formList = new HashSet<form>();
+        }
+        public string isDefault { get; set; }
+        public string title { get; set; }
+        public string color { get; set; }
+        public Guid? userID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+        public virtual ICollection<processFormula> ProcessFormulas { get; set; }
+        //public virtual ICollection<newOrder> orderHistoryList { get; set; }
+        public virtual ICollection<form> formList { get; set; }
+
+
+    }
+    public class processFormula// میگه چه فرمولهایی برای چه پروسه هایی هست که روی یک کدینگ اثر میزاره یا بدهکار یا بستانکار
+    {
+        [Key]
+        public Guid processFormulaID { get; set; }
+        public Guid proccessID { get; set; }
+        [ForeignKey("proccessID")]
+        public virtual process Process { get; set; }
+
+        public Guid FormulaID { get; set; }
+        [ForeignKey("FormulaID")]
+        public virtual formula Formula { get; set; }
+
+
+        public Guid codingID { get; set; }
+        [ForeignKey("codingID")]
+        public virtual coding Coding { get; set; }
+
+        public string transactionType { get; set; } // بدهکاری یا بستانکاری عدد حاصل از فرمول را رووی کدینگ اعمال میکند
+    }
+
+
+
+    public class Comment
+    {
+        [Key]
+        public Guid CommentID { get; set; }
+        public Guid orderID { get; set; }
+        public Guid userID { get; set; }
+        public Guid clientID { get; set; }
+        public string clientMark { get; set; }
+        public DateTime date { get; set; }
+        public string content { get; set; }
+
+
+    }
+   
+
+    // باربری خودش روش های مختلف باربری رو مشخص میکنه  الصاق میکنه به یک سفارش که سند های ثابت با فرمول بخوره
+
+  
+
+    public class orderResponse
+    {
+        [Key]
+        public Guid orderresponseID { get; set; }
+        public Guid orderID { get; set; }
+        public Guid driverID { get; set; }
+        public double price { get; set; }
+
+    }
+
+    public class user
+    {
+        public user()
+        {
+           
+            Namads = new List<namad>();
+        }
+        [Key]
+
+
+        public Guid userID { get; set; }
+        public string firebaseToken { get; set; }
+        [Column(TypeName = "VARCHAR")]
+        public string userType { get; set; }
+        public string username { get; set; }
+        public string name { get; set; }
+        public string profileImage { get; set; }
+        public string coName { get; set; }
+        [Column(TypeName = "VARCHAR")]
+
+        public string phone { get; set; }
+        public string code { get; set; }
+        public string codeMelli { get; set; }
+        public string shenaseSherkat { get; set; }
+        public string cityID { get; set; }
+        public string address { get; set; }
+        public string emPhone { get; set; }
+        public string typeID { get; set; }
+        public string postalCode { get; set; }
+        
+        public string lat { get; set; }
+        public string lon { get; set; }
+        public DbGeography point { get; set; }
+
+
+        public Guid? workingStatusID { get; set; }
+        [ForeignKey("workingStatusID")]
+        public virtual userWorkingStatus workingStatus { get; set; }
+
+
+        public Guid? verifyStatusID { get; set; }
+        [ForeignKey("verifyStatusID")]
+        public virtual verifyStatus verifyStatus { get; set; }
+
+
+
+        public Guid? barbariID { get; set; }
+        [ForeignKey("barbariID")]
+        public virtual user barbari { get; set; }
+
+        
+
+
+
+        public virtual ICollection<user> CoDrivers { get; set; }
+        public virtual ICollection<coding> Codings { get; set; }
+        public virtual ICollection<sanad> Sanads { get; set; }
+        public virtual ICollection<article> Articles { get; set; }
+        public virtual ICollection<sanadSource> SanadSources { get; set; }
+      
+        public virtual ICollection<formula> Formulas { get; set; }
+        public virtual ICollection<process> processes { get; set; }
+        public virtual ICollection<product> products { get; set; }
+       
+        public virtual ICollection<namad> Namads { get; set; }
+
+
+
+    }
+
+
+    public class userWorkingStatus
+    {
+        [Key]
+        public Guid workingStatusID { get; set; }
+        public string title { get; set; }
+        public Guid? userID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+        public virtual ICollection<user> Users { get; set; }
+    }
+
+
+
+
+
+    public class verifyStatus
+    {
+        [Key]
+        public Guid verifyStatusID { get; set; }
+        public string title { get; set; }
+        public string statusCode { get; set; }
+        public string message { get; set; }
+        public Guid? userID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+        public virtual ICollection<user> Users { get; set; }
+    }
+    public class city
+    {
+        [Key]
+
+        public Guid userID { get; set; }
+
+        public string title { get; set; }
+
+        public string lat { get; set; }
+        public string lon { get; set; }
+        public string code { get; set; }
+
+        public string District { get; set; }
+        public string country { get; set; }
+        public string cty { get; set; }
+        public string town { get; set; }
+        public DbGeography citypoint { get; set; }
+
+        public Guid parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual city parentcity { get; set; }
+    }
+
+   
 
 
 

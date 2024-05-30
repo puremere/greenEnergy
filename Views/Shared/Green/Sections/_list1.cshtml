@@ -4,98 +4,115 @@
     <div class="custom-container">
         <div class="section-header">
             @{
-                if (Model.itemModel.dataList != null)
+                if (Model.itemModel.typeID == new Guid("00000000-0000-0000-0000-000000000000"))
                 {
-                    if (Model.itemModel.dataList.Count() > 0)
+                    if (Model.itemModel.dataList != null)
                     {
-                        <section class="section-highlight story-area">
-                            <div class="custom-container">
-                                <div class="section-header">
-                                    <h4 class="subtitle">
-                                        <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                                        TOP STORIES
-                                        <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                                    </h4>
-                                    <h1 class="title">Stay Informed with the Latest Happenings!</h1>
-                                </div>
-
-                                <div class="story-items">
-                                    <div class="col" data-aos="fade-right" data-aos-duration="1500">
-                                        <div class="story-box">
-                                            <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
-                                            <div class="img-box">
-                                                <img src="~/webAssets/green/assets/imgs/story-1.jpg" alt="Story">
-                                                <span class="meta-date">MARCH 04, 2024</span>
-                                            </div>
-                                            <div class="content-box">
-                                                <h4 class="subtitle">Good news</h4>
-                                                <h1 class="title"><a href="#">Good news: PV project Bizeneuille (Allier, France) wins CRE tender!</a></h1>
-                                                <ul>
-                                                    <!--                                <li><i class="las la-check"></i> Expertise-driven Solutions</li>-->
-                                                    <!--                                <li><i class="las la-check"></i> Agile and Adaptive</li>-->
-                                                </ul>
-                                                <div class="bottom-action">
-                                                    <a href="#" class="theme-btn">
-                                                        <span></span>
-                                                        Read More
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                        if (Model.itemModel.dataList.Count() > 0)
+                        {
+                            <section class="section-highlight story-area">
+                                <div class="custom-container">
+                                     <div class="section-header">
+                                        <h4 class="subtitle">
+                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                            @Model.itemModel.title
+                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                        </h4>
+                                        <h1 class="title"> @Model.itemModel.description</h1>
                                     </div>
-                                    <div class="col" data-aos="fade-up" data-aos-duration="1500">
-                                        <div class="story-box">
-                                            <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
-                                            <div class="img-box">
-                                                <img src="~/webAssets/green/assets/imgs/story-2.jpg" alt="Story">
-                                                <span class="meta-date">FEBRUARY 29, 2024</span>
-                                            </div>
-                                            <div class="content-box">
 
-                                                <h4 class="subtitle">Germany</h4>
-                                                <h1 class="title"><a href="#">Big announcement for the Freudenberg project (Germany)</a></h1>
-                                                <ul>
-                                                    <!--                                <li><i class="las la-check"></i> World Economy Growth</li>-->
-                                                    <!--                                <li><i class="las la-check"></i> Expertise Advice</li>-->
-                                                </ul>
-                                                <div class="bottom-action">
-                                                    <a href="#" class="theme-btn">
-                                                        <span></span>
-                                                        Read More
-                                                    </a>
+                                    <div class="story-items">
+                                        @foreach (var item in Model.itemModel.dataList)
+                                        {
+                                            <div class="col" data-aos="fade-right" data-aos-duration="1500">
+                                                <div class="story-box">
+                                                    <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
+                                                    <div class="img-box">
+                                                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" alt="Story">
+                                                        <span class="meta-date">@item.date.ToString("ddd MMM dd yyyy")</span>
+                                                    </div>
+                                                    <div class="content-box">
+                                                        <h4 class="subtitle">@item.title</h4>
+                                                        <h1 class="title"><a href="#">>@item.description</a></h1>
+                                                        <ul>
+                                                            <!--                                <li><i class="las la-check"></i> Expertise-driven Solutions</li>-->
+                                                            <!--                                <li><i class="las la-check"></i> Agile and Adaptive</li>-->
+                                                        </ul>
+                                                        <div class="bottom-action">
+                                                            <a href="@item.URL" class="theme-btn">
+                                                                <span></span>
+                                                                @item.title2
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col" data-aos="fade-left" data-aos-duration="1500">
-                                        <div class="story-box">
-                                            <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
-                                            <div class="img-box">
-                                                <img src="~/webAssets/green/assets/imgs/story-3.jpg" alt="Story">
-                                                <span class="meta-date">FEBRUARY 12, 2024</span>
-                                            </div>
-                                            <div class="content-box">
-                                                <h4 class="subtitle">construction</h4>
-                                                <h1 class="title"><a href="#">Start of construction for Gardessen I</a></h1>
-                                                <ul>
-                                                    <!--                                <li><i class="las la-check"></i> Fall and Rise of Unions</li>-->
-                                                    <!--                                <li><i class="las la-check"></i> Stock Remainder</li>-->
-                                                </ul>
-                                                <div class="bottom-action">
-                                                    <a href="#" class="theme-btn">
-                                                        <span></span>
-                                                        Read More
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        }
+
+                                       
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (Model.itemModel.childList != null)
+                    {
+                        if (Model.itemModel.childList.Count() > 0)
+                        {
+                            <section class="section-highlight story-area">
+                                <div class="custom-container">
+                                    <div class="section-header">
+                                        <h4 class="subtitle">
+                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                            @Model.itemModel.title
+                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                        </h4>
+                                        <h1 class="title"> @Model.itemModel.description</h1>
+                                    </div>
+
+                                    <div class="story-items">
+                                        @foreach (var child in Model.itemModel.childList)
+                                        {
+                                            <div class="col" data-aos="fade-right" data-aos-duration="1500">
+                                                <div class="story-box">
+                                                    <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
+                                                    <div class="img-box">
+                                                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@child.image" alt="Story">
+                                                        <span class="meta-date">@child.date.ToString("ddd MMM dd yyyy")</span>
+                                                    </div>
+                                                    <div class="content-box">
+                                                        <h4 class="subtitle">@child.categoryName</h4>
+                                                        <h1 class="title"><a href="@child.url">@child.title</a></h1>
+                                                        <ul>
+                                                            <!--                                <li><i class="las la-check"></i> Expertise-driven Solutions</li>-->
+                                                            <!--                                <li><i class="las la-check"></i> Agile and Adaptive</li>-->
+                                                        </ul>
+                                                        <div class="bottom-action">
+                                                            <a href="@child.url" class="theme-btn">
+                                                                <span></span>
+                                                                @child.buttonText
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                      
+                                    </div>
+                                </div>
+                            </section>
+                        }
                     }
 
                 }
+
+
+
             }
 
         </div>

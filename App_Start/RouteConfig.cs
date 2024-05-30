@@ -11,19 +11,30 @@ namespace greenEnergy
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-             routes.MapRoute(
-               name: "Default",
+            //routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //routes.MapRoute(
+            //    name: "Default0",
+            //    url: "portal/{action}/{id}",
+            //    defaults: new { controller = "portal", action = "login", id = UrlParameter.Optional }
+            //);
+            routes.MapRoute(
+              name: "Default3",
+              url: "portal/{action}/{id}",
+              defaults: new { controller = "portal", action = "login", id = UrlParameter.Optional }
+          );
+            routes.MapRoute(
+               name: "Default2",
                url: "panel/{action}/{id}",
-               defaults: new { controller = "panel", action = "page", id = UrlParameter.Optional }
+               defaults: new { controller = "panel", action = "login", id = UrlParameter.Optional }
            );
             routes.MapRoute(
-                name: "Default0",
-                url: "{first}/{second}",
-                defaults: new { controller = "Home", action = "page", first = "", second ="" }
-            );
+              name: "Default0",
+              url: "{first}/{second}",
+              defaults: new { controller = "Home", action = "page", first = UrlParameter.Optional, second = UrlParameter.Optional }
+          );
 
-           
+
+
 
         }
     }
