@@ -76,7 +76,7 @@ namespace greenEnergy.Classes
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            string SerializedString = "{\"code\":0,\"result\":{\"baseURL\":\"\",\"socketURL\":\"\",\"startPage\":\"startpagestring\",\"lang\":{\"code\":1,\"version\":1,\"direction\":1},\"theme\":{\"code\":0,\"version\":1,\"statusBarStyle\":0,\"dic\":{\"cBackground\":\"#F8F8F8\",\"cPrimary\":\"#322975\",\"cTextBody\":\"#404649\",\"cTextBodyLight\":\"#404649aa\",\"cBackgorundTextView\":\"#DBE1E5\",\"cReverse\":\"#171B1E\",\"c\":\"#FAFAFA\",\"cBackgroundInner\":\"#FAFAFA\",\"cGray\":\"#B4B4B4\",\"cGrayLight\":\"#DBE1E5\",\"cRed\":\"#f73636\",\"cTabNormalItem\":\"#404649\",\"cTabSelectedItem\":\"#322975\",\"cNavBarColor\":\"#F8F8F8\"}},\"tabBar\":null}}";
+            string SerializedString = "{\"code\":0,\"result\":{\"baseURL\":\"\",\"socketURL\":\"\",\"startPage\":\"startpagestring\",\"lang\":{\"code\":1,\"version\":1,\"direction\":1},\"theme\":{\"code\":0,\"version\":1,\"statusBarStyle\":0,\"dic\":{\"cBackground\":\"#F8F8F8\",\"cPrimary\":\"#322975\",\"cTextBody\":\"#404649\",\"cTextBodyLight\":\"#404649aa\",\"cBackgorundTextView\":\"#DBE1E5\",\"cReverse\":\"#171B1E\",\"c\":\"#FAFAFA\",\"cBackgroundInner\":\"#FAFAFA\",\"cGray\":\"#B4B4B4\",\"cGreen\":\"#1BDE5C\",\"cGeen\":\"#03FC77\",\"cGrayLight\":\"#DBE1E5\",\"cRed\":\"#f73636\",\"cTabNormalItem\":\"#404649\",\"cTabSelectedItem\":\"#322975\",\"cNavBarColor\":\"#F8F8F8\"}},\"tabBar\":null}}";
 
             if (actionContext.Request.Headers.Authorization != null)
             {

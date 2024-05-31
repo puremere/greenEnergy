@@ -25,7 +25,7 @@ namespace greenEnergy.Controllers
             //string stringBeforeChar = srt.Substring(index, srt.IndexOf(","));
 
             //string final = "";
-
+            //{"type": "cycleView","id": "cycleViewID","backColor": "backColorsrt","borderColor":"borderColorsrt","cornerRadius":cornerRadiussrt,"multiSelectable": multiSelectablesrt,selectable:selectablesrt,"direction":directionsrt,"gridCount":gridCountsrt,"width":widthsrt,"height":heightsrt,"margin":marginsrt,"distribution":distributionsrt,"patterns": [{"patternId": "patternId1","dataMap": [dataMapString],"view": childMetaString}],"items": dataitemsstring}
             //Context dbcontext = new Context();
             //roleStartPage role = new roleStartPage();
             //Guid roleID = Guid.NewGuid();

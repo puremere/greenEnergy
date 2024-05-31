@@ -402,6 +402,7 @@ namespace greenEnergy.ViewModel
         public string poseMeta { get; set; } // از روی اچ تی ام میاد
         public string appType { get; set; } // از روی اچ تی ام میاد
         public string description { get; set; } // از روی اچ تی ام میاد
+        public string htmlFields { get; set; } // از روی اچ تی ام میاد
         public int priority { get; set; }
         public Guid? typeID { get; set; } // از روی اچ تی ام میاد
         public Guid conentID { get; set; } // از روی اچ تی ام میاد

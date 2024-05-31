@@ -69,7 +69,6 @@ namespace greenEnergy.ViewModel
         public string viewID { get; set; }
         public string dataProperty { get; set; }
         public string viewProperty { get; set; }
-        public string hint { get; set; }
 
     }
 
@@ -114,6 +113,7 @@ namespace greenEnergy.ViewModel
         public string c { get; set; }
         public string cBackgroundInner { get; set; }
         public string cGray { get; set; }
+        public string cGreen { get; set; }
         public string cGrayLight { get; set; }
         public string cRed { get; set; }
         public string cTabNormalItem { get; set; }

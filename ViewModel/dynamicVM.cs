@@ -18,6 +18,25 @@ namespace greenEnergy.ViewModel
         public List<actionResonse> actions { get; set; }
     }
 
+
+    public class clientOrderListButton : parent
+    {
+        public string acceptedTabBotton_colorsrt { get; set; }
+        public string pendingTabBotton_colorsrt { get; set; }
+
+        
+
+
+    }
+    public class clientorderListPending: parent
+    {
+        public string projectName_valueTextsrt { get; set; }
+        public string orderDate_valueTextsrt { get; set; }
+        public string processName_valueTextsrt { get; set; }
+        public string historyButton_cycleActionsrt { get; set; }
+        public string acceptOrderButton_cycleActionsrt { get; set; }
+        
+    }
    public class productDetailApp : parent
     {
         public string pertTextTitle_valueText { get; set; }
@@ -38,7 +57,6 @@ namespace greenEnergy.ViewModel
     public class viewVM
     {
         public List<itemParent> chunkList { get; set; }
-        public List<itemOption> opItems { get; set; }
     }
 
     public class stackPoseVM
@@ -55,18 +73,13 @@ namespace greenEnergy.ViewModel
 
     public class managerChartmain : parent
     {
-        public string putvarnextweek_value { get; set; }
-        public string currentWeekLable_text { get; set; }
-        public string putVarPrevious_value { get; set; }    
-
-        public string s7lvalue_text { get; set; }
-        public string s6lvalue_text { get; set; }
-        public string s5lvalue_text { get; set; }
-        public string s4lvalue_text { get; set; }
-        public string s3lvalue_text { get; set; }
-        public string s2lvalue_text { get; set; }
-        public string s1lvalue_text { get; set; }
-
+        public List<serventChartVM> list { get; set; }
+        
+    }
+    public class formOptionObject:parent
+    {
+        public List<orderOptionVM> lst { get; set; }
+        
     }
 
 

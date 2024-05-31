@@ -59,7 +59,18 @@ namespace greenEnergy.Controllers
     {
 
 
-        public async Task<string> getFormData(Guid? formID, List<itemOption>? datamodel)
+        public async Task<string> getChartData( viewVM? datamodel)
+        {
+            string srt = "";
+            var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "chartData");
+
+            managerChartmain mymodel = (managerChartmain)formDataSection.items.First();
+            srt = JsonConvert.SerializeObject(mymodel);
+
+            return srt;
+
+        }
+        public async Task<string> getFormData(Guid? formID, viewVM? datamodel)
         {
             string srt = "";
             listOfFormVM response = new listOfFormVM();
@@ -78,16 +89,25 @@ namespace greenEnergy.Controllers
                 fil.zaribHeight = form.zaribHeight;
 
                 fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
-                if (datamodel != null)
+                if (datamodel.chunkList != null)
                 {
-                    foreach (var oplist in datamodel)
+                    var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "formData");
+
+
+                    if (formDataSection != null)
                     {
-                        var selecteditem = fil.formItemDetailList.SingleOrDefault(x => x.itemName == oplist.name);
-                        if (selecteditem != null)
+
+                        foreach (var oplist in formDataSection.items)
                         {
-                            selecteditem.orderOptions = oplist.oplist;
+                            var selecteditem = fil.formItemDetailList.SingleOrDefault(x => x.itemName == oplist.name);
+                            if (selecteditem != null)
+                            {
+                                formOptionObject mymodel = (formOptionObject)oplist;
+                                selecteditem.orderOptions = mymodel.lst;
+                            }
                         }
                     }
+
                 }
 
 
@@ -125,7 +145,7 @@ namespace greenEnergy.Controllers
                 string finalCycleFields = "";
                 if (sectinoID != null)
                 {
-                    response = await dbcontext.contents.Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
 
                     foreach (var item in response)
                     {
@@ -148,24 +168,26 @@ namespace greenEnergy.Controllers
                             }
 
                         }
-                        foreach (var data in item.dataList)
+                        List<string> values = item.htmlFields.Split(',').Select(s => s.ToString()).ToList();
+                        foreach(var htmlfield in values)
                         {
-                            if (string.IsNullOrEmpty(data.title2))
+                            dataVM sdata = item.dataList.SingleOrDefault(x => x.title == htmlfield && !string.IsNullOrEmpty(x.title2));
+                            if (sdata != null)
                             {
-                                item.appMeta = await methods.removenull(item.appMeta, data.title);
+                                item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                             }
                             else
                             {
-                                item.appMeta = item.appMeta.Replace(data.title, data.title2);
-
+                                item.appMeta = await methods.removenull(item.appMeta, htmlfield);
                             }
                         }
+                     
                         if (!string.IsNullOrEmpty(item.stackWeight))
                         {
                             stackPoseVM sp = new stackPoseVM()
                             {
                                 viewID = item.title,
-                                weight = Int32.Parse(item.stackWeight)
+                                weight = double.Parse(item.stackWeight)
                             };
                             finalStackPose += JsonConvert.SerializeObject(sp) + ",";
                         }
@@ -173,7 +195,7 @@ namespace greenEnergy.Controllers
                         {
                             finalHtml += item.appMeta + ",";
 
-                            string myresult = await getFormData(item.formID, datamodel.opItems);
+                            string myresult = await getFormData(item.formID, datamodel);
                             item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
                             item.appMeta = item.appMeta.Replace("childMetaString", myresult);
 
@@ -224,10 +246,12 @@ namespace greenEnergy.Controllers
                     }
                     //{"nav": null,"view": {"type": "stackView","orientation": 0,"backColor": "#222222","cornerRadius": 10,"content": [childMetaString] }}
                     //{"type": "pairTextView","viewID": "secondLabel","id": "priceID","keyText": "Name","valueText": "title","keyColor": "#ffffff","valueColor": "#ececec"}
+                    //{"type": "button","viewID" :"viewMetaIDsrt","text":"textsrt","color":"colorsrt","backColor":"backColorsrt","borderColor":"borderColorsrt","cornerRadius":cornerRadiussrt,"alignment":"alignmentsrt","font":"fontsrt","size":sizesrt,"width":widthsrt,"height":heightsrt,"margin":marginsrt, "actions":[childMetaString] }
+                    //{"type":"typesrt","to":"tosrt","orientation":orientationsrt,"varName":"varNamesrt", "value":"valuesrt"}
                 }
                 else
                 {
-                    response = await dbcontext.contents.Where(x => x.parentID == content.conentID).Include(x => x.Poses).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Where(x => x.parentID == content.conentID).Include(x => x.Poses).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM {  htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
 
                     foreach (var item in response)
                     {
@@ -248,54 +272,54 @@ namespace greenEnergy.Controllers
                                 finalCycleFields += JsonConvert.SerializeObject(mdl) + ",";
                             }
                         }
-                        foreach (var data in item.dataList)
+                        List<string> values = item.htmlFields.Split(',').Select(s => s.ToString()).ToList();
+                        foreach (var htmlfield in values)
                         {
-                            if (string.IsNullOrEmpty(data.title2))
-                            {
-
-                                item.appMeta = await methods.removenull(item.appMeta, data.title);
-                            }
-                            else
+                            dataVM sdata = item.dataList.SingleOrDefault(x => x.title == htmlfield && !string.IsNullOrEmpty(x.title2));
+                            if (sdata != null)
                             {
                                 if (datamodel.chunkList != null)
                                 {
                                     itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
                                     if (dlst != null)
                                     {
-                                        string itemnamee = item.title + "_" + data.title.Replace("srt", "");
+                                        string itemnamee = item.title + "_" + sdata.title.Replace("srt", "");
                                         if (dlst.items != null)
                                         {
                                             if (dlst.items[0].GetType().GetProperty(itemnamee) != null)
                                             {
                                                 string newsrt = dlst.items[0].GetType().GetProperty(itemnamee).GetValue(dlst.items[0], null) + "";
-                                                item.appMeta = item.appMeta.Replace(data.title, newsrt);
+                                                item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
                                             }
                                             else
                                             {
-                                                item.appMeta = item.appMeta.Replace(data.title, data.title2);
+                                                item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                                             }
                                         }
 
                                         else
                                         {
-                                            item.appMeta = item.appMeta.Replace(data.title, data.title2);
+                                            item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                                         }
 
 
                                     }
                                     else
                                     {
-                                        item.appMeta = item.appMeta.Replace(data.title, data.title2);
+                                        item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                                     }
                                 }
                                 else
                                 {
-                                    item.appMeta = item.appMeta.Replace(data.title, data.title2);
+                                    item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                                 }
-
                             }
-
+                            else
+                            {
+                                item.appMeta = await methods.removenull(item.appMeta, htmlfield);
+                            }
                         }
+                        
                         if (!string.IsNullOrEmpty(item.stackWeight))
                         {
                             stackPoseVM sp = new stackPoseVM()
@@ -308,7 +332,7 @@ namespace greenEnergy.Controllers
                         if (item.formID != null)
                         {
                             //finalHtml += item.appMeta + ",";
-                            string myresult = await getFormData(item.formID,datamodel.opItems);
+                            string myresult = await getFormData(item.formID,datamodel);
                             item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
                             item.appMeta = item.appMeta.Replace("childMetaString", myresult);
 
@@ -326,104 +350,125 @@ namespace greenEnergy.Controllers
                         }
                         else
                         {
-                            Dictionary<string, string> hitems = new Dictionary<string, string>();
-                            hitems.Add("childMetaString", "");
-                            if (item.appType == "page")
+                            if (item.appType == "chartView")
                             {
-                                hitems.Add("leadsrt", "");
-                                hitems.Add("trailsrt", "");
-                            }
-                            getChildContentVM myresult = await getChildContent(null, item, datamodel, hitems);
-                            item.appMeta = item.appMeta.Replace("childPoseString", myresult.newPose.Trim(','));
-                            item.appMeta = item.appMeta.Replace("stackPose", myresult.stackPose.Trim(','));
-                            item.contentChild = myresult.list;
-                            finalCycleFields += myresult.cycleMeta;
-                            int counter = 0;
-                            foreach (var poseItem in item.poseList)
-                            {
-                                if (string.IsNullOrEmpty(poseItem.title2))
+                                string myresult = await getChartData(datamodel);
+                                item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                                item.appMeta = item.appMeta.Replace("childMetaString", myresult);
+
+                                if (!HtmlItems.ContainsKey(item.title))
                                 {
-                                    item.poseMeta = await methods.removenull(item.poseMeta, poseItem.title);
+                                    HtmlItems["childMetaString"] += item.appMeta + ",";
                                 }
                                 else
                                 {
-                                    item.poseMeta = item.poseMeta.Replace(poseItem.title, poseItem.title2);
-                                    counter += 1;
+                                    HtmlItems[item.title] += item.appMeta + ",";
                                 }
-
-
-
-                            }
-                            if (counter != 0)
-                            {
-                                string newposemeta = item.poseMeta.Replace("ViewIDsrt", item.title);
-                                item.poseMeta = newposemeta;
+                                //finalHtml += item.appMeta + ",";
                                 finalPose += item.poseMeta + ",";
-                            }
-                            item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
-                            foreach (var nm in myresult.newMeta)
-                            {
-                                string replacestring = nm.Value;
-                                if (string.IsNullOrEmpty(replacestring) && nm.Key != "childMetaString")
-                                {
-                                    replacestring = "null";
-                                }
-                                item.appMeta = item.appMeta.Replace(nm.Key, replacestring.Trim(',')).Trim(',');
-                            }
-
-
-
-                            if (item.appType == "cycleView")
-                            {
-                                if (datamodel.chunkList != null)
-                                {
-                                    itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == item.title);
-
-                                    List<recycleDataMapVM> mylist = JsonConvert.DeserializeObject<List<recycleDataMapVM>>("[" + myresult.cycleMeta + "]");
-                                    List<Dictionary<string, object>> finaldatalist = new List<Dictionary<string, object>>();
-
-
-                                    if (dlst != null)
-                                    {
-                                        for (int i = 0; i < dlst.items.Count(); i++)
-                                        {
-                                            Dictionary<string, object> iii = new Dictionary<string, object>();
-                                            iii.Add("patternId", "patternId1");
-                                            iii.Add("onClick", dlst.items[i].GetType().GetProperty("actions").GetValue(dlst.items[i], null));
-                                            foreach (var cycleM in mylist)
-                                            {
-                                                var dd = dlst.items[i];
-                                                iii.Add(cycleM.dataProperty, dd.GetType().GetProperty(cycleM.dataProperty).GetValue(dd, null).ToString());
-
-                                            }
-                                            finaldatalist.Add(iii);
-
-
-
-
-                                        }
-                                    }
-
-                                    item.appMeta = item.appMeta.Replace("dataitemsstring", JsonConvert.SerializeObject(finaldatalist).Trim(','));
-                                    item.appMeta = item.appMeta.Replace("dataMapString", myresult.cycleMeta.Trim(','));
-                                }
-                                else
-                                {
-                                    item.appMeta = item.appMeta.Replace("dataitemsstring", "[]");
-                                    item.appMeta = item.appMeta.Replace("dataMapString", "");
-
-                                }
-
-
-                            }
-                            if (!HtmlItems.ContainsKey(item.title))
-                            {
-                                HtmlItems["childMetaString"] += item.appMeta.Trim(',') + ",";
                             }
                             else
                             {
-                                HtmlItems[item.title] += item.appMeta.Trim(',');
+                                Dictionary<string, string> hitems = new Dictionary<string, string>();
+                                hitems.Add("childMetaString", "");
+                                if (item.appType == "page")
+                                {
+                                    hitems.Add("leadsrt", "");
+                                    hitems.Add("trailsrt", "");
+                                }
+                                getChildContentVM myresult = await getChildContent(null, item, datamodel, hitems);
+                                item.appMeta = item.appMeta.Replace("childPoseString", myresult.newPose.Trim(','));
+                                item.appMeta = item.appMeta.Replace("stackPose", myresult.stackPose.Trim(','));
+                                item.contentChild = myresult.list;
+                                finalCycleFields += myresult.cycleMeta;
+                                int counter = 0;
+                                foreach (var poseItem in item.poseList)
+                                {
+                                    if (string.IsNullOrEmpty(poseItem.title2))
+                                    {
+                                        item.poseMeta = await methods.removenull(item.poseMeta, poseItem.title);
+                                    }
+                                    else
+                                    {
+                                        item.poseMeta = item.poseMeta.Replace(poseItem.title, poseItem.title2);
+                                        counter += 1;
+                                    }
+
+
+
+                                }
+                                if (counter != 0)
+                                {
+                                    string newposemeta = item.poseMeta.Replace("ViewIDsrt", item.title);
+                                    item.poseMeta = newposemeta;
+                                    finalPose += item.poseMeta + ",";
+                                }
+                                item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                                foreach (var nm in myresult.newMeta)
+                                {
+                                    string replacestring = nm.Value;
+                                    if (string.IsNullOrEmpty(replacestring) && nm.Key != "childMetaString")
+                                    {
+                                        replacestring = "null";
+                                    }
+                                    item.appMeta = item.appMeta.Replace(nm.Key, replacestring.Trim(',')).Trim(',');
+                                }
+
+
+
+                                if (item.appType == "cycleView")
+                                {
+                                    if (datamodel.chunkList != null)
+                                    {
+                                        itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == item.title);
+
+                                        List<recycleDataMapVM> mylist = JsonConvert.DeserializeObject<List<recycleDataMapVM>>("[" + myresult.cycleMeta + "]");
+                                        List<Dictionary<string, object>> finaldatalist = new List<Dictionary<string, object>>();
+
+
+                                        if (dlst != null)
+                                        {
+                                            for (int i = 0; i < dlst.items.Count(); i++)
+                                            {
+                                                Dictionary<string, object> iii = new Dictionary<string, object>();
+                                                iii.Add("patternId", "patternId1");
+                                                iii.Add("onClick", dlst.items[i].GetType().GetProperty("actions").GetValue(dlst.items[i], null));
+                                                foreach (var cycleM in mylist)
+                                                {
+                                                    var dd = dlst.items[i];
+                                                    iii.Add(cycleM.dataProperty, dd.GetType().GetProperty(cycleM.dataProperty).GetValue(dd, null).ToString());
+
+                                                }
+                                                finaldatalist.Add(iii);
+
+
+
+
+                                            }
+                                        }
+
+                                        item.appMeta = item.appMeta.Replace("dataitemsstring", JsonConvert.SerializeObject(finaldatalist).Trim(','));
+                                        item.appMeta = item.appMeta.Replace("dataMapString", myresult.cycleMeta.Trim(','));
+                                    }
+                                    else
+                                    {
+                                        item.appMeta = item.appMeta.Replace("dataitemsstring", "[]");
+                                        item.appMeta = item.appMeta.Replace("dataMapString", "");
+
+                                    }
+
+
+                                }
+                                if (!HtmlItems.ContainsKey(item.title))
+                                {
+                                    HtmlItems["childMetaString"] += item.appMeta.Trim(',') + ",";
+                                }
+                                else
+                                {
+                                    HtmlItems[item.title] += item.appMeta.Trim(',');
+                                }
                             }
+                            
                             //finalHtml += item.appMeta + ",";
 
                         }
@@ -520,6 +565,10 @@ namespace greenEnergy.Controllers
             {
                 switch (model.slug)
                 {
+
+
+                    
+
                     case ("app/managerChart"):
 
                         ManagerChartSearch inputModel = new ManagerChartSearch();
@@ -546,29 +595,14 @@ namespace greenEnergy.Controllers
                         inputModel.startDate = sd;
                         inputModel.endDate = ed;
                         List<serventChartVM> lllsssttt = await GetDataForManagerChart(inputModel);
-
-
-                        if (lllsssttt.Count() > 0)
+                        managerChartmain datttamodel = new managerChartmain()
                         {
-                            string startdatetimestamp = lllsssttt[0].serventList[0].timestamp.ToString();
-                            string lable = lllsssttt[0].serventList[0].persianDate + " - " + lllsssttt[0].serventList.Last().persianDate;
-                            string enddatetimestamp = lllsssttt[0].serventList.Last().timestamp.ToString();
-                            managerChartmain datttamodel = new managerChartmain()
-                            {
-                                currentWeekLable_text = lable,
-                                putvarnextweek_value = enddatetimestamp,
-                                putVarPrevious_value = startdatetimestamp,
-                                s1lvalue_text = lllsssttt[0].serventList[0].persianDate,
-                                s2lvalue_text = lllsssttt[0].serventList[1].persianDate,
-                                s3lvalue_text = lllsssttt[0].serventList[2].persianDate,
-                                s4lvalue_text = lllsssttt[0].serventList[3].persianDate,
-                                s5lvalue_text = lllsssttt[0].serventList[4].persianDate,
-                                s6lvalue_text = lllsssttt[0].serventList[5].persianDate,
-                                s7lvalue_text = lllsssttt[0].serventList[6].persianDate,
-                            };
-                            parentlist.Add(datttamodel);
-                            cycle0.items = parentlist;
-                        }
+                            name = "",
+                            list = lllsssttt
+                        };
+                        parentlist.Add(datttamodel);
+                        cycle0.items = parentlist;
+                        cycle0.name = "chartData";
                         lst0.Add(cycle0);
                         rsp.chunkList = lst0;
 
@@ -640,22 +674,90 @@ namespace greenEnergy.Controllers
 
                         break;
                      // iggtailordynamic
+
+                   
                     case ("app/searchChartManager"):
                         // یک لیست از مدل بیس می سازیم
                         parentlist = new List<parent>();
                         // ابجکت مخصوص استفاده از فرم را ایجاد میکنیم
                         // این فرم برای پر کردن یکی از آیتم های فرم جستجوی چارت استفاده می شود
                         List<orderOptionVM> tailorlst =await dbcontext.users.Where(x => x.barbariID != null).Select(x => new orderOptionVM { title = x.phone, orderOptionID = x.userID }).ToListAsync();
-                      
-                        itemOption formData = new itemOption()
+                        formOptionObject mymodel = new formOptionObject()
                         {
-                             name = "tailorList",
-                             oplist = tailorlst
+                            name = "tailorList",
+                            lst = tailorlst
                         };
-                        List<itemOption> oplst = new List<itemOption>();
-                        oplst.Add(formData);
-                        rsp.opItems = oplst;
+                        parentlist.Add(mymodel);
+                        cycle0.items = parentlist;
+                        cycle0.name = "formData";  // اینجا مجموعه مرتبط با فرم ها ارسال میشه
+                        lst0.Add(cycle0);
+                        rsp.chunkList = lst0;
+
+
                         break;
+
+                    case ("app/clientOrderListPending"):
+                        // تو این اکشن دو تا آبجکت ایجاد میشه 
+                        // یکی مین برای دکمه های بالا
+                        // یکی لیست برای سایکل این صفحه
+                        // برای آبحکت های صفه از cycle0 استفاده میکنیم
+                        // که برای انتقال داده های اصلی به کار میره
+                        // برای سایکل خودمون یه لیست ابجکت اضافه میکنیم /
+                        // و به لیست اضافه میکنیم
+                        parentlist = new List<parent>();
+                        List<clientorderListPending> CYCLElIST = new List<clientorderListPending>();
+                        // اینجا ما باید آیتم های مورد استفاده درسایکل رو فراخوانی کنیم
+                        foreach(var item in CYCLElIST)
+                        {
+                            parentlist.Add(item);
+                        }
+                        itemParent clientcycle = new itemParent() // برای همه
+                        {
+                            name = "cycleStackView",
+                            items = parentlist
+                        };
+                        lst0.Add(clientcycle);
+
+                        List<parent> mainObjectList = new List<parent>();
+                        clientOrderListButton mainobj = new clientOrderListButton();
+                        // اینجا ما باشد با توجه به متغیر های ارسال شده رنگ های 
+                        // مرتبط با دکمه ها را تغییر دهیم
+                        mainobj.pendingTabBotton_colorsrt = "cGreen";
+                        mainobj.acceptedTabBotton_colorsrt = "cGrayLight";
+                        mainObjectList.Add(mainobj);
+                        cycle0.items = mainObjectList;
+                        lst0.Add(cycle0);
+
+
+
+
+                        break;
+                    case ("app/setFlowForm"):
+                        
+                        parentlist = new List<parent>();
+                        newOrderStatus orderstatus = await dbcontext.newOrderStatuses.SingleOrDefaultAsync(x => x.statusCode == "1");
+                        List<orderOptionVM> orderList = await dbcontext.NewOrders.Where(x => x.newOrderStatusID == orderstatus.newOrderStatusID).Select(x => new orderOptionVM { title = x.orderName, orderOptionID = x.newOrderID }).ToListAsync();
+                        formOptionObject orderOBJ = new formOptionObject()
+                        {
+                            name = "orderList",
+                            lst = orderList
+                        };
+                        parentlist.Add(orderOBJ);
+                        List<orderOptionVM> processList = await dbcontext.processes.Select(x => new orderOptionVM { title = x.title, orderOptionID = x.processID }).ToListAsync();
+                        orderOBJ = new formOptionObject()
+                        {
+                            name = "processList",
+                            lst = processList
+                        };
+                        parentlist.Add(orderOBJ);
+
+
+                        cycle0.items = parentlist;
+                        cycle0.name = "formData";  // اینجا مجموعه مرتبط با فرم ها ارسال میشه
+                        lst0.Add(cycle0);
+                        rsp.chunkList = lst0;
+                        break;
+
 
 
 
