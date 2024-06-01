@@ -10,12 +10,25 @@ namespace greenEnergy.ViewModel
     {
         public string name { get; set; }
     }
-    public class mainCycle : parent
+
+    
+
+    public class managerFlowList_orderFlowCycle : parent
     {
-        public string stackLable1_text { get; set; }
-        public string stackLable2_text { get; set; }
-        public Guid orderID { get; set; }
-        public List<actionResonse> actions { get; set; }
+        public string FlowID { get; set; }
+        public string orderName_valueTextsrt { get; set; }
+        public string processName_valueTextsrt { get; set; }
+        public string serventName_valueTextsrt { get; set; }
+        public  List<actionResonse> actions{ get; set; }
+    }
+    public class cycleStackView_orderListManagerVM : parent
+    {
+       
+        public string projectName_orderListManager_valueTextsrt { get; set; }
+
+        public string orderDate_orderListManager_valueTextsrt { get; set; }
+        public DateTime orderDate_orderListManager_valueTextsrtdate { get; set; }
+        public string historyButton_orderListManager_cycleActionsrt { get; set; }
     }
 
 

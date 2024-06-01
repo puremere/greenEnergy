@@ -951,7 +951,7 @@ namespace greenEnergy.Controllers
             responseModel responsemodel = await methods.PostData(form, new responseModel(), "/updateFormItemPostion", Request.Cookies["adminToken"].Value);
             if (responsemodel.status != 200)
             {
-                TempData["er"] = responsemodel.message;
+                TempData["er"] = "jhgjhg";//responsemodel.message;
             }
 
 

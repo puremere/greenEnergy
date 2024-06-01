@@ -125,7 +125,41 @@
                                             </td>
 
 
-                                            <td>@prod.htmlName</td>
+                                            <td>
+                                                <div style="display:flex; justify-content:center">
+
+                                                    <div class="lableMode">
+                                                        <span>     @prod.htmlName</span>
+
+
+
+                                                    </div>
+
+                                                    <div class="formMode editMode">
+                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                            @Html.AntiForgeryToken()
+                                                            @if (Model.parentSelected != null)
+                                                            {
+                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                            }
+                                                            <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                                                            <input hidden name="contentID" value="@prod.contentID" />
+                                                            <input hidden name="priority" value="@prod.priority" />
+                                                            <input hidden name="stackWeight" value="@prod.stackWeight" />
+                                                            <div>
+                                                                <input style="text-align: center;" type="text" id="" class="form-control" name="title" value="   @prod.htmlName" />
+                                                                <div style="margin:0 5px"></div>
+
+                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+
+                                             
+                                            </td>
                                             <td>
 
                                                 <div style="display:flex; justify-content:center">

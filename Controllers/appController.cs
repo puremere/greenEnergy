@@ -263,7 +263,7 @@ namespace greenEnergy.Controllers
                                 recycleDataMapVM mdl = new recycleDataMapVM()
                                 {
                                     viewID = item.title,
-                                    viewProperty = field,
+                                    viewProperty = field.Replace("srt",""),
                                     dataProperty = item.title + "_" + field,
 
 
@@ -432,7 +432,10 @@ namespace greenEnergy.Controllers
                                             {
                                                 Dictionary<string, object> iii = new Dictionary<string, object>();
                                                 iii.Add("patternId", "patternId1");
-                                                iii.Add("onClick", dlst.items[i].GetType().GetProperty("actions").GetValue(dlst.items[i], null));
+                                                if (dlst.items[i].GetType().GetProperty("actions") != null)
+                                                {
+                                                    iii.Add("onClick", dlst.items[i].GetType().GetProperty("actions").GetValue(dlst.items[i], null));
+                                                }
                                                 foreach (var cycleM in mylist)
                                                 {
                                                     var dd = dlst.items[i];
@@ -565,9 +568,88 @@ namespace greenEnergy.Controllers
             {
                 switch (model.slug)
                 {
+                    case "app/getOrderFlowManager":
 
+                        string Guidstring = model.data["orderID"];
+                        Guid selectedOrderID = new Guid(Guidstring);
+                        List<managerFlowList_orderFlowCycle> flowlist = await dbcontext.newOrderFlows.Where(x=>x.newOrderID == selectedOrderID).Select(x => new managerFlowList_orderFlowCycle {  orderName_valueTextsrt = x.NewOrder.orderName, processName_valueTextsrt = x.newOrderProcess.title, serventName_valueTextsrt = x.newOrderFlowServent != null? x.newOrderFlowServent.phone : "", FlowID = x.newOrderFlowID.ToString() }).ToListAsync();
+                        
+                        
+                        parentlist = new List<parent>();
+                        foreach (var item in flowlist)
+                        {
+                            List<actionResonse> actionList = new List<actionResonse>();
+                            actionResonse action1 = new actionResonse()
+                            {
+                                 type = "a.putVar",
+                                  varName = "flowID",
+                                   value = item.FlowID
+                            };
+                            actionList.Add(action1);
+                            
 
-                    
+                            actionResonse action2 = new actionResonse()
+                            {
+                                type = "a.go",
+                                to = "app/showForm",
+                                value = item.FlowID
+                            };
+                            actionList.Add(action2);
+                            item.actions = actionList;
+                            parentlist.Add(item);
+                        }
+                        itemParent flowCycle = new itemParent()
+                        {
+                            name = "orderFlowCycle",
+                            items = parentlist
+                        };
+
+                        List<itemParent> flowParentlst = new List<itemParent>();
+                        flowParentlst.Add(flowCycle);
+                        rsp.chunkList = flowParentlst;
+                        break;
+
+                    case ("app/getOrderListManager"):
+                        string toDate = "";
+                        string fromDate = "";
+                        string search = "";
+                        if (model.data != null)
+                        {
+                            foreach (var item in model.data)
+                            {
+                                if (item.Key == "toDate")
+                                {
+                                    toDate = item.Value;
+                                }
+                                if (item.Key == "fromDate")
+                                {
+                                    fromDate = item.Value;
+                                }
+                                if (item.Key == "search")
+                                {
+                                    search = item.Value;
+                                }
+                            }
+                        }
+
+                        List<cycleStackView_orderListManagerVM> cyclelist = await dbcontext.NewOrders.Select(x => new cycleStackView_orderListManagerVM {  projectName_orderListManager_valueTextsrt = x.orderName, orderDate_orderListManager_valueTextsrtdate = x.creationDate,  historyButton_orderListManager_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\""+x.newOrderID+ "\"},{\"type\":\"a.go\",\"to\":\"app/getOrderFlowManager\"}]" }).ToListAsync();
+                        parentlist = new List<parent>();
+                        foreach (var item in cyclelist)
+                        {
+                            item.orderDate_orderListManager_valueTextsrt = item.orderDate_orderListManager_valueTextsrtdate.ToShortDateString();
+                            parentlist.Add(item);
+                        }
+                        itemParent cycle = new itemParent()
+                        {
+                            name = "orderListCycle_orderListManager",
+                            items = parentlist
+                        };
+
+                        List<itemParent> lst = new List<itemParent>();
+                        lst.Add(cycle);
+                        rsp.chunkList = lst;
+
+                        break;
 
                     case ("app/managerChart"):
 
@@ -588,8 +670,6 @@ namespace greenEnergy.Controllers
                                     ed = item.Value;
                                 }
                             }
-
-
                         }
 
                         inputModel.startDate = sd;
@@ -639,38 +719,7 @@ namespace greenEnergy.Controllers
                         break;
                     case "app/managerOrderList":
 
-                        List<mainCycle> cyclelist = await dbcontext.NewOrders.Select(x => new mainCycle { orderID = x.newOrderID, stackLable1_text = x.orderName, stackLable2_text = x.creationDate.ToString() }).ToListAsync();
-                        parentlist = new List<parent>();
-                        foreach (var item in cyclelist)
-                        {
-                            List<actionResonse> dc = new List<actionResonse>();
-                            actionResonse action1 = new actionResonse()
-                            {
-                                type = "a.putVar",
-                                varName = "orderID",
-                                value = item.orderID.ToString(),
-
-                            };
-                            dc.Add(action1);
-                            action1 = new actionResonse()
-                            {
-                                type = "a.go",
-                                to = "app/productDetail"
-
-                            };
-                            dc.Add(action1);
-                            item.actions = dc;
-                            parentlist.Add(item);
-                        }
-                        itemParent cycle = new itemParent()
-                        {
-                            name = "mainCycle",
-                            items = parentlist
-                        };
-
-                        List<itemParent> lst = new List<itemParent>();
-                        lst.Add(cycle);
-                        rsp.chunkList = lst;
+                        
 
                         break;
                      // iggtailordynamic
@@ -769,105 +818,198 @@ namespace greenEnergy.Controllers
             return rsp;
         }
 
+        [BasicAuthentication]
         [System.Web.Http.HttpPost]
         public async Task<appResponse> setFormData([FromBody] getURLVM model)
         {
-
             appResponse response = new appResponse();
             resultResponse result = new resultResponse();
-            switch (model.slug)
+            object someObject;
+            Request.Properties.TryGetValue("UserToken", out someObject);
+            
+            if (someObject != null || model.slug == "app/verify" || model.slug == "app/setCode")
             {
-                //case "app/setKeramatiForm":
-                //    await setActionForSubmit(model);
-                //    //getListResponceVM modeldata = await getData(model);
-                //    List<actionResonse> actionlist = new List<actionResonse>();
-                //    actionResonse action1 = new actionResonse()
-                //    {
-                //        type = "a.back",
-                //        depth = "1",
-                //        startDelay = 2000
-                //    };
 
-
-                //    actionlist.Add(action1);
-                //    action1 = new actionResonse()
-                //    {
-                //        type = "a.message",
-                //        text = "با موفقیت انجام شد",
-                //    };
-                //    actionlist.Add(action1);
-
-                //    result.actions = actionlist;
-                //    response.result = result;
-                //    response.code = 0;
-                //    break;
-                ////   زمانی که فرم ثبت نام سابمیت میشه
-                case "app/verify":
-
-                    string phoneSended = await handleRegistration(model);
-                    List<actionResonse> actionlist = new List<actionResonse>();
-                    actionResonse action1 = new actionResonse()
-                    {
-                        type = "a.putVar",
-                        varName = "phone",
-                        value = phoneSended,
-                    };
-
-
-                    actionlist.Add(action1);
-                    action1 = new actionResonse()
-                    {
-                        type = "a.go",
-                        to = "app/verifyPage",
-                    };
-                    actionlist.Add(action1);
-
-                    result.actions = actionlist;
-                    response.result = result;
-                    response.code = 0;
-                    break;
-
-                // زمانی که فرم ثبت کد سابمیت میشه
-                case "app/setCode":
-
-                    responseModel tokenModel = await handleSetCode(model);
-                    if (tokenModel.status == 200)
-                    {
-                        actionlist = new List<actionResonse>();
-                        action1 = new actionResonse()
+                switch (model.slug)
+                {
+                    case "app/getOrderListManager":
+                        
+                        List<actionResonse> getOrderListManagerActionlist = new List<actionResonse>();
+                       
+                        if (model.form != null)
                         {
-                            type = "a.login",
-                            value = tokenModel.message,
-                            text = model.data["phone"]
+                            List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+                            var toDate = lstform.SingleOrDefault(x => x.key == "toDate");
+                            var fromDate = lstform.SingleOrDefault(x => x.key == "fromDate");
+                            var search = lstform.SingleOrDefault(x => x.key == "search");
+                            if (toDate != null)
+                            {
+                                if (!string.IsNullOrEmpty(toDate.value))
+                                {
+                                    actionResonse todate = new actionResonse()
+                                    {
+                                        type = "a.putVar",
+                                        varName = "toDate",
+                                        value = toDate.value
+
+                                    };
+                                    getOrderListManagerActionlist.Add(todate);
+                                }
+                            }
+                            if (fromDate != null)
+                            {
+                                if (!string.IsNullOrEmpty(fromDate.value))
+                                {
+                                    actionResonse fromdate = new actionResonse()
+                                    {
+                                        type = "a.putVar",
+                                        varName = "fromDate",
+                                        value = fromDate.value
+
+                                    };
+                                    getOrderListManagerActionlist.Add(fromdate);
+                                }
+                            }
+                            if (search != null)
+                            {
+                                if (!string.IsNullOrEmpty(search.value))
+                                {
+                                    actionResonse searchVar = new actionResonse()
+                                    {
+                                        type = "a.putVar",
+                                        varName = "search",
+                                        value = search.value
+
+                                    };
+                                    getOrderListManagerActionlist.Add(searchVar);
+                                }
+
+                            }
+
+
+                            
+                            break;
+                        }
+                        actionResonse ago = new actionResonse()
+                        {
+                            type = "a.go",
+                            to = "app/getOrderListManager",
+
+
+                        };
+                        getOrderListManagerActionlist.Add(ago);
+                        result.actions = getOrderListManagerActionlist;
+                        response.result = result;
+                        response.code = 0;
+                        break;
+                    case "app/setTailorForm":
+                        Guid userID = new Guid(someObject.ToString());
+
+                        await setTailorForm(model, userID);
+                        //getListResponceVM modeldata = await getData(model);
+                        List<actionResonse> actionlist = new List<actionResonse>();
+                        actionResonse action1 = new actionResonse()
+                        {
+                            type = "a.back",
+                            depth = "1",
+                            startDelay = 2000
                         };
 
 
                         actionlist.Add(action1);
-                        action1 = new actionResonse()
-                        {
-                            type = "a.restart",
-                        };
-                        actionlist.Add(action1);
-                        result.actions = actionlist;
-                    }
-
-                    else
-                    {
-                        actionlist = new List<actionResonse>();
                         action1 = new actionResonse()
                         {
                             type = "a.message",
-                            text = "کد اشتباه است",
+                            text = "فعلت بنجاح",
                         };
                         actionlist.Add(action1);
+
                         result.actions = actionlist;
-                    }
+                        response.result = result;
+                        response.code = 0;
+                        break;
+                    //   زمانی که فرم ثبت نام سابمیت میشه
+                    case "app/verify":
+
+                        string phoneSended = await handleRegistration(model);
+                        actionlist = new List<actionResonse>();
+                        action1 = new actionResonse()
+                        {
+                            type = "a.putVar",
+                            varName = "phone",
+                            value = phoneSended,
+                        };
 
 
-                    response.result = result;
-                    response.code = 0;
-                    break;
+                        actionlist.Add(action1);
+                        action1 = new actionResonse()
+                        {
+                            type = "a.go",
+                            to = "app/verifyPage",
+                        };
+                        actionlist.Add(action1);
+
+                        result.actions = actionlist;
+                        response.result = result;
+                        response.code = 0;
+                        break;
+
+                    // زمانی که فرم ثبت کد سابمیت میشه
+                    case "app/setCode":
+
+                        responseModel tokenModel = await handleSetCode(model);
+                        if (tokenModel.status == 200)
+                        {
+                            actionlist = new List<actionResonse>();
+                            action1 = new actionResonse()
+                            {
+                                type = "a.login",
+                                value = tokenModel.message,
+                                text = model.data["phone"]
+                            };
+
+
+                            actionlist.Add(action1);
+                            action1 = new actionResonse()
+                            {
+                                type = "a.restart",
+                            };
+                            actionlist.Add(action1);
+                            result.actions = actionlist;
+                        }
+
+                        else
+                        {
+                            actionlist = new List<actionResonse>();
+                            action1 = new actionResonse()
+                            {
+                                type = "a.message",
+                                text = "کد اشتباه است",
+                            };
+                            actionlist.Add(action1);
+                            result.actions = actionlist;
+                        }
+
+
+                        response.result = result;
+                        response.code = 0;
+                        break;
+                }
             }
+            else
+            {
+                List<actionResonse>  actionlist = new List<actionResonse>();
+                actionResonse action1 = new actionResonse()
+                {
+                    type = "a.go",
+                    to = "app/login",
+                };
+                actionlist.Add(action1);
+                result.actions = actionlist;
+                response.result = result;
+            }
+
+            
             return response;
         }
 
@@ -959,7 +1101,9 @@ namespace greenEnergy.Controllers
             }
             return output;
         }
-        private async Task<initDataVM> setKeramatiForm(getURLVM model)
+
+        [spalshAuthentication]
+        private async Task<initDataVM> setTailorForm(getURLVM model, Guid userID)
         {
             initDataVM initdatamodel = new initDataVM();
             Dictionary<string, string> finaldic = new Dictionary<string, string>();
@@ -985,7 +1129,7 @@ namespace greenEnergy.Controllers
                     Guid orderID = finaldic.ContainsKey("orderID") ? new Guid(finaldic["orderID"]) : Guid.NewGuid();
                     Guid processID = finaldic.ContainsKey("processID") ? new Guid(finaldic["processID"]) : Guid.NewGuid();
                     Guid flowID = finaldic.ContainsKey("flowID") ? new Guid(finaldic["flowID"]) : Guid.NewGuid();
-                    Guid userID = new Guid("d981cd48-403c-4560-b1e4-22ae8fcb5989");
+                    //Guid userID = new Guid("d981cd48-403c-4560-b1e4-22ae8fcb5989");
                     if (!finaldic.ContainsKey("orderID"))
                     {
                         // یک نیو اردر ایجاد میکنیم
@@ -1157,13 +1301,14 @@ namespace greenEnergy.Controllers
 
         }
 
-        [BasicAuthentication]
+        //[BasicAuthentication]
         [System.Web.Http.HttpPost]
         public async Task<JObject> updateFormItemPostion([FromBody] form model)
         {
             //methods.ScanTextFromImageWithCoordinates("");
             responseModel mymodel = new responseModel();
             string json;
+            string messagestring = "";
             try
             {
                 using (Context dbcontext = new Context())
@@ -1229,13 +1374,15 @@ namespace greenEnergy.Controllers
 
 
                     }
+                    messagestring += "1-";
                     await dbcontext.SaveChangesAsync();
                     // تولید عکس از روی پی دی اف
                     // string pt = System.Web.HttpContext.Current.Server.MapPath("~/Uploads/");
                     // string path = System.IO.Path.Combine(pt,  "Upload");// HttpRuntime.AppDomainAppPath; // System.Web.HttpContext.Current.Server.MapPath("~/Uploads/");
-                    string folderPath = HostingEnvironment.MapPath("~/Uploads/");// Server.MapPath("~/Upload/");
+                    string folderPath = HttpContext.Current.Server.MapPath("~/Uploads/");// Server.MapPath("~/Upload/");// HostingEnvironment.MapPath("~/Uploads/");// ;
                     string pdfFilePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "PDF\\" + form.pdf);
-
+                    messagestring += folderPath;
+                    messagestring += "-"+ folderPath;
                     PdfDocument pdf = new PdfDocument();
                     pdf.LoadFromFile(pdfFilePath);
                     List<Image> images = new List<Image>();
@@ -1249,6 +1396,7 @@ namespace greenEnergy.Controllers
                         string filename = form.pdf.Replace(".pdf", "") + pdf.Pages.IndexOf(page) + ".png";
                         //finalImag += filename + ",";
                         string imagename = System.IO.Path.Combine(folderPath, filename);
+                        messagestring += imagename;
                         foreach (Image image in page.ExtractImages())
                         {
                             image.Save(imagename, System.Drawing.Imaging.ImageFormat.Png);
@@ -1281,7 +1429,7 @@ namespace greenEnergy.Controllers
             catch (Exception e)
             {
                 mymodel.status = 400;
-                mymodel.message = e.InnerException.ToString();
+                mymodel.message = messagestring;
                 string result = JsonConvert.SerializeObject(mymodel);
                 JObject jObject = JObject.Parse(result);
                 return jObject;
@@ -1830,6 +1978,10 @@ namespace greenEnergy.Controllers
                             else if (model.formID != new Guid("00000000-0000-0000-0000-000000000000"))
                             {
                                 cnt.formID = model.formID;
+                            }
+                            else if (!string.IsNullOrEmpty(model.title))
+                            {
+                                cnt.title = model.title;
                             }
                             else
                             {
@@ -4679,7 +4831,46 @@ namespace greenEnergy.Controllers
         }
 
 
+        private async Task<List<serventChartVM>> GetDataForManagerOrderList(ManagerOrderList model)
+        {
+            List<serventChartVM> serlst = new List<serventChartVM>();
 
+            DateTime toDate;
+            DateTime fromDate;
+            
+            if (model != null)
+            {
+                if (!string.IsNullOrEmpty(model.toDate))
+                {
+                    toDate = dateTimeConvert.UnixTimeStampToDateTime(double.Parse(model.toDate));
+                    
+                }
+            }
+            if (model != null)
+            {
+                if (!string.IsNullOrEmpty(model.fromDate))
+                {
+                    fromDate = dateTimeConvert.UnixTimeStampToDateTime(double.Parse(model.fromDate));
+                    
+                }
+            }
+            
+
+            try
+            {
+                using (Context dbcontext = new Context())
+                {
+                    
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return serlst;
+        }
         private async Task<List<serventChartVM>> GetDataForManagerChart(ManagerChartSearch model)
         {
             List<serventChartVM> serlst = new List<serventChartVM>();

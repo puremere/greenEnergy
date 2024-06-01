@@ -19,31 +19,40 @@ namespace greenEnergy.Controllers
        
         public async Task <ActionResult> page(string first, string second)
         {
+            try
+            {
+                pageSectionVM responsemodel = new pageSectionVM();
+                getURLVM model = new getURLVM();
+
+                model.lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
+                model.slug = (first + "/" + second).Trim('/');
+                responsemodel = await methods.PostData(model, responsemodel, "/getURL", ""); //Request.Cookies["clientToken"].Value  فقط برای گرین
+
+                //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
+                //{
+                //    getsectionLayoutVM layoutresponse = new getsectionLayoutVM();
+                //    sectionLayoutVM layoutinput = new sectionLayoutVM();
+                //    layoutinput.menuTitle = "";
+                //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
+                //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout", Request.Cookies["clientToken"].Value);
+                //}
+
+
+                ViewBag.layoutModel = responsemodel.layoutModel;
+                ViewBag.title = responsemodel.title;
+                ViewBag.image = responsemodel.image;
+                ViewBag.layout = responsemodel.layoutModel.title + ".cshtml";
+                ViewBag.metaTitle = responsemodel.metatitle;
+
+                return View(responsemodel);
+            }
+            catch (Exception)
+            {
+
+                return Content("");
+            }
+
            
-            pageSectionVM responsemodel = new pageSectionVM();
-            getURLVM model = new getURLVM();
-            
-            model.lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
-            model.slug = (first + "/" + second).Trim('/');
-            responsemodel = await methods.PostData(model, responsemodel, "/getURL","" ); //Request.Cookies["clientToken"].Value  فقط برای گرین
-
-            //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
-            //{
-            //    getsectionLayoutVM layoutresponse = new getsectionLayoutVM();
-            //    sectionLayoutVM layoutinput = new sectionLayoutVM();
-            //    layoutinput.menuTitle = "";
-            //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
-            //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout", Request.Cookies["clientToken"].Value);
-            //}
-
-
-            ViewBag.layoutModel = responsemodel.layoutModel;
-            ViewBag.title = responsemodel.title;
-            ViewBag.image = responsemodel.image;
-            ViewBag.layout = responsemodel.layoutModel.title+".cshtml";
-            ViewBag.metaTitle = responsemodel.metatitle;
-            
-            return View(responsemodel);
         }
         public ActionResult Index()
         {

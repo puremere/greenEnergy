@@ -34,8 +34,8 @@ namespace greenEnergy.Classes
                 string tokenUsername = TokenManager.ValidateToken(arrUserNameandPassword[0], arrUserNameandPassword[1]);
                 if (tokenUsername == null)
                 {
-                    actionContext.Response = actionContext.Request
-                            .CreateResponse(HttpStatusCode.Unauthorized);
+                    //actionContext.Response = actionContext.Request
+                    //        .CreateResponse(HttpStatusCode.Unauthorized);
                 }
                 else
                 {
@@ -58,8 +58,8 @@ namespace greenEnergy.Classes
             }
             else
             {
-                actionContext.Response = actionContext.Request
-                    .CreateResponse(HttpStatusCode.Unauthorized);
+                //actionContext.Response = actionContext.Request
+                //    .CreateResponse(HttpStatusCode.Unauthorized);
             }
         }
         public static bool IsAuthorizedUser(string Username, string Password)

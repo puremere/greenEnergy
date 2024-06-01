@@ -1130,7 +1130,12 @@ namespace greenEnergy.ViewModel
         public DateTime terminationDate { get; set; }
 
     }
-
+    public class ManagerOrderList
+    {
+        public string toDate { get; set; }
+        public string fromDate { get; set; }
+        public string search { get; set; }
+    }
     public class ManagerChartSearch
     {
         public string startDate { get; set; }
