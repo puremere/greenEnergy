@@ -1136,6 +1136,11 @@ namespace greenEnergy.ViewModel
         public string fromDate { get; set; }
         public string search { get; set; }
     }
+
+    public class showFormInputVM
+    {
+        public Guid flowID { get; set; }
+    }
     public class ManagerChartSearch
     {
         public string startDate { get; set; }
