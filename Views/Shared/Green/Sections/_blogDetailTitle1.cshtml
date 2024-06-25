@@ -1,0 +1,9 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url") == null ?  "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+}
+<h1 class="title">
+    <a href="@url">@title</a>
+</h1>

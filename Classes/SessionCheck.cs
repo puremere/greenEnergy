@@ -15,8 +15,31 @@ using System.Collections.Generic;
 
 namespace greenEnergy.Classes
 {
-    
 
+    public class adminCheck : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+
+            var descriptor = filterContext.ActionDescriptor;
+            var actionName = descriptor.ActionName.ToString().ToLower();
+
+            if (actionName.ToLower() != "login" && actionName.ToLower() != "setcode" && actionName.ToLower() != "getcode")
+            {
+                if (filterContext.HttpContext.Request.Cookies["adminToken"] == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                                        new RouteValueDictionary {
+                                        { "Controller", "admin" },
+                                        { "Action", "login" }
+                                                       });
+
+                }
+            }
+
+        }
+    }
     public class panelCheck : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)

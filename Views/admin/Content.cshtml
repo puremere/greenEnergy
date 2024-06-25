@@ -1,0 +1,586 @@
+﻿
+@model greenEnergy.ViewModel.contentListVM
+@{
+    ViewBag.Title = "Content";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<style>
+    .show {
+        display: inline-block;
+        visibility: visible
+    }
+
+    .hide {
+        display: none;
+        visibility: hidden
+    }
+
+    .editMode {
+        display: none;
+        visibility: hidden
+    }
+</style>
+
+@section scripts{
+    <script>
+        $(".removeButton").click(function () {
+
+            $("#removeID").val($(this).attr("idToGo"));
+            $("#formID").val($(this).attr("formtogo"))
+
+        })
+        $(".addCycleField").click (function(){
+            var fields = $(this).attr("fields");
+            const array = fields.split(',');
+            var srt = '<select multiple name="chosenForCycle" class="form-control">childs</select>'
+            var totalChilds = '';
+            for (i=0;i<array.length;i++){
+                totalChilds += '<option value="'+array[i]+'">'+array[i]+'</option>'
+            };
+
+            srt =  srt.replace('childs',totalChilds);
+           $("#cycleFieldsHolder").html(srt);
+
+           $("#addCycleFieldContentID").val($(this).attr("idtogo"));
+        });
+         $(".addForm").click(function () {
+            $("#addformContentID").val($(this).attr("idtogo"));
+        });
+       $(".editButton").click(function () {
+
+           $(this).parent().parent().parent().find(".lableMode").addClass("editMode");
+            $(this).parent().parent().parent().find(".formMode").removeClass("editMode");
+
+        });
+        $(".cancelButton").click(function(){
+            $(this).parent().parent().parent().find(".formMode").addClass("editMode");
+            $(this).parent().parent().parent().find(".lableMode").removeClass("editMode");
+        });
+    </script>
+
+}
+
+
+<ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
+    @{
+        string final = @Model.parentSelected != null ? @Model.parentSelected.title : Model.selectedSection.title;
+    }
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add New Content</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> @final Content List</a>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="setContnet">
+                            @Html.AntiForgeryToken()
+                            @if (Model.parentSelected != null)
+                            {
+                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                            }
+                            <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Priority</label>
+                                <input required type="text" id="seachQuery" name="priority" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Use Page Data:</label>
+                                <input style="width:2%" type="checkbox" id="selfUsed" name="selfUsed" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Content Description</label>
+                                <input required type="text" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Data From Type:</label>
+                                @Html.DropDownList("typeID", new SelectList(Model.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Data From Type:</label>
+                                @Html.DropDownList("mirrorID", new SelectList(Model.allContents, "contentID", "title"), "choose one", new { @class = "form-control", name = "mirrorID" })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">layout</label>
+                                <div class="row mb-4">
+                                    <div class="col-md-12 mb-4 pl-0 pr-0">
+                                        <div class="glide basic">
+                                            <div class="glide__track pb-3" data-glide-el="track">
+                                                <div class="glide__slides">
+
+                                                    @foreach (var item in Model.htmlList)
+                                                    {
+                                                        string active = "active";
+                                                        string ischecked = "checked";
+                                                        if (Model.htmlList.IndexOf(item) != 0)
+                                                        {
+                                                            active = "";
+                                                            ischecked = "";
+                                                        }
+
+                                                        <div class="glide__slide">
+                                                            <div class="card flex-row">
+                                                                <div class="w-50 position-relative" style="height:200px; width:200px">
+                                                                    <img style="width:100%; height:100%; object-fit:scale-down" class="card-img-left" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image"
+                                                                         alt="Card image cap">
+                                                                    <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
+                                                                </div>
+                                                                <div class="w-50">
+                                                                    <div class="card-body">
+                                                                        <h2> @item.htmlName</h2>
+                                                                       
+
+                                                                        <footer>
+                                                                            <input class="form-control" @ischecked type="radio" value="@item.htmlID" name="htmlID" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+
+
+                                                </div>
+                                            </div>
+                                            <div class="glide__arrows slider-nav" data-glide-el="controls">
+                                                <button class="glide__arrow glide__arrow--left left-arrow btn btn-link"
+                                                        data-glide-dir="<">
+                                                    <i class="simple-icon-arrow-left"></i>
+                                                </button>
+                                                <div class="glide__bullets slider-dot-container" data-glide-el="controls[nav]">
+                                                    @foreach (var item in Model.htmlList)
+                                                    {
+                                                        int number = 0;
+                                                        <button class="glide__bullet slider-dot" data-glide-dir="=@number"></button>
+                                                        number++;
+                                                    }
+
+
+                                                </div>
+                                                <button class="glide__arrow glide__arrow--right right-arrow btn btn-link"
+                                                        data-glide-dir=">">
+                                                    <i class="simple-icon-arrow-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Details Start -->
+
+                <div class="card">
+                    <div id="prnt" class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Content List </h5>
+                        </div>
+                        <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                            <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                <thead>
+
+                                    <tr>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">stackWeight </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">cycle Fields </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Priority </th>
+
+                                        @if (Model.parentSelected != null)
+                                        {
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Category </th>
+                                        }
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">image </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Incoming Type </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.contentList != null)
+                                    {
+
+                                        foreach (var prod in Model.contentList)
+                                        {
+
+                                            int i = Model.contentList.IndexOf(prod) + 1;
+                                            string cls = (Model.contentList.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                            <tr class="@cls">
+                                                <td>
+                                                    @i
+                                                </td>
+
+
+                                                <td>
+                                                    <div style="display:flex; justify-content:center">
+
+                                                        <div class="lableMode">
+                                                            <span>     @prod.htmlName</span>
+
+
+
+                                                        </div>
+
+                                                        <div class="formMode editMode">
+                                                            <form style="display:flex;justify-content:center" action="/admin/setContnet" method="post" enctype="multipart/form-data">
+                                                                @Html.AntiForgeryToken()
+                                                                @if (Model.parentSelected != null)
+                                                                {
+                                                                    <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                }
+                                                                <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                                                                <input hidden name="contentID" value="@prod.contentID" />
+                                                                <input hidden name="priority" value="@prod.priority" />
+                                                                <input hidden name="stackWeight" value="@prod.stackWeight" />
+                                                                <div>
+                                                                    <input style="text-align: center;" type="text" id="" class="form-control" name="title" value="   @prod.htmlName" />
+                                                                    <div style="margin:0 5px"></div>
+
+                                                                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </td>
+                                                <td>
+
+                                                    <div style="display:flex; justify-content:center">
+
+                                                        <div class="lableMode">
+                                                            <span>  @prod.stackWeight</span>
+
+
+
+                                                        </div>
+
+                                                        <div class="formMode editMode">
+                                                            <form style="display:flex;justify-content:center" action="/admin/setContnet" method="post" enctype="multipart/form-data">
+                                                                @Html.AntiForgeryToken()
+                                                                @if (Model.parentSelected != null)
+                                                                {
+                                                                    <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                }
+                                                                <input hidden name="contentID" value="@prod.contentID" />
+                                                                <input hidden name="priority" value="@prod.priority" />
+                                                                <div style="display:flex">
+                                                                    <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="stackWeight" value="@prod.stackWeight" />
+                                                                    <div style="margin:0 5px"></div>
+
+                                                                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </td>
+                                                <td>@prod.cycleFields</td>
+                                                <td>
+                                                    <div style="display:flex; justify-content:center">
+
+                                                        <div class="lableMode">
+                                                            <span> @prod.priority</span>
+
+
+
+                                                        </div>
+
+                                                        <div class="formMode editMode">
+                                                            <form style="display:flex;justify-content:center" action="/admin/setContnet" method="post" enctype="multipart/form-data">
+                                                                @Html.AntiForgeryToken()
+                                                                @if (Model.parentSelected != null)
+                                                                {
+                                                                    <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                }
+                                                                <input hidden name="contentID" value="@prod.contentID" />
+                                                                <input hidden name="stackWeight" value="@prod.stackWeight" />
+                                                                <div style="display:flex">
+                                                                    <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="priority" value="@prod.priority" />
+                                                                    <div style="margin:0 5px"></div>
+
+                                                                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+
+
+
+
+                                                </td>
+
+
+                                                @if (Model.parentSelected != null)
+                                                {
+                                                    <td>@prod.parentCategory</td>
+                                                }
+                                                <td><img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" /></td>
+
+                                                <td>@prod.typeName</td>
+                                                <td style="display:flex">
+
+
+
+                                                    @if (prod.multilayer == 1)
+                                                    {
+                                                        if (string.IsNullOrEmpty(prod.typeName))
+                                                        {
+                                                            <a target="_blank" href="/admin/Content?contentID=@prod.contentID">
+                                                                <div class="btn btn-primary btn-sm lgnsubmitt">child Content</div>
+                                                            </a>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (prod.htmlFormLink == "1")
+                                                        {
+                                                            if (string.IsNullOrEmpty(prod.typeName))
+                                                            {
+                                                                <div style="margin:0 5px"></div>
+                                                                <button data-bs-target="#addFormToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addForm">Set From </button>
+                                                            }
+
+                                                        }
+
+
+                                                    }
+                                                    <div style="margin:0 5px"></div>
+                                                    <a target="_blank" href="/admin/data?id=@prod.contentID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
+                                                    </a>
+                                                    <div style="margin:0 5px"></div>
+                                                    <button fields="@prod.htmlFeilds" data-bs-target="#addCycleToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addCycleField">Set Cycle Info </button>
+
+                                                    <div style="margin:0 5px"></div>
+                                                    <a target="_blank" href="/admin/pose?id=@prod.contentID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">Pose List</div>
+                                                    </a>
+                                                    <div style="margin:0 5px"></div>
+                                                    <button type="button" class="lableMode btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                    <button type="button" class="formMode btn ripple btn-primary btn-sm editMode cancelButton">Cancel </button>
+                                                    <div style="margin:0 5px"></div>
+                                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+
+                                                </td>
+
+
+
+
+                                            </tr>
+                                        }
+
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="editModal">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit</h6><button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/setData" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @if (Model.parentSelected != null)
+                {
+                    <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                }
+                <div class="modal-body" style="display:flex; flex-direction:column">
+                    <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                    <input hidden name="contentID" id="editContentID" value="" />
+                    <div>
+                        <p>URL</p>
+                        <input type="text" id="editURL" class="form-control" name="url" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Priority</p>
+                        <input type="text" id="editPriority" class="form-control" name="priority" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+
+                    <div>
+                        <p>Title</p>
+                        <input type="text" id="editTitle" class="form-control" name="title" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+
+                    <div>
+                        <p>Title 2</p>
+                        <input type="text" id="editTitle2" class="form-control" name="title2" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Description </p>
+                        <textarea cols="10" id="editDesc" name="description" class="form-control"></textarea>
+
+
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Description 2</p>
+                        <textarea cols="10" id="editDesc2" name="description2" class="form-control "></textarea>
+
+
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>video URL</p>
+                        <input type="text" id="editVideoURL" class="form-control" name="viedoIframe" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Image</p>
+                        <input class="form-control" type="file" name="file" value="" />
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="addCycleToContent">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">choose dynamic attribute</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/setContnet" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <input hidden name="contentID" id="addCycleFieldContentID" />
+                <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                <div id="cycleFieldsHolder">
+
+                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" })
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="addFormToContent">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/setContnet" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <input hidden name="contentID" id="addformContentID" />
+                <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                <div id="formHolder">
+                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" })
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/removeContent" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                <input hidden name="contentID" id="removeID" />
+                @if (Model.parentSelected != null)
+                {
+                    <input hidden name="parentID" value="@Model.parentSelected.contentID" />
+                }
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

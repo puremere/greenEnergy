@@ -34,7 +34,7 @@ namespace greenEnergy.Controllers
                 //    sectionLayoutVM layoutinput = new sectionLayoutVM();
                 //    layoutinput.menuTitle = "";
                 //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
-                //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout", Request.Cookies["clientToken"].Value);
+                //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout","");
                 //}
 
 
@@ -43,7 +43,9 @@ namespace greenEnergy.Controllers
                 ViewBag.image = responsemodel.image;
                 ViewBag.layout = responsemodel.layoutModel.title + ".cshtml";
                 ViewBag.metaTitle = responsemodel.metatitle;
-
+                //
+                                    
+                                
                 return View(responsemodel);
             }
             catch (Exception)

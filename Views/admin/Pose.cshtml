@@ -1,0 +1,463 @@
+﻿
+@using Newtonsoft.Json;
+
+@model greenEnergy.ViewModel.poseListVM
+@{
+    ViewBag.Title = "language";
+    Layout = "~/Views/Shared/_panelLayout.cshtml";
+
+
+    //string titleclass = Model.selectedContent.fields.Contains("title") ? "show" : "hide";
+    //string title2class = Model.selectedContent.fields.Contains("title2") ? "show" : "hide";
+    //string descriptionclass = Model.selectedContent.fields.Contains("description") ? "show" : "hide";
+    //string description2class = Model.selectedContent.fields.Contains("description2") ? "show" : "hide";
+    //string imageclass = Model.selectedContent.fields.Contains("image") ? "show" : "hide";
+    //string videoclass = Model.selectedContent.fields.Contains("video") ? "show" : "hide";
+    //string urlclass = Model.selectedContent.fields.Contains("url") ? "show" : "hide";
+}
+
+
+@section scripts{
+    <style>
+        .show {
+            display: inline-block;
+            visibility: visible
+        }
+
+        .hide {
+            display: none;
+            visibility: hidden
+        }
+
+        .editMode {
+            display: none;
+            visibility: hidden
+        }
+    </style>
+    <script>
+        $(".editButton").click(function () {
+
+           $(this).parent().parent().parent().find(".lableMode").addClass("editMode");
+            $(this).parent().parent().parent().find(".formMode").removeClass("editMode");
+
+        })
+        $(".cancelButton").click(function(){
+            $(this).parent().parent().parent().find(".formMode").addClass("editMode");
+            $(this).parent().parent().parent().find(".lableMode").removeClass("editMode");
+        })
+        $(".removeButton").click(function () {
+            $("#removeID").val($(this).attr("idtogo"));
+        })
+    </script>
+}
+
+
+<div style=" ">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Details Start -->
+
+            <div class="card">
+                <div id="prnt" class="card-body">
+                    <div class="title-header option-title">
+                        <h5>Data List </h5>
+                    </div>
+                    <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                        <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                            <thead>
+
+                                <tr>
+
+
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Value </th>
+
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (Model.poseList != null)
+                                {
+
+                                    foreach (var prod in Model.poseList)
+                                    {
+
+                                        int i = Model.poseList.IndexOf(prod) + 1;
+                                        string cls = (Model.poseList.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                        <tr class="@cls">
+
+
+
+                                            <td>
+                                                @prod.title
+
+                                            </td>
+                                            <td style="max-width:unset">
+                                                <div style="display:flex; justify-content:center">
+                                                    @if (prod.title != "centerXsrt" && prod.title != "centerYsrt")
+                                                    {
+                                                        <div class="lableMode">
+                                                            @if (!string.IsNullOrEmpty(prod.title2))
+                                                            {
+                                                                greenEnergy.ViewModel.poseViewVM datemodel = JsonConvert.DeserializeObject<greenEnergy.ViewModel.poseViewVM>(prod.title2);
+                                                                <span>to : @datemodel.to</span>
+                                                                <span>constant : @datemodel.constant</span>
+
+                                                            }
+                                                            
+
+
+                                                        </div>
+
+                                                        <div class="formMode editMode">
+                                                            <form style="display:flex;justify-content:center" action="/panel/setPose" method="post" enctype="multipart/form-data">
+                                                                @Html.AntiForgeryToken()
+                                                                <input hidden name="contentID" value="@Model.selectedContent.contentID" />
+                                                                <input hidden name="poseID" value="@prod.poseID" />
+                                                                <input hidden name="isCheckbox" value="0" />
+                                                                @if (!string.IsNullOrEmpty(prod.title2))
+                                                                {
+                                                                    greenEnergy.ViewModel.poseViewVM datemodel = JsonConvert.DeserializeObject<greenEnergy.ViewModel.poseViewVM>(prod.title2);
+
+                                                                    <input style=" margin:0 10px" type="text" class="form-control" name="constant" value="@datemodel.constant" />
+                                                                    <select class="form-control" name="to">
+                                                                        <option value="">Parent</option>
+                                                                        @if (Model.allElements != null)
+                                                                        {
+                                                                            foreach (var item in Model.allElements)
+                                                                            {
+
+                                                                                if (item.title == datemodel.to)
+                                                                                {
+                                                                                    <option selected>@item.title</option>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <option>@item.title</option>
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                    </select>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input style="flex:1;  margin:0 10px" type="text" class="" name="constant" value="" />
+                                                                    <select class="form-control" name="to">
+                                                                        @if (Model.allElements != null)
+                                                                        {
+                                                                            <option value="">parent</option>
+                                                                            foreach (var item in Model.allElements)
+                                                                            {
+                                                                                <option>@item.title</option>
+                                                                            }
+                                                                        }
+
+                                                                    </select>
+
+                                                                }
+
+                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                            </form>
+
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="lableMode">
+
+                                                            @if (!string.IsNullOrEmpty(prod.title2))
+                                                            {
+                                                                if (prod.title2 == "true")
+                                                                {
+                                                                    <span>yes</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>no</span>
+                                                                }
+                                                            }
+
+                                                        </div>
+
+                                                        <div class="formMode editMode">
+                                                            <form style="display:flex;justify-content:center" action="/panel/setPose" method="post" enctype="multipart/form-data">
+                                                                @Html.AntiForgeryToken()
+                                                                <input hidden name="contentID" value="@Model.selectedContent.contentID" />
+                                                                <input hidden name="poseID" value="@prod.poseID" />
+                                                                <input hidden name="isCheckbox" value="1" />
+                                                                @if (!string.IsNullOrEmpty(prod.title2))
+                                                                {
+                                                                    if (prod.title2 == "true")
+                                                                    {
+                                                                        <input checked style="flex:1;  margin:0 10px" type="checkbox" id="editTitle2" name="title2" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input style="flex:1;  margin:0 10px" type="checkbox" id="editTitle2" name="title2" />
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input style="flex:1;  margin:0 10px" type="checkbox" id="editTitle2" name="title2" />
+                                                                }
+
+                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
+
+
+                                                            </form>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+
+
+
+                                            </td>
+
+
+                                            <td>
+                                                <div style="display:flex; justify-content:center">
+                                                    <button type="button" class="lableMode btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                    <button type="button" class="formMode btn ripple btn-primary btn-sm editMode cancelButton">Cancel </button>
+                                                    <div style="margin:0 5px"></div>
+                                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.poseID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+                                                </div>
+
+                                            </td>
+
+
+
+
+                                        </tr>
+                                    }
+
+                                }
+
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @*<nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> @Model.selectedContent.title  Data List </button>
+                <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Add New Data </button>
+
+            </div>
+        </nav>*@
+    @*<div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+
+
+
+            </div>
+            <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-sm-12">
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="title-header option-title">
+                                    <h5>Add New Data</h5>
+                                </div>
+                                <div class="row">
+                                    <form method="post" action="/panel/setData" enctype="multipart/form-data">
+                                        @Html.AntiForgeryToken()
+                                        <input hidden name="contentID" value="@Model.selectedContent.contentID" />
+                                        <div style="display:flex; flex-direction:column">
+                                            <div class=" align-items-center @urlclass">
+                                                <label class="form-label-title col-sm-12 mb-0">URL:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="seachQuery" name="url" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center">
+                                                <label class="form-label-title col-sm-12 mb-0">Priority:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="seachQuery" name="priority" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @titleclass">
+                                                <label class="form-label-title col-sm-12 mb-0">Title:</label>
+                                                <div class="col-sm-10">
+                                                    <input required type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @title2class">
+                                                <label class="form-label-title col-sm-12 mb-0">Second Title :</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="seachQuery" name="title2" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @descriptionclass">
+                                                <label class="form-label-title col-sm-12 mb-0">Description:</label>
+                                                <div class="col-sm-10">
+
+                                                    <textarea cols="5" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @description2class">
+                                                <label class="form-label-title col-sm-12 mb-0">Second Description :</label>
+                                                <div class="col-sm-10">
+
+                                                    <textarea cols="5" id="seachQuery" name="description2" class="form-control col-md-7 col-xs-12"></textarea>
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @imageclass">
+                                                <label class="form-label-title col-sm-12 mb-0">image  :</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                            <div class=" align-items-center @videoclass">
+                                                <label class="form-label-title col-sm-12 mb-0">Viedo Iframe:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="" name="viedoIframe" class="form-control col-md-7 col-xs-12">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-6 mb-4 row align-items-center">
+                                            <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
+                                                <button type="submit" class="btn btn-primary lgnsubmitt">OK </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>*@
+
+
+
+</div>
+
+
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/panel/removePose" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input hidden name="contentID" value="@Model.selectedContent.contentID" />
+                <input hidden name="poseID" id="removeID" />
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="editModal">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit</h6><button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/panel/setData" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="modal-body" style="display:flex; flex-direction:column">
+                    <input hidden name="dataID" id="editID" value="" />
+                    <input hidden name="contentID" value="@Model.selectedContent.contentID" />
+                    <div>
+                        <p>URL</p>
+                        <input type="text" id="editURL" class="form-control" name="url" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Priority</p>
+                        <input type="text" id="editPriority" class="form-control" name="priority" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+
+                    <div>
+                        <p>Title</p>
+                        <input type="text" id="editTitle" class="form-control" name="title" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+
+                    <div>
+                        <p>Title 2</p>
+                        <input type="text" id="editTitle2" class="form-control" name="title2" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Description </p>
+                        <textarea cols="10" id="editDesc" name="description" class="form-control"></textarea>
+
+
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Description 2</p>
+                        <textarea cols="10" id="editDesc2" name="description2" class="form-control "></textarea>
+
+
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>video URL</p>
+                        <input type="text" id="editVideoURL" class="form-control" name="viedoIframe" value="" />
+                        <p style="margin:10px"></p>
+                    </div>
+                    <div>
+                        <p>Image</p>
+                        <input class="form-control" type="file" name="file" value="" />
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

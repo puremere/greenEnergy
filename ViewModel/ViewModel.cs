@@ -40,7 +40,7 @@ namespace greenEnergy.ViewModel
     public class formVM
     {
         [Key]
-        public Guid formID { get; set; }
+        public int formID { get; set; }
         public string title { get; set; }
         public string pdfBase { get; set; }
         public string pdf { get; set; }
@@ -793,7 +793,7 @@ namespace greenEnergy.ViewModel
     public class orderHistoryDetailVM
     {
         public string formTitle { get; set; }
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public DateTime creationDate { get; set; }
         public string serventname { get; set; }
     }
@@ -805,7 +805,7 @@ namespace greenEnergy.ViewModel
     {
         public string title { get; set; }
         public string formType { get; set; }
-        public Guid processFormID { get; set; }
+        public int processFormID { get; set; }
     }
     public class processFormulaVM
     {
@@ -845,9 +845,12 @@ namespace greenEnergy.ViewModel
     {
         public string key { get; set; }
         public string value { get; set; }
+        public string usedFeild { get; set; }
         public string formItemTypeCode { get; set; }
-        public Guid formItemID { get; set; }
-        public Guid formID { get; set; }
+        public int formItemID { get; set; }
+        public int formID { get; set; }
+        public int? relatedFormItemID { get; set; }
+        public string operat { get; set; }
 
     }
     public class getOrderList
@@ -871,7 +874,7 @@ namespace greenEnergy.ViewModel
     }
     public class getFlowCost
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
     }
     public class flowCostVM
     {
@@ -882,13 +885,13 @@ namespace greenEnergy.ViewModel
     }
     public class setFlowCodingVM
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public Guid codingID { get; set; }
         public double amount { get; set; }
     }
     public class setFlowProductVM
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public Guid productID { get; set; }
         public double amount { get; set; }
     }
@@ -897,7 +900,7 @@ namespace greenEnergy.ViewModel
         public string formDetailList { get; set; }
         public Guid processID { get; set; }
         public Guid orderID { get; set; }
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public string name { get; set; }
 
     }
@@ -906,7 +909,7 @@ namespace greenEnergy.ViewModel
     {
         public Guid processID { get; set; }
         public Guid orderID { get; set; }
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
     }
 
     public class formFullDetailItemVM : formItemVM
@@ -921,7 +924,7 @@ namespace greenEnergy.ViewModel
     public class formItemList
     {
         public List<formFullDetailItemVM> formItemDetailList { get; set; }
-        public Guid formID { get; set; }
+        public int formID { get; set; }
         public string formTitle { get; set; }
         public string formImage { get; set; }
         public string formHieght { get; set; }
@@ -933,6 +936,7 @@ namespace greenEnergy.ViewModel
     {
         public Guid newOrderFieldsID { get; set; }
         public int? valueInt { get; set; }
+        public int flowID { get; set; }
         public bool? valueBool { get; set; }
         public double? valueDuoble { get; set; }
         public DateTime? valueDateTime { get; set; }
@@ -963,15 +967,19 @@ namespace greenEnergy.ViewModel
     {
         public Guid processID { get; set; }
 
-        public Guid formID { get; set; }
+        public int formID { get; set; }
     }
 
     public class formItemVM
     {
-        public Guid formItemID { get; set; }
+        public int formItemID { get; set; }
+       
         public string itemValue { get; set; }
         public string groupNumber { get; set; }
-
+        
+        
+        public int? relatedFormItemID { get; set; }
+        public string operat { get; set; }
         public string itemName { get; set; }
         public string itemx { get; set; }
         public string itemy { get; set; }
@@ -995,7 +1003,7 @@ namespace greenEnergy.ViewModel
 
         public Guid formItemTypeID { get; set; }
 
-        public Guid formID { get; set; }
+        public int formID { get; set; }
 
 
 
@@ -1020,6 +1028,9 @@ namespace greenEnergy.ViewModel
     }
     public class formItemActionVM
     {
+
+        public List<processFormVM> allForm { get; set; }
+        public List<formItemVM> formItemListALL { get; set; }
         public List<formItemVM> formItemList { get; set; }
         public List<orderOptionVM> orderOptionList { get; set; }
         public List<formItemTypeVM> formItemTypeList { get; set; }
@@ -1031,7 +1042,7 @@ namespace greenEnergy.ViewModel
 
     public class rejectAcceptFlowVM
     {
-        public Guid orderFlowID { get; set; }
+        public int orderFlowID { get; set; }
         public string status { get; set; }
     }
     public class userFlowVM
@@ -1042,7 +1053,7 @@ namespace greenEnergy.ViewModel
     public class orderFlowVM
     {
 
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public string processName { get; set; }
         public string processColor { get; set; }
         public Guid processID { get; set; }
@@ -1106,7 +1117,7 @@ namespace greenEnergy.ViewModel
     public class serventChartVM
     {
         public string name { get; set; }
-        public Guid serventID { get; set; }
+        public string phone { get; set; }
         public List<serventChartList> serventList { get; set; }
     }
 
@@ -1139,12 +1150,17 @@ namespace greenEnergy.ViewModel
 
     public class showFormInputVM
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
+    }
+    public class showFormInputIntVM
+    {
+        public int flowID { get; set; }
     }
     public class ManagerChartSearch
     {
         public string startDate { get; set; }
         public string endDate { get; set; }
+        public string phone { get; set; }
     }
     public class manageOrderVM
     {
@@ -1154,13 +1170,13 @@ namespace greenEnergy.ViewModel
 
     public class acceptFlow
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public string status { set; get; }
     }
     public class newFlowVM
     {
         public Guid processID { get; set; }
-        public Guid serventID { get; set; }
+        public Guid userID { get; set; }
         public Guid orderID { get; set; }
         public double actionDate { get; set; }
     }

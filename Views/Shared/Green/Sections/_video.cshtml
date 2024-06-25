@@ -1,16 +1,22 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
-@if (Model.itemModel != null)
+@if (Model != null)
 {
 
-    if (Model.itemModel.dataList != null)
+    if (Model.dataList != null)
     {
-        if (Model.itemModel.dataList.Count > 0)
+        if (Model.dataList.Count > 0)
         {
+            string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+            string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2;
+            string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+            string image = Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+            string video = Model.dataList.SingleOrDefault(x => x.title == "video").title2;
+
             <div class="video-popover">
                 <div class="video-popover-inner">
                     <span id="close-video-popover"><i class="las la-times"></i></span>
-                    <iframe src="@Model.itemModel.dataList[0].viedoIframe" width="640" height="360"
+                    <iframe src="@video" width="640" height="360"
                             allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
@@ -26,15 +32,15 @@
                                 <svg class="video-play-btn-svg" xmlns="http://www.w3.org/2000/svg"
                                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="206px"
                                      viewBox="0 0 206 206" style="enable-background:new 0 0 206 206;" xml:space="preserve"><circle class="qodef-m-circle" stroke-miterlimit="10" cx="103" cy="103" r="100"></circle><path class="qodef-m-arrow" d="M95.4,94.4l15,9.4l-15,9.4V94.4z"></path><path class="qodef-m-circle-half qodef--top-half" stroke-width="3" stroke-miterlimit="10"
-                                                                                                                                                                                                                                                                                                                                                                           d="M189.6,153C162,200.8,100.8,217.2,53,189.6S-11.2,100.8,16.4,53"></path></svg>
+                                                                                                                                                                                                                                                                                                 d="M189.6,153C162,200.8,100.8,217.2,53,189.6S-11.2,100.8,16.4,53"></path></svg>
                             </span>
                         </a>
-                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.itemModel.dataList[0].mediaURL" alt="video">
+                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image" alt="video">
                         <div class="content">
                             <img src="~/webAssets/green/assets/imgs/border-shape.png" alt="Border Shape" class="border-shape">
-                            <h2><a href="#">@Model.itemModel.dataList[0].title</a></h2>
-                            <a href="#">
-                                @Model.itemModel.dataList[0].title2 <span class="right-icon"></span>
+                            <h2><a href="#">@title</a></h2>
+                            <a href="@buttonURL">
+                                @buttonText <span class="right-icon"></span>
                             </a>
                         </div>
                     </div>
@@ -46,7 +52,7 @@
 }
 <script>
     $(".video-popover").click(function(){
-     
+
       $(this).removeClass("active")
     })
 </script>

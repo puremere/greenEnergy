@@ -18,6 +18,11 @@ namespace greenEnergy
             //    defaults: new { controller = "portal", action = "login", id = UrlParameter.Optional }
             //);
             routes.MapRoute(
+             name: "Default4",
+             url: "admin/{action}/{id}",
+             defaults: new { controller = "admin", action = "login", id = UrlParameter.Optional }
+         );
+            routes.MapRoute(
               name: "Default3",
               url: "portal/{action}/{id}",
               defaults: new { controller = "portal", action = "login", id = UrlParameter.Optional }

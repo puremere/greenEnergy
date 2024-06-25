@@ -171,10 +171,12 @@
                                         <div class="col-sm-10">
                                            
                                             <select name="dataType" class="form-control">
-                                                <option value="link">Link Section</option>
-                                                <option value="info">Info Section</option>
-                                                <option value="social">Social Section</option>
-                                                <option value="copyright">Copyright Section</option>
+                                                @foreach (var item in Model.partDetailList)
+                                                {
+                                                    <option value="@item">@item</option>
+                                                }
+
+                                               
                                             </select>
                                         </div>
                                     </div>

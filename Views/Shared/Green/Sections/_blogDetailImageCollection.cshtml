@@ -1,0 +1,22 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string image = Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "image2").title2;
+}
+
+<div class="img-box1">
+    <div class="left">
+        <div class="box-anim">
+            <img class="img1" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image" alt="Blog">
+
+        </div>
+    </div>
+    <div class="right">
+        <div class="box-anim">
+            <img class="img1" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image2" alt="Blog">
+
+        </div>
+    </div>
+</div>

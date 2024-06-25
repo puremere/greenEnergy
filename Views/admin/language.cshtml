@@ -1,0 +1,135 @@
+﻿@model greenEnergy.ViewModel.LanguagePageVM
+@{
+    ViewBag.Title = "language";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+<ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Language List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add New Language</a>
+    </li>
+   
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Details Start -->
+
+                <div class="card">
+                    <div id="prnt" class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Language List </h5>
+                        </div>
+                        <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                            <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                <thead>
+
+                                    <tr>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.list != null)
+                                    {
+
+                                        foreach (var prod in Model.list)
+                                        {
+
+                                            int i = Model.list.IndexOf(prod) + 1;
+                                            string cls = (Model.list.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                            <tr class="@cls">
+                                                <td>
+                                                    @i
+                                                </td>
+
+
+                                                <td>@prod.title</td>
+
+
+
+
+                                                @*<td>
+                                                    <ul>
+                                                        @if (@prod.status == "0")
+                                                {
+                                                    <li>
+                                                        <a href="javascript:void(0)"  style="margin:0 6px">
+                                                            <i id="@prod.orderID" class="ri-checkbox-circle-line verifyOrder"></i>
+
+                                                        </a>
+                                                    </li>
+
+                                                }
+
+                                                        <li>
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+
+
+                                                                <i idtoView=@prod.orderID class="ri-eye-fill viewDetail" id="" style="margin:0 6px"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <i style="margin:0 6px" lat="@prod.latitude" lon="@prod.longitude" id="@prod.orderID" class="ri-user-location-fill showMap"></i>
+                                                        </li>
+                                                    </ul>
+                                                </td>*@
+                                            </tr>
+                                        }
+
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="setlanguage">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input type="text" id="seachQuery" name="title" class="form-control " placeholder="Enter Title">
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+

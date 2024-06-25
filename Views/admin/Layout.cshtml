@@ -1,0 +1,392 @@
+﻿
+@model greenEnergy.ViewModel.layoutPageVM
+@{
+    ViewBag.Title = "Layout";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+@section scripts{
+    <script>
+        $(".removeButton").click(function () {
+
+            $("#removeID").val($(this).attr("idtogo"));
+
+
+        })
+    </script>
+
+    <script>
+        $(".editButton").click(function () {
+
+            $("#editID").val($(this).attr("idtogo"));
+            $("#editTitle").val($(this).attr("titletogo"));
+
+            var id = $(this).attr("typepartid");
+            const array = id.split(',');
+            var i;
+            $(".dumyItem").attr('selected','')
+            for (i = 0; i < array.length; ++i) {
+                let partid = array[i];
+                $("#"+partid).attr('selected','selected');
+            };
+
+
+            var partnames = $(this).attr("partname");
+            //alert(partnames);
+            const partarray = partnames.split(',');
+            $(".partParent").css('display','none')
+            for (i = 0; i < partarray.length; ++i) {
+                let partnm = partarray[i] + "Section";
+
+                $("#"+partnm).css('display','block');
+            };
+
+
+
+        })
+
+    </script>
+}
+
+<ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add New Layout</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> Layout List</a>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+     
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="setNewSectionLayout">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Language</label>
+                                @Html.DropDownList("languageID", new SelectList(Model.langauageList, "languageID", "title"), new { @class = "form-control", name = "languageID" })
+
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">layout</label>
+                                <div class="row mb-4">
+                                    <div class="col-md-12 mb-4 pl-0 pr-0">
+                                        <div class="glide basic">
+                                            <div class="glide__track pb-3" data-glide-el="track">
+                                                <div class="glide__slides">
+
+                                                    @foreach (var item in Model.layoutLists)
+                                                    {
+                                                        string active = "active";
+                                                        string ischecked = "checked";
+                                                        if (Model.layoutLists.IndexOf(item) != 0)
+                                                        {
+                                                            active = "";
+                                                            ischecked = "";
+                                                        }
+
+                                                        <div class="glide__slide">
+                                                            <div class="card flex-row">
+                                                                <div class="w-50 position-relative" style="height:200px; width:200px">
+                                                                    <img style="width:100%; height:100%; object-fit:scale-down" class="card-img-left" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image"
+                                                                         alt="Card image cap">
+                                                                    <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
+                                                                </div>
+                                                                <div class="w-50">
+                                                                    <div class="card-body">
+                                                                        <h2> @item.title</h2>
+                                                                        <h6 class="mb-4">
+                                                                            @item.description
+                                                                        </h6>
+
+                                                                        <footer>
+
+                                                                            <input class="layoutinput  form-control" @ischecked type="radio" value="@item.layoutID" name="layoutID" />
+                                                                        </footer>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+
+
+                                                </div>
+                                            </div>
+                                            <div class="glide__arrows slider-nav" data-glide-el="controls">
+                                                <button class="glide__arrow glide__arrow--left left-arrow btn btn-link"
+                                                        data-glide-dir="<">
+                                                    <i class="simple-icon-arrow-left"></i>
+                                                </button>
+                                                <div class="glide__bullets slider-dot-container" data-glide-el="controls[nav]">
+                                                    @foreach (var item in Model.layoutLists)
+                                                    {
+                                                        int number = 0;
+                                                        <button class="glide__bullet slider-dot" data-glide-dir="=@number"></button>
+                                                        number++;
+                                                    }
+
+
+                                                </div>
+                                                <button class="glide__arrow glide__arrow--right right-arrow btn btn-link"
+                                                        data-glide-dir=">">
+                                                    <i class="simple-icon-arrow-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Details Start -->
+
+                <div class="card">
+                    <div id="prnt" class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Layout List </h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                                    <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                        <thead>
+
+                                            <tr>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">menu Title </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Base Menu </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">language </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;"> data </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @if (Model.layoutObjectLists != null)
+                                            {
+
+                                                foreach (var prod in Model.layoutObjectLists)
+                                                {
+
+                                                    int i = Model.layoutObjectLists.IndexOf(prod) + 1;
+                                                    string cls = (Model.layoutObjectLists.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                                    <tr class="@cls">
+                                                        <td>
+                                                            @i
+                                                        </td>
+
+
+                                                        <td>@prod.menuTitle</td>
+                                                        <td>@prod.title</td>
+                                                        <td>@prod.languageName</td>
+                                                        <td>
+                                                            @{
+                                                                string final = "";
+                                                                foreach (var str in @prod.partnames)
+                                                                {
+                                                                    final += str + ",";
+                                                                }
+
+                                                                final = final.Trim(',');
+                                                            }
+
+                                                            @final
+                                                        </td>
+
+                                                       
+                                                        <td style="display:flex">
+                                                            @{
+                                                                string partids = "";
+
+                                                                foreach (var str in @prod.partID)
+                                                                {
+                                                                    partids += str + ",";
+                                                                }
+
+                                                                partids = partids.Trim(',');
+                                                            }
+
+                                                            <div style="display:flex">
+
+
+                                                                <a href="/admin/layoutPart/@prod.sectionLayoutID"><div class="btn ripple btn-primary btn-sm editButton">Layout Parts </div></a>
+                                                                <div style="margin:0 5px"></div>
+                                                                <button data-bs-target="#editModal" data-bs-toggle="modal" idtogo="@prod.sectionLayoutID" partname="@prod.partName" typepartid="@partids" titletogo="@prod.title" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                                <div style="margin:0 5px"></div>
+                                                                <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectionLayoutID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+                                                            </div>
+
+
+                                                        </td>
+
+
+
+
+                                                    </tr>
+                                                }
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/removeContent" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @*<input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />*@
+                <input hidden name="contentID" id="removeID" />
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="editModal">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit</h6><button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/setNewSectionLayout" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+
+
+                    <input id="editID" name="sectionLayoutID" hidden />
+
+                    <p>Title</p>
+                    <input type="text" id="editTitle" class="form-control" name="menuTitle" value="" />
+                    <p style="margin:10px"></p>
+
+
+                    @*<p>Language </p>
+                        @Html.DropDownList("languateID", new SelectList(Model.langauageList, "languageID", "title"), new { @class = "form-control", name = "languateID", id = "editLanguageID" })
+                        <p style="margin:10px"></p>*@
+
+                    <div id="menuSection" class=" partParent editPart">
+                        <p>Menu</p>
+                        <select name="layoutPartID" class="form-control">
+                            <option class="dumyItem" value="" disabled selected>Choose one</option>
+                            @foreach (var prt in Model.allPart.Where(x => x.typeName.ToLower() == "menu"))
+                            {
+                                <option class="partoption" id="@prt.layoutPartID" value="@prt.layoutPartID">@prt.title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div id="slideSection" class=" partParent editPart">
+                        <p>Slide</p>
+                        <select name="layoutPartID" class="form-control">
+                            <option class="dumyItem" value="" disabled selected>Choose one</option>
+                            @foreach (var prt in Model.allPart.Where(x => x.typeName.ToLower() == "slide"))
+                            {
+                                <option class="partoption" id="@prt.layoutPartID" value="@prt.layoutPartID">@prt.title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div id="footerSection" class=" partParent editPart">
+                        <p>Footer</p>
+                        <select name="layoutPartID" class="form-control">
+                            <option class="dumyItem" value="" disabled selected>Choose one</option>
+                            @foreach (var prt in Model.allPart.Where(x => x.typeName.ToLower() == "footer"))
+                            {
+                                <option class="partoption" id="@prt.layoutPartID" value="@prt.layoutPartID">@prt.title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div id="leftSideSection" class=" partParent editPart">
+                        <p>Left Side</p>
+                        <select name="layoutPartID" class="form-control">
+                            <option class="dumyItem" value="" disabled selected>Choose one</option>
+                            @foreach (var prt in Model.allPart.Where(x => x.typeName.ToLower() == "leftside"))
+                            {
+                                <option class="partoption" id="@prt.layoutPartID" value="@prt.layoutPartID">@prt.title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div id="rightSideSection" class=" partParent editPart">
+                        <p>right Side</p>
+                        <select name="layoutPartID" class="form-control">
+                            <option class="dumyItem" value="" disabled selected>Choose one</option>
+                            @foreach (var prt in Model.allPart.Where(x => x.typeName.ToLower() == "rightside"))
+                            {
+                                <option class="partoption" id="@prt.layoutPartID" value="@prt.layoutPartID">@prt.title</option>
+                            }
+                        </select>
+                    </div>
+
+
+
+
+                    <p>Image</p>
+                    <input class="form-control" type="file" name="file" value="" />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

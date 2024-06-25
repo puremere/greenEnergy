@@ -1,0 +1,122 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+
+
+    <section class="blog-detail-area">
+        <div class="custom-container">
+            <div class="custom-row">
+
+                @if (Model.childList != null)
+                {
+                    foreach (var item in Model.childList)
+                    {
+                        string image = item.image;
+                        string url = "Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/" + @image;
+                        string title = item.title;
+                        <div class="left">
+                            <div class="blog-post blog-post-detail">
+                                <span class="meta">
+                                    <span class="date subtitle">@item.date.ToLongDateString()</span>
+                                    <span class="posted-by">Posted by <a href="#">@item.writer</a></span>
+                                    @*<a href="#" class="comments-likes">2 Comments, 5 Likes</a>*@
+                                </span>
+
+                                @foreach (var child in Model.contentChild)
+                                {
+
+                                    string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + child.partialName + ".cshtml";
+
+                                    @Html.RenderPartial(partialPath, child);
+
+                                }
+
+                                <ul class="tags">
+                                    <li><span class="subtitle">Tags:</span></li>
+                                    @if (@item.tags != null)
+                                    {
+                                        foreach (var tg in item.tags)
+                                        {
+                                            <li><a href="#">@tg.title</a></li>
+                                        }
+                                    }
+
+
+
+                                </ul>
+
+
+
+                               
+
+                                <div class="blog-comments">
+                                    <h3 class="comment-count">2 Comments</h3>
+
+                                    <div class="comment-lists">
+                                        <div class="comment">
+                                            <div class="comment-inner">
+                                                <div class="comment-img-box">
+                                                    <img src="/webAssets/green/assets/imgs/comment-1.png" alt="comment">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <span class="date">25 March 2022</span>
+                                                    <h2>Richard Miller</h2>
+                                                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim inisa Donec pede justo, fringilla vel</p>
+                                                    <a href="#" class="reply-btn">Reply</a>
+                                                </div>
+                                            </div>
+                                            <div class="comment">
+                                                <div class="comment-inner">
+                                                    <div class="comment-img-box">
+                                                        <img src="/webAssets/green/assets/imgs/comment-1.png" alt="comment">
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <span class="date">25 March 2022</span>
+                                                        <h2>Richard Miller</h2>
+                                                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim inisa Donec pede justo, fringilla vel</p>
+                                                        <a href="#" class="reply-btn">Reply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="blog-comment-form">
+                                    <h3 class="title">Leave a Reply</h3>
+                                    <form>
+                                        <div class="input-group">
+                                            <textarea placeholder="Comment"></textarea>
+                                        </div>
+                                        <div class="row-group">
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Name">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="email" placeholder="E-mail">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Subject">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Location">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <button class="theme-btn" type="submit">
+                                                <span></span>
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </section>
+

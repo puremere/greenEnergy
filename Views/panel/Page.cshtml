@@ -180,7 +180,7 @@
 
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-2 mb-0">URL:</label>
                                         <div class="col-sm-10">
@@ -218,6 +218,15 @@
                                         <div class="col-sm-10">
 
                                             @Html.DropDownList("categoryID", new SelectList(Model.categoryList, "categoryID", "title"), new { @class = "form-control", name = "categoryID" })
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-2 mb-0">Tag  :</label>
+                                        <div class="col-sm-10">
+
+                                            @Html.ListBox("secTagID", new SelectList(Model.tagList, "tagID", "title"), new { @class = "form-control", name = "secTagID" })
 
 
                                         </div>

@@ -167,5 +167,46 @@ namespace greenEnergy.Classes
             }
             return persianName;
         }
+
+
+        public static DateTime returnFirstDayWeekTimeGorgian()
+        {
+            DateTime nowDate = DateTime.Now;
+            DateTime startDate = new DateTime();
+            string dayname = nowDate.DayOfWeek.ToString();
+            string persianName = "";
+            switch (dayname.ToLower())
+            {
+                case "saturday":
+                    
+                    startDate = nowDate.AddDays(-5);
+                    break;
+                case "sunday":
+                    
+                    startDate = nowDate.AddDays(-6);
+                    break;
+                case "monday":
+
+                    startDate = nowDate;
+                    break;
+                case "tuesday":
+                   
+                    startDate = nowDate.AddDays(-1);
+                    break;
+                case "wednesday":
+                    
+                    startDate = nowDate.AddDays(-2);
+                    break;
+                case "thursday":
+                   
+                    startDate = nowDate.AddDays(-3);
+                    break;
+                case "friday":
+                  
+                    startDate = nowDate.AddDays(-4);
+                    break;
+            }
+            return startDate;
+        }
     }
 }

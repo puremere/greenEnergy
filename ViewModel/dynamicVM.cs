@@ -9,13 +9,58 @@ namespace greenEnergy.ViewModel
     public class parent
     {
         public string name { get; set; }
+        public List<actionResonse> actions { get; set; }
     }
     public class mainDictionry: parent
     {
         public string key { get; set; }
         public string value { get; set; }
     }
-    
+    /// <summary>
+    /// health
+    /// </summary>
+    /// 
+    public class userRelationList : parent
+    {
+        public string accountItemImageView_srcsrt { get; set; }
+        public string accountItemImageLabel_textsrt { get; set; }
+        public Guid? partnerID { get; set; }
+
+    }
+    public class userProfileList : parent
+    {
+        public string userFullname_valueTextsrt { get; set; }
+        public string status_valueTextsrt { get; set; }
+        public Guid? newOrderID { get; set; }
+
+    }
+    public class mainStreamVM : parent
+    {
+        
+        public Guid newOrderID { get; set; }
+        public string orderName { get; set; }
+        public string newOrderStatusCode { get; set; }
+        public string newOrderStatusTitle { get; set; }
+        public DateTime creationDate { get; set; }
+        public DateTime terminationDate { get; set; }
+
+    }
+
+    public class flowHealth : parent
+    {
+        public int flowForm { get; set; }
+    }
+
+
+    public class flowDetailAll : parent
+    {
+       public  Dictionary<string, string> allData = new Dictionary<string, string>();
+    }
+
+    /// <summary>
+    /// tailor
+    /// </summary>
+    /// 
 
     public class managerFlowList_orderFlowCycle : parent
     {
@@ -32,7 +77,7 @@ namespace greenEnergy.ViewModel
         public string flowIsAccepted_valueColorsrt { get; set; }
 
 
-        public List<actionResonse> actions{ get; set; }
+        
     }
     public class cycleStackView_orderListManagerVM : parent
     {
@@ -47,17 +92,6 @@ namespace greenEnergy.ViewModel
 
         public string setFlow_orderListManager_cycleActionsrt { get; set; }
         public string setFlow_orderListManager_visibilitysrt { get; set; }
-
-
-    }
-
-
-    public class clientOrderListButton : parent
-    {
-        public string acceptedTabBotton_colorsrt { get; set; }
-        public string pendingTabBotton_colorsrt { get; set; }
-
-        
 
 
     }
@@ -82,15 +116,43 @@ namespace greenEnergy.ViewModel
         public string orderDate_valueTextsrt { get; set; }
         public DateTime orderDate_valueText { get; set; }
         public string processName_valueTextsrt { get; set; }
+      
+
+
+
+
         public string historyButton_cycleActionsrt { get; set; }
-        public string acceptOrderButton_cycleActionsrt { get; set; }
+        public string historyButton_visibilitysrt { get; set; }
+
         public string rejectOrderButton_cycleActionsrt { get; set; }
-        
+        public string rejectOrderButton_visibilitysrt { get; set; }
+
+        public string acceptOrderButton_cycleActionsrt { get; set; }
+        public string acceptOrderButton_visibilitysrt { get; set; }
+
+        public string setFlowFormButton_cycleActionsrt { get; set; }
+        public string setFlowFormButton_visibilitysrt { get; set; }
+
+        public string productRegistration_cycleActionsrt { get; set; }
+        public string productRegistration_visibilitysrt { get; set; }
+
+        public string costRegistration_cycleActionsrt { get; set; }
+        public string costRegistration_visibilitysrt { get; set; }
+
 
     }
-
+    public class profileVM : parent
+    {
+        public string profileNameLabel_textsrt { get; set; }
+    }
+    public class setNewFlowForm : parent
+    {
+        public string flowForm { get; set; }
+    }
     public class acceptFlowByClient : parent
     {
+        
+        public string putVarAcceptFlow_valuesrt { get; set; }
         public string putVarRejectFlow_valuesrt { get; set; }
         public string relaodAction_actionssrt { get; set; }
         

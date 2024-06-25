@@ -146,8 +146,9 @@ namespace greenEnergy.Controllers
             }
             else
             {
-                TempData["error"] = 1;
-                return RedirectToAction("login");
+                return Content(responsemodel.message);
+                //TempData["error"] = 1;
+                //return RedirectToAction("login");
             }
             
 
@@ -206,6 +207,26 @@ namespace greenEnergy.Controllers
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
             return RedirectToAction("type");
         }
+
+        public async Task<ActionResult> tag()
+        {
+            categoryPageVM responsemodel = new categoryPageVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getTagList", Request.Cookies["adminToken"].Value);
+            return View(responsemodel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setTag(secTagVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setsecTag", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("tag");
+        }
+
         public async Task<ActionResult> category()
         {
             categoryPageVM responsemodel = new categoryPageVM();
@@ -440,8 +461,6 @@ namespace greenEnergy.Controllers
                     Directory.CreateDirectory(path);
                 }
                 HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
-
-
                 if (postedFile.ContentLength != 0)
                 {
                     string fileName = "";
@@ -450,7 +469,9 @@ namespace greenEnergy.Controllers
                     fileName = name + Path.GetExtension(postedFile.FileName);
                     //Save the File.
                     postedFile.SaveAs(path + fileName);
-                    model.mediaURL = fileName;
+                    List<string> lst = new List<string>();
+                    lst.Add(fileName);
+                    model.title2 = lst;
                 }
             }
             responseModel responsemodel = new responseModel();
@@ -546,12 +567,17 @@ namespace greenEnergy.Controllers
         }
 
         //layoutPart
-        public async Task<ActionResult> LayoutPart()
+        public async Task<ActionResult> LayoutPart(Guid ID)
         {
             layoutPartPageVM responsemodel = new layoutPartPageVM();
-            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getLayoutPart", Request.Cookies["adminToken"].Value);
+            sectionLayoutVM input = new sectionLayoutVM()
+            {
+                sectionLayoutID = ID
+            };
+            responsemodel = await methods.PostData(input, responsemodel, "/getLayoutPart", Request.Cookies["adminToken"].Value);
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            responsemodel.sectionLayoutID = ID;
             return View(responsemodel);
         }
         [HttpPost]
@@ -560,7 +586,7 @@ namespace greenEnergy.Controllers
         {
             responseModel responsemodel = new responseModel();
             responsemodel = await methods.PostData(model, responsemodel, "/setLayoutPart", Request.Cookies["adminToken"].Value);
-            return RedirectToAction("LayoutPart");
+            return RedirectToAction("LayoutPart", new { ID = model.sectionLayoutID});
         }
 
         [HttpPost]

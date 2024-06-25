@@ -9462,7 +9462,7 @@ jQuery.extend( {
 			}
 
 			// Dereference transport for early garbage collection
-			// (no matter how long the jqXHR object will be used)
+			// (no matter how int the jqXHR object will be used)
 			transport = undefined;
 
 			// Cache response headers

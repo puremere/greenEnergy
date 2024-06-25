@@ -1,0 +1,185 @@
+﻿
+@model greenEnergy.ViewModel.metaListVM
+@{
+    ViewBag.Title = "Content";
+    Layout = "~/Views/Shared/_panelLayout.cshtml";
+}
+
+
+@section scripts{
+    <script>
+        $(".removeButton").click(function () {
+
+            $("#removeID").val($(this).attr("idtogo"));
+
+
+        })
+    </script>
+}
+
+
+<div style=" ">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> @Model.selectedSection.title  Meta List </button>
+            <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Add New Meta</button>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Details Start -->
+
+                    <div class="card">
+                        <div id="prnt" class="card-body">
+                            <div class="title-header option-title">
+                                <h5>Content List </h5>
+                            </div>
+                            <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                                <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                    <thead>
+
+                                        <tr>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">name </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Content </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @if (Model.metaList != null)
+                                        {
+
+                                            foreach (var prod in Model.metaList)
+                                            {
+
+                                                int i = Model.metaList.IndexOf(prod) + 1;
+                                                string cls = (Model.metaList.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                                <tr class="@cls">
+                                                    <td>
+                                                        @i
+                                                    </td>
+                                                    <td>@prod.Name</td>
+                                                    <td>@prod.Content</td>
+                                                    <td style="display:flex">
+                                                        <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.metaID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                                    </td>
+
+
+
+
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Details Start -->
+                    <div class="bigparent" style="display:none ;position:absolute; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:999; ">
+                        <div style="display:flex; position:relative">
+                            <i class="fa fa-times removebid" style="color:#4d4d4d; font-size:30px; position:absolute; top:50px; right:50px"></i>
+                            <img class="bigone" src="~/Uploads/banner1.png" />
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="title-header option-title">
+                                <h5>Add New Content</h5>
+                            </div>
+                            <div class="row">
+                                <form method="post" action="/panel/setMeta">
+                                    @Html.AntiForgeryToken()
+                                    <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-3 mb-0">Name:</label>
+                                        <div class="col-sm-10">
+                                            <input required type="text" id="seachQuery" name="Name" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <label class="form-label-title col-sm-3 mb-0">Content :</label>
+                                        <div class="col-sm-10">
+                                            <input required type="text" id="seachQuery" name="Content" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                        <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
+                                            <button type="submit" class="btn btn-primary lgnsubmitt">OK </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/panel/removeMeta" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                <input hidden name="metaID" id="removeID" />
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

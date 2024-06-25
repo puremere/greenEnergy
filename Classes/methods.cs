@@ -68,7 +68,7 @@ namespace greenEnergy.Classes
                 string removesrt = srt.Substring(firstIndex, (index - firstIndex) + example.Length + more);
                 srt = srt.Replace(removesrt, "");
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;

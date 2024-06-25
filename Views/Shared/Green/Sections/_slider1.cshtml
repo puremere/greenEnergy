@@ -1,49 +1,54 @@
 ﻿
-@model greenEnergy.ViewModel.partialSectionVM
+@model greenEnergy.ViewModel.pageContentVM
 
 <section class="hero-slider-wrap hero-style-1">
     <div class="swiper-container hero-slide-container">
+
+        
+
         <div class="swiper-wrapper">
 
-            @foreach (var item in @Model.itemModel.dataList)
+            @foreach (var item in @Model.contentChild)
             {
-                if (@Model.itemModel.dataList.Count() > 0)
-                {
-                    int index = @Model.itemModel.dataList.IndexOf(item);
-                    <div id="@item.title" class="swiper-slide slide-bg-image">
-                        <div class="slide-inner" style="background-image : url(../../../../Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL)">
-                            <div class="hero-slide-content-wrap">
-                                <div class="hero-slide-content">
-                                    <!--                                    <h4 class="slide-subtitle">-->
-                                    <!--                                        Green Energy-->
-                                    <!--                                    </h4>-->
-                                    <h1 class="slide-title">
-                                        @item.title
-                                    </h1>
-                                    <p class="slide-content">
-                                        @item.description
-                                    </p>
-                                    <div class="btn-box">
-                                        <a href="#" class="theme-btn">
-                                            <span></span>
-                                            EXPLORE
-                                        </a>
-                                    </div>
+                string image = @item.dataList.SingleOrDefault(x => x.title == "image").title2;
+                string title = @item.dataList.SingleOrDefault(x => x.title == "title").title2;
+                string description = @item.dataList.SingleOrDefault(x => x.title == "description").title2;
+                string buttonText = @item.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+                string buttonURL = @item.dataList.SingleOrDefault(x => x.title == "buttonURL").title2;
+
+                string navText1 = @item.dataList.SingleOrDefault(x => x.title == "navText1").title2;
+                string navText2 = @item.dataList.SingleOrDefault(x => x.title == "navText2").title2;
+                int index = @Model.contentChild.IndexOf(item);
+                <div id="@item.title" class="swiper-slide slide-bg-image">
+                    <div class="slide-inner" style="background-image : url(../../../../Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image)">
+                        <div class="hero-slide-content-wrap">
+                            <div class="hero-slide-content">
+                                <!--                                    <h4 class="slide-subtitle">-->
+                                <!--                                        Green Energy-->
+                                <!--                                    </h4>-->
+                                <h1 class="slide-title">
+                                    @title
+                                </h1>
+                                <p class="slide-content">
+                                    @description
+                                </p>
+                                <div class="btn-box">
+                                    <a href="@buttonURL" class="theme-btn">
+                                        <span></span>
+                                        @buttonText
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <!-- end slide-inner -->
                     </div>
-                    <script>
+                    <!-- end slide-inner -->
+                </div>
+                <script>
 
                           $(document).ready(function () {
-                          setSlidePagination('@index','@item.title2','@item.description2')
+                          setSlidePagination('@index','@navText2','@navText1')
                           })
-                    </script>
-
-
-
-                }
+                </script>
 
             }
 

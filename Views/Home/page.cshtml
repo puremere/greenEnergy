@@ -38,6 +38,8 @@
     {
         data.itemModel = item;
         string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+
         @Html.RenderPartial(partialPath, item);
+
     }
 }

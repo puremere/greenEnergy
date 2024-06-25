@@ -531,7 +531,7 @@ namespace greenEnergy.Controllers
 
         // formItem
 
-        public async Task<ActionResult> formItem(Guid formID)
+        public async Task<ActionResult> formItem(int formID)
         {
             if (TempData["er"] != null)
                 ViewBag.error = TempData["er"].ToString();
@@ -944,7 +944,7 @@ namespace greenEnergy.Controllers
             return RedirectToAction("form");
         }
 
-        public async Task<ActionResult> updateFormItemPostion(Guid formID)
+        public async Task<ActionResult> updateFormItemPostion(int formID)
         {
             form form = new form();
             form.formID = formID;

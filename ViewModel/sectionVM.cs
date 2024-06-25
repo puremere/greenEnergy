@@ -5,6 +5,11 @@ using System.Web;
 
 namespace greenEnergy.ViewModel
 {
+
+    public class getChildContentWebVM
+    {
+
+    }
     public class getChildContentVM
     {
         public List<pageContentVM> list { get; set; }
@@ -31,6 +36,7 @@ namespace greenEnergy.ViewModel
         public Guid layoutDataID { get; set; }
         public Guid? parentID { get; set; }
         public string urlTitle { get; set; }
+        public string dataType { get; set; }
         public string url { get; set; }
         public int priority { get; set; }
         public string image { get; set; }
@@ -48,8 +54,16 @@ namespace greenEnergy.ViewModel
         public string menuTitle { get; set; }
         public string title { get; set; }
         public ICollection<getlayoutPartVM> LayoutParts { get; set; }
+
+        public List<layoutDynamics> dynamicList { get; set; }
     }
 
+    public class layoutDynamics
+    {
+        public string header { get; set; }
+        public string title { get; set; }
+        public string value { get; set; }
+    }
 
 
     public class layoutPartDataPageVM
@@ -57,6 +71,7 @@ namespace greenEnergy.ViewModel
         public List<layoutpartDataVM> datalist { get; set; }
         public List<typeVM> typelist { get; set; }
         public layoutpartVM layoutpart { get; set; }
+        public List<string> partDetailList { get; set; }
     }
 
 
@@ -96,6 +111,8 @@ namespace greenEnergy.ViewModel
     {
         public Guid layoutPartID { get; set; }
         public Guid languageID { get; set; }
+        public Guid sectionLayoutID { get; set; }
+        
         public string title { get; set; }
         public string typeName { get; set; }
     }
@@ -103,7 +120,9 @@ namespace greenEnergy.ViewModel
     {
         public List<layoutpartVM> partlist { get; set; }
         public List<languagVM> langauageList { get; set; }
-
+        public List<layoutpartVM> allPart { get; set; }
+        public List<string> partNames { get; set; }
+        public Guid sectionLayoutID { get; set; }
 
     }
 
@@ -191,13 +210,14 @@ namespace greenEnergy.ViewModel
         
         public Guid sectionID { get; set; }
         public Guid contentParent { get; set; }
-        public Guid formID { get; set; }
+        public int formID { get; set; }
         public Guid htmlID { get; set; }
         public int priority { get; set; }
         public List<string> chosenForCycle { get; set; }
         public string title { get; set; }
         public string buttonText { get; set; }
         public string stackWeight { get; set; }
+        public string selfUsed { get; set; }
         
         public string description { get; set; }
         public string parentCategory { get; set; }
@@ -207,10 +227,10 @@ namespace greenEnergy.ViewModel
     {
         public Guid contentID { get; set; }
 
-        public Guid? formID { get; set; }
+        public int?  formID { get; set; }
         public Guid typeID { get; set; }
         public Guid htmlID { get; set; }
-
+        public string htmlType { get; set; }
         public string stackWeight { get; set; }
         public string cycleFields { get; set; }
         public string typeName { get; set; }
@@ -289,7 +309,7 @@ namespace greenEnergy.ViewModel
     }
     public class sectionLayoutVM
     {
-        public Guid sectionLayoutID { get; set; }
+        public Guid? sectionLayoutID { get; set; }
         public string menuTitle { get; set; }
     }
 
@@ -299,6 +319,7 @@ namespace greenEnergy.ViewModel
         public List<sectionLayoutVM> layoutList { get; set; }
         public List<languagVM> langauageList { get; set; }
         public List<categoryVM> categoryList { get; set; }
+        public List<secTagVM> tagList { get; set; }
 
         public typeVM selectedType { get; set; }
     }
@@ -318,7 +339,11 @@ namespace greenEnergy.ViewModel
         public string title { get; set; }
     }
 
-
+    public class tagPageVM
+    {
+        public List<secTagVM> list { get; set; }
+        public List<typeVM> typelist { get; set; }
+    }
     public class categoryPageVM
     {
         public List<categoryVM> list { get; set; }
@@ -327,6 +352,13 @@ namespace greenEnergy.ViewModel
     public class categoryVM
     {
         public Guid categoryID { get; set; }
+        public Guid sectionTypeID { get; set; }
+        public string sectionTypeName { get; set; }
+        public string title { get; set; }
+    }
+    public class secTagVM
+    {
+        public Guid tagID { get; set; }
         public Guid sectionTypeID { get; set; }
         public string sectionTypeName { get; set; }
         public string title { get; set; }
@@ -369,7 +401,9 @@ namespace greenEnergy.ViewModel
         public Guid sectinoTypeID { get; set; }
         public Guid languateID { get; set; }
         public Guid? categoryID { get; set; }
+        public List<Guid>? secTagID { get; set; }
         public Guid? sectionLayoutID { get; set; }
+        public List<secTagVM> tags { get; set; }
         public string title { get; set; }
         public string buttonText { get; set; }
 
@@ -404,10 +438,11 @@ namespace greenEnergy.ViewModel
         public string description { get; set; } // از روی اچ تی ام میاد
         public string htmlFields { get; set; } // از روی اچ تی ام میاد
         public int priority { get; set; }
+        public int useParentSection { get; set; }
         public Guid? typeID { get; set; } // از روی اچ تی ام میاد
         public Guid conentID { get; set; } // از روی اچ تی ام میاد
         public Guid? parentID { get; set; } // از روی اچ تی ام میاد
-        public Guid? formID { get; set; } // از روی اچ تی ام میاد
+        public int?  formID { get; set; } // از روی اچ تی ام میاد
     }
 
 
@@ -500,6 +535,7 @@ namespace greenEnergy.ViewModel
        
         public List<pageContentVM> Contents { get; set; }
         public  List<MetaVM> Metas { get; set; }
+        public List<secTagVM> tags { get; set; }
         public Guid? sectionLayoutID { get; set; }
 
         public getsectionLayoutVM layoutModel { get; set; }
@@ -535,6 +571,7 @@ namespace greenEnergy.ViewModel
     }
     public class getURLVM
     {
+        public string userID { get; set; }
         public string slug { get; set; }
         public string lang { get; set; }
         public string form { get; set; }
@@ -544,7 +581,7 @@ namespace greenEnergy.ViewModel
 
     public class initDataVM
     {
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         public Guid process { get; set; }
     }
 }

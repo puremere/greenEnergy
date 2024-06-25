@@ -1,0 +1,28 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+
+@if (Model.childList != null)
+{
+    foreach (var item in Model.childList)
+    {
+        string image = item.image;
+        string url = "Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/" + @image;
+        string title = item.title;
+        
+        <div class="blog-post">
+            <div class="img-box">
+                <img src="@url" alt="Blog">
+            </div>
+            <span class="meta">
+                <span class="date subtitle">@item.date.ToLongDateString()</span>
+                <span class="posted-by">Posted by <a href="#">@item.writer</a></span>
+            </span>
+            <h1 class="title">
+                <a href="@item.url">@title</a>
+            </h1>
+            <p>@item.description</p>
+        </div>
+    }
+}
+
+

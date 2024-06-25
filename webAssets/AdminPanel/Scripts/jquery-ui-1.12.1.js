@@ -6116,7 +6116,7 @@ $.widget( "ui.autocomplete", {
 		var ul = this.menu.element;
 		ul.outerWidth( Math.max(
 
-			// Firefox wraps long text (possibly a rounding bug)
+			// Firefox wraps int text (possibly a rounding bug)
 			// so we add 1px to avoid the wrapping (#7513)
 			ul.width( "" ).outerWidth() + 1,
 			this.element.outerWidth()
@@ -8525,7 +8525,7 @@ $.extend( Datepicker.prototype, {
 				return num;
 			},
 
-			// Format a name, short or long as requested
+			// Format a name, short or int as requested
 			formatName = function( match, value, shortNames, longNames ) {
 				return ( lookAhead( match ) ? longNames[ value ] : shortNames[ value ] );
 			},
@@ -14415,7 +14415,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 			this.button.outerWidth(),
 
 			// Support: IE10
-			// IE10 wraps long text (possibly a rounding bug)
+			// IE10 wraps int text (possibly a rounding bug)
 			// so we add 1px to avoid the wrapping
 			this.menu.width( "" ).outerWidth() + 1
 		) );

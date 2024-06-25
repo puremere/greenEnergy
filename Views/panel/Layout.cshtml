@@ -139,6 +139,9 @@
 
                                                         <div style="display:flex">
 
+
+                                                            <a href="/panel/layoutPart/@prod.sectionLayoutID"><div class="btn ripple btn-primary btn-sm editButton">Layout Parts </div></a> 
+                                                            <div style="margin:0 5px"></div>
                                                             <button data-bs-target="#editModal" data-bs-toggle="modal" idtogo="@prod.sectionLayoutID" partname="@prod.partName" typepartid="@partids" titletogo="@prod.title" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
                                                             <div style="margin:0 5px"></div>
                                                             <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectionLayoutID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
@@ -346,33 +349,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="partHolder">
-                                        @foreach (var item in Model.layoutLists)
-                                        {
-                                            string classname = item.layoutID.ToString();
-                                            <div class="col-lg-12 mb-12 row align-items-center partParent @classname">
-                                                @{
-                                                    List<string> partname = item.partName.Trim(',').Split(',').ToList();
-                                                    foreach (var part in partname)
-                                                    {
-                                                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                                            <label class="form-label-title col-sm-2 mb-0">@part:</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" name="layoutPartID">
-                                                                    <option value="" disabled selected>Choose one</option>
-                                                                    @foreach (var prt in item.partlist.Where(x => x.typeName.ToLower() == part.ToLower()))
-                                                                    {
-                                                                        <option value="@prt.layoutPartID">@prt.title</option>
-                                                                    }
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                }
-
-                                            </div>
-                                        }
-                                    </div>
+                                  
 
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">

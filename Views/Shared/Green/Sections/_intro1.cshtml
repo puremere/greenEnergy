@@ -1,20 +1,23 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
 <section class="section-highlight service-area">
     <div class="custom-container">
         <div class="section-header">
             @{
-                if (Model.itemModel.dataList != null)
+                string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+                string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+                string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2;
+                if (Model.dataList != null)
                 {
-                    if (Model.itemModel.dataList.Count() > 0)
+                    if (Model.dataList.Count() > 0)
                     {
                         <div class="left">
-                            <h1 class="title">@Model.itemModel.dataList[0].title</h1>
+                            <h1 class="title">@title</h1>
                             @*<h1 class="title">From the idea to the completed project with Green Energy 3000</h1>*@
                         </div>
                         <div class="right">
-                            <p>@Model.itemModel.dataList[0].description</p>
-                            <p>@Model.itemModel.dataList[0].description2</p>
+                            <p>@description</p>
+                            <p>@description2</p>
                             @*<p>
                             At Green Energy 3000, we are committed to driving the transition towards a sustainable future
                             through innovative renewable energy solutions. With a focus on Photovoltaics, Wind Power,

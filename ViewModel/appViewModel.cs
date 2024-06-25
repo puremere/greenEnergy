@@ -14,7 +14,12 @@ namespace greenEnergy.ViewModel
     {
 
     }
-
+               
+    public class flowSelectedVM
+    {
+        public int flowID { get; set; }
+        public int count { get; set; }
+    }
     public class pureDataVM
     {
         public string key { get; set; }
@@ -42,7 +47,9 @@ namespace greenEnergy.ViewModel
         public string varName { get; set; }
         public string value { get; set; }
         public int startDelay { get; set; }
-        
+        public int orientation = 0;
+        public List<actionResonse> actions = new List<actionResonse>();
+
 
     }
     public class getListResponceVM

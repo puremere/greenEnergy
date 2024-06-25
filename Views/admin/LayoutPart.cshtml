@@ -1,0 +1,176 @@
+﻿
+@model greenEnergy.ViewModel.layoutPartPageVM
+@{
+    ViewBag.Title = "Layout Part";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+@section scripts{
+    <script>
+        $(".removeButton").click(function () {
+
+            $("#removeID").val($(this).attr("idtogo"));
+
+
+        })
+    </script>
+}
+<ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add New Layout Part</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> Layout Part List</a>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="/admin/setLayoutPart">
+                            @Html.AntiForgeryToken()
+                            <input name="sectionLayoutID" value="@Model.sectionLayoutID" hidden />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Language</label>
+                                @Html.DropDownList("languageID", new SelectList(Model.langauageList, "languageID", "title"), new { @class = "form-control", name = "languageID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Type</label>
+                                <select name="typeName" class="form-control">
+                                    @foreach (var item in Model.partNames)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+
+
+                                </select>
+                            </div>
+
+                           
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Details Start -->
+
+                <div class="card">
+                    <div id="prnt" class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Content List </h5>
+                        </div>
+                        <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                            <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                <thead>
+
+                                    <tr>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Col </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Type </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.partlist != null)
+                                    {
+
+                                        foreach (var prod in Model.partlist)
+                                        {
+
+                                            int i = Model.partlist.IndexOf(prod) + 1;
+                                            string cls = (Model.partlist.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                            <tr class="@cls">
+                                                <td>
+                                                    @i
+                                                </td>
+
+
+                                                <td>@prod.title</td>
+                                                <td>@prod.typeName</td>
+
+
+                                                <td style="display:flex">
+                                                    <a href="/admin/LayoutPartData/@prod.layoutPartID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
+                                                    </a>
+                                                    <div style="margin:0 5px"></div>
+                                                    @*<button data-bs-target="#editModal" data-bs-toggle="modal"  titletogo="@prod.title" typetogo="@prod.typeID" htmltogo="@prod.htmlID"   type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>*@
+                                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.layoutPartID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+
+                                                </td>
+
+
+
+
+                                            </tr>
+                                        }
+
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/removeLayoutpart" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @*<input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />*@
+                <input hidden name="layoutPartID" id="removeID" />
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

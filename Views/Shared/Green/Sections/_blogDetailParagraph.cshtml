@@ -1,0 +1,8 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string text = Model.dataList.SingleOrDefault(x => x.title == "text").title2;
+}
+    <p>
+        @text
+    </p>

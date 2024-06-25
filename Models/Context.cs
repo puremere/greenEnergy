@@ -16,7 +16,7 @@ namespace greenEnergy.Model
     class Context : DbContext
     {
 
-        public Context() : base("TailorIggDynamic")
+        public Context() : base("health")
         {
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
            // Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
@@ -33,6 +33,7 @@ namespace greenEnergy.Model
         public DbSet<sectionLayout> sectionLayouts { get; set; }
         public DbSet<sectionType> sectionTypes { get; set; }
         public DbSet<category> categories { get; set; }
+        public DbSet<secTag> SecTags { get; set; }
         public DbSet<html> htmls { get; set; }
         public DbSet<meta> metas { get; set; }
         public DbSet<data> datas { get; set; }
@@ -70,6 +71,7 @@ namespace greenEnergy.Model
         public DbSet<formItemDesign> formItemDesigns { get; set; }
         public DbSet<form> forms { get; set; }
         public DbSet<formItem> formItems { get; set; }
+        public DbSet<newOrderType> newOrderTypes { get; set; }
 
         public DbSet<newOrderFields> newOrderFields { get; set; }
         public DbSet<newOrder> NewOrders { get; set; }
@@ -78,8 +80,11 @@ namespace greenEnergy.Model
         public DbSet<flowCoding> flowCodings { get; set; }
         public DbSet<flowProduct> flowProducts { get; set; }
         public DbSet<JAView> jAViews { get; set; }
+        public DbSet<relationType> relationTypes { get; set; }
+        public DbSet<userRelation> userRelations { get; set; }
+        public DbSet<sectionRelation> sectionRelations { get; set; }
 
-
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -89,6 +94,7 @@ namespace greenEnergy.Model
             modelBuilder.Entity<content>().HasOptional(s=>s.sectionType).WithMany(x=>x.contents).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false) ;
             modelBuilder.Entity<content>().HasOptional(s=>s.HTML).WithMany(x=>x.Contents).HasForeignKey(x => x.htmlID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<layoutPart>().HasRequired(s=>s.Language).WithMany(l=>l.LayoutParts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutPart>().HasOptional(s=>s.SectionLayout).WithMany(l=>l.LayoutParts).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasRequired(s=>s.LayoutPart).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.layoutPartID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.sectionType).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s=>s.parentData).WithMany(l=>l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
@@ -103,9 +109,10 @@ namespace greenEnergy.Model
             modelBuilder.Entity<section>().HasOptional(s=>s.Category).WithMany(x=>x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<section>().HasRequired(s=>s.Language).WithMany(x=>x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
-           
+            modelBuilder.Entity<secTag>().HasRequired(s=>s.sectionType).WithMany(x=>x.SecTags).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
 
 
+            
 
             // قسمت مرتبط با تیلور
 
@@ -114,18 +121,64 @@ namespace greenEnergy.Model
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.ServentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
             modelBuilder.Entity<roleNavURL>().HasRequired(m => m.RoleStartPage).WithMany(t => t.RoleNavURLs).HasForeignKey(m => m.roleStartPageID).WillCascadeOnDelete(false);
-
             
+            modelBuilder.Entity<userRelation>().HasRequired(m => m.user).WithMany(t => t.userRelationList).HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<userRelation>().HasRequired(m => m.partner).WithMany(t => t.partnerList).HasForeignKey(m => m.partnerID).WillCascadeOnDelete(false);
+            
+
+
+            //modelBuilder.Entity<user>().HasIndex(u => u.phone).IsUnique();
 
         }
 
     }
+    
 
- 
+   
+    public class relationType
+    {
+        public relationType()
+        {
+            this.Processes = new HashSet<process>();
+        }
+        [Key]
+        public Guid relationTypeID { get; set; }
+        public string  title { get; set; }
+        public int  relationCode { get; set; }
+        public virtual ICollection<process> Processes { get; set; }
+    }
+
+    public class userRelation
+    {
+        [Key]
+        public Guid userRelationID { get; set; }
+        public int relationCode { get; set; }
+        public int status { get; set; }
+
+        public Guid? newOrderID { get; set; }
+        [ForeignKey("newOrderID")]
+        public virtual newOrder NewOrder { get; set; }
+
+        public Guid userID { get; set; }
+        [ForeignKey("userID")]
+        public virtual user user { get; set; }
+
+
+        public Guid? partnerID { get; set; }
+        [ForeignKey("partnerID")]
+        public virtual user partner { get; set; }
+    }
+    public class sectionRelation
+    {
+        [Key]
+        public Guid sectionRelationID { get; set; }
+        public string url { get; set; }
+        public string relationCode { get; set; }
+    }
     public class roleNavURL
     {
         [Key]
@@ -138,6 +191,7 @@ namespace greenEnergy.Model
         public string startPageURL { get; set; }
         public string startPagetitle { get; set; }
         public string startPageIcon { get; set; }
+        public int priority { get; set; }
     }
     public class roleStartPage
     {
@@ -159,9 +213,16 @@ namespace greenEnergy.Model
         public virtual section Section { get; set; }
 
     }
+
+   
+   
     public class section
     {
-        
+
+        public section()
+        {
+            this.SecTags = new HashSet<secTag>();
+        }
         [Key]
         public Guid sectionID { get; set; }
         public JAView JAView { get; set; }
@@ -174,7 +235,10 @@ namespace greenEnergy.Model
         public string image { get; set; }
         public string writer { get; set; }
         
-        
+
+
+
+
 
         public Guid? categoryID { get; set; }
         [ForeignKey("categoryID")]
@@ -196,6 +260,7 @@ namespace greenEnergy.Model
 
         public virtual ICollection<content> Contents { get; set; }
         public virtual ICollection<meta> Metas { get; set; }
+        public virtual ICollection<secTag> SecTags { get; set; }
 
     }
 
@@ -326,6 +391,8 @@ namespace greenEnergy.Model
         public virtual sectionType sectionType { get; set; }
 
         public int priority { get; set; }
+        public int useParentSection { get; set; }
+        
         public string title { get; set; }
         public string description { get; set; }
         public string cycleFields { get; set; }
@@ -336,7 +403,7 @@ namespace greenEnergy.Model
 
 
 
-        public Guid? formID { get; set; }
+        public int?  formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
@@ -398,16 +465,14 @@ namespace greenEnergy.Model
         public string description { get; set; }
         public string image { get; set; }
         public string partName { get; set; }
+        public string partDetailName { get; set; }
         public virtual ICollection<sectionLayout> SectionLayouts { get; set; }
     }
     
     public class layoutPart
     {
 
-        public layoutPart()
-        {
-            this.SectionLayouts = new HashSet<sectionLayout>();
-        }
+        
         [Key]
         public Guid layoutPartID { get; set; }
         public string title { get; set; }
@@ -416,15 +481,15 @@ namespace greenEnergy.Model
         [ForeignKey("languageID")]
         public virtual language Language { get; set; }
 
-        public virtual ICollection<sectionLayout> SectionLayouts { get; set; }
+        public Guid? sectionLayoutID { get; set; }
+        [ForeignKey("sectionLayoutID")]
+        public virtual sectionLayout SectionLayout { get; set; }
+       
         public virtual ICollection<layoutData> LayoutDatas { get; set; }
     }
     public class sectionLayout  
     {
-        public sectionLayout()
-        {
-            this.LayoutParts = new HashSet<layoutPart>();
-        }
+       
         [Key]
         public Guid sectionLayoutID { get; set; }
         public string  menuTitle { get; set; }
@@ -449,10 +514,25 @@ namespace greenEnergy.Model
         public virtual ICollection<content> contents { get; set; }
         public virtual ICollection<section> sections { get; set; }
         public virtual ICollection<category> Categories { get; set; }
+        public virtual ICollection<secTag> SecTags { get; set; }
         public virtual ICollection<layoutData> LayoutDatas { get; set; }
         
     }
 
+    public class secTag
+    {
+        public secTag()
+        {
+            this.sections = new HashSet<section>();
+        }
+        [Key]
+        public Guid secTagID { get; set; }
+        public string title { get; set; }
+        public Guid sectionTypeID { get; set; }
+        [ForeignKey("sectiontypeID")]
+        public virtual sectionType sectionType { get; set; }
+        public virtual ICollection<section> sections { get; set; }
+    }
     public class category
     {
         [Key]
@@ -705,7 +785,7 @@ namespace greenEnergy.Model
         public virtual process process { get; set; }
 
 
-        public Guid? formItemID { get; set; }
+        public int? formItemID { get; set; }
         [ForeignKey("formItemID")]
         public virtual formItem FormItem { get; set; }
 
@@ -753,7 +833,8 @@ namespace greenEnergy.Model
     {
 
         [Key]
-        public Guid formItemID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int formItemID { get; set; }
         public string itemName { get; set; }
         public string groupNumber { get; set; }
         public string itemDesc { get; set; }
@@ -770,6 +851,7 @@ namespace greenEnergy.Model
         public string isMultiple { get; set; }
         public string mediaType { get; set; }
         public string collectionName { get; set; }
+        public string operat { get; set; } 
 
 
         public Guid? OptionID { get; set; }
@@ -785,20 +867,25 @@ namespace greenEnergy.Model
         [ForeignKey("formItemTypeID")]
         public virtual formItemType FormItemType { get; set; }
 
+        public int? relatedForemItemID { get; set; }
+        [ForeignKey("relatedForemItemID")]
+        public virtual formItem relatedFormItem { get; set; }
 
 
-        public Guid formID { get; set; }
+        public int formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
 
         public virtual ICollection<formula> Formulas { get; set; }
+        public virtual ICollection<formItem> FormItems { get; set; }
     }
     public class form
     {
 
         [Key]
-        public Guid formID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int formID { get; set; }
         public string title { get; set; }
         public string zaribWidth { get; set; }
         public string zaribHeight { get; set; }
@@ -822,7 +909,7 @@ namespace greenEnergy.Model
 
     public class processform
     {
-        public Guid formID { get; set; }
+        public int formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
         public Guid processID { get; set; }
@@ -843,11 +930,11 @@ namespace greenEnergy.Model
         public string name { get; set; }
         public string usedFeild { get; set; }
 
-        public Guid formItemID { get; set; }
+        public int formItemID { get; set; }
         [ForeignKey("formItemID")]
         public virtual formItem FormItem { get; set; }
 
-        public Guid newOrderFlowID { get; set; }
+        public int newOrderFlowID { get; set; }
         [ForeignKey("newOrderFlowID")]
         public virtual newOrderFlow NewOrderFlow { get; set; }
     }
@@ -861,13 +948,29 @@ namespace greenEnergy.Model
         public string statusCode { get; set; }
 
     }
+
+    public class newOrderType
+    {
+        [Key]
+        public Guid newOrderTypeID { get; set; }
+        public string title { get; set; }
+        public int orderTypeCode { get; set; }
+        public virtual ICollection<newOrder> NewOrders { get; set; }
+    }
     public class newOrder
     {
         [Key]
         public Guid newOrderID { get; set; }
         public string orderName { get; set; }
 
-   
+
+        public Guid? thirdPartyID { get; set; }
+        [ForeignKey("thirdPartyID")]
+        public virtual user user { get; set; }
+
+        public Guid? newOrderTypeID { get; set; }
+        [ForeignKey("newOrderTypeID")]
+        public virtual newOrderType NewOrderType { get; set; }
 
         public Guid newOrderStatusID { get; set; }
         [ForeignKey("newOrderStatusID")]
@@ -885,15 +988,16 @@ namespace greenEnergy.Model
     public class newOrderFlow
     {
         [Key]
-        public Guid newOrderFlowID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int newOrderFlowID { get; set; }
 
 
         public Guid newOrderID { get; set; }
         [ForeignKey("newOrderID")]
         public virtual newOrder NewOrder { get; set; }
-
-        public Guid ServentID { get; set; }
-        [ForeignKey("ServentID")]
+        public string  serventPhone { get; set; }
+        public Guid userID { get; set; }
+        [ForeignKey("userID")]
         public virtual user newOrderFlowServent { get; set; }
 
         public Guid processID { get; set; }
@@ -917,7 +1021,7 @@ namespace greenEnergy.Model
         public Guid productID { get; set; }
         [ForeignKey("productID")]
         public virtual product product { get; set; }
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         [ForeignKey("flowID")]
         public virtual newOrderFlow orderflow { get; set; }
         public double amount { get; set; }
@@ -932,7 +1036,7 @@ namespace greenEnergy.Model
         public Guid CodingID { get; set; }
         [ForeignKey("CodingID")]
         public virtual coding coding { get; set; }
-        public Guid flowID { get; set; }
+        public int flowID { get; set; }
         [ForeignKey("flowID")]
         public virtual newOrderFlow orderflow { get; set; }
         public double amount { get; set; }
@@ -946,8 +1050,8 @@ namespace greenEnergy.Model
         public Guid processID { get; set; }
         public process()
         {
-            //this.orderHistoryList = new HashSet<newOrder>();
             this.formList = new HashSet<form>();
+            this.RelationTypes = new HashSet<relationType>();
         }
         public string isDefault { get; set; }
         public string title { get; set; }
@@ -956,10 +1060,14 @@ namespace greenEnergy.Model
         [ForeignKey("userID")]
         public virtual user user { get; set; }
 
+        public Guid? orderTypeID { get; set; } // مرتبط با کدوم باربریه
+        [ForeignKey("orderTypeID")]
+        public virtual newOrderType NewOrderType { get; set; }
+
         public virtual ICollection<processFormula> ProcessFormulas { get; set; }
         //public virtual ICollection<newOrder> orderHistoryList { get; set; }
         public virtual ICollection<form> formList { get; set; }
-
+        public virtual ICollection<relationType> RelationTypes { get; set; }
 
     }
     public class processFormula// میگه چه فرمولهایی برای چه پروسه هایی هست که روی یک کدینگ اثر میزاره یا بدهکار یا بستانکار
@@ -1020,9 +1128,9 @@ namespace greenEnergy.Model
            
             Namads = new List<namad>();
         }
+       
+
         [Key]
-
-
         public Guid userID { get; set; }
         public string firebaseToken { get; set; }
         [Column(TypeName = "VARCHAR")]
@@ -1031,8 +1139,8 @@ namespace greenEnergy.Model
         public string name { get; set; }
         public string profileImage { get; set; }
         public string coName { get; set; }
-        [Column(TypeName = "VARCHAR")]
-
+       
+        
         public string phone { get; set; }
         public string code { get; set; }
         public string codeMelli { get; set; }
@@ -1063,9 +1171,10 @@ namespace greenEnergy.Model
         [ForeignKey("barbariID")]
         public virtual user barbari { get; set; }
 
-        
 
 
+        public virtual ICollection<userRelation> userRelationList { get; set; } // کیا عضو تو هستن
+        public virtual ICollection<userRelation> partnerList { get; set; } // کیا عضو تو هستن
 
         public virtual ICollection<user> CoDrivers { get; set; }
         public virtual ICollection<coding> Codings { get; set; }

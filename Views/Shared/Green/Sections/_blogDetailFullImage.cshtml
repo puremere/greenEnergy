@@ -1,0 +1,10 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string image = Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+}
+
+
+    <div class="box-anim">
+        <img class="img1" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image" alt="Blog">
+    </div>

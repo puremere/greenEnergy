@@ -18027,9 +18027,9 @@ var hbox = curry(boxLayout, 'horizontal');
 
 /**
  * If x or x2 is not specified or 'center' 'left' 'right',
- * the width would be as long as possible.
+ * the width would be as int as possible.
  * If y or y2 is not specified or 'middle' 'top' 'bottom',
- * the height would be as long as possible.
+ * the height would be as int as possible.
  *
  * @param {Object} positionInfo
  * @param {number|string} [positionInfo.x]

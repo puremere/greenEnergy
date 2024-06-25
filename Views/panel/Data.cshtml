@@ -100,7 +100,7 @@
 
                                                     <div class="lableMode">
 
-                                                        @if (@prod.title == "image")
+                                                        @if (@prod.title.Contains("image"))
                                                         {
                                                             <img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.title2" />
                                                         }
@@ -125,9 +125,9 @@
                                                             <input hidden name="dataID" value="@prod.dataID" />
                                                             <input hidden name="title" value="@prod.title" />
                                                             @{
-                                                                if (@prod.title == "image")
+                                                                if (@prod.title.Contains("image"))
                                                                 {
-                                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="file" value="" />
+                                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@prod.title" value="" />
                                                                 }
                                                                 else if (prod.title == "marginsrt")
                                                                 {

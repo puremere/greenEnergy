@@ -1,0 +1,275 @@
+﻿
+@model greenEnergy.ViewModel.layoutPartDataPageVM
+@{
+    ViewBag.Title = "Layout Part Data";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+@section scripts{
+    <script>
+        $(".removeButton").click(function () {
+
+            $("#removeID").val($(this).attr("idtogo"));
+        })
+        $(".editButton").click(function () {
+
+            $("#editID").val($(this).attr("idtogo"));
+            $("#edittitle").val($(this).attr("titletogo"));
+            $("#edittype").val($(this).attr("typetogo"));
+            $("#editurl").val($(this).attr("urltogo"));
+            $("#editurltitle").val($(this).attr("urltitletogo"));
+            $("#editpriority").val($(this).attr("prioritytogo"));
+            $("#editimage").val($(this).attr("imagetogo"));
+            $("#editparent").val($(this).attr("parenttogo"));
+            $("#editcount").val($(this).attr("counttogo"));
+            $("#editdatatype").val($(this).attr("datatypetogo"));
+
+        })
+
+
+    </script>
+
+}
+
+<ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add New data for @Model.layoutpart.title</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> data List for  @Model.layoutpart.title </a>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="/admin/setLayoutPartData">
+                            @Html.AntiForgeryToken()
+                            <input hidden name="layoutPartID" value="@Model.layoutpart.layoutPartID" />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Section Type</label>
+                                <select name="dataType" class="form-control">
+                                    @foreach (var item in Model.partDetailList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+
+
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">URL </label>
+                                <input required type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">URL Title</label>
+                                <input required type="text" id="" name="urlTitle" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Priority</label>
+                                <input required type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Parent</label>
+                                @Html.DropDownList("parentID", new SelectList(Model.datalist, "layoutDataID", "title"), "select parent", new { @class = "form-control", name = "parentID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Image</label>
+                                <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Details Start -->
+
+                <div class="card">
+                    <div id="prnt" class="card-body">
+                        <div class="title-header option-title">
+                            <h5>Content List </h5>
+                        </div>
+                        <div class="row" style="background-color:white; padding:10px; margin:0px;overflow-x:scroll">
+                            <table class="table all-package theme-table table-product dataTable no-footer" id="table_id" style="margin-top:10px">
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">title </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">dataType </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">url </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">url title </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">priority </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">image </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">parent name </th>
+                                        @*<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">probabale Child Group </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">child Count </th>*@
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.datalist != null)
+                                    {
+
+                                        foreach (var prod in Model.datalist)
+                                        {
+
+                                            int i = Model.datalist.IndexOf(prod) + 1;
+                                            string cls = (Model.datalist.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
+
+
+                                            <tr class="@cls">
+
+
+
+                                                <td>@prod.title</td>
+                                                <td>@prod.dataType</td>
+                                                <td>@prod.url</td>
+                                                <td>@prod.urlTitle</td>
+                                                <td>@prod.priority</td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(prod.image))
+                                                    {
+                                                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" style="max-width:100%" />
+                                                    }
+                                                </td>
+                                                <td>@prod.parentName</td>
+                                                @*<td>@prod.typeTitle</td>
+                                            <td>@prod.typeCount</td>*@
+
+                                                <td style="display:flex">
+                                                    <div style="margin:0 5px"></div>
+                                                    <button data-bs-target="#editModal" data-bs-toggle="modal" datatypetogo="@prod.dataType" prioritytogo="@prod.priority" urltitletogo="@prod.urlTitle" urltogo="@prod.url" idtogo="@prod.layoutDataID" titletogo="@prod.title" typetogo="@prod.sectionTypeID" imagetogo="@prod.image" parenttogo="@prod.parentID" counttogo="@prod.typeCount" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                    <div style="margin:0 5px"></div>
+                                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.layoutDataID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                                </td>
+
+
+
+
+                                            </tr>
+                                        }
+
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure Removing this item</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/removeLayoutpartData" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input hidden name="layoutPartID" value="@Model.layoutpart.layoutPartID" />
+                <input hidden name="layoutDataID" id="removeID" />
+
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="editModal">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit</h6><button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="/admin/setLayoutPartData" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <input hidden name="layoutDataID" id="editID" value="" />
+                    <input hidden name="layoutPartID" value="@Model.layoutpart.layoutPartID" />
+                    <p>Title</p>
+                    <input type="text" id="edittitle" class="form-control" name="title" value="" />
+                    <p style="margin:10px"></p>
+                    <p>Data Type</p>
+                    <select id="editdatatype" name="dataType" class="form-control">
+                        <option value="link">Link Section</option>
+                        <option value="social">Social Section</option>
+                        <option value="copyright">Copyright Section</option>
+                    </select>
+                    <p style="margin:10px"></p>
+
+                    <p>URL</p>
+                    <input type="text" id="editurl" class="form-control" name="url" value="" />
+                    <p style="margin:10px"></p>
+                    <p>URL Title</p>
+                    <input type="text" id="editurltitle" class="form-control" name="urlTitle" value="" />
+                    <p style="margin:10px"></p>
+                    <p>Priority</p>
+                    <input type="text" id="editpriority" class="form-control" name="priority" value="" />
+                    <p style="margin:10px"></p>
+                    <p>Child Count </p>
+                    <input type="text" id="editcount" class="form-control" name="typeCount" value="" />
+                    <p style="margin:10px"></p>
+                    <p>Optional Child</p>
+                    @Html.DropDownList("sectionTypeID", new SelectList(Model.typelist, "typeID", "title"), new { @class = "form-control", name = "sectionTypeID", id = "edittype" })
+                    <p style="margin:10px"></p>
+                    <p>Parent</p>
+                    @Html.DropDownList("parentID", new SelectList(Model.datalist, "layoutDataID", "title"), new { @class = "form-control", name = "parentID", id = "editparent" })
+                    <p style="margin:10px"></p>
+                    <p>Image</p>
+                    <input class="form-control" type="file" name="file" value="" />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">Verify</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
