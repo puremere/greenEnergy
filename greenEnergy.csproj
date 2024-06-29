@@ -2855,6 +2855,7 @@
     <Content Include="Views\Shared\Green\Sections\_blogDetailTitle1.cshtml" />
     <Content Include="Views\Shared\Green\Sections\_blogDetailTitle2.cshtml" />
     <Content Include="Views\Shared\Green\Sections\_blogItem.cshtml" />
+    <Content Include="Views\panel\element.cshtml" />
     <None Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.min.js" />

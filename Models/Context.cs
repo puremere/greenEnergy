@@ -83,6 +83,7 @@ namespace greenEnergy.Model
         public DbSet<relationType> relationTypes { get; set; }
         public DbSet<userRelation> userRelations { get; set; }
         public DbSet<sectionRelation> sectionRelations { get; set; }
+        public DbSet<urlData> urlDatas { get; set; }
 
         
 
@@ -138,7 +139,29 @@ namespace greenEnergy.Model
     }
     
 
-   
+    public class urlData
+    {
+        [Key]
+        public Guid urlDataID { get; set; }
+        public Guid sectionID { get; set; }
+        [ForeignKey("sectionID")]
+        public virtual section section { get; set; }
+        public string name { get; set; }
+        public string formFields { get; set; }
+        public string flowFields { get; set; }
+        public int isCycle { get; set; }
+       
+        public int? formID { get; set; }
+        [ForeignKey("formID")]
+        public virtual form form { get; set; }
+
+        public int?  formItemID { get; set; }
+        [ForeignKey("formItemID")]
+        public virtual formItem formItem { get; set; }
+        public int isLinkToMain { get; set; }
+        public string operat { get; set; }
+
+    }
     public class relationType
     {
         public relationType()
@@ -1004,6 +1027,17 @@ namespace greenEnergy.Model
         [ForeignKey("processID")]
         public virtual process newOrderProcess { get; set; }
 
+        public int? formID { get; set; }
+        [ForeignKey("formID")]
+        public virtual form form { get; set; }
+
+        public int? parentFLowID { get; set; }
+        [ForeignKey("parentFLowID")]
+        public virtual newOrderFlow parentFLow { get; set; }
+
+        public int? childStatus { get; set; }
+        public DateTime? childStartDate { get; set; }
+
         public string isFinished { get; set; }
         public string isAccepted { get; set; }
         public DateTime creationDate { get; set; }
@@ -1011,6 +1045,7 @@ namespace greenEnergy.Model
         public DateTime terminationDate { get; set; }
 
         public virtual ICollection<newOrderFields> NewOrderFields { get; set; }
+        public virtual ICollection<newOrderFlow> childFlows { get; set; }
         public virtual ICollection<flowCoding> flowCodings { get; set; }
         public virtual ICollection<flowProduct> flowProducts { get; set; }
     }

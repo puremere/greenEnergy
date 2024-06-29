@@ -19,11 +19,46 @@ namespace greenEnergy.ViewModel
         public string  cycleMeta { get; set; }
     }
 
+
+
+    public class elementListVM
+    {
+        public List<elementVM> elementList { get; set; }
+        public sectionVM selectedSection { get; set; }
+        public List<formVM> allForm { get; set; }
+    }
+
+    public class urldataVM
+    {
+        public string name { get; set; }
+        public string formID { get; set; }
+        public string flowFields { get; set; }
+        public string formFields { get; set; }
+        public List<int> resultFlow { get; set; }
+    }
+    public class elementVM
+    {
+
+        public Guid sectionID { get; set; }
+        public Guid elementID { get; set; }
+        public string formName { get; set; }
+        public string formItemName { get; set; }
+        public string name { get; set; }
+        public string formFields { get; set; }
+        public string flowFields { get; set; }
+        public int isCycle { get; set; }
+        public int? formID { get; set; }
+        public int? formItemID { get; set; }
+        public int isLinkToMain { get; set; }
+        public string operat { get; set; }
+    }
     public class metaListVM
     {
         public List<MetaVM> metaList { get; set; }
         public sectionVM selectedSection { get; set; }
     }
+
+
     public class MetaVM
     {
         public string Name { get; set; }

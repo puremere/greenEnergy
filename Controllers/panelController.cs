@@ -379,8 +379,62 @@ namespace greenEnergy.Controllers
             return RedirectToAction("Content", new { id = model.sectionID , contentID = model.parentID });
         }
 
+        //element
+
+        public async Task<ActionResult> element(Guid id)
+        {
+            sectionVM model = new sectionVM();
+            model.sectinoID = id;
+            elementListVM responsemodel = new elementListVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getElement", Request.Cookies["adminToken"].Value);
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return View(responsemodel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setElement(elementVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setElement", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                string image = responsemodel.message;
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("element", new { id = model.sectionID });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> removeElement(MetaVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/removeElement", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return RedirectToAction("meta", new { id = model.sectionID });
+        }
+
         //meta 
-        
+
         public async Task<ActionResult> meta(Guid id)
         {
             sectionVM model = new sectionVM();

@@ -104,9 +104,13 @@
                                                 <td>@prod.url</td>
 
                                                 <td style="display:flex">
-                                                   
+
                                                     <a target="_blank" href="/panel/content?id=@prod.sectinoID">
                                                         <div class="btn btn-primary btn-sm lgnsubmitt">Content List</div>
+                                                    </a>
+                                                    <div style="margin:0 5px"></div>
+                                                    <a target="_blank" href="/panel/element?id=@prod.sectinoID">
+                                                        <div class="btn btn-primary btn-sm lgnsubmitt">Element List</div>
                                                     </a>
                                                     <div style="margin:0 5px"></div>
                                                     <a target="_blank" href="/panel/meta/@prod.sectinoID">
@@ -115,7 +119,7 @@
                                                     <div style="margin:0 5px"></div>
                                                     <button data-bs-target="#editModal" data-bs-toggle="modal" buttontxttogo="@prod.buttonText" categorytogo="@prod.categoryID" languagetogo="@prod.languateID" layouttogo="@prod.sectionLayoutID" titletogo="@prod.title" metatitletogo="@prod.metaTitle" idtogo="@prod.sectinoID" urltogo="@prod.url" type="button" class="btn ripple btn-primary btn-sm editButton">Edit </button>
                                                     <div style="margin:0 5px"></div>
-                                                   @* <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectinoID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>*@
+                                                    @* <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.sectinoID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>*@
 
                                                 </td>
 
