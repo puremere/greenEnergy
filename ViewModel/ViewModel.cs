@@ -41,7 +41,9 @@ namespace greenEnergy.ViewModel
     {
         [Key]
         public int formID { get; set; }
+        public int formTypeID { get; set; }
         public string title { get; set; }
+        public Guid userSelected { get; set; }
         public string pdfBase { get; set; }
         public string pdf { get; set; }
         public string image { get; set; }
@@ -142,6 +144,12 @@ namespace greenEnergy.ViewModel
         public string baseURL { get; set; }
         public string cityName { get; set; }
         public string typeName { get; set; }
+    }
+
+    public class formTypeVM
+    {
+        public int formTypeID { get; set; }
+        public string title { get; set; }
     }
     public class userVM
     {
@@ -818,6 +826,8 @@ namespace greenEnergy.ViewModel
     public class processFormActionVM
     {
         public List<processFormVM> processFormList { get; set; }
+        public List<userVM> userList { get; set; }
+        public List<formTypeVM> formTypeList { get; set; }
         public List<processFormVM> allForm { get; set; }
         public process process { get; set; }
 

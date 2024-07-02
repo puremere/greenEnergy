@@ -459,9 +459,6 @@ namespace greenEnergy.Controllers
             ViewBag.phone = phone;
             return View("Verify");
         }
-
-
-
         [HttpPost]
         public async Task<ActionResult> setOrder(setOrderVM model)
         {
@@ -483,7 +480,6 @@ namespace greenEnergy.Controllers
             responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getProcess", Request.Cookies["adminToken"].Value);
             return View(responsemodel);
         }
-
         public async Task<ActionResult> setNewProcess(process model)
         {
             responseModel responsemodel = await methods.PostData(model, new responseModel(), "/setProcess", Request.Cookies["adminToken"].Value);
@@ -867,19 +863,19 @@ namespace greenEnergy.Controllers
             return RedirectToAction("orderOptions");
         }
 
-        //form
+        //form type
 
 
-        public async Task<ActionResult> Form(process model)
+        public async Task<ActionResult> formType(process model)
         {
             if (TempData["er"] != null)
                 ViewBag.error = TempData["er"].ToString();
             processFormActionVM responsemodel = new processFormActionVM();
-            responsemodel = await methods.PostData(model, responsemodel, "/getForm", Request.Cookies["adminToken"].Value);
+            responsemodel = await methods.PostData(model, responsemodel, "/getFormType", Request.Cookies["adminToken"].Value);
 
             return View(responsemodel);
         }
-        public async Task<ActionResult> setNewForm(formVM model)
+        public async Task<ActionResult> setNewFormType(formVM model)
         {
             string path = System.Web.HttpContext.Current.Server.MapPath("~/PDF/");
             if (!Directory.Exists(path))
@@ -919,6 +915,86 @@ namespace greenEnergy.Controllers
                 pdfBase = pdfBase,
                 pdf = pdf,
                 formID = model.formID
+            };
+            responseModel responsemodel = await methods.PostData(modeltogo, new responseModel(), "/setForm", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                List<string> lst = responsemodel.message.Trim(',').Split(',').ToList();
+                if (lst.Count() > 0)
+                {
+                    foreach (var file in lst)
+                    {
+                        if (!string.IsNullOrEmpty(file))
+                        {
+                            string fname = Path.Combine(Server.MapPath("~/PDF/"), file);
+                            bool exists = System.IO.File.Exists(fname);
+                            if (exists)
+                                System.IO.File.Delete(fname);
+                        }
+
+                    }
+                }
+            }
+            return RedirectToAction("form");
+        }
+
+        //form
+
+
+        public async Task<ActionResult> Form(process model)
+        {
+            if (TempData["er"] != null)
+                ViewBag.error = TempData["er"].ToString();
+            processFormActionVM responsemodel = new processFormActionVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getForm", Request.Cookies["adminToken"].Value);
+
+            return View(responsemodel);
+        }
+        [HttpPost]
+        public async Task<ActionResult> setNewForm(formVM model)
+        {
+            string path = System.Web.HttpContext.Current.Server.MapPath("~/PDF/");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string pdfBase = methods.RandomString(5) + ".pdf";
+            string pdf = methods.RandomString(6) + ".pdf";
+            if (model.baseFile != null)
+            {
+                if (model.baseFile.ContentLength > 0)
+                {
+                    model.baseFile.SaveAs(path + pdfBase);
+                }
+
+
+
+
+
+
+            }
+            if (model.file != null)
+            {
+                if (model.file.ContentLength > 0)
+                {
+                    model.file.SaveAs(path + pdf);
+                }
+
+
+
+            }
+            model.pdfBase = null;
+            model.pdf = null;
+            formVM modeltogo = new formVM()
+            {
+                title = model.title,
+                pdfBase = pdfBase,
+                pdf = pdf,
+                formID = model.formID,
+                userSelected = model.userSelected,
+                formTypeID = model.formTypeID
             };
             responseModel responsemodel = await methods.PostData(modeltogo, new responseModel(), "/setForm", Request.Cookies["adminToken"].Value);
             if (responsemodel.status != 200)

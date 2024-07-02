@@ -25,7 +25,7 @@ namespace greenEnergy.Classes
                     .Authorization.Parameter;
 
                 var decodeauthToken = System.Text.Encoding.UTF8.GetString(
-                Convert.FromBase64String(authToken));
+                 Convert.FromBase64String(authToken));
 
                 // spliting decodeauthToken using ':'   
                 var arrUserNameandPassword = decodeauthToken.Split(':');

@@ -53,8 +53,6 @@ namespace greenEnergy.Controllers
 
                 return Content("");
             }
-
-           
         }
         public ActionResult Index()
         {

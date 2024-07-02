@@ -125,6 +125,23 @@
                                     <div class="row row-sm mg-b-20">
 
                                         <div class="col-lg-4 form-group">
+                                            <p> نوع فرم</p>
+                                            <select name="formTypeID" class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                <option label="یکی را انتخاب کن" data-select2-id="3">
+                                                </option>
+                                                @if (Model.formTypeList != null)
+                                                {
+                                                    foreach (var item in Model.formTypeList)
+                                                    {
+                                                        <option value="@item.formTypeID">
+                                                            @item.title
+                                                        </option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 form-group">
                                             <p> نام فرم</p>
                                             <input class="form-control" name="title" placeholder="نام فرم  " required="" type="text">
                                         </div>
@@ -138,6 +155,25 @@
                                             <p>پی دی اف </p>
                                             <input class="form-control" type="file" name="file" value="" />
                                         </div>
+                                        <div class="col-lg-4 form-group">
+                                           
+                                            <p> انتخاب کاربر</p>
+                                            <select name="userSelected" class="form-control select2 " data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                <option label="یکی را انتخاب کن" data-select2-id="3">
+                                                </option>
+                                                @if (Model.userList != null)
+                                                {
+                                                    foreach (var item in Model.userList)
+                                                    {
+                                                        <option value="@item.userID">
+                                                            @item.name
+                                                        </option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+
 
                                     </div>
                                     <button class="btn ripple btn-main-primary btn-block">ارسال</button>

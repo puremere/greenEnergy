@@ -70,6 +70,8 @@ namespace greenEnergy.Model
         public DbSet<formItemType> formItemTypes { get; set; }
         public DbSet<formItemDesign> formItemDesigns { get; set; }
         public DbSet<form> forms { get; set; }
+        public DbSet<formType> formType { get; set; }
+        
         public DbSet<formItem> formItems { get; set; }
         public DbSet<newOrderType> newOrderTypes { get; set; }
 
@@ -903,6 +905,16 @@ namespace greenEnergy.Model
         public virtual ICollection<formula> Formulas { get; set; }
         public virtual ICollection<formItem> FormItems { get; set; }
     }
+
+    public class formType
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int formTypeID { get; set; }
+        public string title { get; set; }
+
+        public virtual ICollection<form> Forms { get; set; }
+    }
     public class form
     {
 
@@ -921,6 +933,11 @@ namespace greenEnergy.Model
         public Guid? userID { get; set; }
         [ForeignKey("userID")]
         public virtual user User { get; set; }
+
+        public int? formTypeID { get; set; }
+        [ForeignKey("formTypeID")]
+        public virtual formType FormType { get; set; }
+
 
         public virtual ICollection<formItem> FormItems { get; set; }
 
@@ -1010,6 +1027,11 @@ namespace greenEnergy.Model
 
     public class newOrderFlow
     {
+        public newOrderFlow()
+        {
+            this.parentFlows = new HashSet<newOrderFlow>();
+            this.childFlows = new HashSet<newOrderFlow>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int newOrderFlowID { get; set; }
@@ -1031,9 +1053,7 @@ namespace greenEnergy.Model
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
-        public int? parentFLowID { get; set; }
-        [ForeignKey("parentFLowID")]
-        public virtual newOrderFlow parentFLow { get; set; }
+       
 
         public int? childStatus { get; set; }
         public DateTime? childStartDate { get; set; }
@@ -1045,6 +1065,7 @@ namespace greenEnergy.Model
         public DateTime terminationDate { get; set; }
 
         public virtual ICollection<newOrderFields> NewOrderFields { get; set; }
+        public virtual ICollection<newOrderFlow> parentFlows { get; set; }
         public virtual ICollection<newOrderFlow> childFlows { get; set; }
         public virtual ICollection<flowCoding> flowCodings { get; set; }
         public virtual ICollection<flowProduct> flowProducts { get; set; }
@@ -1160,7 +1181,6 @@ namespace greenEnergy.Model
     {
         public user()
         {
-           
             Namads = new List<namad>();
         }
        
