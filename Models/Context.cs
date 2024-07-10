@@ -86,6 +86,7 @@ namespace greenEnergy.Model
         public DbSet<userRelation> userRelations { get; set; }
         public DbSet<sectionRelation> sectionRelations { get; set; }
         public DbSet<urlData> urlDatas { get; set; }
+        public DbSet<flowRelation> flowRelations { get; set; }
 
         
 
@@ -113,9 +114,13 @@ namespace greenEnergy.Model
             modelBuilder.Entity<section>().HasRequired(s=>s.Language).WithMany(x=>x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
             modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<secTag>().HasRequired(s=>s.sectionType).WithMany(x=>x.SecTags).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
-
+            
+            
+            modelBuilder.Entity<flowRelation>().HasRequired(s=>s.childFlow).WithMany(x=>x.childFlows).HasForeignKey(x => x.childID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<flowRelation>().HasRequired(s=>s.parentFlow).WithMany(x => x.parentFlows).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
 
             
+
 
             // قسمت مرتبط با تیلور
 
@@ -123,7 +128,7 @@ namespace greenEnergy.Model
            
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
@@ -630,6 +635,7 @@ namespace greenEnergy.Model
         [Key]
         public Guid orderOptionID { get; set; }
         public string title { get; set; }
+        public string Value { get; set; }
         public string image { get; set; }
         public Guid? userID { get; set; }
         [ForeignKey("userID")]
@@ -876,8 +882,8 @@ namespace greenEnergy.Model
         public string isMultiple { get; set; }
         public string mediaType { get; set; }
         public string collectionName { get; set; }
-        public string operat { get; set; } 
-
+        public string operat { get; set; }
+        public int isHidden { get; set; }
 
         public Guid? OptionID { get; set; }
         [ForeignKey("OptionID")]
@@ -1025,13 +1031,30 @@ namespace greenEnergy.Model
 
     }
 
+
+    public class flowRelation
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int flowRelationID { get; set; }
+        public int? status { get; set; }
+        public DateTime? childStartDate { get; set; }
+        public DateTime? childEndDate { get; set; }
+
+        public int? formID { get; set; }
+
+        public int parentID { get; set; }
+        [ForeignKey("parentID")]
+        public virtual newOrderFlow parentFlow { get; set; }
+
+        public int childID { get; set; }
+        [ForeignKey("childID")]
+        public virtual newOrderFlow childFlow { get; set; }
+
+    }
     public class newOrderFlow
     {
-        public newOrderFlow()
-        {
-            this.parentFlows = new HashSet<newOrderFlow>();
-            this.childFlows = new HashSet<newOrderFlow>();
-        }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int newOrderFlowID { get; set; }
@@ -1045,7 +1068,7 @@ namespace greenEnergy.Model
         [ForeignKey("userID")]
         public virtual user newOrderFlowServent { get; set; }
 
-        public Guid processID { get; set; }
+        public Guid? processID { get; set; }
         [ForeignKey("processID")]
         public virtual process newOrderProcess { get; set; }
 
@@ -1055,8 +1078,7 @@ namespace greenEnergy.Model
 
        
 
-        public int? childStatus { get; set; }
-        public DateTime? childStartDate { get; set; }
+        
 
         public string isFinished { get; set; }
         public string isAccepted { get; set; }
@@ -1065,8 +1087,8 @@ namespace greenEnergy.Model
         public DateTime terminationDate { get; set; }
 
         public virtual ICollection<newOrderFields> NewOrderFields { get; set; }
-        public virtual ICollection<newOrderFlow> parentFlows { get; set; }
-        public virtual ICollection<newOrderFlow> childFlows { get; set; }
+        public virtual ICollection<flowRelation> childFlows { get; set; }
+        public virtual ICollection<flowRelation> parentFlows { get; set; }
         public virtual ICollection<flowCoding> flowCodings { get; set; }
         public virtual ICollection<flowProduct> flowProducts { get; set; }
     }

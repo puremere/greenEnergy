@@ -132,6 +132,7 @@
                                             <th>شماره گروه</th>
                                             <th>تصویر</th>
                                             <th>پلیس هولدر</th>
+                                            <th>مخفی</th>
                                             <th>جنس پارامتر</th>
                                             <th>وضعیت چند انتخابی</th>
                                             <th>مجموعه انتخاب شده</th>
@@ -155,6 +156,7 @@
                                             <td>@item.groupNumber</td>
                                             <td><img style="max-width:70px" src="/@item.itemtImage" /></td>
                                             <td>@item.itemPlaceholder</td>
+                                            <td>@item.isHidden</td>
                                             <td>@item.formItemTypeTitle</td>
 
                                             @{
@@ -232,6 +234,7 @@
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> پلیس هولدر </h6>
                                             <input class="form-control" name="itemPlaceholder" placeholder="  " type="text">
                                         </div>
+
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> پسوند محتوا(در نوع آپلود) </h6>
                                             <input class="form-control" name="mediaType" placeholder="  " type="text">
@@ -343,6 +346,14 @@
                                                 <span class="custom-switch-indicator"></span>
                                             </label>
                                         </div>
+                                        <div class="col-lg-3 form-group">
+                                            <h6 style="margin-bottom:15px" class="main-content-label mb-1"> غیر قابل رویت </h6>
+                                            <label class="custom-switch">
+                                                <input id="hiddenCheckBox" type="checkbox" name="hiddenCheckBox" class="custom-switch-input inlistinput">
+                                                <span class="custom-switch-indicator"></span>
+                                            </label>
+                                        </div>
+                                        
                                     </div>
 
                                  
@@ -382,7 +393,9 @@
                     <p>پلیس هولدر</p>
                     <input type="text" id="editPlace" class="form-control" name="itemPlaceholder" value="" />
                     <p style="margin:10px"></p>
-
+                    <p> غیر قابل رویت</p>
+                    <input type="checkbox" id="editHidden" class="form-control" name="isHidden" value="" />
+                    <p style="margin:10px"></p>
                     <p>وضعیت چند انتخابی</p>
                     <label class="custom-switch">
                         <input id="isMultiple" type="checkbox" name="isMultiple" class="custom-switch-input inlistinput">
@@ -437,7 +450,7 @@
 
 
                     </select>
-                    
+
 
 
 

@@ -5,6 +5,13 @@ using System.Web;
 
 namespace greenEnergy.ViewModel
 {
+    public class paymentVM
+    {
+        public int status { get; set; }
+        public string to { get; set; }
+        public string url { get; set; }
+        public string payment { get; set; }
+    }
     public class appViewModel
     {
         public string data { get; set; }

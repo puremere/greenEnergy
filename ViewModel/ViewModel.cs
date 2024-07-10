@@ -278,6 +278,7 @@ namespace greenEnergy.ViewModel
         public Guid orderOptionID { get; set; }
         public Guid parentID { get; set; }
         public string title { get; set; }
+        public string value { get; set; }
         public string image { get; set; }
         public string from { get; set; }
 
@@ -320,6 +321,7 @@ namespace greenEnergy.ViewModel
     public class orderOptionVM 
     {
         public string title { get; set; }
+        public string value { get; set; }
         public string image { get; set; }
         public Guid orderOptionID { get; set; }
         public Guid? parentID { get; set; }
@@ -986,8 +988,8 @@ namespace greenEnergy.ViewModel
        
         public string itemValue { get; set; }
         public string groupNumber { get; set; }
-        
-        
+        public string hiddenCheckBox { get; set; }
+        public int isHidden { get; set; }
         public int? relatedFormItemID { get; set; }
         public string operat { get; set; }
         public string itemName { get; set; }
@@ -1010,6 +1012,7 @@ namespace greenEnergy.ViewModel
         public Guid? optionSelected { get; set; }
         public Guid? formItemDesingID { get; set; }
 
+        public int formItemDesignNumber { get; set; }
 
         public Guid formItemTypeID { get; set; }
 

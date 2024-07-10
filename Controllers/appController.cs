@@ -108,7 +108,7 @@ namespace greenEnergy.Controllers
                 fil.zaribWidth = form.zaribWidth;
                 fil.zaribHeight = form.zaribHeight;
 
-                fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID ).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID ).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM {isHidden = x.isHidden, operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                 
                 formList.Add(fil);
             }
@@ -145,7 +145,7 @@ namespace greenEnergy.Controllers
                 fil.zaribWidth = form.zaribWidth;
                 fil.zaribHeight = form.zaribHeight;
 
-                fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { isHidden = x.isHidden, operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                 if (datamodel.chunkList != null)
                 {
                     var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "formData");
@@ -168,7 +168,7 @@ namespace greenEnergy.Controllers
                 }
 
 
-                List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { relatedFormItemID = l.relatedForemItemID, operat = l.operat, itemHeight = l.itemHeight, itemlength = l.itemLenght, itemx = l.itemx, itemy = l.itemy, pageNumber = l.pageNumber, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = "Uploads/" + l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
+                List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { isHidden = l.isHidden, relatedFormItemID = l.relatedForemItemID, operat = l.operat, itemHeight = l.itemHeight, itemlength = l.itemLenght, itemx = l.itemx, itemy = l.itemy, pageNumber = l.pageNumber, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = "Uploads/" + l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
 
                 int index = 0;
 
@@ -416,70 +416,75 @@ namespace greenEnergy.Controllers
                         foreach (var htmlfield in values)
                         {
                             dataVM sdata = item.dataList.SingleOrDefault(x => x.title == htmlfield && !string.IsNullOrEmpty(x.title2));
-                            if (sdata != null)
+                            if (sdata != null) // داخل پنل یه مقداری برای یک اتریبیوت گذاشتیم
                             {
+                                
                                 if (datamodel.chunkList != null)
                                 {
-                                    itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
-                                    if (dlst != null)
+                                    bool canContinue = true;
+                                    itemParent dlist = datamodel.chunkList.SingleOrDefault(x => x.name == "dynamicField");
+                                    string itemnamee = item.title + "_" + sdata.title;
+                                    if (dlist != null)
                                     {
-                                        string itemnamee = item.title + "_" + sdata.title;
-                                        if (dlst.items != null)
+                                        
+                                        if (dlist.items != null)
                                         {
-                                            flowDetailAll flowDetail = dlst.items[0] as flowDetailAll;
-                                            if (flowDetail != null)
+                                            flowDetailAll flowDetail = dlist.items[0] as flowDetailAll;
+                                            if (flowDetail.allData.ContainsKey(itemnamee))
                                             {
-                                                if (flowDetail.allData.ContainsKey(item.title))
-                                                {
-                                                    string newsrt = flowDetail.allData[item.title];
-                                                    if ((item.appType == "image" && sdata.title == "srcsrt") || (item.appType == "label" && sdata.title == "textsrt")|| (item.appType == "perTextView" && sdata.title == "valueTextsrt"))
-                                                    {
-                                                             item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
-
-                                                    }
-                                                    else
-                                                    {
-                                                        item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
-
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
-                                                }
+                                                string newsrt = flowDetail.allData[itemnamee];
+                                                item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
+                                                canContinue = false;
                                             }
-                                            else
-                                            {
-                                                if (dlst.items[0].GetType().GetProperty(itemnamee) != null)
-                                                {
-                                                    string newsrt = dlst.items[0].GetType().GetProperty(itemnamee).GetValue(dlst.items[0], null) + "";
-                                                    item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
-                                                }
-                                                else
-                                                {
-                                                    item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
-                                                }
-                                            }
-
                                             
                                         }
-
-                                        else
+                                    } // با چک میکنیم اگه داخل داینامیک بود دیگه کاری به بقیه چیزا نداریم
+                                    if (canContinue)
+                                    {
+                                        itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
+                                        if (dlst != null)
                                         {
-                                            item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
+
+                                            if (dlst.items != null)
+                                            {
+                                                flowDetailAll flowDetail = dlst.items[0] as flowDetailAll;
+                                                if (flowDetail != null)
+                                                {
+                                                    if (flowDetail.allData.ContainsKey(item.title))
+                                                    {
+                                                        string newsrt = flowDetail.allData[item.title];
+                                                        if ((item.appType == "imageView" && sdata.title == "srcsrt") || (item.appType == "label" && sdata.title == "textsrt") || (item.appType == "perTextView" && sdata.title == "valueTextsrt"))
+                                                        {
+                                                            item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
+                                                            canContinue = false;
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    {
+                                                        if (dlst.items[0].GetType().GetProperty(itemnamee) != null)
+                                                        {
+                                                            string newsrt = dlst.items[0].GetType().GetProperty(itemnamee).GetValue(dlst.items[0], null) + "";
+                                                            item.appMeta = item.appMeta.Replace(sdata.title, newsrt);
+                                                            canContinue = false;
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+
                                         }
-
-
                                     }
-                                    else
+
+
+                                    if (canContinue)
                                     {
                                         item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
                                     }
+                                    
                                 }
-                                else
-                                {
-                                    item.appMeta = item.appMeta.Replace(sdata.title, sdata.title2);
-                                }
+                                
                             }
                             else
                             {
@@ -555,7 +560,29 @@ namespace greenEnergy.Controllers
                                 HtmlItems[item.title] += item.appMeta + ",";
                             }
                             //finalHtml += item.appMeta + ",";
-                            finalPose += item.poseMeta + ",";
+                            //finalPose += item.poseMeta + ",";
+                            int counter = 0;
+                            foreach (var poseItem in item.poseList)
+                            {
+                                if (string.IsNullOrEmpty(poseItem.title2))
+                                {
+                                    item.poseMeta = await methods.removenull(item.poseMeta, poseItem.title);
+                                }
+                                else
+                                {
+                                    item.poseMeta = item.poseMeta.Replace(poseItem.title, poseItem.title2);
+                                    counter += 1;
+                                }
+
+
+
+                            }
+                            if (counter != 0)
+                            {
+                                string newposemeta = item.poseMeta.Replace("ViewIDsrt", item.title);
+                                item.poseMeta = newposemeta;
+                                finalPose += item.poseMeta + ",";
+                            }
 
                         }
                         else
@@ -576,6 +603,28 @@ namespace greenEnergy.Controllers
                                 }
                                 //finalHtml += item.appMeta + ",";
                                 finalPose += item.poseMeta + ",";
+                                int counter = 0;
+                                foreach (var poseItem in item.poseList)
+                                {
+                                    if (string.IsNullOrEmpty(poseItem.title2))
+                                    {
+                                        item.poseMeta = await methods.removenull(item.poseMeta, poseItem.title);
+                                    }
+                                    else
+                                    {
+                                        item.poseMeta = item.poseMeta.Replace(poseItem.title, poseItem.title2);
+                                        counter += 1;
+                                    }
+
+
+
+                                }
+                                if (counter != 0)
+                                {
+                                    string newposemeta = item.poseMeta.Replace("ViewIDsrt", item.title);
+                                    item.poseMeta = newposemeta;
+                                    finalPose += item.poseMeta + ",";
+                                }
                             }
                             else
                             {
@@ -808,6 +857,7 @@ namespace greenEnergy.Controllers
             srtlist.Add("app/showNewProfile");
             srtlist.Add("app/clientAddedProfileList");
             srtlist.Add("app/payeshPage");
+            srtlist.Add("app/clientDashboard");
             if (srtlist.Contains(model.slug))
             {
                 if (userID == null)
@@ -855,10 +905,16 @@ namespace greenEnergy.Controllers
             //main/chart/
             viewVM rsp = new viewVM();
             List<parent> parentlist = new List<parent>();
+            List<parent> dynamiclistParent = new List<parent>();
             itemParent cycle0 = new itemParent() // برای همه
             {
                 name = "main",
             };
+            itemParent dynamicParent = new itemParent() // برای همه
+            {
+                name = "dynamicField",
+            };
+            List<itemParent> dybmaicList = new List<itemParent>();
             List<itemParent> lst0 = new List<itemParent>();
             using (Context dbcontext = new Context())
             {
@@ -882,7 +938,7 @@ namespace greenEnergy.Controllers
                     if (urlDatas.Count() > 0)
                     {
                         List<itemParent> flowParentlstTest = new List<itemParent>();
-                        foreach (var item in urlDatas)
+                        foreach (var item in urlDatas.Where(x=>x.isCycle == 1))
                         {
                             List<parent> parentlistTest = new List<parent>();
                             List<flowDetailAll> list = new List<flowDetailAll>();
@@ -945,13 +1001,15 @@ namespace greenEnergy.Controllers
                     }
                    
                 }
-                if (model.slug == "app/getDynamicForm")
+                if (model.slug.Contains("dynamicForm"))
                 {
 
                     int flowID = Int32.Parse(model.data["flowID"]);
                     newOrderFlow sflow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.newOrderFlowID == flowID);
                     int formType = Int32.Parse(model.data["formType"]);
                     var formIDRow = await dbcontext.forms.SingleOrDefaultAsync(x => x.formTypeID == formType && x.userID == sflow.userID);
+                  
+                    
                     List<formItemList> showForm = await getFormDataFromForm(formIDRow.formID);
                     showFormAllVM formModel = new showFormAllVM()
                     {
@@ -1038,7 +1096,27 @@ namespace greenEnergy.Controllers
                     flowParentlst.Add(flowCycle);
                     rsp.chunkList = flowParentlst;
                 }
-               
+                else if (model.slug == "app/clientDashboard")
+                {
+                    flowDetailAll allitems = new flowDetailAll();
+                    Dictionary<string, string> allData = new Dictionary<string, string>();
+                    if (!model.data.ContainsKey("flowID"))
+                    {
+                        allData.Add("doctorSpecificStack_visibilitysrt", "0");
+                        allData.Add("noDoctorStack_visibilitysrt", "1");
+                    }
+                    else
+                    {
+                        allData.Add("doctorSpecificStack_visibilitysrt", "1");
+                        allData.Add("noDoctorStack_visibilitysrt", "0");
+                    }
+                    allitems.allData = allData;
+                    dynamiclistParent.Add(allitems);
+
+                    dynamicParent.items = dynamiclistParent;
+                    dybmaicList.Add(dynamicParent);
+                    rsp.chunkList = dybmaicList;
+                }
 
                 /// iggTailor
                 else if (model.slug == "app/showForm")
@@ -1643,7 +1721,107 @@ namespace greenEnergy.Controllers
                     response.code = 0;
 
                 }
-               
+                else if (model.slug == "app/submitAssess")
+                {
+                    Guid usi = new Guid(someObject.ToString());
+                    string rsp = await setUserDynamicFormData(model, usi);
+                    List<actionResonse> getOrderListManagerActionlist = new List<actionResonse>();
+                    actionResonse ago = new actionResonse()
+                    {
+                        type = "a.putVar",
+                        varName = "formType",
+                        value = "2"
+                    };
+
+                    getOrderListManagerActionlist.Add(ago);
+                    ago = new actionResonse()
+                    {
+                        type = "a.go",
+                        to = "app/dynamicFormMoney",
+                    };
+
+                    getOrderListManagerActionlist.Add(ago);
+                    result.actions = getOrderListManagerActionlist;
+                    response.result = result;
+                    response.code = 0;
+                    // این ینی برو وفرم دوم این داکتر  وردار بیار
+                }
+                else if (model.slug == "app/submitDiscount")
+                {
+                    List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+                    var discount = lstform.SingleOrDefault(x => x.key == "discount");
+                    List<actionResonse> actionlst = new List<actionResonse>();
+                    actionResonse goaction = new actionResonse()
+                    {
+                        type = "a.modify",
+                        to = "discountResult",
+                        varName = "text",
+                        value = "کد تخفیف 1 میلیون تومانی برای شما فعال است"
+
+                    };
+                    actionlst.Add(goaction);
+                    goaction = new actionResonse()
+                    {
+                        type = "a.modify",
+                        to = "discountResult",
+                        varName = "color",
+                        value = "cGreen"
+
+                    };
+                    actionlst.Add(goaction);
+                    goaction = new actionResonse()
+                    {
+                        type = "a.formModify",
+                        to = "dynamicForm",
+                        varName = "discount",
+                        value = discount.value
+
+                    };
+                    actionlst.Add(goaction);
+
+                    result.actions = actionlst;
+                    response.result = result;
+                    response.code = 0;
+                }
+                else if (model.slug == "app/submitMoney")
+                {
+                    Guid usi = new Guid(someObject.ToString());
+                    string flowIDsrt = await setUserDynamicFormData(model, usi);
+                    paymentVM finalModel =await paymentProcess(model, usi,flowIDsrt);
+                    if (finalModel.status == 200)
+                    {
+                        if (finalModel.payment == "1")
+                        {
+                            await finalizePayment(finalModel.payment, usi, Int32.Parse(flowIDsrt));
+                        }
+                    }
+
+                    List<actionResonse> actionlst = new List<actionResonse>();
+
+
+                    actionResonse goaction = new actionResonse()
+                    {
+                        type = "a.putVar",
+                        varName = "next",
+                        value = "app/clientDashboard"
+
+                    };
+                    actionlst.Add(goaction);
+                    goaction = new actionResonse()
+                    {
+                        type = "a.go",
+                        to = "app/clientDashboard",
+
+                    };
+                    actionlst.Add(goaction);
+                   
+
+                    result.actions = actionlst;
+                    response.result = result;
+                    response.code = 0;
+
+
+                }
 
 
                 // iggTailor
@@ -2021,7 +2199,7 @@ namespace greenEnergy.Controllers
                     else
                     {
                         //دریافت لیست فلو ها
-                        List<int> flowListID = flowListQuery.Select(x => x.newOrderFlowID).ToList();
+                        List<int> flowListID = flowListQuery.Select(x => x.parentID).ToList();
                         response = await getDataFlowGenral(flowListID, flowFields, formFields);
 
                     }
@@ -2054,7 +2232,7 @@ namespace greenEnergy.Controllers
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic.Add("ID", item.ToString());
 
-                        foreach (var ffield in flowFields.Split(',').ToList())
+                        foreach (var ffield in flowFields.Trim().Split(',').ToList())
                         {
                             string firstPart = ffield.Split('_').ToList()[0];
                             if (selectedFLow.GetType().GetProperty(firstPart) != null)
@@ -2580,10 +2758,10 @@ namespace greenEnergy.Controllers
 
                     user sendingUser = await dbcontext.users.SingleOrDefaultAsync(x => x.userID == userID);
                     //finding userinfoFlowID
-                    newOrderFlow userInfoFlow = await dbcontext.newOrderFlows.Include(x=>x.childFlows).Include(x=>x.childFlows.Select(l=>l.newOrderFlowServent)).SingleOrDefaultAsync(x => x.userID == sendingUser.userID && x.formID == 5); // 
+                    newOrderFlow userInfoFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == sendingUser.userID && x.formID == 5 ); // 
+                    
 
-
-                    newOrderFlow newProfileUserInfoFlow = userInfoFlow.childFlows.SingleOrDefault(x => x.formID == 6 && x.newOrderFlowServent.name == fullname); // 
+                    newOrderFlow newProfileUserInfoFlow = await dbcontext.newOrderFlows.Include(x=>x.childFlows).Include(x=>x.childFlows.Select(l=>l.childFlow)).Include(x=>x.childFlows.Select(l=>l.childFlow.newOrderFlowServent)).SingleOrDefaultAsync(x => x.childFlows.Any(m=>m.childFlow.newOrderFlowServent.name == fullname)); // 
 
 
                     if (newProfileUserInfoFlow != null)
@@ -2717,16 +2895,23 @@ namespace greenEnergy.Controllers
                         serventPhone = sendingUser.phone,
                         userID = userID,
                         terminationDate = DateTime.Now,
-                        childStatus = 0,
-                        childStartDate = DateTime.Now,
                         formID = 6 // ینی فرم ثبت پروفایل
 
                     };
+                    flowRelation nr = new flowRelation()
+                    {
+                        childID = newOrderFlow.newOrderFlowID,
+                        parentID = userInfoFlow.newOrderFlowID,
+                         status = 1,
+                          childEndDate = DateTime.Now,
+                           childStartDate = DateTime.Now,
+                           formID = 6
 
-                    userInfoFlow.childFlows.Add(newOrderFlow);
-                    newOrderFlow.parentFlows.Add(userInfoFlow);
+
+                    };
 
 
+                    dbcontext.flowRelations.Add(nr);
                     dbcontext.newOrderFlows.Add(newOrderFlow);
                     await dbcontext.SaveChangesAsync();
                     foreach (var item in lstform)
@@ -2872,23 +3057,25 @@ namespace greenEnergy.Controllers
 
                         process pr = await dbcontext.processes.Include(x => x.formList).Include(x => x.formList.Select(t => t.FormItems)).SingleOrDefaultAsync(x => x.orderTypeID == neworderType.newOrderTypeID && x.isDefault == "1");
                         Guid processID = pr.processID;
-                        
+
+                        DateTime timetosave = DateTime.Now;
                         newOrderFlow newOrderFlow = new newOrderFlow()
                         {
-                            creationDate = DateTime.Now,
-                            actionDate = DateTime.Now,
+                            creationDate = timetosave,
+                            actionDate = timetosave,
                             processID = processID,
                             isFinished = "1",
                             newOrderID = orderID,
                             serventPhone = dphone,
                             userID = partnerID,
-                            terminationDate = DateTime.Now,
+                            terminationDate = timetosave,
                             formID = 7
                         };
                         dbcontext.newOrderFlows.Add(newOrderFlow);
-                        newOrderFlow flowRow = await dbcontext.newOrderFlows.OrderByDescending(x => x.newOrderFlowID).FirstOrDefaultAsync();
-                        int flowID =  flowRow.newOrderFlowID ;
+                        
                         await dbcontext.SaveChangesAsync();
+                        newOrderFlow flowRow = await dbcontext.newOrderFlows.FirstOrDefaultAsync(x=>x.userID == partnerID && x.formID == 7);
+                        int flowID = flowRow.newOrderFlowID;
                         foreach (var item in lstform)
                         {
                             string fieldToGo = "";
@@ -2976,6 +3163,194 @@ namespace greenEnergy.Controllers
 
             string phone = "";
             return phone;
+        }
+
+        private async Task<string> finalizePayment(string payment, Guid userID, int flowID)
+        {
+
+            // تغییر استتوس فلو
+            // افزودن کاربر به دکتر
+            // ثبت سند مالی
+            // هندل کردن زمان؟
+            // 
+            using (Context dbcontext = new Context())
+            {
+                if (payment == "1")  // ینی پرداخت با کد تخفیف
+                {
+
+                    newOrderFlow pardakhtFlow =await dbcontext.newOrderFlows.Include(x=>x.NewOrderFields).SingleOrDefaultAsync(x => x.newOrderFlowID == flowID);
+                    newOrderFields pardakhtPlan = pardakhtFlow.NewOrderFields.SingleOrDefault(x =>  x.name == "plan");
+                    orderOption optionSelected = await dbcontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == pardakhtPlan.valueGuid);
+                    string val = optionSelected.Value;
+                    string month = val.Trim(',').Split(',').ToList().Last();
+
+
+
+                    form docForm = await dbcontext.forms.SingleOrDefaultAsync(x => x.formID == pardakhtFlow.formID);
+                    // فلو ثبت دکتر
+                    newOrderFlow docInfoFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == docForm.userID && x.formID == 7);
+                    // فلو ثبت یوز
+                    newOrderFlow userInfoFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userID && x.formID == 5);
+
+                    flowRelation fln = new flowRelation()
+                    {
+                        childID = userInfoFlow.newOrderFlowID ,
+                        parentID = docInfoFlow.newOrderFlowID,
+                        formID = 7,
+                        status = 1,
+                        childStartDate = DateTime.Now,
+                        childEndDate = DateTime.Now.AddMonths(Int32.Parse(month))
+                    };
+
+                    dbcontext.flowRelations.Add(fln);
+
+                    await dbcontext.SaveChangesAsync();
+                    docInfoFlow = await dbcontext.newOrderFlows.Include(x=>x.childFlows).Include(x=>x.parentFlows).SingleOrDefaultAsync(x => x.userID == docForm.userID && x.formID == 7);
+                    userInfoFlow = await dbcontext.newOrderFlows.Include(x => x.childFlows).Include(x => x.parentFlows).SingleOrDefaultAsync(x => x.userID == userID && x.formID == 5);
+
+                }
+
+            }
+                 
+
+            return "";
+        }
+        private async Task<paymentVM> paymentProcess(getURLVM model,Guid userID,string flowID)
+        {
+            string url = "";
+            List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+            var plan = lstform.SingleOrDefault(x => x.key == "plan");
+            var discount = lstform.SingleOrDefault(x => x.key == "discount");
+            using (Context dbcontext = new Context())
+            {
+                List<string> lst = plan.value.Trim(',').Split(':').ToList();
+                Guid opID = new Guid(lst[0]);
+                var orderOp = await dbcontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == opID);
+            }
+            paymentVM response = new paymentVM();
+            response.payment = "1"; // ینی پرداخت با کد تخفیف
+            response.status = 200;
+            return response;
+        }
+        private async Task<string> setUserDynamicFormData(getURLVM model, Guid userID)
+        {
+            List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+
+            using (Context dbcontext = new Context())
+            {
+                user selectedUser = await dbcontext.users.SingleOrDefaultAsync(x => x.userID == userID);
+                
+                // انیجا فلو کاربر باید پیدا بشه که به اردر کاربر فلو اضافه بشه
+                newOrderFlow userFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userID && x.formID == 5);//اولین فلو ثبت اطلاعات کاربر
+
+
+                int docflowID = Int32.Parse(model.data["flowID"]);
+                newOrderFlow sflow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.newOrderFlowID == docflowID);
+                int docformType = Int32.Parse(model.data["formType"]);
+                var formIDRow = await dbcontext.forms.SingleOrDefaultAsync(x => x.formTypeID == docformType && x.userID == sflow.userID);
+
+
+                newOrderFlow newOrderFlow = new newOrderFlow()
+                {
+                    creationDate = DateTime.Now,
+                    actionDate = DateTime.Now,
+                    isFinished = "1",
+                    newOrderID = userFlow.newOrderID,
+                    serventPhone = selectedUser.phone,
+                    userID = userID,
+                    terminationDate = DateTime.Now,
+                    formID = formIDRow.formID
+                };
+                dbcontext.newOrderFlows.Add(newOrderFlow);
+                newOrderFlow flowRow = await dbcontext.newOrderFlows.OrderByDescending(x => x.newOrderFlowID).FirstOrDefaultAsync();
+                int flowID = flowRow.newOrderFlowID;
+                await dbcontext.SaveChangesAsync();
+
+                await doSaveForm(lstform, flowID, dbcontext);
+                return flowID.ToString();
+            }
+
+            return "";
+        }
+
+        private async Task<string> doSaveForm(List<detailCollection> collection,int flowID,Context dbcontext)
+        {
+            foreach (var item in collection)
+            {
+                string fieldToGo = "";
+                switch (item.formItemTypeCode)
+                {
+                    case ("6"): // انتخابی
+                        fieldToGo = "valueBool";
+
+                        break;
+                    case ("8"): // موقعیت 
+                        fieldToGo = "valueString";
+                        break;
+                    case ("7"):// آپلود
+                        fieldToGo = "valueString";
+                        break;
+                    case ("1"):// چند گزینه ای
+                        fieldToGo = "valueGuid";
+                        break;
+                    case ("5"): // تاریخ
+                        fieldToGo = "valueDateTime";
+                        break;
+                    case ("4"): // عددی
+                        fieldToGo = "valueDuoble";
+                        break;
+                    case ("3"): // متنی
+                        fieldToGo = "valueString";
+                        break;
+                    case ("2"): //  متنی عکس دار
+                        fieldToGo = "valueString";
+                        break;
+                    case ("9"): //  متنی عکس دار
+                        fieldToGo = "valueString";
+                        break;
+                }
+                if (!string.IsNullOrEmpty(item.value))
+                {
+                    foreach (var dddd in item.value.Trim(',').Split(',').ToList())
+                    {
+                        newOrderFields fieldItem = new newOrderFields();
+                        fieldItem.formItemID = item.formItemID;
+                        fieldItem.name = item.key;
+                        fieldItem.newOrderFieldsID = Guid.NewGuid();
+                        fieldItem.newOrderFlowID = flowID;
+                        fieldItem.usedFeild = fieldToGo;
+                        fieldItem.valueInt = 0;
+                        fieldItem.valueDuoble = 0;
+                        fieldItem.valueDateTime = DateTime.Now;
+                        fieldItem.valueBool = false;
+                        fieldItem.valueGuid = new Guid();
+
+                        if (fieldToGo == "valueBool")
+                            fieldItem.valueBool = Boolean.Parse(item.value);
+                        if (fieldToGo == "valueString")
+                            fieldItem.valueString = item.value;
+                        if (fieldToGo == "valueDateTime")
+                            fieldItem.valueDateTime = DateTime.Parse(item.value);
+                        if (fieldToGo == "valueGuid")
+                        {
+                            List<string> lst = item.value.Split(':').ToList();
+                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            fieldItem.valueGuid = new Guid(lst[0]);
+                        }
+
+                        if (fieldToGo == "valueDuoble")
+                            fieldItem.valueDuoble = double.Parse(item.value);
+
+
+                        dbcontext.newOrderFields.Add(fieldItem);
+                    }
+                }
+
+
+
+            }
+            await dbcontext.SaveChangesAsync();
+            return "";
         }
         private async Task<int> getNewProfileFLowFromOrder(string orderID, string phone)
         {
@@ -3664,7 +4039,7 @@ namespace greenEnergy.Controllers
                         fil.zaribHeight = form.zaribHeight;
                         if (string.IsNullOrEmpty(fil.formImage))
                         {
-                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid && x.formItemTypeID != typeid2).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid && x.formItemTypeID != typeid2).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM {isHidden = x.isHidden, itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM {  parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber =x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                             foreach (var item in fil.formItemDetailList)
                             {
                                 newOrderFields filed = selectedFlow.NewOrderFields.SingleOrDefault(x => x.formItemID == item.formItemID);
@@ -3679,7 +4054,7 @@ namespace greenEnergy.Controllers
                             }
 
                             // افزودن متن تصویر دار
-                            List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = "Uploads/" + l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
+                            List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { isHidden = l.isHidden, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = "Uploads/" + l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
 
                             foreach (var item in lst)
                             {
@@ -3741,7 +4116,7 @@ namespace greenEnergy.Controllers
 
                         else
                         {
-                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber =  x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                             foreach (var item in fil.formItemDetailList)
                             {
                                 newOrderFields filed = selectedFlow.NewOrderFields.SingleOrDefault(x => x.formItemID == item.formItemID);
@@ -6582,7 +6957,7 @@ namespace greenEnergy.Controllers
                 using (Context dbcontext = new Context())
                 {
 
-                    var query = dbcontext.formItems.Where(x => x.formID == model.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.FormItemType).Select(x => new formItemVM { groupNumber = x.groupNumber, formID = x.formID, UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType });
+                    var query = dbcontext.formItems.Where(x => x.formID == model.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.FormItemType).Select(x => new formItemVM { isHidden = x.isHidden, groupNumber = x.groupNumber, formID = x.formID, UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType });
                     responseModel.formItemList = await query.ToListAsync();
 
                     query = dbcontext.formItems.Select(x => new formItemVM { formID = x.formID, formItemID = x.formItemID, itemName = x.itemName }); ;
@@ -6641,6 +7016,7 @@ namespace greenEnergy.Controllers
                         formItem.OptionID = model.optionSelected;
                         formItem.isMultiple = model.isMultiple;
                         formItem.groupNumber = model.groupNumber;
+
                         mymodel.status = 200;
                         await dbcontext.SaveChangesAsync();
 
@@ -6666,7 +7042,8 @@ namespace greenEnergy.Controllers
                                 OptionID = model.optionSelected,
                                 groupNumber = model.groupNumber,
                                 formItemDesingID = model.formItemDesingID,
-                                relatedForemItemID = model.relatedFormItemID
+                                relatedForemItemID = model.relatedFormItemID,
+                                isHidden = model.hiddenCheckBox == "on" ? 1 : 0
 
 
                             };
@@ -7372,7 +7749,8 @@ namespace greenEnergy.Controllers
                         parentID = x.parentID,
                         orderOptionID = x.orderOptionID,
                         title = x.title,
-                        image = "Uploads/" + x.image
+                        image = "Uploads/" + x.image,
+                        value = x.Value
 
                     }).ToListAsync();
                     model.prtlist = orderOption;
@@ -7430,7 +7808,8 @@ namespace greenEnergy.Controllers
                                 parentID = parenttid,
                                 title = model.title,
                                 userID = userID,
-                                image = model.image
+                                image = model.image,
+                                Value = model.value
                             };
                             dbcontext.orderOptions.Add(pr);
                             await dbcontext.SaveChangesAsync();
@@ -7483,7 +7862,7 @@ namespace greenEnergy.Controllers
                 {
                     var query = from process in dbcontext.processes select process;
                     responseModel.processFormList = await dbcontext.forms.Select(x => new processFormVM { title = x.title, processFormID = x.formID }).ToListAsync();
-                    responseModel.userList = await dbcontext.users.Select(x => new userVM { userID = x.userID, name = x.name + "(" + x.phone + ")" }).ToListAsync();
+                    responseModel.userList = await dbcontext.users.Where(x=>x.userType == "2").Select(x => new userVM { userID = x.userID, name = x.name + "(" + x.phone + ")" }).ToListAsync();
                     responseModel.formTypeList = await dbcontext.formType.Select(x => new formTypeVM { formTypeID = x.formTypeID, title = x.title }).ToListAsync();
                 }
             }
@@ -7514,7 +7893,20 @@ namespace greenEnergy.Controllers
                         var form = await dbcontext.forms.FirstOrDefaultAsync(i => i.title == model.title);
                         if (form == null)
                         {
-                            dbcontext.forms.Add(new form() { userID = userID, title = model.title , formTypeID = model.formTypeID});
+                            form addform = new form() { title = model.title};
+                            if (model.formTypeID != 0)
+                            {
+                                addform.formTypeID = model.formTypeID;
+                            }
+                            if (model.userSelected != new Guid("00000000-0000-0000-0000-000000000000"))
+                            {
+                                addform.userID = model.userSelected;
+                            }
+
+
+                            dbcontext.forms.Add(addform);
+                           
+                            
                             await dbcontext.SaveChangesAsync();
 
 
@@ -7538,7 +7930,11 @@ namespace greenEnergy.Controllers
                         form.pdfBase = model.pdfBase;
                         form.pdf = model.pdf;
                         form.title = model.title;
-                        form.formTypeID = model.formTypeID;
+                        if (model.formTypeID != 0)
+                        {
+                            form.formTypeID = model.formTypeID;
+                        }
+                       
                         form.userID = userID;
                         mymodel.status = 200;
                         mymodel.message = message;
@@ -7926,7 +8322,7 @@ namespace greenEnergy.Controllers
                         fil.zaribWidth = form.zaribWidth;
                         fil.zaribHeight = form.zaribHeight;
 
-                        fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                        fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
 
                         List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { itemHeight = l.itemHeight, itemlength = l.itemLenght, itemx = l.itemx, itemy = l.itemy, pageNumber = l.pageNumber, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = "Uploads/" + l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
                         int index = 0;
@@ -8007,7 +8403,7 @@ namespace greenEnergy.Controllers
                         fil.zaribHeight = form.zaribHeight;
                         if (string.IsNullOrEmpty(fil.formImage))
                         {
-                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid && x.formItemTypeID != typeid2).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid && x.formItemTypeID != typeid2).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                             foreach (var item in fil.formItemDetailList)
                             {
                                 newOrderFields filed = insertedFields.SingleOrDefault(x => x.formItemID == item.formItemID);
@@ -8084,7 +8480,7 @@ namespace greenEnergy.Controllers
 
                         else
                         {
-                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
+                            fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).Select(x => new formFullDetailItemVM { itemy = x.itemy, itemx = x.itemx, itemHeight = x.itemHeight, itemlength = x.itemLenght, groupNumber = x.groupNumber, pageNumber = x.pageNumber, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).Select(t => new orderOptionVM { parentID = t.parentID, image = "Uploads/" + t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeCode = x.FormItemType.formItemTypeCode, formItemTypeTitle = x.FormItemType.title, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = "Uploads/" + x.itemtImage, mediaType = x.mediaType }).ToListAsync();
                             foreach (var item in fil.formItemDetailList)
                             {
                                 newOrderFields filed = insertedFields.SingleOrDefault(x => x.formItemID == item.formItemID);

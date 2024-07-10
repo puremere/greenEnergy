@@ -95,10 +95,11 @@
                                         <tr>
 
                                             <th>عنوان</th>
+                                            <th>مقدار</th>
                                             <th>تصویر</th>
                                             <th>اقدامات</th>
 
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,6 +111,7 @@
                                                 string parentclassname = "1" + item.orderOptionID;
                                                 <tr parentID="@parentclassname" class="childItem firstchild">
                                                     <td>@item.title</td>
+                                                    <td>@item.value</td>
                                                     
                                                     <td>
                                                         @if (@item.image != "Uploads/")
@@ -166,8 +168,12 @@
                                             <input class="form-control" name="title" placeholder="نام   " required="" type="text">
                                         </div>
                                         <div class="col-lg-3 form-group">
+                                            <h6 style="margin-bottom:15px" class="main-content-label mb-1"> مقدار </h6>
+                                            <input class="form-control" name="value" placeholder="مقدار   "  type="text">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> تصویر </h6>
-                                            <input class="form-control" name="file" placeholder="  "  type="file">
+                                            <input class="form-control" name="file" placeholder="  " type="file">
                                         </div>
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> انتخاب آیتم بالاسری </h6>
@@ -176,7 +182,7 @@
                                                 </option>
                                                 @if (Model.prtlist != null)
                                                 {
-                                                    foreach (var item in Model.prtlist.Where(x=>x.parentID == x.orderOptionID))
+                                                    foreach (var item in Model.prtlist.Where(x => x.parentID == x.orderOptionID))
                                                     {
                                                         <option value="@item.orderOptionID">
                                                             @item.title
