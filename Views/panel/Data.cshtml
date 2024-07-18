@@ -100,7 +100,7 @@
 
                                                     <div class="lableMode">
 
-                                                        @if (@prod.title.Contains("image"))
+                                                        @if (@prod.title.Contains("image") )
                                                         {
                                                             <img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.title2" />
                                                         }

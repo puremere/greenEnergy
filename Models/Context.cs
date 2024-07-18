@@ -157,6 +157,7 @@ namespace greenEnergy.Model
         public string formFields { get; set; }
         public string flowFields { get; set; }
         public int isCycle { get; set; }
+        public int isCustom { get; set; }
        
         public int? formID { get; set; }
         [ForeignKey("formID")]

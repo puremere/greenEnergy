@@ -43,9 +43,9 @@ namespace greenEnergy.Controllers
                 ViewBag.image = responsemodel.image;
                 ViewBag.layout = responsemodel.layoutModel.title + ".cshtml";
                 ViewBag.metaTitle = responsemodel.metatitle;
-                //
-                                    
-                                
+                //doctorListCycleView,go*a.reload*app/clientDashboard_putvar*formType*3;
+                //go*a.reload*app/clientDashboard_putvar*formType*3
+
                 return View(responsemodel);
             }
             catch (Exception)

@@ -679,7 +679,11 @@ namespace greenEnergy.Controllers
                             }
                             else
                             {
-                                Dictionary<string, string> hitems = new Dictionary<string, string>();
+                                if (item.appType == "cycleView")
+                                {
+
+                                }
+                                    Dictionary<string, string> hitems = new Dictionary<string, string>();
                                 hitems.Add("childMetaString", "");
                                 if (item.appType == "page")
                                 {
@@ -728,6 +732,7 @@ namespace greenEnergy.Controllers
 
                                 if (item.appType == "cycleView")
                                 {
+                                    //item.poseMeta = item.poseMeta.Replace("ViewIDsrt", item.title);
                                     if (datamodel.chunkList != null)
                                     {
                                         itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == item.title);
@@ -780,7 +785,7 @@ namespace greenEnergy.Controllers
 
                                             }
                                         }
-
+                                        string srtt = JsonConvert.SerializeObject(finaldatalist).Trim(',');
                                         item.appMeta = item.appMeta.Replace("dataitemsstring", JsonConvert.SerializeObject(finaldatalist).Trim(','));
                                         item.appMeta = item.appMeta.Replace("dataMapString", myresult.cycleMeta.Trim(','));
                                     }
@@ -970,14 +975,7 @@ namespace greenEnergy.Controllers
             Dictionary<string, string> allDataDynamic = new Dictionary<string, string>();
             using (Context dbcontext = new Context())
             {
-                if (model.data != null)
-                {
-                    if (model.data.ContainsKey("main"))
-                    {
-
-                    }
-                    
-                }
+                
 
                 List<urlData> urlDatas =await dbcontext.urlDatas.Include(x => x.section).Where(x => x.section.url == model.slug).ToListAsync();
                 // گرفتن داده های مرتبط با اون فلو ها  و افزودن paret
@@ -1043,12 +1041,12 @@ namespace greenEnergy.Controllers
                                 }
                                 else
                                 {
-                                    list = await getDataFromFlowGeneral(model.userID, item.flowFields, item.formFields, item.formID, item.isLinkToMain);
+                                    list = await getDataFromFlowGeneral(model.userID, item.flowFields, item.formFields, item.formID, item.isLinkToMain,item.isCustom,item.name);
                                 }
                             }
                             else
                             {
-                                list = await getDataFromFlowGeneral(model.userID, item.flowFields, item.formFields, item.formID, item.isLinkToMain);
+                                list = await getDataFromFlowGeneral(model.userID, item.flowFields, item.formFields, item.formID, item.isLinkToMain, item.isCustom, item.name);
                             }
                             //فلو هایی که قرار است از توش دیتا دراد داخل خود متود پیدا میشن
                             foreach (var item0 in list)
@@ -1060,8 +1058,9 @@ namespace greenEnergy.Controllers
                                 {
                                     if (model.data.ContainsKey("next"))
                                     {
-                                        string nexturl = model.data["next"];
-                                        var nextList = nexturl.Trim(',').Split(',').ToList();
+                                       
+
+                                       
                                         List<actionResonse> actionList = new List<actionResonse>();
                                         actionResonse action1 = new actionResonse()
                                         {
@@ -1070,12 +1069,41 @@ namespace greenEnergy.Controllers
                                             value = item0.allData["ID"]
                                         };
                                         actionList.Add(action1);
-                                        actionResonse action2 = new actionResonse()
+                                        string nexturl = model.data["next"];
+                                        foreach (string url in nexturl.Trim(';').Split(';').ToList())
                                         {
-                                            type = nextList[0], 
-                                            to = nextList[1],
-                                        };
-                                        actionList.Add(action2);
+                                            var nextList = url.Trim('#').Split('#').ToList();
+                                            if (nextList[0] == item.name)
+                                            {
+                                                foreach(var initdata in nextList[1].Split('_').ToList())
+                                                {
+                                                    List<string> initDataSecList = initdata.Split('*').ToList();
+                                                    if (initDataSecList[0] == "go")
+                                                    {
+                                                        actionResonse action2 = new actionResonse()
+                                                        {
+                                                            type = initDataSecList[1],
+                                                            to = initDataSecList[2],
+                                                        };
+                                                        actionList.Add(action2);
+                                                    }
+                                                    else
+                                                    {
+                                                        actionResonse action2 = new actionResonse()
+                                                        {
+                                                            type = "a.putVar",
+                                                             varName  = initDataSecList[1],
+                                                             value = initDataSecList[2],
+                                                        };
+                                                        actionList.Add(action2);
+                                                    }
+                                                    
+                                                }
+                                               
+                                            }
+                                            
+                                        }
+                                        
                                         item0.actions = actionList;
                                     }
                                 }
@@ -1129,8 +1157,10 @@ namespace greenEnergy.Controllers
                         allForm = showForm
                     };
                     parentlist.Add(formModel);
+                    cycle0.items = parentlist;
+                    lst0.Add(cycle0);
                     //lst0.SingleOrDefault(x => x.name == "main").items.Add(formModel);
-                   
+
 
 
                 }
@@ -1170,6 +1200,9 @@ namespace greenEnergy.Controllers
                         allForm = showForm
                     };
                     parentlist.Add(formModel);
+
+                    cycle0.items = parentlist;
+                    lst0.Add(cycle0);
                 }
                 // putting All DynamicFields
                
@@ -1244,6 +1277,28 @@ namespace greenEnergy.Controllers
                     flowParentlst.Add(flowCycle);
                     rsp.chunkList = flowParentlst;
                 }
+                else if (model.slug == "app/payeshChart")
+                {
+                    object userOBJID;
+                    Request.Properties.TryGetValue("UserToken", out userOBJID);
+                    Guid userID = new Guid(userOBJID.ToString());
+                    List<chartList> chartList = await getLineChartData(model, userID);
+                    itemParent lineChartParent = new itemParent() // برای همه
+                    {
+                        name = "lineChart",
+                    };
+                    List<parent> lineChartParentlist = new List<parent>();
+
+                    showChartAllVM formModel = new showChartAllVM()
+                    {
+                        name = "dynamicChart",
+                        allChart = chartList
+                    };
+
+                    lineChartParentlist.Add(formModel);
+                    lineChartParent.items = lineChartParentlist;
+                    lst0.Add(lineChartParent);
+                }
                 else if (model.slug == "app/clientDashboard")
                 {
                     
@@ -1251,35 +1306,21 @@ namespace greenEnergy.Controllers
 
                     flowDetailAll allitems = new flowDetailAll();
                     Dictionary<string, string> allData = new Dictionary<string, string>();
+                    allDataDynamic.Add("doctorSpecificConstraintView_visibilitysrt", "0");
                     allDataDynamic.Add("doctorSpecificStack_visibilitysrt", "0");
-                    allDataDynamic.Add("noDoctorStack_visibilitysrt", "1");
-                   
+                    
+
+
                     if (model.data != null)
                     {
                         if (model.data.ContainsKey("flowID"))
                         {
-                            object userOBJID;
-                            Request.Properties.TryGetValue("UserToken", out userOBJID);
-                            Guid userID = new Guid(userOBJID.ToString());
-                            List<chartList> chartList = await getLineChartData(model, userID);
-                            itemParent lineChartParent = new itemParent() // برای همه
-                            {
-                                name = "lineChart",
-                            };
-                            List<parent> lineChartParentlist = new List<parent>();
+                           
 
-                            showChartAllVM formModel = new showChartAllVM()
-                            {
-                                name = "dynamicChart",
-                                allChart = chartList
-                            };
+                            allDataDynamic["doctorSpecificConstraintView_visibilitysrt"] = "1";
+                            allDataDynamic["doctorSpecificStack_visibilitysrt"] ="1";
 
-                            lineChartParentlist.Add(formModel);
-                            lineChartParent.items = lineChartParentlist;
-                            lst0.Add(lineChartParent);
 
-                            allDataDynamic["doctorSpecificStack_visibilitysrt"] = "1";
-                            allDataDynamic["noDoctorStack_visibilitysrt"] = "0" ;
                         }
                     }
                    
@@ -2476,7 +2517,7 @@ namespace greenEnergy.Controllers
                 {
                      Guid userGuid = new Guid(userID);
                      var flo = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userGuid && x.formID == 5);
-                     allFields = await dbcontext.newOrderFields.Where(x => x.newOrderFlowID == flo.newOrderFlowID).Select(x => new newOrderFieldsVM { name = x.name, usedFeild = x.usedFeild, valueBool = x.valueBool, valueDateTime = x.valueDateTime, valueDuoble = x.valueDuoble, valueGuid = x.valueGuid, valueInt = x.valueInt, valueString = x.valueString }).ToListAsync();
+                     allFields = await dbcontext.newOrderFields.Where(x => x.newOrderFlowID == flo.newOrderFlowID).Select(x => new newOrderFieldsVM {formItemID = x.formItemID, newOrderFieldsID = x.newOrderFieldsID, name = x.name, usedFeild = x.usedFeild, valueBool = x.valueBool, valueDateTime = x.valueDateTime, valueDuoble = x.valueDuoble, valueGuid = x.valueGuid, valueInt = x.valueInt, valueString = x.valueString }).ToListAsync();
 
                 }
                 else
@@ -2511,7 +2552,7 @@ namespace greenEnergy.Controllers
             }
             return response;
         }
-        private async Task<List<flowDetailAll>> getDataFromFlowGeneral(string userID, string flowFields, string formFields, int? formID, int isLinkToMain)
+        private async Task<List<flowDetailAll>> getDataFromFlowGeneral(string userID, string flowFields, string formFields, int? formID, int isLinkToMain,int isCustom, string urlDataName)
         {
             List<flowDetailAll> response = new List<flowDetailAll>();
             using (Context dbcontext = new Context())
@@ -2532,9 +2573,28 @@ namespace greenEnergy.Controllers
                     newOrderFlow firstFlow = await dbcontext.newOrderFlows.Include(x=>x.childFlows).SingleOrDefaultAsync(x => x.formID == userFirstFormID && x.userID == userGuid);
                     var flowListQuery = firstFlow.childFlows.Where(x => x.formID == formID).ToList();
 
-                    if (false)// کالکشن شرایط نال نیست
+                    if (isCustom == 1)// کالکشن شرایط نال نیست
                     {
+                        //health
+                        if (urlDataName == "payeshReminder")
+                        {
+                            List<int> flowListID = flowListQuery.Select(x => x.parentID).Distinct().ToList();
+                            List<int> finalID = new List<int>();
+                            foreach (var doc in flowListID)
+                            {
+                                DateTime toDayTime = DateTime.Today.AddDays(1);
+                                // میگم فرم اختصاصی هر کسی رو پیدا کن ببین اون روز فلو دارد با کاربر یانه
+                                newOrderFlow docflow =await dbcontext.newOrderFlows.SingleOrDefaultAsync(c => c.newOrderFlowID == doc);
+                                form docform = await dbcontext.forms.SingleOrDefaultAsync(c => c.formTypeID == 3 && c.userID == docflow.userID);
 
+                                List<int> isUserList = await dbcontext.newOrderFlows.Where(x => x.formID == docform.formID && x.userID == userGuid && x.creationDate >= toDayTime).Select(x=> x.newOrderFlowID).ToListAsync();
+                                if (isUserList.Count() == 0)
+                                {
+                                    finalID.Add(doc);
+                                }
+                            }
+                            response = await getDataFlowGenral(finalID, flowFields, formFields);
+                        }
                     }
                     else
                     {
@@ -2571,65 +2631,71 @@ namespace greenEnergy.Controllers
 
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic.Add("ID", item.ToString());
-
-                        foreach (var ffield in flowFields.Trim().Split(',').ToList())
+                        if (flowFields != null)
                         {
-                            string firstPart = ffield.Split('_').ToList()[0];
-                            if (selectedFLow.GetType().GetProperty(firstPart) != null)
+                            foreach (var ffield in flowFields.Trim().Split(',').ToList())
                             {
-                                string selectedValue = selectedFLow.GetType().GetProperty(firstPart).GetValue(selectedFLow, null) + "";
+                                string firstPart = ffield.Split('_').ToList()[0];
+                                if (selectedFLow.GetType().GetProperty(firstPart) != null)
+                                {
+                                    string selectedValue = selectedFLow.GetType().GetProperty(firstPart).GetValue(selectedFLow, null) + "";
 
-                                if (firstPart == "childStatus")
-                                {
-                                    switch (selectedValue)
+                                    if (firstPart == "childStatus")
                                     {
-                                        case ("0"):
-                                            selectedValue = "در انتظار";
-                                            break;
-                                    }
-                                }
-                                if (firstPart == "creationDate")
-                                {
-                                    selectedValue = DateTime.Parse(selectedValue).ToPersianDateString();
-                                }
-                                dic.Add(ffield, selectedValue);
-                            }
-                        }
-                        foreach (var field in formFields.Trim().Split(',').ToList())
-                        {
-                            if (!string.IsNullOrEmpty(field))
-                            {
-                                string firstPart = field.Split('_').ToList()[0];
-                                var neworderfield = allFields.Where(x => x.flowID == item && x.name.Contains(firstPart)).ToList();
-                                if (neworderfield.Count() > 0)
-                                {
-                                    string rfinal = "";
-                                    foreach (var insertedItem in neworderfield)
-                                    {
-                                        if (insertedItem.usedFeild == "valueString" || insertedItem.usedFeild == "valueGuid")
-                                            rfinal += insertedItem.valueString;
-                                        else if (insertedItem.usedFeild == "valueBool")
+                                        switch (selectedValue)
                                         {
-                                            rfinal += insertedItem.valueBool == true ? "1" : "0";
-                                        }
-                                        else if (insertedItem.usedFeild == "valueDateTime")
-                                        {
-                                            rfinal += insertedItem.valueDateTime.ToString();
-                                        }
-                                        else if (insertedItem.usedFeild == "valueDuoble")
-                                        {
-                                            rfinal += insertedItem.valueDuoble.ToString();
+                                            case ("0"):
+                                                selectedValue = "در انتظار";
+                                                break;
                                         }
                                     }
-
-                                    dic.Add(field, rfinal);
-
+                                    if (firstPart == "creationDate")
+                                    {
+                                        selectedValue = DateTime.Parse(selectedValue).ToPersianDateString();
+                                    }
+                                    dic.Add(ffield, selectedValue);
                                 }
                             }
-                            
-
-
                         }
+                        if (formFields != null)
+                        {
+                            foreach (var field in formFields.Trim().Split(',').ToList())
+                            {
+                                if (!string.IsNullOrEmpty(field))
+                                {
+                                    string firstPart = field.Split('_').ToList()[0];
+                                    var neworderfield = allFields.Where(x => x.flowID == item && x.name.Contains(firstPart)).ToList();
+                                    if (neworderfield.Count() > 0)
+                                    {
+                                        string rfinal = "";
+                                        foreach (var insertedItem in neworderfield)
+                                        {
+                                            if (insertedItem.usedFeild == "valueString" || insertedItem.usedFeild == "valueGuid")
+                                                rfinal += insertedItem.valueString;
+                                            else if (insertedItem.usedFeild == "valueBool")
+                                            {
+                                                rfinal += insertedItem.valueBool == true ? "1" : "0";
+                                            }
+                                            else if (insertedItem.usedFeild == "valueDateTime")
+                                            {
+                                                rfinal += insertedItem.valueDateTime.ToString();
+                                            }
+                                            else if (insertedItem.usedFeild == "valueDuoble")
+                                            {
+                                                rfinal += insertedItem.valueDuoble.ToString();
+                                            }
+                                        }
+
+                                        dic.Add(field, rfinal);
+
+                                    }
+                                }
+
+
+
+                            }
+                        }
+                       
                         eachFlow.allData = dic;
                         lst.Add(eachFlow);
                     }
@@ -2907,12 +2973,18 @@ namespace greenEnergy.Controllers
                 
                 List<int> userPayeshFlows = await dbcontext.newOrderFlows.Where(x => x.userID == userID && x.formID == docForm.formID).Select(x=>x.newOrderFlowID).ToListAsync();
                 List<formItemVM> formItem = await dbcontext.formItems.Where(x => x.formID == docForm.formID).Select(x=>new formItemVM { formItemID = x.formItemID,itemName = x.itemName}).ToListAsync();
-                
-                foreach(var item in formItem)
+
+
+                //private Random rnd = new Random();
+                //Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                foreach (var item in formItem)
                 {
                     chartList chartItemData = new chartList();
                     chartItemData.name = item.itemName;
                     chartItemData.id = item.relatedFormItemID.ToString();
+                    Random rnd = new Random();
+                    Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                    chartItemData.lineDashColor = "#"+randomColor.Name;
                     List<chartItemList> formItemSet = await dbcontext.newOrderFields.Include(x => x.NewOrderFlow).OrderBy(x=>x.NewOrderFlow.creationDate).Where(x => x.formItemID == item.formItemID && userPayeshFlows.Contains(x.newOrderFlowID)).Select(x=> new chartItemList {xValue =0,  xLable = x.NewOrderFlow.creationDate.ToString(), yValue = x.valueDuoble }).ToListAsync();
                     foreach(var fitem in formItemSet)
                     {
@@ -2986,23 +3058,70 @@ namespace greenEnergy.Controllers
                                     fieldToGo = "valueString";
                                     break;
                             }
-                            if (fieldToGo == "valueBool")
-                                neworderfiled.valueBool = Boolean.Parse(item.value);
-                            if (fieldToGo == "valueString")
-                                neworderfiled.valueString = item.value;
-                            if (fieldToGo == "valueDateTime")
-                                neworderfiled.valueDateTime = DateTime.Parse(item.value);
-                            if (fieldToGo == "valueGuid")
-                                neworderfiled.valueGuid = new Guid(item.value);
-                            if (fieldToGo == "valueDuoble")
-                                neworderfiled.valueDuoble = double.Parse(item.value);
+                            if (neworderfiled == null) {
+                                neworderfiled = new newOrderFields();
+
+                                neworderfiled.newOrderFlowID = userInfoFlow.newOrderFlowID;
+                                neworderfiled.formItemID = item.formItemID;
+                                neworderfiled.name = item.key;
+                                neworderfiled.newOrderFieldsID = Guid.NewGuid();
+                                neworderfiled.usedFeild = fieldToGo;
+                                neworderfiled.valueInt = 0;
+                                neworderfiled.valueDuoble = 0;
+                                neworderfiled.valueDateTime = DateTime.Now;
+                                neworderfiled.valueBool = false;
+                                neworderfiled.valueGuid = new Guid();
+
+                                if (fieldToGo == "valueBool")
+                                    neworderfiled.valueBool = Boolean.Parse(item.value);
+                                if (fieldToGo == "valueString")
+                                    neworderfiled.valueString = item.value;
+                                if (fieldToGo == "valueDateTime")
+                                    neworderfiled.valueDateTime = DateTime.Parse(item.value);
+                                if (fieldToGo == "valueGuid") 
+                                {
+                                    List<string> lst = item.value.Split(':').ToList();
+                                    neworderfiled.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                                    neworderfiled.valueGuid = new Guid(lst[0]);
+                                }
+                                   
+                                    
+                                if (fieldToGo == "valueDuoble")
+                                    neworderfiled.valueDuoble = double.Parse(item.value);
+
+                                dbcontext.newOrderFields.Add(neworderfiled);
+                                await dbcontext.SaveChangesAsync();
+
+                            }
+                            else
+                            {
+                                if (fieldToGo == "valueBool")
+                                    neworderfiled.valueBool = Boolean.Parse(item.value);
+                                if (fieldToGo == "valueString")
+                                    neworderfiled.valueString = item.value;
+                                if (fieldToGo == "valueDateTime")
+                                    neworderfiled.valueDateTime = DateTime.Parse(item.value);
+                                if (fieldToGo == "valueGuid")
+                                {
+                                    List<string> lst = item.value.Split(':').ToList();
+                                    neworderfiled.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                                    neworderfiled.valueGuid = new Guid(lst[0]);
+                                }
+
+                                if (fieldToGo == "valueDuoble")
+                                    neworderfiled.valueDuoble = double.Parse(item.value);
+
+                                await dbcontext.SaveChangesAsync();
+                            }
+                            
+                            
 
 
 
 
                         }
 
-                        await dbcontext.SaveChangesAsync();
+                        
 
                         return "";
                     }
@@ -3116,7 +3235,11 @@ namespace greenEnergy.Controllers
                         if (fieldToGo == "valueDateTime")
                             fieldItem.valueDateTime = DateTime.Parse(item.value);
                         if (fieldToGo == "valueGuid")
-                            fieldItem.valueGuid = new Guid(item.value);
+                        {
+                            List<string> lst = item.value.Split(':').ToList();
+                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            fieldItem.valueGuid = new Guid(lst[0]);
+                        }
                         if (fieldToGo == "valueDuoble")
                             fieldItem.valueDuoble = double.Parse(item.value);
 
@@ -3210,7 +3333,11 @@ namespace greenEnergy.Controllers
                             if (fieldToGo == "valueDateTime")
                                 neworderfiled.valueDateTime = DateTime.Parse(item.value);
                             if (fieldToGo == "valueGuid")
-                                neworderfiled.valueGuid = new Guid(item.value);
+                            {
+                                List<string> lst = item.value.Split(':').ToList();
+                                neworderfiled.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                                neworderfiled.valueGuid = new Guid(lst[0]);
+                            }
                             if (fieldToGo == "valueDuoble")
                                 neworderfiled.valueDuoble = double.Parse(item.value);
 
@@ -3366,7 +3493,11 @@ namespace greenEnergy.Controllers
                         if (fieldToGo == "valueDateTime")
                             fieldItem.valueDateTime = DateTime.Parse(item.value);
                         if (fieldToGo == "valueGuid")
-                            fieldItem.valueGuid = new Guid(item.value);
+                        {
+                            List<string> lst = item.value.Split(':').ToList();
+                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            fieldItem.valueGuid = new Guid(lst[0]);
+                        }
                         if (fieldToGo == "valueDuoble")
                             fieldItem.valueDuoble = double.Parse(item.value);
 
@@ -4099,7 +4230,12 @@ namespace greenEnergy.Controllers
                         if (fieldToGo == "valueDateTime")
                             fieldItem.valueDateTime = DateTime.Parse(item.value);
                         if (fieldToGo == "valueGuid")
-                            fieldItem.valueGuid = new Guid(item.value);
+
+                        {
+                            List<string> lst = item.value.Split(':').ToList();
+                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            fieldItem.valueGuid = new Guid(lst[0]);
+                        }
                         if (fieldToGo == "valueDuoble")
                             fieldItem.valueDuoble = double.Parse(item.value);
 
@@ -8661,7 +8797,11 @@ namespace greenEnergy.Controllers
                         if (fieldToGo == "valueDateTime")
                             fieldItem.valueDateTime = DateTime.Parse(item.value);
                         if (fieldToGo == "valueGuid")
-                            fieldItem.valueGuid = new Guid(item.value);
+                        {
+                            List<string> lst = item.value.Split(':').ToList();
+                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            fieldItem.valueGuid = new Guid(lst[0]);
+                        }
                         if (fieldToGo == "valueDuoble")
                             fieldItem.valueDuoble = double.Parse(item.value);
 

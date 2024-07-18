@@ -936,6 +936,7 @@ namespace greenEnergy.ViewModel
     {
         public string id { get; set; }
         public string name { get; set; }
+        public string lineDashColor { get; set; }
         public List<chartItemList> values { get; set; }
     }
     public class chartItemList
@@ -958,6 +959,7 @@ namespace greenEnergy.ViewModel
     public class newOrderFieldsVM
     {
         public Guid newOrderFieldsID { get; set; }
+        public int formItemID { get; set; }
         public int? valueInt { get; set; }
         public int flowID { get; set; }
         public bool? valueBool { get; set; }
