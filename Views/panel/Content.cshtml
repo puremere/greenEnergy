@@ -94,9 +94,10 @@
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">contentType </th>
 
-                                            
+
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">stackWeight </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">cycle Fields </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">parent </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Priority </th>
 
                                             @if (Model.parentSelected != null)
@@ -137,7 +138,7 @@
 
 
                                                     </div>
-                                                   
+
 
                                                     <div class="formMode editMode">
                                                         <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
@@ -205,6 +206,51 @@
                                             </td>
                                             <td>@prod.cycleFields</td>
                                             <td>
+
+                                                <div style="display:flex; justify-content:center">
+
+                                                    <div class="lableMode">
+                                                        <span>  </span>
+
+
+
+                                                    </div>
+
+                                                    <div class="formMode editMode">
+                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                            @Html.AntiForgeryToken()
+                                                            @if (Model.parentSelected != null)
+                                                            {
+                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                            }
+                                                            <input hidden name="contentID" value="@prod.contentID" />
+                                                            <input hidden name="priority" value="@prod.priority" />
+                                                            <div style="display:flex">
+                                                                <select class="form-control" name="newParent">
+                                                                    <option value="">Parent</option>
+                                                                    @if (Model.allContents != null)
+                                                                    {
+                                                                        foreach (var iitem in Model.allContents)
+                                                                        {
+
+                                                                             <option value="@iitem.contentID" >@iitem.title</option>
+                                                                        }
+                                                                    }
+                                                                </select>
+                                                                <div style="margin:0 5px"></div>
+
+                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </td>
+                                            <td>
                                                 <div style="display:flex; justify-content:center">
 
                                                     <div class="lableMode">
@@ -246,7 +292,7 @@
                                                 <td>@prod.parentCategory</td>
                                             }
                                             <td><img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" /></td>
-                                           
+
                                             <td>@prod.typeName</td>
                                             <td style="display:flex; min-width:400px">
 

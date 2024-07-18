@@ -244,7 +244,9 @@ namespace greenEnergy.ViewModel
         public Guid mirrorID { get; set; }
         
         public Guid sectionID { get; set; }
+        
         public Guid contentParent { get; set; }
+        public Guid newParent { get; set; }
         public int formID { get; set; }
         public Guid htmlID { get; set; }
         public int priority { get; set; }

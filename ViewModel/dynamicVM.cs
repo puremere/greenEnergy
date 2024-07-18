@@ -190,13 +190,18 @@ namespace greenEnergy.ViewModel
 
     /// managerChart
     /// 
+    public class showChartAllVM : parent
+    {
+        public List<chartList> allChart { get; set; }
 
+    }
     public class showFormAllVM : parent
     {
         public List<formItemList> allForm { get; set; }
 
     }
    
+
     public class managerChartmain : parent
     {
         public List<serventChartVM> list { get; set; }

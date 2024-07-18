@@ -932,7 +932,18 @@ namespace greenEnergy.ViewModel
     }
 
 
-
+    public class chartList
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public List<chartItemList> values { get; set; }
+    }
+    public class chartItemList
+    {
+        public double xValue { get; set; }
+        public double? yValue { get; set; }
+        public string  xLable { get; set; }
+    }
     public class formItemList
     {
         public List<formFullDetailItemVM> formItemDetailList { get; set; }
