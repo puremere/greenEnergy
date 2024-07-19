@@ -2829,6 +2829,7 @@
     <Content Include="webAssets\newPortal\logos\mobile.svg" />
     <Content Include="webAssets\newPortal\logos\white-full.svg" />
     <Content Include="webAssets\newPortal\logos\white.svg" />
+    <Content Include="private\key.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\panel\Pose.cshtml" />
     <Content Include="Views\admin\category.cshtml" />

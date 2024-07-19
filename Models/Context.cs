@@ -87,8 +87,9 @@ namespace greenEnergy.Model
         public DbSet<sectionRelation> sectionRelations { get; set; }
         public DbSet<urlData> urlDatas { get; set; }
         public DbSet<flowRelation> flowRelations { get; set; }
-
+        public DbSet<flowStatus> flowStatuses { get; set; }
         
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -156,16 +157,27 @@ namespace greenEnergy.Model
         public string name { get; set; }
         public string formFields { get; set; }
         public string flowFields { get; set; }
+        public string userFields { get; set; }
+        public string statusFields { get; set; }
+        
         public int isCycle { get; set; }
         public int isCustom { get; set; }
-       
+        public int? formTypeID { get; set; }
         public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
+
+
+        public int userInfo { get; set; }
         public int?  formItemID { get; set; }
         [ForeignKey("formItemID")]
         public virtual formItem formItem { get; set; }
+
+        public int? formItemType { get; set; }
+       
+
+
         public int isLinkToMain { get; set; }
         public string operat { get; set; }
 
@@ -1053,6 +1065,15 @@ namespace greenEnergy.Model
         public virtual newOrderFlow childFlow { get; set; }
 
     }
+
+    public class flowStatus
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int flowStatusID { get; set; }
+        public string title { get; set; }
+        public string color { get; set; }
+    }
     public class newOrderFlow
     {
         
@@ -1073,13 +1094,18 @@ namespace greenEnergy.Model
         [ForeignKey("processID")]
         public virtual process newOrderProcess { get; set; }
 
+        public int? formType { get; set; }
+
         public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
-       
+        public int? flowStatusID { get; set; }
+        [ForeignKey("flowStatusID")]
+        public virtual flowStatus FlowStatus { get; set; }
 
-        
+
+
 
         public string isFinished { get; set; }
         public string isAccepted { get; set; }
