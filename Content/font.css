@@ -8,22 +8,41 @@
     url('../asset/fonts/woff/IRANSansWeb(FaNum).woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
     url('../asset/fonts/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
+@font-face {
+    font-family: Arlon_black;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Arlon/Arlon-Black.ttf') format('truetype');
+}
+@font-face {
+    font-family: Arlon_medium;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Arlon/Arlon-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: helvica;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Helvetica/Helvetica.ttf') format('truetype');
+}
 
 @import url(fontiran.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
 body {
-    font-family: IRANSans !important;
+    font-family: Arlon_medium !important;
     font-weight: 300;
     font-size: 13px;
     background-color: #E2E2E2;
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, input, textarea,a,span {
-    font-family: IRANSans !important;
+h1, h2, h3, h4, h5, h6, input, textarea, a, span {
+    font-family: Arlon_medium !important;
 }
 p{
-    direction:rtl;
-  text-align:right
+    font-family : helvica !important;
+   
 }
 
 @media (max-width: 600px) {

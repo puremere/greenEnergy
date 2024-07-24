@@ -1,27 +1,22 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
-@if (Model.itemModel != null)
-{
 
-    if (Model.itemModel.dataList != null)
-    {
-        if (Model.itemModel.dataList.Count > 0)
-        {
-            <section class="section-highlight story-area padding0">
-                <div class="custom-container">
-                    <div class="section-header fullwidth">
-                        <h4 class="subtitle">
-                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                              @Model.itemModel.dataList[0].title
-                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                        </h4>
-                        <h1 class="title"> @Model.itemModel.dataList[0].title2</h1>
-                    </div>
-                </div>
-            </section>
-        }
-    }
+@{
+    string title =string.IsNullOrEmpty( Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "heading title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string title2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title2").title2) ? "this is a long header which you can use as you wish" : Model.dataList.SingleOrDefault(x => x.title == "title2").title2;
 
 }
+<section class="section-highlight story-area padding0">
+    <div class="custom-container">
+        <div class="section-header fullwidth">
+            <h4 class="subtitle">
+                <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                @title
+                <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+            </h4>
+            <h1 class="title"> @title2</h1>
+        </div>
+    </div>
+</section>
 
 

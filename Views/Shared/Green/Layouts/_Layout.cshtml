@@ -30,19 +30,33 @@
     <link rel="stylesheet" href="~/webAssets/green/assets/css/style.css">
     <link rel="stylesheet" href="~/webAssets/green/assets/css/responsive.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    @*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">*@
+    @*<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">*@
+    @*<link rel="manifest" href="/site.webmanifest">*@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
+    <link href="~/webAssets/green/assets/css/custom.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/Content/font.css" rel="stylesheet" />
     @RenderSection("heading", required: false)
     <script src="~/webAssets/green/assets/js/jquery-3.7.1.js"></script>
 
 </head>
 
 <body>
+    <div id="cookies-popup">
 
+        <img src="https://img.icons8.com/?size=100&id=oWtuyQqj1td3&format=png&color=000000" />
+        <p>
+            This website uses cookies to ensure you get
+            the best experience on our website.
+        </p>
+        <div class="btn-cont">
+            <button>Accept All Cookies</button>
+            <button>Necessary Cookies Only</button>
+        </div>
+
+    </div>
     <!-- Cursor
     ============================================= -->
     <div id="custom-cursor-inner"></div>
@@ -52,14 +66,14 @@
     <main class="home-page">
 
         <!-- Fixed Sidebar
-    ============================================= -->
+        ============================================= -->
         <div id="fixed-sidebar">
             <span id="close-sidebar">
                 <span></span>
                 <span></span>
             </span>
             <div class="sidebar-inner">
-                @{ 
+                @{
                     getlayoutPartVM slidePart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "slide");
 
                 }
@@ -89,7 +103,7 @@
         </div>
         <!-- End Fixed Sidebar -->
         <!-- Header Bar
-    ============================================= -->
+        ============================================= -->
         <div class="header-bar-wrap">
             <div class="custom-container">
                 <div class="custom-row">
@@ -121,14 +135,15 @@
         </div>
         <!-- End Header Bar -->
         <!-- Header
-    ============================================= -->
+        ============================================= -->
         <header class="header-wrap header-style-1">
             <div class="responsive-menu">
                 <nav>
                     <ul>
                         @{
                             getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
-                            foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
+                            List<getlayoutDataVM> itemList = menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority).ToList();
+                            foreach (var item in itemList)
                             {
                                 List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
                                 if (firstChilds.Count() > 0)
@@ -177,7 +192,7 @@
             </div>
             <div class="custom-container">
                 <div class="custom-row">
-                    <div class="sidebar-icon">
+                    @*<div class="sidebar-icon">
                         <a href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="57" height="10" viewBox="0 0 57 10"
                                  fill="none">
@@ -192,12 +207,14 @@
                             </svg>
                             <i class="las la-times"></i>
                         </a>
-                    </div>
-
+                    </div>*@
+                    <a href="index.html" class="logo">
+                        @*<img src="~/webAssets/green/assets/imgs/logo.png" alt="Logo">*@
+                        <img style="width:100%" src="~/webAssets/green/assets/imgs/logo.svg" alt="Logo" />
+                    </a>
+                    <div class="flex1"></div>
                     <div class="right">
-                        <a href="index.html" class="logo">
-                            <img src="~/webAssets/green/assets/imgs/logo.png" alt="Logo">
-                        </a>
+
 
                         <div class="menu-wrap">
                             <nav>
@@ -298,62 +315,62 @@
 
 
                                     @*<li>
-                                        <a href="#">Photovoltaics</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Wind Power</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Battery Storage</a>
-                                    </li>
+                                            <a href="#">Photovoltaics</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Wind Power</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Battery Storage</a>
+                                        </li>
 
 
-                                    <li class="active dropdown-item">
-                                        <a href="index.html">
-                                            <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> Services
-                                        </a>
-                                        <i class="las la-angle-right"></i>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Area Acquisition</a></li>
-                                            <li><a href="#">Project Planning</a></li>
-                                            <li><a href="#">Project Progress</a></li>
-                                            <li><a href="#">Investments</a></li>
-                                            <li><a href="#">Project Purchasing</a></li>
-                                            <li><a href="#">Operational Management</a></li>
-                                        </ul>
-                                    </li>
+                                        <li class="active dropdown-item">
+                                            <a href="index.html">
+                                                <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> Services
+                                            </a>
+                                            <i class="las la-angle-right"></i>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Area Acquisition</a></li>
+                                                <li><a href="#">Project Planning</a></li>
+                                                <li><a href="#">Project Progress</a></li>
+                                                <li><a href="#">Investments</a></li>
+                                                <li><a href="#">Project Purchasing</a></li>
+                                                <li><a href="#">Operational Management</a></li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="active dropdown-item">
-                                        <a href="index.html">
-                                            <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape">Pursue
-                                        </a>
-                                        <i class="las la-angle-right"></i>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Overview</a></li>
-                                            <li><a href="#">Story</a></li>
-                                            <li><a href="#">credentials</a></li>
-                                            <li><a href="#">Career</a></li>
-                                            <li><a href="#">Compliance</a></li>
-                                        </ul>
-                                    </li>
+                                        <li class="active dropdown-item">
+                                            <a href="index.html">
+                                                <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape">Pursue
+                                            </a>
+                                            <i class="las la-angle-right"></i>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Overview</a></li>
+                                                <li><a href="#">Story</a></li>
+                                                <li><a href="#">credentials</a></li>
+                                                <li><a href="#">Career</a></li>
+                                                <li><a href="#">Compliance</a></li>
+                                            </ul>
+                                        </li>
 
-                                    <li>
-                                        <a href="#">News</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Jobs</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact</a>
-                                    </li>*@
+                                        <li>
+                                            <a href="#">News</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Jobs</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contact</a>
+                                        </li>*@
 
                                 </ul>
                             </nav>
 
                             <select class="language-select">
-                                <option value="en">EN</option>
-                                <option value="bn">FR</option>
-                                <option value="bn">DE</option>
+                                <option value="/">EN</option>
+                                <option value="fr">FR</option>
+                                <option value="de">DE</option>
                             </select>
                         </div>
 
@@ -365,7 +382,7 @@
 
         @RenderBody()
 
-        
+
 
         <!-- Start Footer -->
         <footer class="footer-area">
@@ -381,10 +398,10 @@
                             Curabitur tincidunt sodales molestie.
                         </p>
                         <ul class="social-icons">
-                            <li><a href="#"><i class="lab la-instagram"></i></a></li>
-                            <li><a href="#"><i class="lab la-facebook"></i></a></li>
-                            <li><a href="#"><i class="lab la-xing"></i></a></li>
-                            <li><a href="#"><i class="lab la-linkedin"></i></a></li>
+                            <li><a href="#"><img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000" /></a></li>
+                            <li><a href="#"><img src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000" /></a></li>
+                            <li><a href="#"><img src="https://img.icons8.com/?size=100&id=63306&format=png&color=000000" /></a></li>
+                            <li><a href="#"><img src="https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000" /></a></li>
                         </ul>
                     </div>
 
@@ -409,14 +426,23 @@
                                 </ul>
                             </div>
                             <div class="footer-widget footer-widget-link">
-                                <h3>Hours</h3>
+                                <h3>More Links</h3>
                                 <ul>
-                                    <li>Mon - Fri</li>
-                                    <li>9am - 6pm</li>
-                                    <li>Sat - Sun</li>
-                                    <li>10am - 4pm</li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="work-query.html">Work Enquiry</a></li>
+                                    <li><a href="pricing.html">Pricing</a></li>
                                 </ul>
                             </div>
+                            @*<div class="footer-widget footer-widget-link">
+                                    <h3>Hours</h3>
+                                    <ul>
+                                        <li>Mon - Fri</li>
+                                        <li>9am - 6pm</li>
+                                        <li>Sat - Sun</li>
+                                        <li>10am - 4pm</li>
+                                    </ul>
+                                </div>*@
                         </div>
 
                         <div class="footer-contact-infos">
@@ -519,6 +545,27 @@
     <script src="~/webAssets/green/assets/js/subscribeform.js"></script>
     <script src="~/webAssets/green/assets/js/main.js"></script>
     @RenderSection("scripts", required: false)
+<script>
+     $("#cookies-popup").click(function(){
+         $(this).css("display","none")
+    });
+      
+    $(".language-select").val('@ViewBag.lang');
+    $(".language-select").change(function(){
+
+        var id = $(this).val();
+
+          $.ajax({
+            url: "home/changeLang",
+            data:{
+              lang : id
+            },
+              success: function(result){
+              window.location.href = id;
+
+           }});
+    });
+</script>
 </body>
 
 

@@ -116,6 +116,9 @@
     <Reference Include="Spire.Pdf, Version=10.5.5.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>packages\Spire.PDF.10.5.5\lib\net40\Spire.Pdf.dll</HintPath>
     </Reference>
+    <Reference Include="stream-chat-net, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\stream-chat-net.2.6.0\lib\net47\stream-chat-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
@@ -1498,15 +1501,22 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font.css" />
+    <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\webfonts\fa-brands-400.svg" />
+    <Content Include="fonts\webfonts\fa-duotone-900.svg" />
+    <Content Include="fonts\webfonts\fa-light-300.svg" />
+    <Content Include="fonts\webfonts\fa-regular-400.svg" />
+    <Content Include="fonts\webfonts\fa-solid.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Green\Uploads\about-1.jpg" />
     <Content Include="Images\Green\Uploads\about-2.jpg" />
     <Content Include="Images\Green\Uploads\about-3.jpg" />
     <Content Include="Images\Green\Uploads\about-4.jpg" />
+    <Content Include="Images\Green\Uploads\about.png" />
     <Content Include="Images\Green\Uploads\banner1.jpg" />
     <Content Include="Images\Green\Uploads\banner1Detail.jpg" />
     <Content Include="Images\Green\Uploads\banner1Detail.png" />
@@ -1517,20 +1527,31 @@
     <Content Include="Images\Green\Uploads\blogDetailTitle1.png" />
     <Content Include="Images\Green\Uploads\blogDetailTitle2.png" />
     <Content Include="Images\Green\Uploads\blogList.jpg" />
-    <Content Include="Images\Green\Uploads\hero-1.jpg" />
+    <Content Include="Images\Green\Uploads\collectinImage2.png" />
+    <Content Include="Images\Green\Uploads\collectionImage1.png" />
+    <Content Include="Images\Green\Uploads\contactFrom.png" />
+    <Content Include="Images\Green\Uploads\faq.png" />
+    <Content Include="Images\Green\Uploads\faqItem.png" />
     <Content Include="Images\Green\Uploads\hero-2.jpg" />
     <Content Include="Images\Green\Uploads\intro1.jpg" />
+    <Content Include="Images\Green\Uploads\jobSection.png" />
     <Content Include="Images\Green\Uploads\logo.png" />
+    <Content Include="Images\Green\Uploads\parent.png" />
+    <Content Include="Images\Green\Uploads\ourTeam.png" />
+    <Content Include="Images\Green\Uploads\placeHolder.svg" />
     <Content Include="Images\Green\Uploads\rightsidelayout.png" />
     <Content Include="Images\Green\Uploads\service-1.jpg" />
     <Content Include="Images\Green\Uploads\service-2.jpg" />
     <Content Include="Images\Green\Uploads\service-3.jpg" />
     <Content Include="Images\Green\Uploads\service-4.jpg" />
+    <Content Include="Images\Green\Uploads\serviceList.png" />
+    <Content Include="Images\Green\Uploads\serviceListItem.png" />
     <Content Include="Images\Green\Uploads\slider1.jpg" />
     <Content Include="Images\Green\Uploads\slider1Detail.png" />
     <Content Include="Images\Green\Uploads\story-1.jpg" />
     <Content Include="Images\Green\Uploads\story-2.jpg" />
     <Content Include="Images\Green\Uploads\story-3.jpg" />
+    <Content Include="Images\Green\Uploads\testimonial.png" />
     <Content Include="Images\Green\Uploads\video-img.jpg" />
     <Content Include="Images\Green\Uploads\video.png" />
     <Content Include="Images\JTS\Uploads\bannerFull1.png" />
@@ -1844,6 +1865,7 @@
     <Content Include="Views\panel\LayoutPartData.cshtml" />
     <Content Include="Views\panel\meta.cshtml" />
     <Content Include="Views\Shared\JTS\Layouts\_Layout.cshtml" />
+    <Content Include="webAssets\green\assets\css\custom.css" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\css\stylesa78f.css" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\js\indexa78f.js" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\swv\js\indexa78f.js" />
@@ -2829,7 +2851,47 @@
     <Content Include="webAssets\newPortal\logos\mobile.svg" />
     <Content Include="webAssets\newPortal\logos\white-full.svg" />
     <Content Include="webAssets\newPortal\logos\white.svg" />
-    <Content Include="private\key.json" />
+    <Content Include="fonts\Arlon\Arlon-Black.ttf" />
+    <Content Include="fonts\Arlon\Arlon-Bold.ttf" />
+    <Content Include="fonts\Arlon\Arlon-Light.ttf" />
+    <Content Include="fonts\Arlon\Arlon-Medium.ttf" />
+    <Content Include="fonts\Arlon\Arlon-Regular.ttf" />
+    <Content Include="fonts\Arlon\Arlon-SemiBold.ttf" />
+    <Content Include="fonts\Arlon\Arlon-Thin.ttf" />
+    <Content Include="fonts\Arlon\Arlon-UltraBold.ttf" />
+    <Content Include="fonts\Arlon\Arlon-UltraLight.ttf" />
+    <Content Include="fonts\Helvetica\Helvetica-Bold.ttf" />
+    <Content Include="fonts\Helvetica\Helvetica-BoldOblique.ttf" />
+    <Content Include="fonts\Helvetica\helvetica-compressed.otf" />
+    <Content Include="fonts\Helvetica\helvetica-light.ttf" />
+    <Content Include="fonts\Helvetica\Helvetica-Oblique.ttf" />
+    <Content Include="fonts\Helvetica\Helvetica.ttf" />
+    <Content Include="fonts\webfonts\fa-brands-400.eot" />
+    <Content Include="fonts\webfonts\fa-brands-400.ttf" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff2" />
+    <Content Include="fonts\webfonts\fa-duotone-900.eot" />
+    <Content Include="fonts\webfonts\fa-duotone-900.ttf" />
+    <Content Include="fonts\webfonts\fa-duotone-900.woff" />
+    <Content Include="fonts\webfonts\fa-duotone-900.woff2" />
+    <Content Include="fonts\webfonts\fa-light-300.eot" />
+    <Content Include="fonts\webfonts\fa-light-300.ttf" />
+    <Content Include="fonts\webfonts\fa-light-300.woff" />
+    <Content Include="fonts\webfonts\fa-light-300.woff2" />
+    <Content Include="fonts\webfonts\fa-regular-400.eot" />
+    <Content Include="fonts\webfonts\fa-regular-400.ttf" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff2" />
+    <Content Include="fonts\webfonts\fa-solid.eot" />
+    <Content Include="fonts\webfonts\fa-solid.ttf" />
+    <Content Include="fonts\webfonts\fa-solid.woff" />
+    <Content Include="fonts\webfonts\fa-solid.woff2" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\panel\Pose.cshtml" />
     <Content Include="Views\admin\category.cshtml" />
@@ -2857,6 +2919,14 @@
     <Content Include="Views\Shared\Green\Sections\_blogDetailTitle2.cshtml" />
     <Content Include="Views\Shared\Green\Sections\_blogItem.cshtml" />
     <Content Include="Views\panel\element.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_jobSection.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_ourTeam.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_contactForm.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_faq.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_about.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_serviceList.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_testimonial.cshtml" />
+    <Content Include="Views\Shared\Green\Sections\_parent.cshtml" />
     <None Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.min.js" />
@@ -3381,6 +3451,7 @@
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
+    <Folder Include="private\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\app\" />
     <Folder Include="webAssets\AdminPanel\images\scarfimages\" />

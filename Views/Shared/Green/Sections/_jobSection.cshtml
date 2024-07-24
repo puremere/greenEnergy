@@ -1,0 +1,59 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading") == null ? "JOIN THE WORKSHOP" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title") == null ? "sample title text" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description") == null ? "sample description paragraph" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string pictureText = Model.dataList.SingleOrDefault(x => x.title == "pictureText") == null ? "Join Our Next Meetup" : Model.dataList.SingleOrDefault(x => x.title == "pictureText").title2;
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2;
+    string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText") == null ? "JOIN NOW" : Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+    string image = Model.dataList.SingleOrDefault(x => x.title == "image") == null ? baseImage + "/placeHolder.svg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+
+    heading = heading == "" ? "JOIN THE WORKSHOP" : heading;
+    title = title == "" ? "sample title text" : title;
+    description = description == "" ? "sample description paragraph" : description;
+    pictureText = pictureText == "" ? "Join Our Next Meetup" : pictureText;
+    buttonText = buttonText == "" ? "JOIN NOW" : buttonText;
+
+    image = image == baseImage ? "/webAssets/green/assets/imgs/about-6.jpg" : image;
+
+}
+
+
+<section class="about6-area">
+    <div class="custom-container">
+        <div class="custom-row">
+            <div class="left" data-aos="fade-right" data-aos-duration="1500">
+                <div class="box-anim">
+                    <img src="@image" alt="about">
+                </div>
+
+                <a href="work-query.html" class="quote-now-btn">
+                    <span class="border-gradient-shape"></span>
+                    @pictureText
+                </a>
+            </div>
+            <div class="right">
+                <div class="content">
+                    <h4 class="subtitle">
+                        <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                        @heading
+                        <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                    </h4>
+                    <h1 class="title">
+                        @title
+                    </h1>
+                    <p>
+                        @description
+                    </p>
+                    <a href="@buttonURL" class="theme-btn">
+                        <span></span>
+                        @buttonText
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -30,11 +30,11 @@
     <link rel="stylesheet" href="~/webAssets/green/assets/css/style.css">
     <link rel="stylesheet" href="~/webAssets/green/assets/css/responsive.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    @*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">*@
 
     @RenderSection("heading", required: false)
     <script src="~/webAssets/green/assets/js/jquery-3.7.1.js"></script>
@@ -141,25 +141,57 @@
                     <div class="menu-wrap">
                         <nav>
                             <ul>
-                                <li class="dropdown-item">
-                                    <a href="index.html">
-                                        Home
-                                    </a>
+                                @{
 
-                                </li>
-                                <li class="dropdown-item">
-                                    <a href="index.html">
-                                        Blog
-                                    </a>
+                                    foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
+                                    {
+                                        List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
+                                        if (firstChilds.Count() > 0)
+                                        {
+                                            <li class="active dropdown-item">
 
-                                </li>
-                               
+                                                <a href="@item.url">
+                                                    <img class="icon" src="~/webAssets/green/assets/imgs/star-shape.svg" alt="Shape"> @item.urlTitle
+                                                </a>
+                                                <i class="las la-angle-right"></i>
+
+                                                <ul class="dropdown">
+                                                    @foreach (var secitem in firstChilds)
+                                                    {
+                                                        <li><a href="@secitem.url">@secitem.urlTitle</a></li>
+                                                    }
+
+
+                                                </ul>
+
+
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+                                            <li class=" dropdown-item">
+
+                                                <a href="@item.url">@item.urlTitle</a>
+
+
+                                            </li>
+                                        }
+
+
+
+
+                                    }
+                                }
+
+
                             </ul>
                         </nav>
 
                         <select class="language-select">
-                            <option value="en">EN</option>
-                            <option value="bn">BN</option>
+                            <option value="/">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
                         </select>
                     </div>
                     <div class="sidebar-icon">
@@ -205,7 +237,7 @@
                     <div class="left">
 
                         @RenderBody()
-                       
+
                     </div>
 
 
@@ -236,7 +268,7 @@
                                 }
 
 
-                              
+
                             </ul>
                         </div>
                         <div class="blog-widget widget-categories blog-widget-links" data-aos="fade-up" data-aos-duration="1500">
@@ -254,7 +286,7 @@
                                         </li>
                                     }
                                 }
-                               
+
                             </ul>
                         </div>
                         <div class="blog-widget widget-tags" data-aos="fade-up" data-aos-duration="1500">
@@ -272,7 +304,7 @@
                                         </li>
                                     }
                                 }
-                               
+
                             </ul>
                         </div>
                     </aside>
@@ -386,6 +418,27 @@
     <script src="~/webAssets/green/assets/js/aos.js"></script>
     <script src="~/webAssets/green/assets/js/main.js"></script>
     @RenderSection("scripts", required: false)
+    <script>
+     $("#cookies-popup").click(function(){
+         $(this).css("display","none")
+    });
+
+    $(".language-select").val('@ViewBag.lang');
+    $(".language-select").change(function(){
+
+        var id = $(this).val();
+
+          $.ajax({
+            url: "/home/changeLang",
+            data:{
+              lang : id
+            },
+              success: function(result){
+              window.location.href = id;
+
+           }});
+    });
+    </script>
 </body>
 
 

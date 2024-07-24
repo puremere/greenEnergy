@@ -12,6 +12,12 @@ namespace greenEnergy.ViewModel
         public string url { get; set; }
         public string payment { get; set; }
     }
+    public class callVM
+    {
+        public string callUserID { get; set; }
+        public string token { get; set; }
+        public string api { get; set; }
+    }
     public class appViewModel
     {
         public string data { get; set; }
@@ -81,6 +87,7 @@ namespace greenEnergy.ViewModel
     public class recycleDataMapVM
     {
         public string viewID { get; set; }
+        public string actionID { get; set; }
         public string dataProperty { get; set; }
         public string viewProperty { get; set; }
 

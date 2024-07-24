@@ -123,229 +123,229 @@
                                                 string cls = (Model.contentList.IndexOf(prod) + 1) % 2 == 0 ? "even" : "odd";
 
 
-                                        <tr class="@cls">
-                                            <td>
-                                                @i
-                                            </td>
+                                                <tr class="@cls">
+                                                    <td>
+                                                        @i
+                                                    </td>
 
 
-                                            <td>
-                                                <div style="display:flex; justify-content:center">
+                                                    <td>
+                                                        <div style="display:flex; justify-content:center">
 
-                                                    <div class="lableMode">
-                                                        <span>     @prod.htmlName</span>
-
-
-
-                                                    </div>
+                                                            <div class="lableMode">
+                                                                <span>     @prod.htmlName</span>
 
 
-                                                    <div class="formMode editMode">
-                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
-                                                            @Html.AntiForgeryToken()
-                                                            @if (Model.parentSelected != null)
-                                                            {
-                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
-                                                            }
-                                                            <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
-                                                            <input hidden name="contentID" value="@prod.contentID" />
-                                                            <input hidden name="priority" value="@prod.priority" />
-                                                            <input hidden name="stackWeight" value="@prod.stackWeight" />
-                                                            <div>
-                                                                <input style="text-align: center;" type="text" id="" class="form-control" name="title" value="   @prod.htmlName" />
-                                                                <div style="margin:0 5px"></div>
 
-                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
                                                             </div>
 
-                                                        </form>
-                                                    </div>
 
-                                                </div>
-
-
-                                            </td>
-
-                                            <td>
-                                                <span>  @prod.htmlType</span>
-                                            </td>
-                                            <td>
-
-                                                <div style="display:flex; justify-content:center">
-
-                                                    <div class="lableMode">
-                                                        <span>  @prod.stackWeight</span>
-
-
-
-                                                    </div>
-
-                                                    <div class="formMode editMode">
-                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
-                                                            @Html.AntiForgeryToken()
-                                                            @if (Model.parentSelected != null)
-                                                            {
-                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
-                                                            }
-                                                            <input hidden name="contentID" value="@prod.contentID" />
-                                                            <input hidden name="priority" value="@prod.priority" />
-                                                            <div style="display:flex">
-                                                                <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="stackWeight" value="@prod.stackWeight" />
-                                                                <div style="margin:0 5px"></div>
-
-                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </td>
-                                            <td>@prod.cycleFields</td>
-                                            <td>
-
-                                                <div style="display:flex; justify-content:center">
-
-                                                    <div class="lableMode">
-                                                        <span>  </span>
-
-
-
-                                                    </div>
-
-                                                    <div class="formMode editMode">
-                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
-                                                            @Html.AntiForgeryToken()
-                                                            @if (Model.parentSelected != null)
-                                                            {
-                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
-                                                            }
-                                                            <input hidden name="contentID" value="@prod.contentID" />
-                                                            <input hidden name="priority" value="@prod.priority" />
-                                                            <div style="display:flex">
-                                                                <select class="form-control" name="newParent">
-                                                                    <option value="">Parent</option>
-                                                                    @if (Model.allContents != null)
+                                                            <div class="formMode editMode">
+                                                                <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                                    @Html.AntiForgeryToken()
+                                                                    @if (Model.parentSelected != null)
                                                                     {
-                                                                        foreach (var iitem in Model.allContents)
-                                                                        {
-
-                                                                             <option value="@iitem.contentID" >@iitem.title</option>
-                                                                        }
+                                                                        <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
                                                                     }
-                                                                </select>
-                                                                <div style="margin:0 5px"></div>
+                                                                    <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
+                                                                    <input hidden name="contentID" value="@prod.contentID" />
+                                                                    <input hidden name="priority" value="@prod.priority" />
+                                                                    <input hidden name="stackWeight" value="@prod.stackWeight" />
+                                                                    <div>
+                                                                        <input style="text-align: center;" type="text" id="" class="form-control" name="title" value="   @prod.htmlName" />
+                                                                        <div style="margin:0 5px"></div>
 
-                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                        <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                    </div>
+
+                                                                </form>
                                                             </div>
 
-                                                        </form>
-                                                    </div>
-
-                                                </div>
+                                                        </div>
 
 
+                                                    </td>
 
-                                            </td>
-                                            <td>
-                                                <div style="display:flex; justify-content:center">
+                                                    <td>
+                                                        <span>  @prod.htmlType</span>
+                                                    </td>
+                                                    <td>
 
-                                                    <div class="lableMode">
-                                                        <span> @prod.priority</span>
+                                                        <div style="display:flex; justify-content:center">
+
+                                                            <div class="lableMode">
+                                                                <span>  @prod.stackWeight</span>
 
 
 
-                                                    </div>
-
-                                                    <div class="formMode editMode">
-                                                        <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
-                                                            @Html.AntiForgeryToken()
-                                                            @if (Model.parentSelected != null)
-                                                            {
-                                                                <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
-                                                            }
-                                                            <input hidden name="contentID" value="@prod.contentID" />
-                                                            <input hidden name="stackWeight" value="@prod.stackWeight" />
-                                                            <div style="display:flex">
-                                                                <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="priority" value="@prod.priority" />
-                                                                <div style="margin:0 5px"></div>
-
-                                                                <button class="btn ripple btn-primary" type="submit">Verify</button>
                                                             </div>
 
-                                                        </form>
-                                                    </div>
+                                                            <div class="formMode editMode">
+                                                                <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                                    @Html.AntiForgeryToken()
+                                                                    @if (Model.parentSelected != null)
+                                                                    {
+                                                                        <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                    }
+                                                                    <input hidden name="contentID" value="@prod.contentID" />
+                                                                    <input hidden name="priority" value="@prod.priority" />
+                                                                    <div style="display:flex">
+                                                                        <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="stackWeight" value="@prod.stackWeight" />
+                                                                        <div style="margin:0 5px"></div>
 
-                                                </div>
+                                                                        <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                    </td>
+                                                    <td>@prod.cycleFields</td>
+                                                    <td>
+
+                                                        <div style="display:flex; justify-content:center">
+
+                                                            <div class="lableMode">
+                                                                <span>  </span>
+
+
+
+                                                            </div>
+
+                                                            <div class="formMode editMode">
+                                                                <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                                    @Html.AntiForgeryToken()
+                                                                    @if (Model.parentSelected != null)
+                                                                    {
+                                                                        <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                    }
+                                                                    <input hidden name="contentID" value="@prod.contentID" />
+                                                                    <input hidden name="priority" value="@prod.priority" />
+                                                                    <div style="display:flex">
+                                                                        <select class="form-control" name="newParent">
+                                                                            <option value="">Parent</option>
+                                                                            @if (Model.allContents != null)
+                                                                            {
+                                                                                foreach (var iitem in Model.allContents)
+                                                                                {
+
+                                                                                    <option value="@iitem.contentID">@iitem.title</option>
+                                                                                }
+                                                                            }
+                                                                        </select>
+                                                                        <div style="margin:0 5px"></div>
+
+                                                                        <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                    </td>
+                                                    <td>
+                                                        <div style="display:flex; justify-content:center">
+
+                                                            <div class="lableMode">
+                                                                <span> @prod.priority</span>
+
+
+
+                                                            </div>
+
+                                                            <div class="formMode editMode">
+                                                                <form style="display:flex;justify-content:center" action="/panel/setContnet" method="post" enctype="multipart/form-data">
+                                                                    @Html.AntiForgeryToken()
+                                                                    @if (Model.parentSelected != null)
+                                                                    {
+                                                                        <input hidden name="contentParent" value="@Model.parentSelected.contentID" />
+                                                                    }
+                                                                    <input hidden name="contentID" value="@prod.contentID" />
+                                                                    <input hidden name="stackWeight" value="@prod.stackWeight" />
+                                                                    <div style="display:flex">
+                                                                        <input style="flex:1;margin: 0px;margin: 0;padding: 0;width: 40px;text-align: center;" type="text" id="" class="form-control" name="priority" value="@prod.priority" />
+                                                                        <div style="margin:0 5px"></div>
+
+                                                                        <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
 
 
 
 
-                                            </td>
+                                                    </td>
 
 
-                                            @if (Model.parentSelected != null)
-                                            {
-                                                <td>@prod.parentCategory</td>
-                                            }
-                                            <td><img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" /></td>
-
-                                            <td>@prod.typeName</td>
-                                            <td style="display:flex; min-width:400px">
-
-
-
-                                                @if (prod.multilayer == 1)
-                                                {
-                                                    if (string.IsNullOrEmpty(prod.typeName))
+                                                    @if (Model.parentSelected != null)
                                                     {
-                                                        <a target="_blank" href="/panel/Content?contentID=@prod.contentID">
-                                                            <div class="btn btn-primary btn-sm lgnsubmitt">child Content</div>
-                                                        </a>
+                                                        <td>@prod.parentCategory</td>
                                                     }
+                                                    <td><img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.image" /></td>
 
-                                                }
-                                                else
-                                                {
-                                                    if (prod.htmlFormLink == "1")
-                                                    {
-                                                        if (string.IsNullOrEmpty(prod.typeName))
+                                                    <td>@prod.typeName</td>
+                                                    <td style="display:flex; min-width:400px">
+
+
+
+                                                        @if (prod.multilayer == 1)
                                                         {
-                                                            <div style="margin:0 5px"></div>
-                                                            <button data-bs-target="#addFormToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addForm">Set From </button>
+                                                            if (string.IsNullOrEmpty(prod.typeName))
+                                                            {
+                                                                <a target="_blank" href="/panel/Content?contentID=@prod.contentID">
+                                                                    <div class="btn btn-primary btn-sm lgnsubmitt">child Content</div>
+                                                                </a>
+                                                            }
+
                                                         }
+                                                        else
+                                                        {
+                                                            if (prod.htmlFormLink == "1")
+                                                            {
+                                                                if (string.IsNullOrEmpty(prod.typeName))
+                                                                {
+                                                                    <div style="margin:0 5px"></div>
+                                                                    <button data-bs-target="#addFormToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addForm">Set From </button>
+                                                                }
 
-                                                    }
-
-
-                                                }
-                                                <div style="margin:0 5px"></div>
-                                                <a target="_blank" href="/panel/data?id=@prod.contentID">
-                                                    <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
-                                                </a>
-                                                <div style="margin:0 5px"></div>
-                                                <button fields="@prod.htmlFeilds" data-bs-target="#addCycleToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addCycleField">Set Cycle Info </button>
-
-                                                <div style="margin:0 5px"></div>
-                                                <a target="_blank" href="/panel/pose?id=@prod.contentID">
-                                                    <div class="btn btn-primary btn-sm lgnsubmitt">Pose List</div>
-                                                </a>
-                                                <div style="margin:0 5px"></div>
-                                                <button type="button" class="lableMode btn ripple btn-primary btn-sm editButton">Edit </button>
-                                                <button type="button" class="formMode btn ripple btn-primary btn-sm editMode cancelButton">Cancel </button>
-                                                <div style="margin:0 5px"></div>
-                                                <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+                                                            }
 
 
-                                            </td>
+                                                        }
+                                                        <div style="margin:0 5px"></div>
+                                                        <a target="_blank" href="/panel/data?id=@prod.contentID">
+                                                            <div class="btn btn-primary btn-sm lgnsubmitt">Data List</div>
+                                                        </a>
+                                                        <div style="margin:0 5px"></div>
+                                                        <button fields="@prod.htmlFeilds" data-bs-target="#addCycleToContent" data-bs-toggle="modal" formtogo="@prod.formID" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm addCycleField">Set Cycle Info </button>
+
+                                                        <div style="margin:0 5px"></div>
+                                                        <a target="_blank" href="/panel/pose?id=@prod.contentID">
+                                                            <div class="btn btn-primary btn-sm lgnsubmitt">Pose List</div>
+                                                        </a>
+                                                        <div style="margin:0 5px"></div>
+                                                        <button type="button" class="lableMode btn ripple btn-primary btn-sm editButton">Edit </button>
+                                                        <button type="button" class="formMode btn ripple btn-primary btn-sm editMode cancelButton">Cancel </button>
+                                                        <div style="margin:0 5px"></div>
+                                                        <button data-bs-target="#removeModal" data-bs-toggle="modal" idToGo="@prod.contentID" type="button" class="btn ripple btn-primary btn-sm removeButton">Remove </button>
+
+
+                                                    </td>
 
 
 
 
-                                        </tr>
+                                                </tr>
                                             }
 
                                         }
@@ -404,7 +404,7 @@
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
                                         <label class="form-label-title col-sm-3 mb-0">Use Page Data:</label>
                                         <div class="col-sm-10">
-                                            <input  type="checkbox" id="selfUsed" name="selfUsed" class=" col-md-7 col-xs-12">
+                                            <input type="checkbox" id="selfUsed" name="selfUsed" class=" col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">

@@ -37,6 +37,7 @@
             $(this).parent().parent().parent().find(".lableMode").removeClass("editMode");
         })
         $(".removeButton").click(function () {
+        $("#removeModal").modal("toggle");
             $("#removeID").val($(this).attr("idtogo"));
         })
     </script>

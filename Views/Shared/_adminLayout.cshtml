@@ -25,6 +25,13 @@
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
+    <div class="bigparent" style="display:none ;position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.9);top:0;bottom:0; left:0; z-index:999999999; ">
+        <div style="display:flex; position:relative; margin:100px">
+            <i class="iconsminds-back removebid" style="color:white; font-size:30px; position:fixed; top:50px; right:50px"></i>
+          
+            <img style="width:100%; object-fit:scale-down" class="bigone" src="~/Uploads/banner1.png" />
+        </div>
+    </div>
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
             <a href="~/webAssets/newPortal/#" class="menu-button d-none d-md-block">
@@ -61,7 +68,7 @@
         <a class="navbar-logo" href="~/webAssets/newPortal/Dashboard.Default.html">
             <img style="width:150px" src="~/Images/Green/Uploads/logo.png" />
             @*<span class="logo d-none d-xs-block"></span>
-            <span class="logo-mobile d-block d-xs-none"></span>*@
+                <span class="logo-mobile d-block d-xs-none"></span>*@
         </a>
 
         <div class="navbar-right">
@@ -75,105 +82,105 @@
                 </div>
 
                 @*<div class="position-relative d-none d-sm-inline-block">
-                    <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-grid"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-equalizer d-block"></i>
-                            <span>Settings</span>
-                        </a>
+                        <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <i class="simple-icon-grid"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-equalizer d-block"></i>
+                                <span>Settings</span>
+                            </a>
 
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-male-female d-block"></i>
-                            <span>Users</span>
-                        </a>
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-male-female d-block"></i>
+                                <span>Users</span>
+                            </a>
 
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-puzzle d-block"></i>
-                            <span>Components</span>
-                        </a>
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-puzzle d-block"></i>
+                                <span>Components</span>
+                            </a>
 
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-bar-chart-4 d-block"></i>
-                            <span>Profits</span>
-                        </a>
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-bar-chart-4 d-block"></i>
+                                <span>Profits</span>
+                            </a>
 
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-file d-block"></i>
-                            <span>Surveys</span>
-                        </a>
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-file d-block"></i>
+                                <span>Surveys</span>
+                            </a>
 
-                        <a href="~/webAssets/newPortal/#" class="icon-menu-item">
-                            <i class="iconsminds-suitcase d-block"></i>
-                            <span>Tasks</span>
-                        </a>
+                            <a href="~/webAssets/newPortal/#" class="icon-menu-item">
+                                <i class="iconsminds-suitcase d-block"></i>
+                                <span>Tasks</span>
+                            </a>
 
-                    </div>
-                </div>*@
+                        </div>
+                    </div>*@
 
                 @*<div class="position-relative d-inline-block">
-                    <button class="header-icon btn btn-empty" type="button" id="notificationButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell"></i>
-                        <span class="count">3</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
-                        <div class="scroll">
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="~/webAssets/newPortal/#">
-                                    <img src="~/webAssets/newPortal/img/profiles/l-2.jpg" alt="Notification Image"
-                                         class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                        <button class="header-icon btn btn-empty" type="button" id="notificationButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="simple-icon-bell"></i>
+                            <span class="count">3</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
+                            <div class="scroll">
+                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                     <a href="~/webAssets/newPortal/#">
-                                        <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <img src="~/webAssets/newPortal/img/profiles/l-2.jpg" alt="Notification Image"
+                                             class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="~/webAssets/newPortal/#">
+                                            <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>
+                                            <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="~/webAssets/newPortal/#">
-                                    <img src="~/webAssets/newPortal/img/notifications/1.jpg" alt="Notification Image"
-                                         class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                     <a href="~/webAssets/newPortal/#">
-                                        <p class="font-weight-medium mb-1">1 item is out of stock!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <img src="~/webAssets/newPortal/img/notifications/1.jpg" alt="Notification Image"
+                                             class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="~/webAssets/newPortal/#">
+                                            <p class="font-weight-medium mb-1">1 item is out of stock!</p>
+                                            <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="~/webAssets/newPortal/#">
-                                    <img src="~/webAssets/newPortal/img/notifications/2.jpg" alt="Notification Image"
-                                         class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                     <a href="~/webAssets/newPortal/#">
-                                        <p class="font-weight-medium mb-1">New order received! It is total $147,20.</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <img src="~/webAssets/newPortal/img/notifications/2.jpg" alt="Notification Image"
+                                             class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="~/webAssets/newPortal/#">
+                                            <p class="font-weight-medium mb-1">New order received! It is total $147,20.</p>
+                                            <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-row mb-3 pb-3 ">
-                                <a href="~/webAssets/newPortal/#">
-                                    <img src="~/webAssets/newPortal/img/notifications/3.jpg" alt="Notification Image"
-                                         class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                                <div class="d-flex flex-row mb-3 pb-3 ">
                                     <a href="~/webAssets/newPortal/#">
-                                        <p class="font-weight-medium mb-1">
-                                            3 items just added to wish list by a user!
-                                        </p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <img src="~/webAssets/newPortal/img/notifications/3.jpg" alt="Notification Image"
+                                             class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="~/webAssets/newPortal/#">
+                                            <p class="font-weight-medium mb-1">
+                                                3 items just added to wish list by a user!
+                                            </p>
+                                            <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
 
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
@@ -234,12 +241,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/category">
-                            <i class="iconsminds-bucket"></i>Pge Tag Managment
+                        <a href="/admin/tag">
+                            <i class="iconsminds-bucket"></i>Page Tag Managment
                         </a>
                     </li>
-                   
-                    
+
+
                     @{
                         if (!string.IsNullOrEmpty(ViewBag.menu))
                         {
@@ -251,7 +258,7 @@
                                     foreach (var item in model.list)
                                     {
 
-                                        <li >
+                                        <li>
                                             <a href="/admin/page/@item.typeID" target="_blank">
                                                 <i class="iconsminds-library"></i> @item.title Management
                                             </a>
@@ -801,7 +808,7 @@
     <script src="~/webAssets/newPortal/js/vendor/datatables.min.js"></script>
     <script src="~/webAssets/newPortal/js/vendor/perfect-scrollbar.min.js"></script>
     <script src="~/webAssets/newPortal/js/vendor/glide.min.js"></script>
-   
+
     <script src="~/webAssets/newPortal/js/vendor/progressbar.min.js"></script>
     <script src="~/webAssets/newPortal/js/vendor/jquery.barrating.min.js"></script>
     <script src="~/webAssets/newPortal/js/vendor/nouislider.min.js"></script>

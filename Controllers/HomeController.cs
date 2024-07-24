@@ -17,15 +17,25 @@ namespace greenEnergy.Controllers
     public class HomeController : Controller
     {
        
-        public async Task <ActionResult> page(string first, string second)
+        public async Task <ActionResult> page(string first, string second,string third)
         {
             try
             {
+                
                 pageSectionVM responsemodel = new pageSectionVM();
                 getURLVM model = new getURLVM();
-
-                model.lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
-                model.slug = (first + "/" + second).Trim('/');
+                string lang = Session["lang"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lang"].ToString();
+                if (first == "de")
+                    lang = "de";
+                if (first == "fa")
+                    lang = "fa";
+                if (first == "en" || string.IsNullOrEmpty(first))
+                    lang = "/";
+                Session["lan"] = lang;
+                ViewBag.lang = lang;
+                model.lang = lang == "/" ? "en" : lang; 
+                model.slug = (first + "/" + second ).Trim('/');
+                model.slug = !string.IsNullOrEmpty(third) ? model.slug + "/" + third : model.slug;
                 responsemodel = await methods.PostData(model, responsemodel, "/getURL", ""); //Request.Cookies["clientToken"].Value  فقط برای گرین
 
                 //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
@@ -59,7 +69,11 @@ namespace greenEnergy.Controllers
             return View();
         }
 
-        public ActionResult login()
+        public void changeLang(string lang)
+        {
+            Session["lang"] = lang.Replace("/","");
+        }
+    public ActionResult login()
         {
             ViewBag.Message = "Your application description page.";
 

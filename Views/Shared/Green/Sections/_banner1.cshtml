@@ -7,20 +7,23 @@
     <div class="custom-container">
 
 
-        <div class="service-items">
+        <div class="service-items banner1">
 
             @{
                 if (Model.contentChild != null)
                 {
                     foreach (var banner in Model.contentChild)
                     {
-                        string url = banner.dataList.SingleOrDefault(x => x.title == "url").title2;
-                        string title = banner.dataList.SingleOrDefault(x => x.title == "title").title2;
-                        string description = banner.dataList.SingleOrDefault(x => x.title == "description").title2;
-                        string image = banner.dataList.SingleOrDefault(x => x.title == "image").title2;
-                        <div class="service-box" data-aos="fade-right">
+                        string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+                        string url = string.IsNullOrEmpty( banner.dataList.SingleOrDefault(x => x.title == "url").title2 ) ? "#" : banner.dataList.SingleOrDefault(x => x.title == "url").title2;
+                        string title = string.IsNullOrEmpty (banner.dataList.SingleOrDefault(x => x.title == "title").title2) ? "banner title" : banner.dataList.SingleOrDefault(x => x.title == "title").title2;
+                        string description = string.IsNullOrEmpty(banner.dataList.SingleOrDefault(x => x.title == "description").title2 ) ? "banner description" : banner.dataList.SingleOrDefault(x => x.title == "description").title2;
+                        string image = string.IsNullOrEmpty(banner.dataList.SingleOrDefault(x => x.title == "image").title2 ) ? "/webAssets/green/assets/imgs/service-1.jpg" : baseImage + banner.dataList.SingleOrDefault(x => x.title == "image").title2  ;
+
+
+                        <div class="service-box" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
                             <a href="@url" class="service-img">
-                                <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@image" alt="service">
+                                <img src="@image" alt="service">
                             </a>
                             <div class="content">
                                 <h4 class="subtitle">@title</h4>

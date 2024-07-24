@@ -1,0 +1,45 @@
+﻿
+
+@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+    string heading = string.IsNullOrEmpty( Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? "ABOUT OUR COMPANY" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "Empowering Businesses\n with Strategic Insights" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "Guiding organizations through significant changes,  such as mergers, acquisitions, restructurings, or a cultural transformations, to minimize disruptions and maximize success." : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string image = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image").title2) ? "/webAssets/green/assets/imgs/about-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+    string image2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image2").title2) ? "/webAssets/green/assets/imgs/about-3.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image2").title2;
+    string buttonURL = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2) ? "#" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2;
+    string buttonText = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2) ? "READ MORE" : Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+
+}
+   
+<section class="about2-area section-highlight" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+    <div class="custom-container">
+        <div class="custom-row">
+            <div class="left-content" >
+                <div class="section-header">
+                    <h4 class="subtitle">
+                        <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                       @heading 
+                        <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                    </h4>
+                    <h1 class="title">
+                       @title 
+                    </h1>
+                </div>
+                <img src="@image" alt="about">
+            </div>
+            <div class="right-content" >
+                <img src="@image2" alt="about">
+                <p>
+                   @description 
+                </p>
+                <a href="@buttonURL" class="theme-btn">
+                    <span></span>
+                    @buttonText
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

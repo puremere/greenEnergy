@@ -33,17 +33,87 @@
 
 <ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> @Model.selectedType.title List</a>
+        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add New @Model.selectedType.title</a>
 
     </li>
     <li class="nav-item">
-        <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add New @Model.selectedType.title</a>
+        <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> @Model.selectedType.title List </a>
 
     </li>
 
 </ul>
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Add New Language</h5>
+                        <form method="post" action="/admin/setPage">
+                            @Html.AntiForgeryToken()
+                            <input hidden name="sectinoTypeID" value="@Model.selectedType.typeID" />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input required type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Button Text</label>
+                                <input type="text" id="seachQuery" name="buttonText" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Description</label>
+                                <input required type="text" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">URL:</label>
+                                <input required type="text" id="seachQuery" name="url" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Meta  Title:</label>
+                                <input required type="text" id="seachQuery" name="metaTitle" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Layout:</label>
+                                @Html.DropDownList("sectionLayoutID", new SelectList(Model.layoutList, "sectionLayoutID", "menuTitle"), new { @class = "form-control", name = "sectionLayoutID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Language:</label>
+                                @Html.DropDownList("languateID", new SelectList(Model.langauageList, "languageID", "title"), new { @class = "form-control", name = "languateID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tag:</label>
+                                @Html.ListBox("secTagID", new SelectList(Model.tagList, "tagID", "title"), new { @class = "form-control", name = "secTagID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Category:</label>
+                                @Html.DropDownList("categoryID", new SelectList(Model.categoryList, "categoryID", "title"), new { @class = "form-control", name = "categoryID" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Image:</label>
+                                <input type="file" id="seachQuery" name="image" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
             <div class="col-sm-12">
                 <!-- Details Start -->
@@ -138,73 +208,9 @@
                 </div>
             </div>
         </div>
-     
+
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5>Add New Language</h5>
-                        <form method="post" action="setPage">
-                            @Html.AntiForgeryToken()
-                            <input hidden name="sectinoTypeID" value="@Model.selectedType.typeID" />
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Title</label>
-                                <input required type="text" id="seachQuery" name="title" class="form-control col-md-7 col-xs-12">
 
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Button Text</label>
-                                <input type="text" id="seachQuery" name="buttonText" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Description</label>
-                                <input required type="text" id="seachQuery" name="description" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">URL:</label>
-                                <input required type="text" id="seachQuery" name="url" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Meta  Title:</label>
-                                <input required type="text" id="seachQuery" name="metaTitle" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Layout:</label>
-                                @Html.DropDownList("sectionLayoutID", new SelectList(Model.layoutList, "sectionLayoutID", "menuTitle"), new { @class = "form-control", name = "sectionLayoutID" })
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Language:</label>
-                                @Html.DropDownList("languateID", new SelectList(Model.langauageList, "languageID", "title"), new { @class = "form-control", name = "languateID" })
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Category:</label>
-                                @Html.DropDownList("categoryID", new SelectList(Model.categoryList, "categoryID", "title"), new { @class = "form-control", name = "categoryID" })
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Image:</label>
-                                <input type="file" id="seachQuery" name="image" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-
-
-
-                            <button type="submit" class="btn btn-primary mb-0 lgnsubmitt">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
 

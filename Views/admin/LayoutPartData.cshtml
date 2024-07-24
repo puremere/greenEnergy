@@ -10,6 +10,7 @@
     <script>
         $(".removeButton").click(function () {
 
+            $("#removeModal").modal("toggle");
             $("#removeID").val($(this).attr("idtogo"));
         })
         $(".editButton").click(function () {

@@ -1,0 +1,41 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+   
+}
+
+
+    <section class="testimonial-area">
+        <div class="custom-container">
+            <div class="swiper testimonial-slider">
+                <div class="swiper-wrapper">
+                    @foreach (var item in Model.contentChild)
+                    {
+                       
+                        string title = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "title").title2) ? "ALEXANDRIA" : item.dataList.SingleOrDefault(x => x.title == "title").title2;
+                        string Description = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "description").title2) ? "”I cannot thank magnus enough for the incredible impact it has < br > had on my life.From the moment I started using it, everything changed for the better.I have < br > remarkable transformation that I never thought possible.”" : item.dataList.SingleOrDefault(x => x.title == "description").title2;
+                        string image = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "image").title2) ? "/webAssets/green/assets/imgs/testimonial.png" : baseImage + item.dataList.SingleOrDefault(x => x.title == "image").title2;
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-content">
+                                <img src="@image" alt="Testimonial">
+                                <h4 class="subtitle">@title </h4>
+                                <p>
+                                    @Description
+                                    
+                                </p>
+                                <span class="line-shape"></span>
+                            </div>
+                        </div>
+                    }
+
+                   
+                </div>
+
+
+                <div class="testimonial-button-next"></div>
+                <div class="testimonial-button-prev"></div>
+            </div>
+        </div>
+    </section>

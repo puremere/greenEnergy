@@ -1,83 +1,98 @@
-﻿@model greenEnergy.ViewModel.partialSectionVM
+﻿@model greenEnergy.ViewModel.pageContentVM
 
-<section class="section-highlight service-area">
+
+@{
+    string heading = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? "list heading" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "list title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+
+}
+
+<section class="section-highlight ">
     <div class="custom-container">
         <div class="section-header">
             @{
-                if (Model.itemModel.typeID == new Guid("00000000-0000-0000-0000-000000000000"))
+                if (Model.typeID == new Guid("00000000-0000-0000-0000-000000000000") || Model.typeID == null)
                 {
-                    if (Model.itemModel.dataList != null)
-                    {
-                        if (Model.itemModel.dataList.Count() > 0)
-                        {
-                            <section class="section-highlight story-area">
-                                <div class="custom-container">
-                                     <div class="section-header">
-                                        <h4 class="subtitle">
-                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                                            @Model.itemModel.title
-                                            <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                                        </h4>
-                                        <h1 class="title"> @Model.itemModel.description</h1>
-                                    </div>
+                        <section class="section-highlight story-area">
+                            <div class="custom-container">
+                                <div class="section-header">
+                                    <h4 class="subtitle">
+                                        <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                        @heading
+                                        <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                                    </h4>
 
-                                    <div class="story-items">
-                                        @foreach (var item in Model.itemModel.dataList)
-                                        {
-                                            <div class="col" data-aos="fade-right" data-aos-duration="1500">
-                                                <div class="story-box">
-                                                    <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
-                                                    <div class="img-box">
-                                                        <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" alt="Story">
-                                                        <span class="meta-date">@item.date.ToString("ddd MMM dd yyyy")</span>
-                                                    </div>
-                                                    <div class="content-box">
-                                                        <h4 class="subtitle">@item.title</h4>
-                                                        <h1 class="title"><a href="#">>@item.description</a></h1>
-                                                        <ul>
-                                                            <!--                                <li><i class="las la-check"></i> Expertise-driven Solutions</li>-->
-                                                            <!--                                <li><i class="las la-check"></i> Agile and Adaptive</li>-->
-                                                        </ul>
-                                                        <div class="bottom-action">
-                                                            <a href="@item.URL" class="theme-btn">
-                                                                <span></span>
-                                                                @item.title2
-                                                            </a>
-                                                        </div>
+                                </div>
+                                <div class="section-header">
+                                    <h1 class="title"> @title</h1>
+                                </div>
+
+                                <div class="story-items" data-aos="fade-up">
+                                    @foreach (var item in Model.contentChild)
+                                    {
+                                        string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+                                        string image = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "image").title2) ? baseImage + "/placeHolder.svg" : baseImage + item.dataList.SingleOrDefault(x => x.title == "image").title2;
+                                        string Itemtitle = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "title").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "title").title2;
+                                        string description = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "description").title2) ? "slider Description" : item.dataList.SingleOrDefault(x => x.title == "description").title2;
+                                        string buttonURL = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "buttonURL").title2) ? "#" : item.dataList.SingleOrDefault(x => x.title == "buttonURL").title2;
+                                        string buttonText = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2) ? "View More" : item.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2;
+
+                                        string date = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "date").title2) ? "navText1" : item.dataList.SingleOrDefault(x => x.title == "date").title2;
+
+                                        <div class="col" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+                                            <div class="story-box">
+                                                <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
+                                                <div class="img-box">
+                                                    <img src="@image" alt="Story">
+                                                    <span class="meta-date">@date</span>
+                                                </div>
+                                                <div class="content-box">
+                                                    <h4 class="subtitle">@Itemtitle</h4>
+                                                    <h1 class="title"><a href="#">@description</a></h1>
+                                                    <ul>
+                                                        <!--                                <li><i class="las la-check"></i> Expertise-driven Solutions</li>-->
+                                                        <!--                                <li><i class="las la-check"></i> Agile and Adaptive</li>-->
+                                                    </ul>
+                                                    <div class="bottom-action">
+                                                        <a href="@buttonURL" class="theme-btn">
+                                                            <span></span>
+                                                            @buttonText
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
+                                        </div>
+                                    }
 
-                                       
-                                    </div>
+
                                 </div>
-                            </section>
-                        }
-
-                    }
+                            </div>
+                        </section>
                 }
                 else
                 {
-                    if (Model.itemModel.childList != null)
+                    if (Model.childList != null)
                     {
-                        if (Model.itemModel.childList.Count() > 0)
+                        if (Model.childList.Count() > 0)
                         {
                             <section class="section-highlight story-area">
                                 <div class="custom-container">
                                     <div class="section-header">
                                         <h4 class="subtitle">
                                             <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                                            @Model.itemModel.title
+                                            @heading
                                             <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
                                         </h4>
-                                        <h1 class="title"> @Model.itemModel.description</h1>
+
+                                    </div>
+                                    <div class="section-header">
+                                        <h1 class="title"> @title</h1>
                                     </div>
 
-                                    <div class="story-items">
-                                        @foreach (var child in Model.itemModel.childList)
+                                    <div class="story-items" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+                                        @foreach (var child in Model.childList)
                                         {
-                                            <div class="col" data-aos="fade-right" data-aos-duration="1500">
+                                            <div class="col">
                                                 <div class="story-box">
                                                     <img src="~/webAssets/green/assets/imgs/bg-shape-3.png" alt="shape" class="shape">
                                                     <div class="img-box">
@@ -102,7 +117,7 @@
                                             </div>
                                         }
 
-                                      
+
                                     </div>
                                 </div>
                             </section>

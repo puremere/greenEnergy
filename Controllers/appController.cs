@@ -24,6 +24,7 @@ using greenEnergy.ViewModel;
 using Spire.Pdf;
 using Spire.Pdf.Texts;
 using System.Drawing;
+using StreamChat.Clients;
 
 
 
@@ -77,7 +78,7 @@ namespace greenEnergy.Controllers
 
         }
 
-        
+       
         public async Task<string> getLineChartData(viewVM? datamodel)
         {
             string srt = "[]";
@@ -210,27 +211,34 @@ namespace greenEnergy.Controllers
         }
 
 
-        private async Task<List<pageContentVM>> getChildContentWeb(Guid? sectinoID, pageContentVM? content)
+        private async Task<List<pageContentVM>> getChildContentWeb(Guid? sectinoID, pageContentVM? content, string lang)
         {
             using (Context dbcontext = new Context())
             {
                 List<pageContentVM> response = new List<pageContentVM>();
                 if (sectinoID != null)
                 {
-                    response = await dbcontext.contents.Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Include(x=>x.HTML).Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
                 }
                 else
                 {
-                    response = await dbcontext.contents.Where(x => x.parentID == content.conentID).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Include(x => x.HTML).Where(x => x.parentID == content.conentID).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
                 }
 
                 foreach (var item in response)
                 {
                     if (item.typeID != null)
                     {
-                        item.childList = await dbcontext.sections.Where(x => x.sectionTypeID == item.typeID).OrderByDescending(x => x.date).Select(x => new sectionVM { url = x.url, title = x.title, description = x.description, image = x.image, date = x.date, writer = x.writer, buttonText = x.buttonText }).Take(10).ToListAsync();
+
+                        language langselected = await dbcontext.languages.SingleOrDefaultAsync(x => x.title == lang);
+                        var qrrr = dbcontext.sections.Where(x => x.sectionTypeID == item.typeID );
+                        if (langselected != null)
+                        {
+                            qrrr = qrrr.Where(x => x.languageID == langselected.languageID);
+                        }
+                        item.childList = await qrrr.OrderByDescending(x => x.date).Select(x => new sectionVM { url = x.url, title = x.title, description = x.description, image = x.image, date = x.date, writer = x.writer, buttonText = x.buttonText }).Take(10).ToListAsync();
                     }
-                    item.contentChild = await getChildContentWeb(null, item);
+                    item.contentChild = await getChildContentWeb(null, item,lang);
                 }
 
                 return response;
@@ -348,6 +356,7 @@ namespace greenEnergy.Controllers
 
 
                             item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                            item.appMeta = item.appMeta.Replace("actionIDsrt", item.title);
                             item.appMeta = item.appMeta.Replace("childMetaString", myresult);
 
                         }
@@ -374,6 +383,7 @@ namespace greenEnergy.Controllers
                             getChildContentVM myresult = await getChildContent(null, item, datamodel, hitems);
                             item.contentChild = myresult.list;
                             item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                            item.appMeta = item.appMeta.Replace("actionIDsrt", item.title);
                             foreach (var nm in myresult.newMeta)
                             {
                                 string replacestring = nm.Value;
@@ -406,26 +416,49 @@ namespace greenEnergy.Controllers
 
                     foreach (var item in response)
                     {
-                        if (item.appType == "button")
+                        if (item.appType == "action")
                         {
 
                         }
                         if (!string.IsNullOrEmpty(item.cycleFields))
                         {
                             List<string> fieldslist = item.cycleFields.Trim(',').Split(',').ToList();
-                            foreach (var field in fieldslist)
+                            if (item.appType == "action")
                             {
-                                recycleDataMapVM mdl = new recycleDataMapVM()
+                                foreach (var field in fieldslist)
                                 {
-                                    viewID = item.title,
-                                    viewProperty = field.Replace("srt", ""),
-                                    dataProperty = item.title + "_" + field,
+                                    
+                                    recycleDataMapVM mdl = new recycleDataMapVM()
+                                    {
+                                        viewID = content.title,
+                                        actionID = item.title,
+                                        viewProperty = field.Replace("srt", ""),
+                                        dataProperty = item.title + "_" + field,
 
 
 
-                                };
-                                finalCycleFields += JsonConvert.SerializeObject(mdl) + ",";
+                                    };
+                                    finalCycleFields += JsonConvert.SerializeObject(mdl) + ",";
+                                }
+
                             }
+                            else
+                            {
+                                foreach (var field in fieldslist)
+                                {
+                                    recycleDataMapVM mdl = new recycleDataMapVM()
+                                    {
+                                        viewID = item.title,
+                                        viewProperty = field.Replace("srt", ""),
+                                        dataProperty = item.title + "_" + field,
+
+
+
+                                    };
+                                    finalCycleFields += JsonConvert.SerializeObject(mdl) + ",";
+                                }
+                            }
+                           
                         }
                         List<string> values = item.htmlFields.Split(',').Select(s => s.ToString()).ToList();
 
@@ -570,6 +603,7 @@ namespace greenEnergy.Controllers
                                 
                             }
                             item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                            item.appMeta = item.appMeta.Replace("actionIDsrt", item.title);
                             item.appMeta = item.appMeta.Replace("childMetaString", myresult);
 
                             if (!HtmlItems.ContainsKey(item.title))
@@ -679,11 +713,11 @@ namespace greenEnergy.Controllers
                             }
                             else
                             {
-                                if (item.appType == "cycleView")
+                                if (item.appType == "action")
                                 {
-
+                                    //string newposemeta = item.poseMeta.Replace("namesrt", item.title);
                                 }
-                                    Dictionary<string, string> hitems = new Dictionary<string, string>();
+                                Dictionary<string, string> hitems = new Dictionary<string, string>();
                                 hitems.Add("childMetaString", "");
                                 if (item.appType == "page")
                                 {
@@ -718,6 +752,7 @@ namespace greenEnergy.Controllers
                                     finalPose += item.poseMeta + ",";
                                 }
                                 item.appMeta = item.appMeta.Replace("viewMetaIDsrt", item.title);
+                                item.appMeta = item.appMeta.Replace("actionIDsrt", item.title);
                                 foreach (var nm in myresult.newMeta)
                                 {
                                     string replacestring = nm.Value;
@@ -763,7 +798,10 @@ namespace greenEnergy.Controllers
                                                         //speciality_textsrt
                                                         if (flowDetail.allData.ContainsKey(cycleM.dataProperty))
                                                         {
-                                                            iii.Add(cycleM.dataProperty, flowDetail.allData[cycleM.dataProperty]);
+                                                            if (!iii.ContainsKey(cycleM.dataProperty))
+                                                            {
+                                                                iii.Add(cycleM.dataProperty, flowDetail.allData[cycleM.dataProperty]);
+                                                            }
 
                                                         }
                                                         else
@@ -829,6 +867,35 @@ namespace greenEnergy.Controllers
 
 
             return modelResponce;
+        }
+
+
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<callVM> getStream()
+        {
+            object someObject;
+            object Userp;
+            Request.Properties.TryGetValue("UserToken", out someObject);
+
+            // Instantiate your Stream client factory using the API key and secret
+            // the secret is only used server side and gives you full access to the API.
+
+            var factory = new StreamClientFactory("uk93sxysc2jg", "q236gwsgtmdpz5zgx68skegmzq7ekjuunsj8zestgyppfs9vtcm396e9jzjpv34w");
+            var userClient = factory.GetUserClient();
+            var token = userClient.CreateToken(someObject.ToString());
+            // Or with an expiration:
+
+            string mytoken =  userClient.CreateToken(someObject.ToString(), DateTimeOffset.UtcNow.AddHours(1));
+
+
+            callVM response = new callVM()
+            {
+                 api = "uk93sxysc2jg",
+                  callUserID = someObject.ToString(),
+                   token = mytoken
+            };
+            return response;
         }
 
         [BasicAuthentication]
@@ -1008,7 +1075,7 @@ namespace greenEnergy.Controllers
                                 rsp.chunkList = lst0;
                             }
                         }
-                        urlData flowMain = urlDatas.SingleOrDefault(x => x.name == "main");
+                        urlData flowMain = urlDatas.SingleOrDefault(x => x.name == "main"); //اگر میخواهیم از اطلاعات خود کاربر استفاده کنیم باید داخل صفحه فیلدهای کاربر با اولین کلمه مین را درست کنیم
                         if (flowMain != null)
                         {
                             flowDetailAll allitems = await getDataFromFlowDetaialGeneral(model.userID, 0);
@@ -1119,6 +1186,45 @@ namespace greenEnergy.Controllers
                     }
                    
                 }
+                if (model.slug == "verificationPopup"){
+                    if (model.data.ContainsKey("submit"))
+                    {
+                        string submit = model.data["submit"];
+                        allDataDynamic.Add("submit_tosrt", submit);
+                    }
+                    if (model.data.ContainsKey("status"))
+                    {
+                        string status = model.data["status"];
+                        allDataDynamic.Add("status_valuesrt", status);
+                    }
+                    if (model.data.ContainsKey("label"))
+                    {
+                        string label = model.data["label"];
+                        allDataDynamic.Add("label_valuesrt", label);
+                    }
+                    if (model.data.ContainsKey("message"))
+                    {
+                        string message = model.data["message"];
+                        allDataDynamic.Add("message_valuesrt", message);
+                    }
+                    if (model.data.ContainsKey("reload"))
+                    {
+                        string reload = model.data["reload"];
+                        allDataDynamic.Add("reload_valuesrt", reload);
+                    }
+                    if (model.data.ContainsKey("go"))
+                    {
+                        string go = model.data["go"];
+                        allDataDynamic.Add("go_valuesrt", go);
+                    }
+                    if (model.data.ContainsKey("formType"))
+                    {
+                        string formType = model.data["formType"];
+                        allDataDynamic.Add("formType_valuesrt", formType);
+                    }
+
+                    // همه این آیتم ها باید در این صفحه وجود داشته باشند که یا پر شوند یا نه
+                }
                 if (model.slug.Contains("dynamicForm"))
                 {
                     
@@ -1138,8 +1244,15 @@ namespace greenEnergy.Controllers
                         string reload = model.data["reload"];
                         allDataDynamic.Add("reload_valuesrt", reload);
                     }
-                   
+                    if (model.data.ContainsKey("ralation"))
+                    {
+                        string reload = model.data["ralation"];
+                        allDataDynamic.Add("ralation_valuesrt", reload);
+                    }
 
+                    // در اینجا وریشن های دکمه سابمیت فرم داینامیک ست میشود 
+                    // این وریشن های در خود سابمیت تعریف شده اند
+                    // و در اینجا از متغیرهای دیتا که از صفحه قبل میاد پر میشن
 
                     int flowID = Int32.Parse(model.data["flowID"]);
                     newOrderFlow sflow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.newOrderFlowID == flowID);
@@ -2647,6 +2760,8 @@ namespace greenEnergy.Controllers
 
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic.Add("ID", item.ToString());
+                        dic.Add("flowID_valuesrt", item.ToString());
+                        dic.Add("relation_valuesrt", item.ToString());
                         if (flowFields != null)
                         {
                             foreach (var ffield in flowFields.Trim().Split(',').ToList())
@@ -2716,7 +2831,7 @@ namespace greenEnergy.Controllers
                             Guid userID = selectedFLow.userID;
                             newOrderFlow userFLow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userID && x.formID == 5);
                             List<newOrderFieldsVM> userFlowFields = await dbcontext.newOrderFields.Where(x => x.newOrderFlowID == userFLow.newOrderFlowID ).Select(x => new newOrderFieldsVM { flowID = x.newOrderFlowID, name = x.name, usedFeild = x.usedFeild, valueBool = x.valueBool, valueDateTime = x.valueDateTime, valueDuoble = x.valueDuoble, valueGuid = x.valueGuid, valueInt = x.valueInt, valueString = x.valueString }).ToListAsync();
-
+                            dic.Add("userToken_valuesrt", userID.ToString());
                             foreach (var field in userFields.Trim().Split(',').ToList())
                             {
 
@@ -5018,14 +5133,14 @@ namespace greenEnergy.Controllers
                     language lng = await dbcontext.languages.SingleOrDefaultAsync(x => x.title == model.lang);
                     //Include(x => x.Contents.Select(l => l.HTML)).Include(x => x.Contents.Select(y => y.Datas)).Include(x => x.Contents.Select(y => y.childContent)).Include(x => x.Contents.Select(y => y.childContent.Select(z => z.Datas)))
 
-                    var responseList = await dbcontext.sections.Include(x => x.SectionLayout).Include(x => x.SecTags).Include(x => x.Metas).Where(x => x.url == model.slug && x.languageID == lng.languageID).Select(x => new pageSectionVM { sectionID = x.sectionID, tags = x.SecTags.Select(t => new secTagVM { title = t.title, tagID = t.secTagID }).ToList(), Metas = x.Metas.Select(p => new MetaVM { Name = p.name, Content = p.content }).ToList(), date = x.date, title = x.title, image = x.image, url = x.url, sectionLayoutID = x.sectionLayoutID }).ToListAsync();
+                    var responseList = await dbcontext.sections.Include(x => x.SectionLayout).Include(x => x.SecTags).Include(x => x.Metas).Where(x => x.url == model.slug ).Select(x => new pageSectionVM { sectionID = x.sectionID, tags = x.SecTags.Select(t => new secTagVM { title = t.title, tagID = t.secTagID }).ToList(), Metas = x.Metas.Select(p => new MetaVM { Name = p.name, Content = p.content }).ToList(), date = x.date, title = x.title, image = x.image, url = x.url, sectionLayoutID = x.sectionLayoutID }).ToListAsync();
                     response = responseList.First();
-                    var list = await dbcontext.sectionLayouts.Include(x => x.LayoutParts).Include(x => x.Layout).Include(x => x.LayoutParts.Select(l => l.LayoutDatas)).Where(x => x.sectionLayoutID == response.sectionLayoutID).Select(x => new getsectionLayoutVM { sectionLayoutID = x.sectionLayoutID, menuTitle = x.menuTitle, title = x.Layout.name, LayoutParts = x.LayoutParts.Select(l => new getlayoutPartVM { title = l.typeName, LayoutDatas = l.LayoutDatas.Select(m => new getlayoutDataVM { dataType = m.dataType, image = m.image, priority = m.priority, url = m.url, urlTitle = m.urlTitle }).ToList() }).ToList() }).ToListAsync();
+                    var list = await dbcontext.sectionLayouts.Include(x => x.LayoutParts).Include(x => x.Layout).Include(x => x.LayoutParts.Select(l => l.LayoutDatas)).Where(x => x.sectionLayoutID == response.sectionLayoutID).Select(x => new getsectionLayoutVM { sectionLayoutID = x.sectionLayoutID, menuTitle = x.menuTitle, title = x.Layout.name, LayoutParts = x.LayoutParts.Select(l => new getlayoutPartVM {layoutPartID = l.layoutPartID,  title = l.typeName, LayoutDatas = l.LayoutDatas.Select(m => new getlayoutDataVM { layoutDataID = m.layoutDataID, parentID = m.parentID, dataType = m.dataType, image = m.image, priority = m.priority, url = m.url, urlTitle = m.urlTitle }).ToList() }).ToList() }).ToListAsync();
                     response.layoutModel = list.First();
                     response.layoutModel.dynamicList = await getLayoutDynamic(model.slug);
 
 
-                    response.Contents = await getChildContentWeb(response.sectionID, null);
+                    response.Contents = await getChildContentWeb(response.sectionID, null, model.lang);
                     await replaceSection(response.Contents, response); // اگر یک آیتم از داده های خود سکشن قرار بود استفاده کنه
                     //foreach (var item in response.Contents)
                     //{
@@ -5591,6 +5706,7 @@ namespace greenEnergy.Controllers
                     section section = await dbcontext.sections.Include(x => x.SectionLayout).FirstOrDefaultAsync(x => x.sectionID == model.sectinoID);
 
                     var querycontent = dbcontext.contents.Include(x => x.HTML).Include(x => x.sectionType).Include(x => x.HTML).AsQueryable();
+                    List<contentVM> querycontentList =await dbcontext.contents.Include(x => x.sectionType).Include(x => x.HTML).Select(x => new contentVM { htmlType = x.HTML.appType, stackWeight = x.stackWeight, cycleFields = x.cycleFields, htmlFeilds = x.HTML.dataField, formID = x.formID, htmlFormLink = x.HTML.formLink, description = x.description, multilayer = x.HTML.multilayer, priority = x.priority, title = x.title, image = x.HTML.image, contentID = x.contentID, htmlName = x.title, typeName = x.sectionType != null ? x.sectionType.title : "" }).ToListAsync();
                     if (model.contentParent != new Guid("00000000-0000-0000-0000-000000000000"))
                     {
                         querycontent = querycontent.Where(x => x.parentID == model.contentParent);
@@ -5600,7 +5716,7 @@ namespace greenEnergy.Controllers
                         querycontent = querycontent.Where(x => x.sectionID == model.sectinoID && x.parentID == null);
                     }
 
-                    output.contentList = await querycontent.Select(x => new contentVM { htmlType = x.HTML.appType, stackWeight = x.stackWeight, cycleFields = x.cycleFields, htmlFeilds = x.HTML.dataField, formID = x.formID, htmlFormLink = x.HTML.formLink, description = x.description, multilayer = x.HTML.multilayer, priority = x.priority, title = x.title, image = x.HTML.image, contentID = x.contentID, htmlName = x.title, typeName = x.sectionType != null ? x.sectionType.title : "" }).OrderBy(x => x.priority).ToListAsync();
+                    output.contentList = await querycontent.Select(x => new contentVM {  htmlType = x.HTML.appType, stackWeight = x.stackWeight, cycleFields = x.cycleFields, htmlFeilds = x.HTML.dataField, formID = x.formID, htmlFormLink = x.HTML.formLink, description = x.description, multilayer = x.HTML.multilayer, priority = x.priority, title = x.title, image = x.HTML.image, contentID = x.contentID, htmlName = x.title, typeName = x.sectionType != null ? x.sectionType.title : "" }).OrderBy(x => x.priority).ToListAsync();
 
 
                     var htmlquery = dbcontext.htmls.Where(x => x.layout == section.SectionLayout.layoutID).AsQueryable();

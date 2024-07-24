@@ -1,0 +1,42 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+    string heading = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? "SERVICES" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "Our Suite of Consulting Services" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+
+}
+
+
+<section class="service2-area">
+    <div class="custom-container">
+        <div class="section-heading">
+            <h4 class="subtitle">
+                <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                @heading 
+                <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+            </h4>
+            <h1 class="title">@title </h1>
+        </div>
+
+        <div class="service2-items">
+            @foreach (var item in Model.contentChild)
+            {
+                string number = "0" + (Model.contentChild.IndexOf(item) + 1).ToString() + "/";
+                string URL = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "url").title2) ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+                string itemTitle = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "title").title2) ? "Strategy Consulting" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+                string itemDescription = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "description").title2) ? "This may involve leadership development, change management, talent acquisition and retention,   and employee training." : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+
+                <div class="service2-box">
+                    <h1 class="title"><span>@number</span> <a href="@URL">@itemTitle</a></h1>
+                    <p>
+                        @itemDescription
+                        
+                    </p>
+                </div>
+            }
+
+          
+        </div>
+    </div>
+</section>

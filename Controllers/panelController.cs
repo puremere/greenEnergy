@@ -266,7 +266,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -295,7 +295,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -358,7 +358,7 @@ namespace greenEnergy.Controllers
 
                     if (!string.IsNullOrEmpty(responsemodel.message))
                     {
-                        string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                        string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                         bool exists = System.IO.File.Exists(fname);
                         if (exists)
                             System.IO.File.Delete(fname);
@@ -421,7 +421,7 @@ namespace greenEnergy.Controllers
 
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -476,7 +476,7 @@ namespace greenEnergy.Controllers
 
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -509,7 +509,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -536,7 +536,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -562,7 +562,7 @@ namespace greenEnergy.Controllers
 
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -675,7 +675,7 @@ namespace greenEnergy.Controllers
             if (System.Web.HttpContext.Current.Request.Files.Count > 0)
             {
                 //Create the Directory.
-                string path = System.Web.HttpContext.Current.Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
+                string path = System.Web.HttpContext.Current.Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -702,7 +702,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);
@@ -724,7 +724,7 @@ namespace greenEnergy.Controllers
             {
                 if (!string.IsNullOrEmpty(responsemodel.message))
                 {
-                    string fname = Path.Combine(Server.MapPath("~/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    string fname = Path.Combine(Server.MapPath("/Images/"+ @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
                     if (exists)
                         System.IO.File.Delete(fname);

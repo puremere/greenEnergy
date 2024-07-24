@@ -1,0 +1,79 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+
+    string heading = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? " OUR MENTORS" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2)  ? "Meet Our Talented Speakers" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+
+    string image = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image").title2)  ? "/webAssets/green/assets/imgs/team-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+    string imageTitle = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "imageTitle").title2)  ? "John" : Model.dataList.SingleOrDefault(x => x.title == "imageTitle").title2;
+
+    string image2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image2").title2)  ? "/webAssets/green/assets/imgs/team-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image2").title2;
+    string image2Title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image2Title").title2)  ? "John" : Model.dataList.SingleOrDefault(x => x.title == "image2Title").title2;
+
+    string image3 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image3").title2)  ? "/webAssets/green/assets/imgs/team-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image3").title2;
+    string image3Title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image3Title").title2)  ? "John" : Model.dataList.SingleOrDefault(x => x.title == "image3Title").title2;
+
+    string image4 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image4").title2)  ? "/webAssets/green/assets/imgs/team-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image4").title2;
+    string image4Title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image4Title").title2)  ? "John" : Model.dataList.SingleOrDefault(x => x.title == "image4Title").title2;
+
+    string image5 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image5").title2)  ? "/webAssets/green/assets/imgs/team-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image5").title2;
+    string image5Title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image5Title").title2)  ? "John" : Model.dataList.SingleOrDefault(x => x.title == "image5Title").title2;
+
+}
+
+
+<section class="team-area team3-area" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+    <div class="custom-container">
+        <div class="section-heading">
+            <h4 class="subtitle">
+                <img src="webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                @heading
+                <img src="webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+            </h4>
+            <h1 class="title">
+                @title
+
+            </h1>
+        </div>
+        <div class="teams-wrap">
+            <div class="team-slide-box">
+                <img src="@image" alt="Testimonial">
+                <div class="content">
+                    <h2 class="title"> @imageTitle </h2>
+
+                </div>
+            </div>
+            <div class="team-slide-box" >
+                <img src="@image2" alt="Testimonial">
+                <div class="content">
+                    <h2 class="title">@image2Title </h2>
+
+                </div>
+            </div>
+            <div class="team-slide-box" >
+                <img src="@image3" alt="Testimonial">
+                <div class="content">
+                    <h2 class="title">@image3Title </h2>
+
+                </div>
+            </div>
+            <div class="team-slide-box" >
+                <img src="@image4" alt="Testimonial">
+                <div class="content">
+                    <h2 class="title">@image4Title   </h2>
+
+                </div>
+            </div>
+            <div class="team-slide-box" >
+                <img src="@image5" alt="Testimonial">
+                <div class="content">
+                    <h2 class="title">@image5Title </h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

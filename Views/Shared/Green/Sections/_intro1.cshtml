@@ -1,21 +1,23 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
 
 <section class="section-highlight service-area">
-    <div class="custom-container">
-        <div class="section-header">
+    <div class="custom-container introBanner" data-aos="fade-up"  data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+        <div class="section-header" >
             @{
-                string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2;
-                string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2;
-                string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2;
+                string title = string.IsNullOrEmpty( Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "intro title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+                string description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "intro Description" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+                string description2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description2").title2) ? "intro Description" : Model.dataList.SingleOrDefault(x => x.title == "description2").title2;
+
+
                 if (Model.dataList != null)
                 {
                     if (Model.dataList.Count() > 0)
                     {
-                        <div class="left">
+                        <div class="left" >
                             <h1 class="title">@title</h1>
                             @*<h1 class="title">From the idea to the completed project with Green Energy 3000</h1>*@
                         </div>
-                        <div class="right">
+                        <div class="right" >
                             <p>@description</p>
                             <p>@description2</p>
                             @*<p>

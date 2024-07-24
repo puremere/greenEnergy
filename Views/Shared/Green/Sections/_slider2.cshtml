@@ -1,59 +1,63 @@
-﻿
+﻿@model greenEnergy.ViewModel.pageContentVM
 
 
+@{
+    string heading = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? "list heading" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty( Model.dataList.SingleOrDefault(x => x.title == "title").title2 )? "list title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+
+}
 <section class="gallery-area">
     <div class="custom-container">
 
         <div class="section-header" style="margin-bottom:45px">
             <h4 class="subtitle">
                 <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
-                TOP STORIES
+                @heading
                 <img src="~/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
             </h4>
-            <h1 class="title">Stay Informed with the Latest Happenings!</h1>
+            <h1 class="title">@title</h1>
         </div>
 
         <div class="swiper gallery-slider">
             <div class="swiper-wrapper">
                 @{
-                    if (Model.itemModel.typeID == new Guid("00000000-0000-0000-0000-000000000000"))
+                    if (Model.typeID == new Guid("00000000-0000-0000-0000-000000000000") || Model.typeID == null)
                     {
-                        if (Model.itemModel.dataList != null)
+                        foreach (var item in @Model.contentChild)
                         {
-                            if (Model.itemModel.dataList.Count() > 0)
-                            {
-                                foreach (var item in Model.itemModel.dataList)
-                                {
-                                    <div class="swiper-slide">
-                                        <div class="gallery-box">
-                                            <img src="~/webAssets/green/assets/imgs/mygallery-1.jpg" alt="gallery">
-                                            <div class="gallery-content">
-                                                <img class="shape" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.mediaURL" alt="shape">
-                                                <h1 class="title"><a href="@item.url">@item.title</a></h1>
+                            string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+                            string childtitle = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "title").title2) ? "title" : item.dataList.SingleOrDefault(x => x.title == "title").title2;
+                            string url = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "url").title2) ? "#" : item.dataList.SingleOrDefault(x => x.title == "url").title2;
+                            string image = string.IsNullOrEmpty( item.dataList.SingleOrDefault(x => x.title == "image").title2)  ? "/webAssets/green/assets/imgs/gallery-1.jpg" : baseImage + item.dataList.SingleOrDefault(x => x.title == "image").title2;
+                            
+                            <div class="swiper-slide">
+                                <div class="gallery-box">
+                                    <img src="@image" alt="gallery">
+                                    <div class="gallery-content">
+                                       
+                                        <h1 class="title"><a href="@url">@childtitle</a></h1>
 
-                                            </div>
-                                        </div>
                                     </div>
-                                }
-
-                            }
+                                </div>
+                            </div>
                         }
+
 
                     }
                     else
                     {
-                        if (Model.itemModel.childList != null)
+                        if (Model.childList != null)
                         {
-                            if (Model.itemModel.childList.Count() > 0)
+                            if (Model.childList.Count() > 0)
                             {
-                                foreach (var item in Model.itemModel.childList)
+                                foreach (var item in Model.childList)
                                 {
                                     <div class="swiper-slide">
                                         <div class="gallery-box">
                                             <img src="~/webAssets/green/assets/imgs/mygallery-1.jpg" alt="gallery">
                                             <div class="gallery-content">
                                                 <img class="shape" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" alt="shape">
-                                                <h1 class="title"><a href="@item.URL">@item.title</a></h1>
+                                                <h1 class="title"><a href="@item.url">@item.title</a></h1>
                                             </div>
                                         </div>
                                     </div>

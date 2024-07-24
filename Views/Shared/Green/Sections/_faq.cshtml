@@ -1,0 +1,75 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads";
+    string heading = string.IsNullOrEmpty( Model.dataList.SingleOrDefault(x => x.title == "heading").title2) ? "FAQ CORNER" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "Frequently Asked \n Questions" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "our clients are at the heart of everything we do. We are \n dedicated to partnering with businesses." : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string image = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image").title2) ? "/webAssets/green/assets/imgs/faq-3.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "image").title2;
+
+}
+
+
+
+<section class="faq-area faq2-area section-highlight" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">  
+    <div class="custom-container">
+        <div class="custom-row">
+            <div class="left">
+                <div class="faq-content">
+                    <div class="section-header">
+                        <h4 class="subtitle">
+                            <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                            @heading
+                            <img src="/webAssets/green/assets/imgs/star-shape.svg" alt="shape">
+                        </h4>
+                        <h1 class="title">
+                            @title
+
+                        </h1>
+                        <p>
+                            @description
+
+                        </p>
+                    </div>
+                    <div class="faq-list" id="accordion1">
+
+                        @foreach (var item in @Model.contentChild)
+                        {
+                            string question = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "question").title2) ? " How can I measure the success of a consulting engagement?" : Model.dataList.SingleOrDefault(x => x.title == "question").title2;
+                            string response = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "response").title2) ? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat doloribus iste commodi hic debitis quos ratione minima nulla eligendi voluptatibus." : Model.dataList.SingleOrDefault(x => x.title == "response").title2;
+                            string srt = Model.contentChild.IndexOf(item) + "";
+                            string headingvar = "heading" + srt;
+                            string collapsvar = "collaps" + srt;
+                            <div class="faq-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#@collapsvar" aria-expanded="false"
+                                            aria-controls="@collapsvar">
+                                        @question  <span class="icon">+</span>
+                                    </button>
+                                </h2>
+                                <div id="@collapsvar" class="accordion-collapse collapse"
+                                     aria-labelledby="headingOne" data-bs-parent="#accordion1">
+                                    <div class="accordion-body">
+                                        <p>@response </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="img-box-inner">
+                    <img src="@image" alt="faq" />
+                </div>
+                <span class="border-gradient-shape"></span>
+            </div>
+        </div>
+    </div>
+</section>

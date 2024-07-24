@@ -18,7 +18,7 @@ namespace greenEnergy.Model
 
         public Context() : base("health")
         {
-            Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
+              Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
            // Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
