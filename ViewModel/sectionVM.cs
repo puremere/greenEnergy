@@ -6,8 +6,20 @@ using System.Web;
 namespace greenEnergy.ViewModel
 {
 
+   
     public class getChildContentWebVM
     {
+       
+    }
+    public class aps
+    {
+        public string alert { get; set; }
+    }
+    public class apnPayload
+    {
+        public aps aps { get; set; }
+        public string handle { get; set; }
+        public string callUUID { get; set; }
 
     }
     public class getChildContentVM

@@ -166,6 +166,11 @@ namespace greenEnergy.ViewModel
         public TabBar tabBar { get; set; }
     }
 
+    public class streamModel
+    {
+        public int code { get; set; }
+        public callVM result { get; set; }
+    }
     public class splash
     {
         public int code { get; set; }

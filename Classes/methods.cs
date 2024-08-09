@@ -38,7 +38,7 @@ namespace greenEnergy.Classes
                 return JsonConvert.DeserializeObject<T2>(final);
             }
         }
-        public static async Task<string> removenull(string main, string sub)
+        public static async Task<string> removenull(string main, string sub,string name)
         {
             //{ "nav":{"sample":null, "title":"titlesrt","color":"colorsrt" , "leading":leadsrt, "trailing":trailsrt},"viewID": "viewMetaIDsrt", "view":childMetaString}
             string srt = main;
@@ -84,6 +84,31 @@ namespace greenEnergy.Classes
         {
             var method = instance.GetType().GetMethod(methodName);
             return method.Invoke(instance, parameters);
+        }
+        public static string PersianToEnglish(this string persianStr)
+        {
+            Dictionary<char, char> LettersDictionary = new Dictionary<char, char>
+            {
+                ['۰'] = '0',
+                ['۱'] = '1',
+                ['۲'] = '2',
+                ['۳'] = '3',
+                ['۴'] = '4',
+                ['۵'] = '5',
+                ['۶'] = '6',
+                ['۷'] = '7',
+                ['۸'] = '8',
+                ['۹'] = '9'
+            };
+            foreach (var item in persianStr)
+            {
+                if (LettersDictionary.ContainsKey(item))
+                {
+                    persianStr = persianStr.Replace(item, LettersDictionary[item]);
+
+                }
+            }
+            return persianStr;
         }
 
     }

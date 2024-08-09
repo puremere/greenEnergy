@@ -142,6 +142,18 @@
                                                                     </div>
                                                                 }
 
+                                                                else if (prod.title == "paddingsrt")
+                                                                {
+
+                                                                    greenEnergy.ViewModel.marginVM marginmodel = string.IsNullOrEmpty(prod.title2) ? new greenEnergy.ViewModel.marginVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.marginVM>(prod.title2);
+
+                                                                    <div>
+                                                                        <p style="display:flex"><span> lead : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.lead" /></span> </p>
+                                                                        <p style="display:flex"><span> trail : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.trail" /></span></p>
+                                                                        <p style="display:flex"><span> top : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.top" /></span> </p>
+                                                                        <p style="display:flex"><span> bottom : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.bottom " /></span></p>
+                                                                    </div>
+                                                                }
                                                                 else
                                                                 {
                                                                     <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@prod.title2" />

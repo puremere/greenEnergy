@@ -162,6 +162,9 @@ namespace greenEnergy.Model
         
         public int isCycle { get; set; }
         public int isCustom { get; set; }
+        public int thirdIDIsNeeded { get; set; }
+        public int formOwner { get; set; }
+        
         public int? formTypeID { get; set; }
         public int? formID { get; set; }
         [ForeignKey("formID")]
@@ -179,6 +182,8 @@ namespace greenEnergy.Model
 
 
         public int isLinkToMain { get; set; }
+        public string conditionStatus { get; set; }
+        public int conditionStatusOperator { get; set; }
         public string operat { get; set; }
 
     }
@@ -424,6 +429,10 @@ namespace greenEnergy.Model
     //    public string backColor { get; set; }
     //    public string backColor { get; set; }
     //}
+
+
+
+
     public class content  // JAView for app
     {
         

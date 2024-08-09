@@ -54,8 +54,8 @@ namespace greenEnergy.ViewModel
     public class sendOrderNotif
     {
         public string orderID { get; set; }
+        public string text { get; set; }
         public double lat { get; set; }
-
         public double lon { get; set; }
     }
     public class getCityVM
@@ -522,6 +522,11 @@ namespace greenEnergy.ViewModel
         public newcity destination { get; set; }
         public int netTotal { get; set; }
         public string distance { get; set; }
+    }
+    public class callBackVM
+    {
+        public string type { get; set; }
+        public string data { get; set; }
     }
     public class notifVM
     {
