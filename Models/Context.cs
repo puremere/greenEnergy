@@ -88,6 +88,7 @@ namespace greenEnergy.Model
         public DbSet<urlData> urlDatas { get; set; }
         public DbSet<flowRelation> flowRelations { get; set; }
         public DbSet<flowStatus> flowStatuses { get; set; }
+        public DbSet<flowLog> FlowLogs { get; set; }
         
 
 
@@ -137,6 +138,9 @@ namespace greenEnergy.Model
             
             modelBuilder.Entity<userRelation>().HasRequired(m => m.user).WithMany(t => t.userRelationList).HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<userRelation>().HasRequired(m => m.partner).WithMany(t => t.partnerList).HasForeignKey(m => m.partnerID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<flowLog>().HasOptional(m => m.baseFlow).WithMany(t => t.FlowLogs).HasForeignKey(m => m.baseFlowID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<flowLog>().HasRequired(m => m.actorFlow).WithMany().HasForeignKey(m => m.actorFlowID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<flowLog>().HasRequired(m => m.actionFlow).WithMany().HasForeignKey(m => m.actionFlowID).WillCascadeOnDelete(false);
             
 
 
@@ -147,6 +151,31 @@ namespace greenEnergy.Model
     }
     
 
+    public class flowLog
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int flowLogID { get; set; }
+        public string actorUserType { get; set; }
+        public int formID { get; set; }
+        public Guid userID { get; set; }
+        public int? baseFlowID { get; set; }
+        [ForeignKey("baseFlowID")]
+        public virtual newOrderFlow baseFlow { get; set; }
+
+
+        public int actionFlowID { get; set; }
+        [ForeignKey("actionFlowID")]
+        public virtual newOrderFlow actionFlow { get; set; }
+
+
+        public int actorFlowID { get; set; }
+        [ForeignKey("actorFlowID")]
+        public virtual newOrderFlow actorFlow { get; set; }
+
+        public DateTime creationDate { get; set; }
+        public string actionTitle { get; set; }
+    }
     public class urlData
     {
         [Key]
@@ -159,6 +188,7 @@ namespace greenEnergy.Model
         public string flowFields { get; set; }
         public string userFields { get; set; }
         public string statusFields { get; set; }
+        public string logFields { get; set; }
         
         public int isCycle { get; set; }
         public int isCustom { get; set; }
@@ -185,6 +215,7 @@ namespace greenEnergy.Model
         public string conditionStatus { get; set; }
         public int conditionStatusOperator { get; set; }
         public string operat { get; set; }
+        public string extraRelation { get; set; }
 
     }
     public class relationType
@@ -1121,12 +1152,14 @@ namespace greenEnergy.Model
         public DateTime creationDate { get; set; }
         public DateTime actionDate { get; set; }
         public DateTime terminationDate { get; set; }
+        public DateTime changeStatusDate { get; set; }
 
         public virtual ICollection<newOrderFields> NewOrderFields { get; set; }
         public virtual ICollection<flowRelation> childFlows { get; set; }
         public virtual ICollection<flowRelation> parentFlows { get; set; }
         public virtual ICollection<flowCoding> flowCodings { get; set; }
         public virtual ICollection<flowProduct> flowProducts { get; set; }
+        public virtual ICollection<flowLog> FlowLogs { get; set; }
     }
     public class flowProduct
     {

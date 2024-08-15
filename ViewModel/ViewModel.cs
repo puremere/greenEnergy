@@ -8,7 +8,7 @@ using greenEnergy.Model;
 namespace greenEnergy.ViewModel
 {
     
-
+  
     public class poseparent
     {
         public string viewID { get; set; }
