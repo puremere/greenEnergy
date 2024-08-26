@@ -16,10 +16,10 @@ namespace greenEnergy.Model
     class Context : DbContext
     {
 
-        public Context() : base("health")
+        public Context() : base("green2") // NfcDb
         {
-              Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
-           // Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+            Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
+           //Database.SetInitializer<Context>(new  DropCreateDatabaseIfModelChanges <Context>());
         }
 
 
@@ -131,6 +131,7 @@ namespace greenEnergy.Model
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.newOrderID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
@@ -194,6 +195,8 @@ namespace greenEnergy.Model
         public int isCustom { get; set; }
         public int thirdIDIsNeeded { get; set; }
         public int formOwner { get; set; }
+        public int isOrderByDate { get; set; }
+        public int isForCurrentDay { get; set; }
         
         public int? formTypeID { get; set; }
         public int? formID { get; set; }
@@ -268,6 +271,7 @@ namespace greenEnergy.Model
         public virtual roleStartPage RoleStartPage { get; set; }
 
         public string startPageURL { get; set; }
+        public string roleName { get; set; }
         public string startPagetitle { get; set; }
         public string startPageIcon { get; set; }
         public int priority { get; set; }
@@ -927,6 +931,7 @@ namespace greenEnergy.Model
         public string itemLenght { get; set; }
         public string itemHeight { get; set; }
         public int pageNumber { get; set; }
+        public int priority { get; set; }
         public int formpage { get; set; }
         public int itempage { get; set; }
         public string itemPlaceholder { get; set; }
@@ -1122,9 +1127,10 @@ namespace greenEnergy.Model
         public int newOrderFlowID { get; set; }
 
 
-        public Guid newOrderID { get; set; }
+        public Guid? newOrderID { get; set; }
         [ForeignKey("newOrderID")]
         public virtual newOrder NewOrder { get; set; }
+
         public string  serventPhone { get; set; }
         public Guid userID { get; set; }
         [ForeignKey("userID")]
@@ -1279,6 +1285,7 @@ namespace greenEnergy.Model
         [Key]
         public Guid userID { get; set; }
         public string firebaseToken { get; set; }
+        public string deviceToken { get; set; }
         [Column(TypeName = "VARCHAR")]
         public string userType { get; set; }
         public string username { get; set; }

@@ -58,7 +58,7 @@ namespace greenEnergy.Controllers
 
                 return View(responsemodel);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return Content("");

@@ -34,7 +34,7 @@
     }
 <script>
 
-    
+
     var hideInnerEl = function (el) {
 
         var element = $(el);
@@ -65,7 +65,7 @@
     })
 
     $("#formList").change(function(){
-      
+
       let id = $(this).val();
       $(".childField").removeClass("childFieldShow");
       $(".childField").addClass("childFieldHide");
@@ -78,6 +78,7 @@
 
         $("#editDesc").val($(this).attr("desctogo"));
         $("#editGroup").val($(this).attr("grouptogo"));
+        $("#editPriority").val($(this).attr("prioritytogo"));
         $("#editPlace").val($(this).attr("placeholdertogo"));
         $("#itemTypeSelected").val($(this).attr("typetogo"));
         $("#itemDesignSelected").val($(this).attr("designtogo"));
@@ -130,6 +131,7 @@
                                             <th>عنوان</th>
                                             <th>توضیحات</th>
                                             <th>شماره گروه</th>
+                                            <th>اولویت</th>
                                             <th>تصویر</th>
                                             <th>پلیس هولدر</th>
                                             <th>مخفی</th>
@@ -154,6 +156,7 @@
                                             <td>@item.itemName</td>
                                             <td>@item.itemDesc</td>
                                             <td>@item.groupNumber</td>
+                                            <td>@item.priority</td>
                                             <td><img style="max-width:70px" src="/@item.itemtImage" /></td>
                                             <td>@item.itemPlaceholder</td>
                                             <td>@item.isHidden</td>
@@ -185,7 +188,7 @@
 
                                                     </form>
                                                     <p style="margin:0 15px"></p>
-                                                    <button data-bs-target="#editModal" data-bs-toggle="modal" isMultiple="@item.isMultiple" collectiontogo="@item.optionSelected" designtogo="@item.formItemDesingID" typetogo="@item.formItemTypeID" placeholdertogo="@item.itemPlaceholder" grouptogo ="@item.groupNumber" desctogo="@item.itemDesc" nametogo="@item.itemName" idtogo="@item.formItemID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
+                                                    <button data-bs-target="#editModal" data-bs-toggle="modal" isMultiple="@item.isMultiple" collectiontogo="@item.optionSelected" designtogo="@item.formItemDesingID" prioritytogo="@item.priority" typetogo="@item.formItemTypeID" placeholdertogo="@item.itemPlaceholder" grouptogo ="@item.groupNumber" desctogo="@item.itemDesc" nametogo="@item.itemName" idtogo="@item.formItemID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
 
                                                 </div>
 
@@ -224,6 +227,10 @@
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1">شماره گروه</h6>
                                             <input class="form-control" name="groupNumber" placeholder="   " type="text">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <h6 style="margin-bottom:15px" class="main-content-label mb-1">اولویت</h6>
+                                            <input class="form-control" name="priority" placeholder="   " type="text">
                                         </div>
 
                                         <div class="col-lg-3 form-group">
@@ -353,7 +360,7 @@
                                                 <span class="custom-switch-indicator"></span>
                                             </label>
                                         </div>
-                                        
+
                                     </div>
 
                                  
@@ -388,7 +395,9 @@
                     <input type="text" id="editDesc" class="form-control" name="itemDesc" value="" />
                     <p>شماره گروه</p>
                     <input type="text" id="editGroup" class="form-control" name="groupNumber" value="" />
-
+                    <p style="margin:10px"></p>
+                    <p>اولویت</p>
+                    <input type="text" id="editPriority" class="form-control" name="priority" value="" />
                     <p style="margin:10px"></p>
                     <p>پلیس هولدر</p>
                     <input type="text" id="editPlace" class="form-control" name="itemPlaceholder" value="" />

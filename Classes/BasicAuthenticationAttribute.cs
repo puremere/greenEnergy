@@ -76,7 +76,9 @@ namespace greenEnergy.Classes
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            string SerializedString = "{\"code\":0,\"result\":{\"baseURL\":\"\",\"socketURL\":\"\",\"startPage\":\"startpagestring\",\"lang\":{\"code\":0,\"version\":1,\"direction\":1},\"theme\":{\"code\":0,\"version\":1,\"statusBarStyle\":0,\"dic\":{\"cBackground\":\"#F8F8F8\",\"cPrimary\":\"#7360df\",\"cTextBody\":\"#404649\",\"cTextBodyLight\":\"#404649aa\",\"cBackgorundTextView\":\"#DBE1E5\",\"cReverse\":\"#171B1E\",\"c\":\"#FAFAFA\",\"cBackgroundInner\":\"#FAFAFA\",\"cGray\":\"#B4B4B4\",\"cGreen\":\"#1BDE5C\",\"cGeen\":\"#03FC77\",\"cGrayLight\":\"#DBE1E5\",\"cRed\":\"#d63484\",\"cTabNormalItem\":\"#404649\",\"cTabSelectedItem\":\"#7360df\",\"cNavBarColor\":\"#F8F8F8\"}},\"tabBar\":null}}";
+
+            // health//string SerializedString = "{\"code\":0,\"result\":{\"baseURL\":\"\",\"socketURL\":\"\",\"startPage\":\"startpagestring\",\"lang\":{\"code\":0,\"version\":1,\"direction\":1},\"theme\":{\"code\":0,\"version\":1,\"statusBarStyle\":0,\"dic\":{\"cBackground\":\"#F8F8F8\",\"cPrimary\":\"#7360df\",\"cTextBody\":\"#404649\",\"cTextBodyLight\":\"#404649aa\",\"cBackgorundTextView\":\"#DBE1E5\",\"cReverse\":\"#171B1E\",\"c\":\"#FAFAFA\",\"cBackgroundInner\":\"#FAFAFA\",\"cGray\":\"#B4B4B4\",\"cGreen\":\"#1BDE5C\",\"cGeen\":\"#03FC77\",\"cGrayLight\":\"#DBE1E5\",\"cRed\":\"#d63484\",\"cTabNormalItem\":\"#404649\",\"cTabSelectedItem\":\"#7360df\",\"cNavBarColor\":\"#F8F8F8\"}},\"tabBar\":null}}";
+            string SerializedString = "{\"code\":0,\"result\":{\"baseURL\":\"\",\"socketURL\":\"\",\"startPage\":\"startpagestring\",\"lang\":{\"code\":0,\"version\":1,\"direction\":1},\"theme\":{\"code\":0,\"version\":1,\"statusBarStyle\":0,\"dic\":{\"cBackground\":\"#F8F8F8\",\"cPrimary\":\"#007449\",\"cTextBody\":\"#404649\",\"cTextBodyLight\":\"#404649aa\",\"cBackgorundTextView\":\"#DBE1E5\",\"cReverse\":\"#171B1E\",\"c\":\"#FAFAFA\",\"cBackgroundInner\":\"#FAFAFA\",\"cGray\":\"#B4B4B4\",\"cGreen\":\"#1BDE5C\",\"cGeen\":\"#03FC77\",\"cGrayLight\":\"#DBE1E5\",\"cRed\":\"#d63484\",\"cTabNormalItem\":\"#404649\",\"cTabSelectedItem\":\"#7360df\",\"cNavBarColor\":\"#F8F8F8\"}},\"tabBar\":null}}";
 
             if (actionContext.Request.Headers.Authorization != null)
             {
@@ -102,9 +104,10 @@ namespace greenEnergy.Classes
                 else
                 {
 
-                    ViewModel.splashMain  splashModel  = setUserURL(tokenUsername.Split(':')[1]);
+                    ViewModel.splashMain  splashModel  = setUserURL(tokenUsername.Split(':')[1],"");
                     SerializedString = SerializedString.Replace("startpagestring", splashModel.startPage);
-                    if (splashModel.tabs.Count() > 0)
+                    
+                    if (string.IsNullOrEmpty(splashModel.startPage))
                     {
                         string tabstring = JsonConvert.SerializeObject(splashModel.tabs);
                         SerializedString = SerializedString.Replace("\"tabBar\":null", "\"tabBar\":{\"pages\": " + tabstring + "}");
@@ -124,7 +127,7 @@ namespace greenEnergy.Classes
 
             }
         }
-        public  static ViewModel.splashMain setUserURL(string userID)
+        public  static ViewModel.splashMain setUserURL(string userID,string roleName)
         {
             using (Context dbcontext = new Context())
             {
@@ -133,16 +136,29 @@ namespace greenEnergy.Classes
                 
                 if (selectedUser != null)
                 {
-                    roleStartPage roleStart = dbcontext.roleStartPages.SingleOrDefault(x => x.userType == selectedUser.userType);
-
-                    List<roleStartPage> lst = dbcontext.roleStartPages.ToList();
-                    List<greenEnergy.ViewModel.splashTab> tabitems = roleStart.RoleNavURLs.OrderBy(x=>x.priority).Select(x => new ViewModel.splashTab { icon = x.startPageIcon, startPage = x.startPageURL, title = x.startPagetitle }).ToList();
-                    ViewModel.splashMain splashmodel = new ViewModel.splashMain()
+                    if (!string.IsNullOrEmpty(roleName)) {
+                        List<greenEnergy.ViewModel.splashTab> tabitems = dbcontext.roleNavURLs.Where(x=>x.roleName == roleName).OrderBy(x => x.priority).Select(x => new ViewModel.splashTab { icon = x.startPageIcon, startPage = x.startPageURL, title = x.startPagetitle }).ToList();
+                        ViewModel.splashMain splashmodel = new ViewModel.splashMain()
+                        {
+                            startPage = "",
+                            tabs = tabitems
+                        };
+                        return splashmodel;
+                    }
+                    else
                     {
-                        startPage = roleStart.startPage,
-                        tabs = tabitems
-                    };
-                    return splashmodel;
+                        roleStartPage roleStart = dbcontext.roleStartPages.SingleOrDefault(x => x.userType == selectedUser.userType);
+
+                        List<roleStartPage> lst = dbcontext.roleStartPages.ToList();
+                        List<greenEnergy.ViewModel.splashTab> tabitems = roleStart.RoleNavURLs.OrderBy(x => x.priority).Select(x => new ViewModel.splashTab { icon = x.startPageIcon, startPage = x.startPageURL, title = x.startPagetitle }).ToList();
+                        ViewModel.splashMain splashmodel = new ViewModel.splashMain()
+                        {
+                            startPage = roleStart.startPage,
+                            tabs = tabitems
+                        };
+                        return splashmodel;
+                    }
+                    
                 }
                 else
                 {

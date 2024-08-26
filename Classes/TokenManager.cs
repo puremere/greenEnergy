@@ -18,12 +18,16 @@ namespace greenEnergy.Classes
             var permClaims = new List<Claim>();
             permClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, mytoken));
             permClaims.Add(new Claim("user", username));
+
+
+          
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(permClaims),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(securityKey,
-                SecurityAlgorithms.HmacSha256Signature)
+                SecurityAlgorithms.HmacSha256Signature),
+                
             };
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();

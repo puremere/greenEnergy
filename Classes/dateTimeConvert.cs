@@ -68,10 +68,24 @@ namespace greenEnergy.Classes
             string year = persianCalendar.GetYear(georgianDate).ToString();
             string month = persianCalendar.GetMonth(georgianDate).ToString().PadLeft(2, '0');
             string day = persianCalendar.GetDayOfMonth(georgianDate).ToString().PadLeft(2, '0');
-            string persianDateString = string.Format("{0}/{1}/{2}", year, month, day);
+            string hour = persianCalendar.GetHour(georgianDate).ToString().PadLeft(2, '0');
+            string minut = persianCalendar.GetMinute(georgianDate).ToString().PadLeft(2, '0');
+            string second = persianCalendar.GetSecond(georgianDate).ToString().PadLeft(2, '0');
+            string persianDateString = string.Format("{0}/{1}/{2} {3}:{4}:{5}", year, month, day,hour,minut,second);
             return persianDateString;
         }
 
+        public static string ToPersianDateNoHourString(this DateTime georgianDate)
+        {
+            System.Globalization.PersianCalendar persianCalendar = new System.Globalization.PersianCalendar();
+
+            string year = persianCalendar.GetYear(georgianDate).ToString();
+            string month = persianCalendar.GetMonth(georgianDate).ToString().PadLeft(2, '0');
+            string day = persianCalendar.GetDayOfMonth(georgianDate).ToString().PadLeft(2, '0');
+          
+            string persianDateString = string.Format("{0}/{1}/{2}", year, month, day);
+            return persianDateString;
+        }
         /// <summary>
         /// یک تعداد روز را از یک تاریخ شمسی کم میکند یا به آن آضافه میکند
         /// </summary>

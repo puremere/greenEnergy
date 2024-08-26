@@ -226,6 +226,9 @@ namespace greenEnergy.ViewModel
         public string startPage { get; set; }
         public string title  { get; set; }
         public string icon { get; set; }
+        public Dictionary<string, string> data { set; get; }
+        public Dictionary<string, string> input { set; get; }
+        
     }
 
     public class splashMain

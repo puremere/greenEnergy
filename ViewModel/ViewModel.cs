@@ -72,6 +72,12 @@ namespace greenEnergy.ViewModel
 
         public double lon { get; set; }
     }
+    public class getTabVM
+    {
+        public string tabRole { get; set; }
+        public Dictionary<string, string> data { get; set; }
+        public Dictionary<string, string> input { get; set; }
+    }
     public class setProfileVM
     {
 
@@ -81,6 +87,7 @@ namespace greenEnergy.ViewModel
         public string shenaseSherkat { get; set; }
 
         public string firebaseToken { get; set; }
+        public string deviceToken { get; set; }
         public string hooshmandMashin { get; set; }
         public string postalCode { get; set; }
         public string cartMelliModir { get; set; }
@@ -1008,6 +1015,7 @@ namespace greenEnergy.ViewModel
         public string groupNumber { get; set; }
         public string hiddenCheckBox { get; set; }
         public int isHidden { get; set; }
+        public int priority { get; set; }
         public int? relatedFormItemID { get; set; }
         public string operat { get; set; }
         public string itemName { get; set; }

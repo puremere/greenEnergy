@@ -11,6 +11,7 @@
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+            ContextKey = "greenEnergy.Model.Context";
         }
 
         protected override void Seed(greenEnergy.Model.Context context)

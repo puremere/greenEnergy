@@ -112,6 +112,13 @@ namespace greenEnergy.ViewModel
         public string value { get; set; }
     }
 
+    public class styleVM
+    {
+        public string background_image  { get; set; }
+        public string background { get; set; }
+        public string border_radius { get; set; }
+      
+    }
     public class marginVM
     {
         public int top { get; set; }

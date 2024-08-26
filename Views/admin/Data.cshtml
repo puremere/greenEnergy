@@ -41,6 +41,30 @@
             $("#removeID").val($(this).attr("idtogo"));
         })
     </script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            menubar: false,
+
+            plugins: [
+                'code advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect | ' +
+                ' bold italic backcolor | alignleft aligncenter ' +
+                ' alignright alignjustify | bullist numlist outdent indent |' +
+                ' removeformat | help| link image | code',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ]
+        });
+        //tinymce.activeEditor.execCommand('mceDirectionRTL');
+    </script>
 }
 
 
@@ -125,6 +149,17 @@
                                                                 {
                                                                     <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@prod.title" value="" />
                                                                 }
+                                                                else if (prod.title == "stylesrt")
+                                                                {
+                                                                    greenEnergy.ViewModel.styleVM stylemodel = string.IsNullOrEmpty(prod.title2) ? new greenEnergy.ViewModel.styleVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(prod.title2);
+
+                                                                    <div>
+                                                                        <p style="display:flex"><span> background_image : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background_image" /></span> </p>
+                                                                        <p style="display:flex"><span> background : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background" /></span></p>
+                                                                        <p style="display:flex"><span> border-radius : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_radius" /></span> </p>
+
+                                                                    </div>
+                                                                }
                                                                 else if (prod.title == "marginsrt")
                                                                 {
 
@@ -137,7 +172,16 @@
                                                                         <p style="display:flex"><span> bottom : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.bottom " /></span></p>
                                                                     </div>
                                                                 }
+                                                                else if (prod.title.Contains("html"))
+                                                                {
+                                                                    <textarea name="title2" required="required" class="form-control" style="height:170px">@prod.title2</textarea>
 
+                                                                }
+                                                                else if (prod.title.Contains("html"))
+                                                                {
+                                                                    <textarea name="title2" required="required" class="form-control" style="height:170px">@prod.title2</textarea>
+
+                                                                }
                                                                 else
                                                                 {
                                                                     <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@prod.title2" />
