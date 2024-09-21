@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using greenEnergy.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,8 +71,8 @@ namespace greenEnergy.Classes
             }
             catch (Exception e)
             {
-
-                throw;
+                //return "";
+                //throw;
             }
              // "{'viewID':'ViewIDsrt','top2top':top2topsrt,'bottom2bottom':bottom2bottomsrt,'lead2lead':lead2leadsrt,'trail2trail':trail2trailsrt,'top2bottom':top2bottomsrt,'bottom2top':bottom2topsrt,'trail2lead':trail2leadsrt,'lead2trail':lead2trailsrt,'centerX':centerXsrt,'centerY':centerYsrt}";
 
@@ -111,5 +112,59 @@ namespace greenEnergy.Classes
             return persianStr;
         }
 
+        public static string getMyStyle(string style)
+        {
+            styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+            string finalStyle = "";
+            styleModel = JsonConvert.DeserializeObject<styleVM>(style);
+
+            if (styleModel != null)
+            {
+                if (styleModel.background_image != "")
+                {
+                    string path = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+                    string imagestring = path + styleModel.background_image;
+                    finalStyle += "background-image:url(" + imagestring + ");";
+                }
+                if (styleModel.background != "")
+                {
+                    finalStyle += "background:" + styleModel.background + ";";
+                }
+                if (styleModel.border_color != "")
+                {
+                    finalStyle += "border-color:" + styleModel.border_color + ";";
+                }
+                if (styleModel.border_size != "")
+                {
+                    finalStyle += "border:" + styleModel.border_size + ";";
+                }
+                if (styleModel.border_radius != "")
+                {
+                    finalStyle += "border-radius:" + styleModel.border_radius + ";";
+                }
+                if (styleModel.width != "")
+                {
+                    finalStyle += "width:" + styleModel.width + ";";
+                }
+                if (styleModel.height != "")
+                {
+                    finalStyle += "height:" + styleModel.height + ";";
+                }
+                if (styleModel.padding != "")
+                {
+                    finalStyle += "padding:" + styleModel.padding + ";";
+                }
+                if (styleModel.margin != "")
+                {
+                    finalStyle += "margin:" + styleModel.margin + ";";
+                }
+                if (styleModel.box_shadow != "")
+                {
+                    finalStyle += "box-shadow:" + styleModel.box_shadow + ";";
+                }
+            }
+            
+            return finalStyle;
+        }
     }
 }

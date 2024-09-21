@@ -1,0 +1,14 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+
+@if (Model.contentChild != null)
+{
+    foreach (var item in Model.contentChild)
+    {
+        
+        string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+
+        @Html.RenderPartial(partialPath, item);
+    }
+}
+
+

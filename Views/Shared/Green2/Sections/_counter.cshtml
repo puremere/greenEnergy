@@ -1,0 +1,52 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+
+@{
+
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string html_Item1Text = Model.dataList.SingleOrDefault(x => x.title == "html_Item1Text") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_Item1Text").title2;
+    string Item1Count = Model.dataList.SingleOrDefault(x => x.title == "Item1Count") == null ? "0" : Model.dataList.SingleOrDefault(x => x.title == "Item1Count").title2;
+
+    string html_Item2Text = Model.dataList.SingleOrDefault(x => x.title == "html_Item2Text") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_Item2Text").title2;
+    string Item2Count = Model.dataList.SingleOrDefault(x => x.title == "Item2Count") == null ? "0" : Model.dataList.SingleOrDefault(x => x.title == "Item2Count").title2;
+
+    string html_Item3Text = Model.dataList.SingleOrDefault(x => x.title == "html_Item3Text") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_Item3Text").title2;
+    string Item3Count = Model.dataList.SingleOrDefault(x => x.title == "Item3Count") == null ? "0" : Model.dataList.SingleOrDefault(x => x.title == "Item3Count").title2;
+
+    string html_Item4Text = Model.dataList.SingleOrDefault(x => x.title == "html_Item4Text") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_Item4Text").title2;
+    string Item4Count = Model.dataList.SingleOrDefault(x => x.title == "Item4Count") == null ? "0" : Model.dataList.SingleOrDefault(x => x.title == "Item4Count").title2;
+
+}
+    
+
+<section class="facts section-small bg-gradiant">
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-3">
+                <span class="numscroller text-color-gn-white roller-title-number-1 scrollzip isShown" data-min="0" data-max="5" data-delay="5" data-increment="1" data-slno="1">@Item1Count</span>
+                <h5 class="no-pad text-color-gn-white ">@Html.Raw(html_Item1Text)</h5>
+            </div>
+            <div class="col-sm-3 ">
+                <span class="numscroller text-color-gn-white roller-title-number-2 scrollzip isShown" data-min="0" data-max="2785" data-delay="5" data-increment="3" data-slno="2">@Item2Count</span>
+                <h5 class="no-pad text-color-gn-white ">@Html.Raw(html_Item2Text)</h5>
+            </div>
+            <div class="col-sm-3 ">
+                <span class="numscroller text-color-gn-white roller-title-number-3 scrollzip isShown" data-min="0" data-max="12" data-delay="5" data-increment="1" data-slno="3">@Item3Count</span>
+                <h5 class="no-pad text-color-gn-white">@Html.Raw(html_Item3Text)</h5>
+            </div>
+            <div class="col-sm-3">
+                <span class="numscroller text-color-gn-white roller-title-number-4 scrollzip isShown" data-min="0" data-max="78" data-delay="5" data-increment="1" data-slno="4">@Item4Count</span>
+                <h5 class="no-pad text-color-gn-white">@Html.Raw(html_Item4Text)</h5>
+            </div>
+        </div>
+    </div>
+</section>

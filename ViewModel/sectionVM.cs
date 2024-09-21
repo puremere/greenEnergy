@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace greenEnergy.ViewModel
 {
@@ -234,6 +235,7 @@ namespace greenEnergy.ViewModel
         public string url { get; set; }
         public int priority { get; set; }
         public string title { get; set; }
+        [AllowHtml]
         public List<string> title2 { get; set; }
         public string description { get; set; }
         public string description2 { get; set; }
@@ -317,6 +319,7 @@ namespace greenEnergy.ViewModel
 
     public class dataListVM
     {
+        public List<string> imageList { get; set; }
         public List<dataVM> dataList { get; set; }
         public contentVM selectedContent { get; set; }
 
@@ -364,6 +367,7 @@ namespace greenEnergy.ViewModel
 
     public class pageListVM
     {
+        public List<string> imageList { get; set; }
         public List<sectionVM> sectionList { get; set; }
         public List<sectionLayoutVM> layoutList { get; set; }
         public List<languagVM> langauageList { get; set; }

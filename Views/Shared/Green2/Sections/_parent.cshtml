@@ -1,0 +1,15 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+
+
+
+
+@foreach (var item in Model.contentChild)
+{
+
+    string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+
+    @Html.RenderPartial(partialPath, item);
+
+}

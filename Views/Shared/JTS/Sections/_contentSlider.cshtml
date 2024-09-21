@@ -1,0 +1,111 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string btnText = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+    string btnDesciption = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+
+}
+<section class="" style="@finalStyle">
+
+
+    <div style="text-align:center">@Html.Raw(btnText)</div>
+    <div style="text-align:center">@Html.Raw(btnDesciption)</div>
+    @if (Model.typeID != new Guid("00000000-0000-0000-0000-000000000000") && Model.typeID != null)
+    {
+        if (Model.childList != null)
+        {
+            <div class="multiple-items">
+                @foreach (var item in Model.childList)
+                {
+                    string image = item.image;
+                    string url = "Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/" + @image;
+                    string title = item.title;
+                    string blogurl = item.url;
+                    int index = @Model.childList.IndexOf(item);
+                    string active = index == 0 ? "active" : "";
+
+                <div style="">
+                    <div style="padding:15px">
+
+                        <div style=" background-color:white; border-radius:10px">
+                            <div style="padding:15px;;border-radius:15px; -webkit-box-shadow: 1px 4px 11px 1px rgba(0,0,0,0.37); box-shadow: 1px 4px 11px 1px rgba(0,0,0,0.37);">
+
+                                <a href="@blogurl">
+                                    <img style="border-radius:8px; width:100%; height:250px; object-fit:cover; margin-bottom:15px" class="imageCurve img-responsive center-block" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" alt="">
+                                    <span style="margin-left:10px;" class="date subtitle">@item.date.ToLongDateString()</span>
+                                    <p style="margin:15px 0;margin-left:10px">@item.title</p>
+                                </a>
+                                <p style="margin:15px 0;margin-left:10px">@item.description</p>
+                                <a style="display:flex;align-items:center;margin-left:10px" href="news-single.html"><span style="color:#72499D">Read more</span>   <i style="margin:0 10px" class="fa fa-chevron-right"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                    
+                }
+
+            </div>
+
+
+        }
+    }
+    else
+    {
+<div class="multiple-items2">
+    @foreach (var item in Model.contentChild)
+    {
+        string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+        string userimage = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "img_user").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + item.dataList.SingleOrDefault(x => x.title.Contains("img_user")).title2;
+        string html_title = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_title").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+        string html_description = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_description").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+        string html_userName = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_userName").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_userName").title2;
+        
+
+
+        int index = @Model.contentChild.IndexOf(item);
+        string active = index == 0 ? "active" : "";
+        string stylec = item.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "style").title2;
+        styleVM styleModelc = new greenEnergy.ViewModel.styleVM();
+        string finalStylec = stylec == "" ? "" : greenEnergy.Classes.methods.getMyStyle(stylec);
+
+        <div style="padding:15px">
+            <div style=" background-color:white; border-radius:10px">
+                <div style="@finalStylec">
+                    <p style="margin:15px 0">@Html.Raw(html_title)</p>
+                    <p style="margin:15px 0">@Html.Raw(html_description)</p>
+                    <div style="display:flex; align-items:center; ">
+                        <img src="@userimage" style="width:70PX; height:70px; border-radius:50%; object-fit:cover" />
+                        <div style="margin:5px">
+                            <div>@Html.Raw(html_userName)</div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+    }
+
+</section>
+
+
+
+
+
+

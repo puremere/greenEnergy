@@ -1,0 +1,588 @@
+﻿
+@using greenEnergy.ViewModel;
+@{
+    greenEnergy.ViewModel.getsectionLayoutVM layoutmodel = @ViewBag.layoutModel;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/misc/favicon.png">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>
+        Green Energy 3000
+    </title>
+    <!-- Bootstrap Core CSS-->
+    <link href="~/webAssets/green2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS-->
+    <link href="~/webAssets/green2/css/main.css" rel="stylesheet">
+    <link href="~/webAssets/green2/css/font.css" rel="stylesheet">
+    <link href="~/webAssets/green2/css/custom.css" rel="stylesheet">
+    @RenderSection("heading", required: false)
+    <!-- jQuery-->
+    <script src="~/webAssets/green2/js/jquery-1.12.4.min.js"></script>
+    <link href="~/webAssets/green2/css/slick.css" rel="stylesheet" />
+    <link href="~/webAssets/green2/css/slick-theme.css" rel="stylesheet" />
+    <script src="~/webAssets/green2/js/slick.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css" />
+    <style>
+        .slick-prev:before, .slick-next:before {
+            color: black;
+        }
+    </style>
+</head>
+<body class="top" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Preloader-->
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+
+
+    <!-- Navigation-->
+
+    <nav class="navbar navbar-unibody navbar-custom navbar-fixed-top" style="padding: 0 15px;">
+
+        <div class="container companyList" style="">
+            <span class="subcidiary">Green Energy 3000 Holding</span>
+            <span class="subcidiary">Green Energy 3000 Energy</span>
+            <span class="subcidiary">Green Energy France SARL</span>
+            <span class="subcidiary">Green Energy 3000 Project Manager</span>
+            <span class="subcidiary">Green Invest 3000</span>
+        </div>
+        <div class="container iconTopHolder" style="">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand page-scroll" href="#page-top" style="">
+                    <!-- Text or Image logo-->
+                    <img class="logo" src="~/Images/Green2/Uploads/logo.png" alt="Logo" style=" ">
+
+                    <img class="logodark" src="~/Images/Green2/Uploads/logo.png" alt="Logo" style="">
+
+
+                </div>
+            </div>
+
+
+            <div class="collapse navbar-collapse navbar-main-collapse" style="flex:1; margin-right: 20px;">
+                <ul class="nav navbar-nav navbar-left">
+
+
+                    <li class="hidden"><a href="#page-top"></a></li>
+
+                    @{
+                        getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
+                        List<getlayoutDataVM> itemList = menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority).ToList();
+                        foreach (var item in itemList)
+                        {
+                            List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
+                            if (firstChilds.Count() > 0)
+                            {
+                                <li>
+
+                                  
+                                   
+                                        <a href="@item.url" class="has-submenu" id="sm-1725367112230378-1" aria-haspopup="true" aria-controls="sm-1725367112230378-2" aria-expanded="false">@item.urlTitle <span class="caret"></span></a>
+                                        <ul class="dropdown-menu columns-3 sm-nowrap" id="sm-1725367112230378-2" role="group" aria-hidden="true" aria-labelledby="sm-1725367112230378-1" aria-expanded="false" style="width: auto; min-width: 10em; display: none; max-width: 20em; top: auto; left: 0px; margin-left: -52.625px; margin-top: 0px;">
+                                            @foreach (var secitem in firstChilds)
+                                            {
+
+                                                if (secitem.childes == null)
+                                                {
+                                             
+                                                    <li>
+                                                        <strong class="text-muted">@secitem.urlTitle</strong>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    List<getlayoutDataVM> firstChilds2 = secitem.childes.Where(x => x.parentID == secitem.layoutDataID).OrderBy(x => x.priority).ToList();
+
+                                                    <li>
+                                                        <strong class="text-muted">@secitem.urlTitle</strong>
+                                                    </li>
+                                                    foreach (var secitem2 in firstChilds)
+                                                    {
+                                                        <li>
+                                                            <a href="@secitem2.url">@secitem2.urlTitle</a>
+                                                        </li>
+                                                    }
+                                                   
+
+                                                }
+
+
+
+                                            }
+
+
+                                        </ul>
+
+
+</li>
+
+                            }
+                            else
+                            {
+
+                                <li>
+                                    <a class="firstLi" href="@item.url">@item.urlTitle <span class="caret"></span></a>
+                                </li>
+                            }
+
+
+
+
+                        }
+                    }
+
+                    @*<li class="">
+                        <a href="#" class="has-submenu" id="sm-1725367112230378-1" aria-haspopup="true" aria-controls="sm-1725367112230378-2" aria-expanded="false">Home <span class="caret"></span></a>
+                        <ul class="dropdown-menu columns-3 sm-nowrap" id="sm-1725367112230378-2" role="group" aria-hidden="true" aria-labelledby="sm-1725367112230378-1" aria-expanded="false" style="width: auto; min-width: 10em; display: none; max-width: 20em; top: auto; left: 0px; margin-left: -52.625px; margin-top: 0px;">
+                            <li><strong class="text-muted">demos</strong></li>
+                            <li><a href="indexslider.html">main demo</a></li>
+                            <li><a href="indexagency.html">agency</a></li>
+                            <li><a href="indexcar.html">auto showroom</a></li>
+                            <li><a href="indexapp.html">application</a></li>
+                            <li><a href="indexpersonal.html">personal / freelancer</a></li>
+                            <li><a href="indexpersonal2.html">personal / freelancer 2</a></li>
+                            <li><a href="indexportfolio.html">agency portfolio <span class="label label-danger">new</span></a></li>
+                            <li><a href="indexportfolio2.html">photographer portfolio</a></li>
+                            <li><a href="indexconstruction.html">construction / renovation</a></li>
+                            <li><a href="indexbarber.html">beauty salon <span class="label label-danger">new</span></a></li>
+                            <li><a href="indexarchdesign.html">architecture &amp; design</a></li>
+                            <li><a href="landing.html">landing page</a></li>
+                            <li><a href="landing2.html">landing page 2</a></li>
+                            <li><a href="landingdark.html">landing page dark</a></li>
+                            <li><strong class="text-muted">hero demos</strong></li>
+                            <li><a href="indexparallax.html">image parallax</a></li>
+                            <li><a href="indexkenburns.html">ken burns slider</a></li>
+                            <li><a href="indexkenburns2.html">ken burns slider 2 <span class="label label-danger">new</span></a></li>
+                            <li><a href="indexvideo.html">full screen video</a></li>
+                            <li><a href="indexvideo2.html">full screen video 2</a></li>
+                            <li><a href="indexdark.html">home dark</a></li>
+                            <li><a href="indexparallaxhalf.html">half screen parallax</a></li>
+                            <li><a href="indexsmallheader.html">small header</a></li>
+                            <li><a href="indexsolidcolor.html">minimal solid color <span class="label label-danger">new</span></a></li>
+                            <li><strong class="text-muted">one page demos</strong></li>
+                            <li><a href="indexparallax-one.html">image parallax</a></li>
+                            <li><a href="indexkenburns-one.html">ken burns slider</a></li>
+                            <li><a href="indexkenburns2-one.html">ken burns slider 2</a></li>
+                            <li><a href="indexvideo-one.html">full screen video</a></li>
+                            <li><a href="indexvideo2-one.html">full screen video 2</a></li>
+                            <li><a href="indexdark-one.html">home dark</a></li>
+                            <li><a href="indexparallaxhalf-one.html">half screen parallax</a></li>
+                            <li><a href="indexsmallheader-one.html">small header</a></li>
+                            <li><a href="indexsolidcolor-one.html">minimal solid color</a></li>
+                            <li><strong class="text-muted">coming soon &amp; countdown</strong></li>
+                            <li><a href="comingsoon.html">landing coming soon</a></li>
+                            <li><a href="comingsoon2.html">coming soon canvas</a></li>
+                            <li><a href="comingsoon3.html">coming soon canvas 2</a></li>
+                            <li><a class="btn-nav" href="index.html"><span class="btn btn-dark-border btn-sm">More Demos</span></a></li>
+                        </ul><span class="scroll-up" style="top: auto; left: 0px; margin-left: -52.625px; width: 860px; z-index: 1008; background-color: rgb(255, 255, 255); margin-top: -56px; visibility: hidden; display: none;"><span class="scroll-up-arrow"></span></span><span class="scroll-down" style="display: none; top: auto; left: 0px; margin-left: -52.625px; width: 860px; z-index: 1008; background-color: rgb(255, 255, 255); margin-top: 531px; visibility: hidden;"><span class="scroll-down-arrow"></span></span>
+                    </li>*@
+
+                    @*<li>
+            <a class="firstLi" href="#">Services <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Project development</a></li>
+                <li><a href="#">Investment</a></li>
+                <li><a href="#">EPC</a></li>
+                <li><a href="#">Financing & Sales</a></li>
+                <li><a href="#">O&M</a></li>
+
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="firstLi" href="#">Technologien <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Photovoltaic</a></li>
+                <li><a href="#">Agri PV</a></li>
+                <li><a href="#">Wind Energy</a></li>
+                <li><a href="#">Battery storage</a></li>
+                <li><a href="#">Hybrid systems</a></li>
+
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="firstLi" href="#">Solutionsss <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="innerToggle has-submenu" href="#">Investors</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">smaple1</a>
+                        </li>
+                        <li><a href="#">sample 2 </a></li>
+                        <li><a href="#">sample 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Cities/municipalities</a></li>
+                <li><a href="#">Plant operator</a></li>
+                <li><a href="#">Landowner</a></li>
+                <li><a href="#">Banks</a></li>
+                <li><a href="#">Service providers</a></li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="firstLi" href="#">News <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">News</a></li>
+                <li><a href="#">Download area</a></li>
+
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="firstLi" href="#">Company<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">history</a></li>
+                <li><a href="#">Refrences</a></li>
+                <li><a href="#">Compliance</a></li>
+                <li><a href="#">Download area</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a class="firstLi" href="#">Career<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Who we are</a></li>
+                <li><a href="#">Testimonials</a></li>
+            </ul>
+        </li>*@
+
+
+                    <li class="menu-divider visible-lg">&nbsp;</li>
+                    <li>
+                        <a class="firstLi" href="#">
+                            Contact <span class="caret"></span>
+                        </a>
+                    </li>
+                    <li class="visible-lg">&nbsp;</li>
+                    <li>
+                        <a class="firstLi" class="dropdown-toggle" href="#">
+                            <i class="fa fa-search fa-lg"></i><span class="caret"></span>
+                        </a>
+                    </li>
+                    <li style="margin-top:10px">
+                        <select class="language-select">
+                            <option value="En">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
+                        </select>
+                    </li>
+                    @*<li class="dropdown">
+            <a class="firstLi" class="dropdown-toggle" href="#">
+                <span class="lang">@ViewBag.lang</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="language-select" href="" itemValue="de">Deutsch</a></li>
+                <li>
+                    <a class="language-select" href="" itemValue="en">English</a>
+
+                </li>
+
+                <li><a class="language-select" href="" itemValue="fr">Français</a></li>
+            </ul>
+        </li>*@
+                </ul>
+            </div>
+
+
+        </div>
+    </nav>
+   
+
+    @RenderBody()
+
+    <!-- Footer Section-->
+    <section class="section-small bg-base footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-4 col-md-offset-1 footer-menu" style="margin:0">
+
+                    <h5 class="no-pad"><a href="services.html">Company</a></h5>
+                    <h6 class="no-pad"><a href="services.html">Home</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Photovoltaic</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Wind Energy</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Battery Storage</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Services</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Land Security</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Services</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Operational</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Management</a></h6>
+                    <h6 class="no-pad"><a href="services.html">Company</a></h6>
+                    <h6 class="no-pad"><a href="services.html">History</a></h6>
+
+                </div>
+                <div class="col-lg-3 col-md-4 col-md-offset-1 footer-menu" style="margin:0">
+                    <h5 class="no-pad"><a href="services.html">Links</a></h5>
+                    <h6 class="no-pad"><a href="portfolio.html">Accessibility</a></h6>
+                    <h6 class="no-pad"><a href="contact.html">Compliance</a></h6>
+                    <h6 class="no-pad"><a href="contact.html">Date Protection</a></h6>
+                    <h6 class="no-pad"><a href="contact.html">Imprint</a></h6>
+                </div>
+
+
+
+
+                <div class="col-lg-3 col-md-4 col-md-offset-1 footer-menu" style="margin:0">
+
+
+                    <img style="margin-bottom:20px; max-width:200px" src="~/Images/Green2/Uploads/logo.png" />
+                    
+                    
+                    
+                    <h6>Green Energy 3000 GmbH </h6>
+                    <h6>Karl-Tauchnitz-Straße 10b </h6>
+                    <h6>04107 Leipzig / Germany</h6>
+                    <h6>Tel : +49 (0) 341 35 56 04 10</h6>
+                    <h6>Fax : +49 (0) 341 35 56 04 70</h6>
+                    <h6>info@ge3000.de</h6>
+                </div>
+                <div class="col-lg-3 col-md-4 col-md-offset-1 footer-menu" style="margin:0">
+                    <h5 class="no-pad"><a href="services.html">we are part of</a></h5>
+
+                    <p>
+                        <a href="portfolio.html">
+                            <img class="img-responsive center-block" src="img/main/42.jpg"
+                                 alt="">
+                        </a>
+                    </p>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h6>
+                        © 2024 Green Energy 3000. All rights reserved.
+                    </h6>
+                </div>
+                <div class="col-md-2 col-md-offset-1">
+                    <h6>
+                        Designed by<a href="http://fuwatech.com"> Fuwatech</a>
+                    </h6>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <ul class="list-inline">
+                        <li><a href="#"><i style="font-size:35px" class="fa fa-facebook fa-fw fa-lg"></i></a></li>
+                        <li><a href="#"><i style="font-size:35px" class="fa fa-instagram fa-fw fa-lg"></i></a></li>
+                        <li><a href="#"><i style="font-size:35px" class="fa fa-xing fa-fw fa-lg"></i></a></li>
+                        <li><a href="#"><i style="font-size:35px" class="fa fa-linkedin fa-fw fa-lg"></i></a></li>
+                        <li><a href="#"><i style="font-size:35px" class="fa fa-youtube fa-fw fa-lg"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Bootstrap Core JavaScript-->
+    <script src="~/webAssets/green2/js/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript-->
+    <script src="~/webAssets/green2/js/jquery.easing.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.countdown.min.js"></script>
+    <script src="~/webAssets/green2/js/device.min.js"></script>
+    <script src="~/webAssets/green2/js/form.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.placeholder.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.shuffle.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.parallax.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.circle-progress.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.swipebox.min.js"></script>
+    <script src="~/webAssets/green2/js/smoothscroll.min.js"></script>
+    <script src="~/webAssets/green2/js/wow.min.js"></script>
+    <script src="~/webAssets/green2/js/jquery.smartmenus.js"></script>
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/-->
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbzKw3SKryjUD6eZ4-m9xSlFRyBJ8odsY"></script>
+        <script src="~/webAssets/green2/js/map.js"></script>*@
+    <!-- Custom Theme JavaScript-->
+    <script src="~/webAssets/green2/js/main.js"></script>
+    <script src="~/webAssets/green2/js/custom.js"></script>
+    <script src="~/webAssets/green2/js/numScroller.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+    @RenderSection("scripts", required: false)
+    <script>
+    $(".btn-white").hover(function(){
+          $(this).removeClass("btn-white");
+          $(this).addClass("btn-border");
+    },function(){
+          $(this).removeClass("btn-border");
+          $(this).addClass("btn-white");
+    })
+
+     $(".btn-border").hover(function(){
+         $(this).removeClass("btn-border");
+          $(this).addClass("btn-white");
+    },function(){
+         $(this).removeClass("btn-white");
+          $(this).addClass("btn-border");
+
+    })
+
+
+    $(".btn-dark").hover(function(){
+          $(this).removeClass("btn-dark");
+          $(this).addClass("btn-dark-border");
+    },function(){
+          $(this).removeClass("btn-dark-border");
+          $(this).addClass("btn-dark");
+    })
+
+     $(".btn-dark-border").hover(function(){
+         $(this).removeClass("btn-dark-border");
+          $(this).addClass("btn-dark");
+    },function(){
+         $(this).removeClass("btn-dark");
+          $(this).addClass("btn-dark-border");
+
+    })
+    </script>
+    <script>
+        $("#cookies-popup").click(function(){
+         $(this).css("display","none")
+    });
+
+    @*$(".language-select").val('@ViewBag.lang');
+    $(".language-select").click(function(){
+
+        var id = $(this).attr("itemValue");
+
+          $.ajax({
+            url: "home/changeLang",
+            data:{
+              lang : id
+            },
+              success: function(result){
+              window.location.href = id;
+
+           }});
+    });*@
+
+
+    $(".language-select").val('@ViewBag.lang');
+    $(".language-select").change(function(){
+
+        var id = $(this).val();
+
+          $.ajax({
+            url: "home/changeLang",
+            data:{
+              lang : id
+            },
+              success: function(result){
+              window.location.href = id;
+
+           }});
+    });
+    </script>
+    <script>
+        $('.multiple-items').slick({
+   
+    dots: true,
+    /* Just changed this to get the bottom dots navigation */
+    infinite: true,
+    speed: 300,
+        slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+        responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+         $('.multiple-items2').slick({
+ 
+    dots: true,
+    /* Just changed this to get the bottom dots navigation */
+    infinite: true,
+        slidesToShow: 3,
+    speed: 300,
+    slidesToScroll: 1,
+    arrows: true,
+        responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+
+        $(".portfoItem").hover(function(){
+       
+          $(this).find(".portfoName").css("display","none");
+        },function(){
+         $(this).find(".portfoName").css("display","block");
+        });
+
+    </script>
+</body>
+</html>

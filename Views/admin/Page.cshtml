@@ -1,4 +1,5 @@
 ﻿
+@using Newtonsoft.Json;
 
 @model greenEnergy.ViewModel.pageListVM
 @{
@@ -42,8 +43,65 @@
            $("#url").val($("#languateID option:selected").text() + '/' + mainPart);
         })
     </script>
+
+    <script>
+        var placeToGo;
+       $(".card-img-left").click(function ()
+         {
+           placeToGo = $(this).attr("classToFit");
+           $(".imageCollection").show();
+         });
+        $(".bigone").click(function(){
+           $("."+placeToGo).val($(this).attr("nameToGo"));
+           $(".imageCollection").hide();
+        });
+       $(".removebid").click(function () {
+           $(".imageCollection").hide();
+       })
+
+        $('input[type="file"]').change(function (e) {
+                const geekss = e.target.files[0].name;
+                $(this).siblings('input[name = "image"]').val(geekss);
+        });
+    </script>
 }
 
+
+
+<div class="imageCollection" style="display:none ;position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.9);top:0;bottom:0; left:0; z-index:999999999; ">
+    <div style="display:flex; position:relative; margin:100px">
+        <i class="iconsminds-back removebid" style="color:white; font-size:30px; position:fixed; top:50px; right:50px"></i>
+        <div>
+            <img nameToGo="" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/empty.png" />
+
+            @if (Model.imageList != null)
+            {
+                foreach (var item in Model.imageList.Distinct())
+                {
+                    if (item.Contains("background"))
+                    {
+                        greenEnergy.ViewModel.styleVM stylemodel = JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(item);
+                        string imgname = stylemodel.background_image;
+                        if (!Model.imageList.Contains(imgname))
+                        {
+                            <img nameToGo="@imgname" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@imgname" />
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        <img nameToGo="@item" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item" />
+
+                    }
+                }
+
+            }
+        </div>
+
+    </div>
+</div>
 
 <ul class="nav nav-tabs" style="border:none" id="myTab" role="tablist">
     <li class="nav-item">
@@ -63,7 +121,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5>Add New Language</h5>
-                        <form method="post" action="/admin/setPage">
+                        <form method="post" action="/admin/setPage" enctype="multipart/form-data">
                             @Html.AntiForgeryToken()
                             <input hidden name="sectinoTypeID" value="@Model.selectedType.typeID" />
                             <div class="form-group">
@@ -116,7 +174,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Image:</label>
-                                <input type="file" id="seachQuery" name="image" class="form-control col-md-7 col-xs-12">
+                                <input name="file" style="" class="form-control col-md-7 col-xs-12" type="file" value="" />
+                                <input placeholder="Choose From Upload Center" required type="text" classToFit="imageToSend" style="" name="image" class="imageToSend card-img-left form-control col-md-7 col-xs-12" />
 
                             </div>
 

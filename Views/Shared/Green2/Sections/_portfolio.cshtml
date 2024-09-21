@@ -1,0 +1,141 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+
+@{
+   
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+}
+
+<section class="" id="portfolio" style="@finalStyle">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h3>Portfolio</h3>
+                
+                <ul class="portfolio-sorting list-inline text-center">
+                    @{
+                        <li><a class="active" href="portfolio-single.html" data-group="all">All</a></li>
+                        List<string> typeList = Model.childList.GroupBy(x => x.categoryName).Select(x => x.First().categoryName).ToList();
+                        foreach (var item in typeList)
+                        {
+                            <li><a href="portfolio-single.html" data-group="@item">@item</a></li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row portfolio-items" id="grid">
+            @if (Model.childList != null)
+            {
+                if (Model.childList.Count() > 0)
+                {
+                    foreach (var child in Model.childList)
+                    {
+                        <div class="col-md-3 col-sm-6 no-pad portfoItem" data-groups="[&quot;@child.categoryName&quot;]">
+                            <div class="portfolio-item">
+                                <a href="@child.url">
+                                    
+                                    <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@child.image" alt="">
+                                    <h5 class="portfoName" style="position:absolute; bottom:10px ; left: 10px">@child.title</h5>
+                                    <div class="portfolio-overlay">
+                                        <div class="caption">
+                                            <h5>@child.title</h5><span>@child.description</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+            }
+
+
+            @*<div class="col-md-3 col-sm-6 no-pad" data-groups="[&quot;photo&quot;, &quot;branding&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/42.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 no-pad" data-groups="[&quot;&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/34.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 no-pad" data-groups="[&quot;design&quot;, &quot;photo&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/38.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 no-pad" data-groups="[&quot;branding&quot;, &quot;design&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/21.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 no-pad"
+             data-groups="[&quot;photo&quot;, &quot;design&quot;, &quot;branding&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/40.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 no-pad" data-groups="[&quot;photo&quot;]">
+            <div class="portfolio-item">
+                <a href="portfolio-single.html">
+                    <img src="img/main/43.jpg" alt="">
+                    <div class="portfolio-overlay">
+                        <div class="caption">
+                            <h5>Form Image Creative</h5><span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>*@
+        </div>
+    </div>
+</section>

@@ -1,0 +1,109 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string btnText = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+    string btnDesciption = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+
+}
+<section class="section-small" style="@finalStyle">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12" style="padding:15px">
+                    <h3>SUBMIT INQUIRY</h3>
+                </div>
+                <!-- Contact Form - Enter your email address on line 17 of the mail/contact_me.php file to make this form work. For more information on how to do this please visit the Docs!-->
+                <form id="contactForm" name="sentMessage" novalidate="">
+                    <div class="control-group col-md-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label class="sr-only control-label" for="subject">subject</label>
+                            <textarea style="resize: none" class="form-control input-lg" id="subject" rows="1" placeholder="subject" required="" data-validation-required-message="Please enter a message." aria-invalid="false"></textarea><span class="help-block text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label class="sr-only control-label" for="message">Message</label>
+                            <textarea style="resize: none" class="form-control input-lg" id="message" rows="5" placeholder="Message" required="" data-validation-required-message="Please enter a message." aria-invalid="false"></textarea><span class="help-block text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="name">SALUTATION</label>
+                                <input class="form-control input-lg" id="name" type="text" placeholder="SALUTATION" required="" data-validation-required-message="Please enter name" aria-invalid="false"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="email">FIRST NAME</label>
+                                <input class="form-control input-lg" id="email" type="email" placeholder="FIRST NAME" required="" data-validation-required-message="Please enter email"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="phone">E-MAIL ADDRESS</label>
+                                <input class="form-control input-lg" id="phone" type="tel" placeholder="E-MAIL ADDRESS" required="" data-validation-required-message="Please enter phone number"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="phone">COMPANY</label>
+                                <input class="form-control input-lg" id="phone" type="tel" placeholder="COMPANY" required="" data-validation-required-message="Please enter phone number"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="name">TITLE</label>
+                                <input class="form-control input-lg" id="name" type="text" placeholder="TITLE" required="" data-validation-required-message="Please enter name" aria-invalid="false"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="email">SURNAME</label>
+                                <input class="form-control input-lg" id="email" type="email" placeholder="SURNAME" required="" data-validation-required-message="Please enter email"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="phone">PHONE</label>
+                                <input class="form-control input-lg" id="phone" type="tel" placeholder="PHONE" required="" data-validation-required-message="Please enter phone number"><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label class="sr-only control-label" for="message">LOCATION</label>
+                                <input class="form-control input-lg" id="message" rows="1" placeholder="LOCATION" required="" data-validation-required-message="Please enter a message." aria-invalid="false"/><span class="help-block text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div id="success"></div>
+
+
+                    </div>
+                    <div class="col-md-12" style="padding:15px">
+                        <button class="btn btn-dark btn-lg" type="submit">Send</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+          
+        </div>
+    </div>
+</section>

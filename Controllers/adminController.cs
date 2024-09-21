@@ -276,19 +276,24 @@ namespace greenEnergy.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
 
-
-                if (postedFile.ContentLength != 0)
+                foreach (string file in Request.Files)
                 {
-                    string fileName = "";
-                    string name = methods.RandomString(5);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    model.image = fileName;
+                    HttpPostedFileBase postedFile = Request.Files[file];
+                    if (postedFile.ContentLength != 0)
+                    {
+                        string fileName = "";
+                        fileName = postedFile.FileName;
+                        //Save the File.
+                        postedFile.SaveAs(path + fileName);
+                        List<string> lst = new List<string>();
+                        lst.Add(fileName);
+                    }
                 }
+
+
+
+
             }
 
 
@@ -465,19 +470,21 @@ namespace greenEnergy.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
-                if (postedFile.ContentLength != 0)
+                
+                foreach(string file in Request.Files)
                 {
-                    string fileName = "";
-                    string name = methods.RandomString(5);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    List<string> lst = new List<string>();
-                    lst.Add(fileName);
-                    model.title2 = lst;
+                    HttpPostedFileBase postedFile = Request.Files[file];
+                    if (postedFile.ContentLength != 0)
+                    {
+                        string fileName = "";
+                        fileName = postedFile.FileName;
+                        //Save the File.
+                        postedFile.SaveAs(path + fileName);
+                        List<string> lst = new List<string>();
+                        lst.Add(fileName);
+                    }
                 }
+                
             }
             responseModel responsemodel = new responseModel();
             responsemodel = await methods.PostData(model, responsemodel, "/setData", Request.Cookies["adminToken"].Value);
@@ -511,14 +518,14 @@ namespace greenEnergy.Controllers
             else
             {
 
-                if (!string.IsNullOrEmpty(responsemodel.message))
-                {
-                    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
-                    bool exists = System.IO.File.Exists(fname);
-                    if (exists)
-                        System.IO.File.Delete(fname);
+                //if (!string.IsNullOrEmpty(responsemodel.message))
+                //{
+                //    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                //    bool exists = System.IO.File.Exists(fname);
+                //    if (exists)
+                //        System.IO.File.Delete(fname);
 
-                }
+                //}
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
@@ -631,19 +638,20 @@ namespace greenEnergy.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
+               
 
-
-                if (postedFile.ContentLength != 0)
+                foreach (HttpPostedFile postedFile in System.Web.HttpContext.Current.Request.Files)
                 {
-                    string fileName = "";
-                    string name = methods.RandomString(6);
-                    //Fetch the File Name.
-                    fileName = name + Path.GetExtension(postedFile.FileName);
-                    //Save the File.
-                    postedFile.SaveAs(path + fileName);
-                    model.image = fileName;
+                    if (postedFile.ContentLength != 0)
+                    {
+                        string fileName = "";
+                        fileName = postedFile.FileName;
+                        postedFile.SaveAs(path + fileName);
+
+                        model.image = fileName;
+                    }
                 }
+              
             }
             responseModel responsemodel = new responseModel();
             responsemodel = await methods.PostData(model, responsemodel, "/setLayoutPartData", Request.Cookies["adminToken"].Value);

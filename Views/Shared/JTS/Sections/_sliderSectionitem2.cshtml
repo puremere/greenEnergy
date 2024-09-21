@@ -1,19 +1,37 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
 
 @{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+
+}
+
+@{
+    string classname = ViewBag.classname;
+    if (Model.dataList != null)
+    {
+        if (Model.dataList.Count > 0)
+        {
+            <div class="ms-section ms-table qodef-m-slide-image @classname" data-header-skin="light">
+                <div class="qodef-m-image-inner" style="background-image: url(@image)"></div>
+            </div>
+        }
+
+    }
     if (ViewBag.from == "web")
     {
-        string classname = ViewBag.classname;
-        if (Model.dataList != null)
-        {
-            if (Model.dataList.Count > 0)
-            {
-                <div class="ms-section ms-table qodef-m-slide-image @classname" data-header-skin="light">
-                    <div class="qodef-m-image-inner" style="background-image: url(/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL)"></div>
-                </div>
-            }
 
-        }
 
     }
     else

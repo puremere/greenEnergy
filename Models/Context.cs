@@ -9,22 +9,23 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
-
-namespace greenEnergy.Model
+// بعد از اتمام کار باید کد ها کپی شوند
+namespace greenEnergy.Model  // اینجا عوض شه
 {
 
     class Context : DbContext
     {
 
-        public Context() : base("green2") // NfcDb
+        public Context() : base("health") // NfcDb green2
         {
+            // اینجا عوض شه
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
-           //Database.SetInitializer<Context>(new  DropCreateDatabaseIfModelChanges <Context>());
+            //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
         }
 
 
-        
-        public DbSet<roleNavURL>  roleNavURLs { get; set; }
+
+        public DbSet<roleNavURL> roleNavURLs { get; set; }
         public DbSet<roleStartPage> roleStartPages { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<language> languages { get; set; }
@@ -43,35 +44,35 @@ namespace greenEnergy.Model
         public DbSet<layoutPart> layoutParts { get; set; }
 
         //public DbSet<user> users { get; set; }
-       
+
         public DbSet<city> cities { get; set; }
-       
+
         public DbSet<orderResponse> orderResponses { get; set; }
         public DbSet<Comment> comments { get; set; }
 
         public DbSet<process> processes { get; set; }
-      
+
         public DbSet<coding> codings { get; set; }
         public DbSet<sanad> sanads { get; set; }
         public DbSet<article> articles { get; set; }
         public DbSet<sanadSource> sanadSources { get; set; }
         public DbSet<formula> formulas { get; set; }
         public DbSet<namad> namads { get; set; }
-    
+
         public DbSet<processFormula> processFormulas { get; set; }
-     
+
         public DbSet<userWorkingStatus> userWorkingStatuses { get; set; }
         public DbSet<verifyStatus> verifyStatuses { get; set; }
         public DbSet<product> products { get; set; }
         public DbSet<tag> tags { get; set; }
         public DbSet<productType> productTypes { get; set; }
         public DbSet<orderOption> orderOptions { get; set; }
-    
+
         public DbSet<formItemType> formItemTypes { get; set; }
         public DbSet<formItemDesign> formItemDesigns { get; set; }
         public DbSet<form> forms { get; set; }
         public DbSet<formType> formType { get; set; }
-        
+
         public DbSet<formItem> formItems { get; set; }
         public DbSet<newOrderType> newOrderTypes { get; set; }
 
@@ -89,60 +90,62 @@ namespace greenEnergy.Model
         public DbSet<flowRelation> flowRelations { get; set; }
         public DbSet<flowStatus> flowStatuses { get; set; }
         public DbSet<flowLog> FlowLogs { get; set; }
-        
+        public DbSet<media> medias { get; set; }
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<data>().HasOptional(s => s.Content).WithMany(x=>x.Datas).HasForeignKey(x => x.contentID).WillCascadeOnDelete(true); 
-            modelBuilder.Entity<content>().HasOptional(s=>s.sectionType).WithMany(x=>x.contents).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false) ;
-            modelBuilder.Entity<content>().HasOptional(s=>s.HTML).WithMany(x=>x.Contents).HasForeignKey(x => x.htmlID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<layoutPart>().HasRequired(s=>s.Language).WithMany(l=>l.LayoutParts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<layoutPart>().HasOptional(s=>s.SectionLayout).WithMany(l=>l.LayoutParts).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<layoutData>().HasRequired(s=>s.LayoutPart).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.layoutPartID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<layoutData>().HasOptional(s=>s.sectionType).WithMany(l=>l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<layoutData>().HasOptional(s=>s.parentData).WithMany(l=>l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<html>().HasOptional(s=>s.htlmparent).WithMany(l=>l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<content>().HasOptional(s=>s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
-           
+            modelBuilder.Entity<data>().HasOptional(s => s.Content).WithMany(x => x.Datas).HasForeignKey(x => x.contentID).WillCascadeOnDelete(true);
+            modelBuilder.Entity<newOrderFields>().HasRequired(s => s.NewOrderFlow).WithMany(x => x.NewOrderFields).HasForeignKey(x => x.newOrderFlowID).WillCascadeOnDelete(true);
+            modelBuilder.Entity<content>().HasOptional(s => s.sectionType).WithMany(x => x.contents).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<content>().HasOptional(s => s.HTML).WithMany(x => x.Contents).HasForeignKey(x => x.htmlID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutPart>().HasRequired(s => s.Language).WithMany(l => l.LayoutParts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutPart>().HasOptional(s => s.SectionLayout).WithMany(l => l.LayoutParts).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutData>().HasRequired(s => s.LayoutPart).WithMany(l => l.LayoutDatas).HasForeignKey(x => x.layoutPartID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutData>().HasOptional(s => s.sectionType).WithMany(l => l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<layoutData>().HasOptional(s => s.parentData).WithMany(l => l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<html>().HasOptional(s => s.htlmparent).WithMany(l => l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<content>().HasOptional(s => s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
 
 
-            modelBuilder.Entity<sectionLayout>().HasRequired(s=>s.Language).WithMany(l=>l.SectionLayouts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<section>().HasRequired(s=>s.sectionType).WithMany(x=>x.sections).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); ;
-            modelBuilder.Entity<section>().HasOptional(s=>s.SectionLayout).WithMany(x=>x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<section>().HasOptional(s=>s.Category).WithMany(x=>x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<section>().HasRequired(s=>s.Language).WithMany(x=>x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false); 
-            modelBuilder.Entity<category>().HasRequired(s=>s.sectionType).WithMany(x=>x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<secTag>().HasRequired(s=>s.sectionType).WithMany(x=>x.SecTags).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
-            
-            
-            modelBuilder.Entity<flowRelation>().HasRequired(s=>s.childFlow).WithMany(x=>x.childFlows).HasForeignKey(x => x.childID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<flowRelation>().HasRequired(s=>s.parentFlow).WithMany(x => x.parentFlows).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
 
-            
+            modelBuilder.Entity<sectionLayout>().HasRequired(s => s.Language).WithMany(l => l.SectionLayouts).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<section>().HasRequired(s => s.sectionType).WithMany(x => x.sections).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false); ;
+            modelBuilder.Entity<section>().HasOptional(s => s.SectionLayout).WithMany(x => x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<section>().HasOptional(s => s.Category).WithMany(x => x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<section>().HasRequired(s => s.Language).WithMany(x => x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<category>().HasRequired(s => s.sectionType).WithMany(x => x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<secTag>().HasRequired(s => s.sectionType).WithMany(x => x.SecTags).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<flowRelation>().HasRequired(s => s.childFlow).WithMany(x => x.childFlows).HasForeignKey(x => x.childID).WillCascadeOnDelete(true);
+            modelBuilder.Entity<flowRelation>().HasRequired(s => s.parentFlow).WithMany(x => x.parentFlows).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
+
+
 
 
             // قسمت مرتبط با تیلور
 
             modelBuilder.Entity<user>().HasOptional(s => s.workingStatus).WithMany().HasForeignKey(x => x.workingStatusID);
-           
+
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.newOrderID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.orderID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
             modelBuilder.Entity<roleNavURL>().HasRequired(m => m.RoleStartPage).WithMany(t => t.RoleNavURLs).HasForeignKey(m => m.roleStartPageID).WillCascadeOnDelete(false);
-            
+
             modelBuilder.Entity<userRelation>().HasRequired(m => m.user).WithMany(t => t.userRelationList).HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<userRelation>().HasRequired(m => m.partner).WithMany(t => t.partnerList).HasForeignKey(m => m.partnerID).WillCascadeOnDelete(false);
             modelBuilder.Entity<flowLog>().HasOptional(m => m.baseFlow).WithMany(t => t.FlowLogs).HasForeignKey(m => m.baseFlowID).WillCascadeOnDelete(false);
             modelBuilder.Entity<flowLog>().HasRequired(m => m.actorFlow).WithMany().HasForeignKey(m => m.actorFlowID).WillCascadeOnDelete(false);
             modelBuilder.Entity<flowLog>().HasRequired(m => m.actionFlow).WithMany().HasForeignKey(m => m.actionFlowID).WillCascadeOnDelete(false);
-            
+
 
 
             //modelBuilder.Entity<user>().HasIndex(u => u.phone).IsUnique();
@@ -150,8 +153,16 @@ namespace greenEnergy.Model
         }
 
     }
-    
 
+
+    public class media
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int mediaID { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+    }
     public class flowLog
     {
         [Key]
@@ -190,14 +201,14 @@ namespace greenEnergy.Model
         public string userFields { get; set; }
         public string statusFields { get; set; }
         public string logFields { get; set; }
-        
+
         public int isCycle { get; set; }
         public int isCustom { get; set; }
         public int thirdIDIsNeeded { get; set; }
         public int formOwner { get; set; }
         public int isOrderByDate { get; set; }
         public int isForCurrentDay { get; set; }
-        
+
         public int? formTypeID { get; set; }
         public int? formID { get; set; }
         [ForeignKey("formID")]
@@ -206,12 +217,12 @@ namespace greenEnergy.Model
 
 
         public int userInfo { get; set; }
-        public int?  formItemID { get; set; }
+        public int? formItemID { get; set; }
         [ForeignKey("formItemID")]
         public virtual formItem formItem { get; set; }
 
         public int? formItemType { get; set; }
-       
+
 
 
         public int isLinkToMain { get; set; }
@@ -229,8 +240,8 @@ namespace greenEnergy.Model
         }
         [Key]
         public Guid relationTypeID { get; set; }
-        public string  title { get; set; }
-        public int  relationCode { get; set; }
+        public string title { get; set; }
+        public int relationCode { get; set; }
         public virtual ICollection<process> Processes { get; set; }
     }
 
@@ -241,9 +252,9 @@ namespace greenEnergy.Model
         public int relationCode { get; set; }
         public int status { get; set; }
 
-        public Guid? newOrderID { get; set; }
-        [ForeignKey("newOrderID")]
-        public virtual newOrder NewOrder { get; set; }
+        //public Guid? newOrderID { get; set; }
+        //[ForeignKey("newOrderID")]
+        //public virtual newOrder NewOrder { get; set; }
 
         public Guid userID { get; set; }
         [ForeignKey("userID")]
@@ -289,7 +300,7 @@ namespace greenEnergy.Model
     {
         [Key]
         public Guid metaID { get; set; }
-        public string  name { get; set; }
+        public string name { get; set; }
         public string content { get; set; }
         public Guid sectionID { get; set; }
         [ForeignKey("sectionID")]
@@ -297,8 +308,8 @@ namespace greenEnergy.Model
 
     }
 
-   
-   
+
+
     public class section
     {
 
@@ -310,14 +321,14 @@ namespace greenEnergy.Model
         public Guid sectionID { get; set; }
         public JAView JAView { get; set; }
         public string url { get; set; }
-        public string buttonText  { get; set; }
+        public string buttonText { get; set; }
         public DateTime date { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public string metatitle { get; set; }
         public string image { get; set; }
         public string writer { get; set; }
-        
+
 
 
 
@@ -367,27 +378,27 @@ namespace greenEnergy.Model
 
         public string dataType { get; set; }
         public string url { get; set; }
-        public int priority     { get; set; }
+        public int priority { get; set; }
         public string image { get; set; }
         public int typeCount { get; set; }
 
         public virtual ICollection<layoutData> childs { get; set; }
     }
 
-    
+
     public class html
     {
         [Key]
         public Guid htmlID { get; set; }
-        public string  title { get; set; }
+        public string title { get; set; }
         public string appMeta { get; set; }
         public string poseMeta { get; set; }
         public string appType { get; set; }
-        public string  image { get; set; }
+        public string image { get; set; }
         public string formLink { get; set; }
-        public string  partialView { get; set; }
+        public string partialView { get; set; }
         public string ispublic { get; set; }
-        public int  multilayer { get; set; }
+        public int multilayer { get; set; }
         public string dataField { get; set; }
         public string poseField { get; set; }
         public int childCapable { get; set; }
@@ -396,7 +407,7 @@ namespace greenEnergy.Model
         [ForeignKey("parentID")]
         public virtual html htlmparent { get; set; }
 
-        
+
 
         public Guid? layout { get; set; }
         [ForeignKey("layout")]
@@ -433,7 +444,7 @@ namespace greenEnergy.Model
 
 
     //}
-    
+
     //public class JAPerTextView : JAView
     //{
     //    public string keyText { get; set; }
@@ -451,7 +462,7 @@ namespace greenEnergy.Model
 
 
     //}
-    
+
     //public class JATextInput : JAView
     //{
     //    public string ID { get; set; } // formKey
@@ -470,7 +481,7 @@ namespace greenEnergy.Model
 
     public class content  // JAView for app
     {
-        
+
         [Key]
         public Guid contentID { get; set; }
         public Guid? sectionTypeID { get; set; }
@@ -479,18 +490,18 @@ namespace greenEnergy.Model
 
         public int priority { get; set; }
         public int useParentSection { get; set; }
-        
+
         public string title { get; set; }
         public string description { get; set; }
         public string cycleFields { get; set; }
         public string cycleFormItem { get; set; }
         public string stackWeight { get; set; }
-        
 
 
 
 
-        public int?  formID { get; set; }
+
+        public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
 
@@ -518,7 +529,7 @@ namespace greenEnergy.Model
 
         public string title { get; set; }
         public string title2 { get; set; }
-       
+
         public Guid? contentID { get; set; }
         [ForeignKey("contentID")]
         public virtual content Content { get; set; }
@@ -542,7 +553,7 @@ namespace greenEnergy.Model
         public virtual content Content { get; set; }
     }
 
-    
+
     public class layout
     {
         [Key]
@@ -555,11 +566,11 @@ namespace greenEnergy.Model
         public string partDetailName { get; set; }
         public virtual ICollection<sectionLayout> SectionLayouts { get; set; }
     }
-    
+
     public class layoutPart
     {
 
-        
+
         [Key]
         public Guid layoutPartID { get; set; }
         public string title { get; set; }
@@ -571,15 +582,15 @@ namespace greenEnergy.Model
         public Guid? sectionLayoutID { get; set; }
         [ForeignKey("sectionLayoutID")]
         public virtual sectionLayout SectionLayout { get; set; }
-       
+
         public virtual ICollection<layoutData> LayoutDatas { get; set; }
     }
-    public class sectionLayout  
+    public class sectionLayout
     {
-       
+
         [Key]
         public Guid sectionLayoutID { get; set; }
-        public string  menuTitle { get; set; }
+        public string menuTitle { get; set; }
         public Guid? layoutID { get; set; }
         [ForeignKey("layoutID")]
         public virtual layout Layout { get; set; }
@@ -590,7 +601,7 @@ namespace greenEnergy.Model
 
         public virtual ICollection<layoutPart> LayoutParts { get; set; }
         public virtual ICollection<section> sections { get; set; }
-       
+
     }
     public class sectionType
     {
@@ -603,7 +614,7 @@ namespace greenEnergy.Model
         public virtual ICollection<category> Categories { get; set; }
         public virtual ICollection<secTag> SecTags { get; set; }
         public virtual ICollection<layoutData> LayoutDatas { get; set; }
-        
+
     }
 
     public class secTag
@@ -634,7 +645,7 @@ namespace greenEnergy.Model
     {
         [Key]
         public Guid languageID { get; set; }
-        public string  title { get; set; }
+        public string title { get; set; }
 
         public virtual ICollection<section> Sections { get; set; }
         public virtual ICollection<layoutPart> LayoutParts { get; set; }
@@ -642,7 +653,7 @@ namespace greenEnergy.Model
     }
     //public class user
     //{
-        
+
     //    [Key]
     //    public Guid userID { get; set; }
     //    public string username { get; set; }
@@ -683,7 +694,7 @@ namespace greenEnergy.Model
 
 
 
-  
+
 
     public class orderOption
     {
@@ -857,7 +868,7 @@ namespace greenEnergy.Model
         public virtual ICollection<formula> Formulas { get; set; }
 
     }
-   
+
 
     public class formula
     {
@@ -924,6 +935,7 @@ namespace greenEnergy.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int formItemID { get; set; }
         public string itemName { get; set; }
+        public string continueWithError { get; set; }
         public string groupNumber { get; set; }
         public string itemDesc { get; set; }
         public string itemx { get; set; }
@@ -938,6 +950,19 @@ namespace greenEnergy.Model
         public string itemtImage { get; set; }
         public string catchUrl { get; set; }
         public string isMultiple { get; set; }
+
+
+        public string isRequired { get; set; }
+        public string validationType { get; set; }
+        public string otherFieldName { get; set; }
+        public string referTo { get; set; }
+
+        public string regx { get; set; }
+        public double minNumber { get; set; }
+        public double maxNumber { get; set; }
+
+
+
         public string mediaType { get; set; }
         public string collectionName { get; set; }
         public string operat { get; set; }
@@ -1059,7 +1084,7 @@ namespace greenEnergy.Model
         public Guid newOrderTypeID { get; set; }
         public string title { get; set; }
         public int orderTypeCode { get; set; }
-        public virtual ICollection<newOrder> NewOrders { get; set; }
+        //public virtual ICollection<newOrder> NewOrders { get; set; }
     }
     public class newOrder
     {
@@ -1086,6 +1111,7 @@ namespace greenEnergy.Model
         public DateTime terminationDate { get; set; }
 
         public virtual ICollection<newOrderFlow> orderFlowList { get; set; }
+
 
     }
 
@@ -1121,17 +1147,24 @@ namespace greenEnergy.Model
     }
     public class newOrderFlow
     {
-        
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int newOrderFlowID { get; set; }
 
 
-        public Guid? newOrderID { get; set; }
-        [ForeignKey("newOrderID")]
-        public virtual newOrder NewOrder { get; set; }
 
-        public string  serventPhone { get; set; }
+        //public Guid newOrder_newOrderID { get; set; }
+        public Guid? newOrderID { get; set; }
+        //[ForeignKey("orderID")]
+        //public virtual newOrder NewOrder { get; set; }
+
+
+        //public Guid OrderID { get; set; }
+        //public string serventPhone2 { get; set; }
+
+        public string serventPhone { get; set; }
+        public string meta { get; set; }
         public Guid userID { get; set; }
         [ForeignKey("userID")]
         public virtual user newOrderFlowServent { get; set; }
@@ -1258,11 +1291,11 @@ namespace greenEnergy.Model
 
 
     }
-   
+
 
     // باربری خودش روش های مختلف باربری رو مشخص میکنه  الصاق میکنه به یک سفارش که سند های ثابت با فرمول بخوره
 
-  
+
 
     public class orderResponse
     {
@@ -1280,7 +1313,7 @@ namespace greenEnergy.Model
         {
             Namads = new List<namad>();
         }
-       
+
 
         [Key]
         public Guid userID { get; set; }
@@ -1292,8 +1325,8 @@ namespace greenEnergy.Model
         public string name { get; set; }
         public string profileImage { get; set; }
         public string coName { get; set; }
-       
-        
+
+
         public string phone { get; set; }
         public string code { get; set; }
         public string codeMelli { get; set; }
@@ -1303,9 +1336,10 @@ namespace greenEnergy.Model
         public string emPhone { get; set; }
         public string typeID { get; set; }
         public string postalCode { get; set; }
-        
+
         public string lat { get; set; }
         public string lon { get; set; }
+        public int badge { get; set; }
         public DbGeography point { get; set; }
 
 
@@ -1334,11 +1368,11 @@ namespace greenEnergy.Model
         public virtual ICollection<sanad> Sanads { get; set; }
         public virtual ICollection<article> Articles { get; set; }
         public virtual ICollection<sanadSource> SanadSources { get; set; }
-      
+
         public virtual ICollection<formula> Formulas { get; set; }
         public virtual ICollection<process> processes { get; set; }
         public virtual ICollection<product> products { get; set; }
-       
+
         public virtual ICollection<namad> Namads { get; set; }
 
 
@@ -1398,7 +1432,7 @@ namespace greenEnergy.Model
         public virtual city parentcity { get; set; }
     }
 
-   
+
 
 
 

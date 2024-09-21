@@ -231,6 +231,7 @@
             //});
         };</script>
     <link href="~/Content/font.css" rel="stylesheet" />
+    <link href="~/webAssets/jahan/css/custom.css" rel="stylesheet" />
 
 </head>
 <body class="page-template page-template-page-full-width page-template-page-full-width-php page page-id-982 theme-manufaktursolutions qi-blocks-1.0.7 qodef-gutenberg--no-touch qode-framework-1.1.9 woocommerce-no-js qodef-qi--no-touch qi-addons-for-elementor-1.5.6 qodef-age-verification--opened qodef-back-to-top--enabled  qodef-content-behind-header qodef-header--standard qodef-header-appearance--fixed qodef-header-disable-right-padding qodef-content--behind-header qodef-mobile-header--standard qodef-drop-down-second--full-width qodef-drop-down-second--default manufaktursolutions-core-1.0 manufaktursolutions-1.0 qodef-content-grid-1300 qodef-header-standard--center qodef-search--covers-header elementor-default elementor-kit-7 elementor-page elementor-page-982" itemscope itemtype="https://schema.org/WebPage">
@@ -403,56 +404,18 @@
                         </li>
                     }
 
-                   
+
                 </ul>
             </nav>
         </header>
 
 
-    @{ 
-        string pageImage = "../../../../Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/" + ViewBag.image;
-
-    }
-        <div id="qodef-page-outer">
-            <div id="qodef-page-inner" class="qodef-content-full-width">
-                <main id="qodef-page-content" class="qodef-grid qodef-layout--template " role="main">
-                    <div class="qodef-grid-inner clear">
-                        <div class="qodef-grid-item qodef-page-content-section qodef-col--12">
-                            <div data-elementor-type="wp-page" data-elementor-id="982" class="elementor elementor-982">
-                                <section class="elementor-section elementor-top-section elementor-element elementor-element-3998837 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="3998837" data-element_type="section">
-                                    <div class="elementor-container elementor-column-gap-default">
-                                        <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-0777091 qodef-elementor-sticky-child-fixed" data-id="0777091" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-                                            <div style="padding: 0% 50% 0% 3%; background-image : url(@pageImage) " class="elementor-widget-wrap elementor-element-populated">
-                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-90cde1a elementor-section-full_width elementor-section-height-min-height elementor-section-content-bottom elementor-section-height-default qodef-elementor-content-no" data-id="90cde1a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-                                                    <div class="elementor-container elementor-column-gap-wide">
-                                                        <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-8a39110" data-id="8a39110" data-element_type="column">
-                                                            <div class="elementor-widget-wrap elementor-element-populated">
+       
 
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
-                                        </div>
-                                        <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-679720b" data-id="679720b" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-                                            <div class="elementor-widget-wrap elementor-element-populated">
+        @RenderBody()
 
-                                                @RenderBody()
-
-                                               
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div><!-- close #qodef-page-inner div from header.php -->
-        </div><!-- close #qodef-page-outer div from header.php -->
-        <a id="qodef-back-to-top" href="#" class="qodef--predefined">
+        @*<a id="qodef-back-to-top" href="#" class="qodef--predefined">
             <span class="qodef-back-to-top-icon">
                 <svg class="qodef-svg--back-to-top back-to-top-svg" xmlns="http://www.w3.org/2000/svg" width="17.65" height="13.1"
                      viewBox="0 0 17.65 13.1">
@@ -472,7 +435,7 @@
                 </span>
             </a>
 
-           
+
 
             <div id="qodef-side-area-inner">
                 @{
@@ -514,20 +477,14 @@
                                     <div class="qodef-m-line" style="border-color: #15141c;width: 0px;margin-top: -5px"></div>
                                 </div>
                             </div>
-                            @*<div id="manufaktursolutions_core_social_icons_group-3" class="widget widget_manufaktursolutions_core_social_icons_group" data-area="side-area">
-                                <div class="qodef-social-icons-group">
-                                    <span class="qodef-shortcode qodef-m  qodef-icon-holder  qodef-layout--normal" style="margin: 3px 20px 0px 0px">			<a itemprop="url" href="https://www.facebook.com/QodeInteractive/" target="_blank">			<span class="qodef-icon-elegant-icons social_facebook qodef-icon qodef-e" style="font-size: 20px"></span>			</a>	</span>
-                                    <span class="qodef-shortcode qodef-m  qodef-icon-holder  qodef-layout--normal" style="margin: 3px 20px 0px 0px">			<a itemprop="url" href="https://twitter.com/qodeinteractive" target="_blank">			<span class="qodef-icon-elegant-icons social_twitter qodef-icon qodef-e" style="font-size: 20px"></span>			</a>	</span>
-                                    <span class="qodef-shortcode qodef-m  qodef-icon-holder  qodef-layout--normal" style="margin: 3px 0px 0px 0px">			<a itemprop="url" href="https://www.pinterest.com/qodeinteractive/" target="_blank">			<span class="qodef-icon-elegant-icons social_pinterest qodef-icon qodef-e" style="font-size: 20px"></span>			</a>	</span>
-                                </div>
-                            </div>*@
+
 
 
                         }
                     }
                 }
             </div>
-        </div>
+        </div>*@
     </div><!-- close #qodef-page-wrapper div from header.php -->
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 

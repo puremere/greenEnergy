@@ -1,0 +1,96 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+    string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+    string buttonClass = Model.dataList.SingleOrDefault(x => x.title == "buttonClass") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonClass").title2;
+    string buttonLink = Model.dataList.SingleOrDefault(x => x.title == "buttonLink") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonLink").title2;
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    string html_heading = Model.dataList.SingleOrDefault(x => x.title == "html_heading") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_heading").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+}
+
+<section class="section-small" id="about" style="@finalStyle">
+    <div class="section" style="background-color:transparent">
+        @if (!string.IsNullOrEmpty(html_heading))
+        {
+            <div class="titleParent ">@Html.Raw(html_heading)</div>
+        }
+    </div>
+    <div class="section" style="background-color:transparent">
+
+
+        @foreach (var item in Model.contentChild)
+        {
+            string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+            string image = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "img_image").title2) ? "" : baseImage + item.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+
+            string imageClass = item.dataList.SingleOrDefault(x => x.title == "imageClass") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "imageClass").title2;
+
+            string btnText = item.dataList.SingleOrDefault(x => x.title == "buttonText") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+            string btnClass = item.dataList.SingleOrDefault(x => x.title == "buttonClass") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonClass").title2;
+            string btnLink = item.dataList.SingleOrDefault(x => x.title == "buttonLink") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonLink").title2;
+            string html_description = item.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+            string html_title = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_title").title2) ? "" : item.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+            string style0 = item.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "style").title2;
+            
+
+            styleVM styleModelDetail = new greenEnergy.ViewModel.styleVM();
+            string detailStyle = "";
+            detailStyle = greenEnergy.Classes.methods.getMyStyle(style0);
+
+           
+
+
+
+
+
+
+
+
+
+            <div style="@detailStyle">
+                @if (!string.IsNullOrEmpty(image))
+                {
+                    <img class="@imageClass.Replace(",", " ") imageDetail" src="@image" />
+                }
+                @if (!string.IsNullOrEmpty(html_title))
+                {
+                    <div class="titleParent ">@Html.Raw(html_title)</div>
+                }
+                @if (!string.IsNullOrEmpty(html_description))
+                {
+                    <div>@Html.Raw(html_description)</div>
+                }
+                @if (!string.IsNullOrEmpty(btnText))
+                {
+                    <a class="btn @btnClass.Replace(",", " ") btn-lg page-scroll wow fadeInUp" href="@btnLink">@btnText</a>
+
+                }
+            </div>
+
+        }
+
+
+
+    </div>
+    <div class="section" style="background-color:transparent">
+        @if (!string.IsNullOrEmpty(buttonText))
+        {
+            <a class="btn @buttonClass.Replace(",", " ") btn-lg page-scroll wow fadeInUp" href="@buttonLink">@buttonText</a>
+
+        }
+    </div>
+</section>
+
+
+
+
+

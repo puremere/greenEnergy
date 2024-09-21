@@ -1,4 +1,24 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+
+
+}
+
 
 <section class="elementor-section elementor-top-section elementor-element elementor-element-3998837 elementor-section-stretched qodef-elementor-content-grid elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3998837" data-element_type="section" data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;}">
     <div class="elementor-container elementor-column-gap-no" style="width:100%">
@@ -8,14 +28,14 @@
                     <div class="elementor-widget-container">
 
                         <div class="wp-block-themepunch-revslider">
-                            <!-- START Engineering Rev REVOLUTION SLIDER 6.6.7 --><p class="rs-p-wp-fix"></p>
+                            <p class="rs-p-wp-fix"></p>
                             <rs-module-wrap id="rev_slider_5_1_wrapper" data-source="gallery" style="visibility:hidden;background:transparent;padding:0;margin:0px auto;margin-top:0;margin-bottom:0;">
                                 <rs-module id="rev_slider_5_1" style="" data-version="6.6.7">
                                     <rs-slides style="overflow: hidden; position: absolute;">
                                         <rs-slide style="position: absolute;" data-key="rs-6" data-title="Slide" data-in="o:0;" data-out="a:false;">
-                                            <img fetchpriority="high" decoding="async" src="~/webAssets/jahan/memari/wp-content/plugins/revslider/public/assets/assets/dummy.png" alt="d" title="home-3-rev-image-01" height="653" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="/webAssets/jahan/memari/img/home-3-rev-image-01.jpg" data-no-retina>
-                                            <!--
-                                            -->
+                                            @*<img fetchpriority="high" decoding="async" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL" data-no-retina>*@
+                                            <img style="border-radius:10px" fetchpriority="high" decoding="async" src="@image" alt="d" title="home-3-rev-image-01" height="653" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="@image" data-no-retina>
+
                                             <rs-layer id="slider-5-slide-6-layer-1"
                                                       data-type="text"
                                                       data-xy="x:r;xo:80px,80px,80px,28px;y:b;yo:71px,81px,81px,42px;"
@@ -28,19 +48,17 @@
                                                       data-frame_1="st:300;sp:1300;"
                                                       data-frame_999="o:0;st:w;"
                                                       style="z-index:5;font-size:37px">
-                                                تمام آنچه بدان فکر میکنید
+
+                                                @Html.Raw(title)
+                                             
                                             </rs-layer>
-                                            <!--
-                                            -->
+
                                         </rs-slide>
 
                                     </rs-slides>
                                 </rs-module>
-                                <script>
-                                    setREVStartSize({ c: 'rev_slider_5_1', rl: [1800, 1500, 1026, 690], el: [660, 540, 600, 500], gw: [1240, 1024, 778, 480], gh: [660, 540, 600, 500], type: 'standard', justify: '', layout: 'fullwidth', mh: "0" }); if (window.RS_MODULES !== undefined && window.RS_MODULES.modules !== undefined && window.RS_MODULES.modules["revslider51"] !== undefined) { window.RS_MODULES.modules["revslider51"].once = false; window.revapi5 = undefined; if (window.RS_MODULES.checkMinimal !== undefined) window.RS_MODULES.checkMinimal() }
-                                </script>
+                              
                             </rs-module-wrap>
-                            <!-- END REVOLUTION SLIDER -->
 
                         </div>
 
@@ -51,61 +69,6 @@
     </div>
 </section>
 
-@if (Model.dataList != null)
-{
-    if (Model.dataList.Count() > 0)
-    {
-        <section class="elementor-section elementor-top-section elementor-element elementor-element-3998837 elementor-section-stretched qodef-elementor-content-grid elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3998837" data-element_type="section" data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;}">
-                <div class="elementor-container elementor-column-gap-no" style="width:100%">
-                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-679720b" data-id="679720b" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-                        <div class="elementor-widget-wrap elementor-element-populated">
-                            <div class="elementor-element elementor-element-1bac2f7 elementor-widget elementor-widget-slider_revolution" data-id="1bac2f7" data-element_type="widget" data-widget_type="slider_revolution.default">
-                                <div class="elementor-widget-container">
-
-                                    <div class="wp-block-themepunch-revslider">
-                                        <p class="rs-p-wp-fix"></p>
-                                        <rs-module-wrap id="rev_slider_5_1_wrapper" data-source="gallery" style="visibility:hidden;background:transparent;padding:0;margin:0px auto;margin-top:0;margin-bottom:0;">
-                                            <rs-module id="rev_slider_5_1" style="" data-version="6.6.7">
-                                                <rs-slides style="overflow: hidden; position: absolute;">
-                                                    <rs-slide style="position: absolute;" data-key="rs-6" data-title="Slide" data-in="o:0;" data-out="a:false;">
-                                                        @*<img fetchpriority="high" decoding="async" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL" data-no-retina>*@
-                                                        <img fetchpriority="high" decoding="async" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL" alt="d" title="home-3-rev-image-01" height="653" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@Model.dataList[0].mediaURL" data-no-retina>
-
-                                                        <rs-layer id="slider-5-slide-6-layer-1"
-                                                                  data-type="text"
-                                                                  data-xy="x:r;xo:80px,80px,80px,28px;y:b;yo:71px,81px,81px,42px;"
-                                                                  data-text="w:normal;s:80,80,80,43;l:80,80,80,39;ls:-2px;fw:700;a:right;"
-                                                                  data-dim="w:729px,729px,729px,390px;"
-                                                                  data-basealign="slide"
-                                                                  data-rsp_o="off"
-                                                                  data-rsp_bd="off"
-                                                                  data-frame_0="x:-50;"
-                                                                  data-frame_1="st:300;sp:1300;"
-                                                                  data-frame_999="o:0;st:w;"
-                                                                  style="z-index:5;font-size:37px">
-                                                            @Model.dataList[0].title
-                                                        </rs-layer>
-
-                                                    </rs-slide>
-
-                                                </rs-slides>
-                                            </rs-module>
-                                            <script>
-                                                setREVStartSize({ c: 'rev_slider_5_1', rl: [1800, 1500, 1026, 690], el: [660, 540, 600, 500], gw: [1240, 1024, 778, 480], gh: [660, 540, 600, 500], type: 'standard', justify: '', layout: 'fullwidth', mh: "0" }); if (window.RS_MODULES !== undefined && window.RS_MODULES.modules !== undefined && window.RS_MODULES.modules["revslider51"] !== undefined) { window.RS_MODULES.modules["revslider51"].once = false; window.revapi5 = undefined; if (window.RS_MODULES.checkMinimal !== undefined) window.RS_MODULES.checkMinimal() }
-                                            </script>
-                                        </rs-module-wrap>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-    }
-}
 
 
 

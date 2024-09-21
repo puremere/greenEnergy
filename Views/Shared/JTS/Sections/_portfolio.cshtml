@@ -1,0 +1,344 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+
+
+}
+<section class="elementor-section elementor-top-section elementor-element elementor-element-d3a6f26 elementor-section-full_width qodef-elementor-content-grid elementor-section-height-default elementor-section-height-default" data-id="d3a6f26" data-element_type="section">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8ebd7b9" data-id="8ebd7b9" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-6869338 elementor-widget elementor-widget-manufaktursolutions_core_portfolio_list" data-id="6869338" data-element_type="widget" data-widget_type="manufaktursolutions_core_portfolio_list.default">
+                    <div class="elementor-widget-container">
+                        <div class="qodef-shortcode qodef-m  qodef-portfolio-list qodef-item-layout--info-below qodef-image-hover-animation--yes  qodef-grid qodef-layout--columns  qodef-gutter--small qodef-col-num--3 qodef-item-layout--info-below qodef-filter--on qodef--no-bottom-space qodef-pagination--off qodef-responsive--custom qodef-col-num--1440--3 qodef-col-num--1366--3 qodef-col-num--1024--3 qodef-col-num--768--1 qodef-col-num--680--1 qodef-col-num--480--1" data-options="{&quot;plugin&quot;:&quot;manufaktursolutions_core&quot;,&quot;module&quot;:&quot;post-types\/portfolio\/shortcodes&quot;,&quot;shortcode&quot;:&quot;portfolio-list&quot;,&quot;post_type&quot;:&quot;portfolio-item&quot;,&quot;next_page&quot;:&quot;2&quot;,&quot;max_pages_num&quot;:2,&quot;behavior&quot;:&quot;columns&quot;,&quot;images_proportion&quot;:&quot;full&quot;,&quot;columns&quot;:&quot;3&quot;,&quot;columns_responsive&quot;:&quot;custom&quot;,&quot;columns_1440&quot;:&quot;3&quot;,&quot;columns_1366&quot;:&quot;3&quot;,&quot;columns_1024&quot;:&quot;3&quot;,&quot;columns_768&quot;:&quot;1&quot;,&quot;columns_680&quot;:&quot;1&quot;,&quot;columns_480&quot;:&quot;1&quot;,&quot;space&quot;:&quot;small&quot;,&quot;posts_per_page&quot;:&quot;9&quot;,&quot;orderby&quot;:&quot;date&quot;,&quot;order&quot;:&quot;ASC&quot;,&quot;additional_params&quot;:&quot;tax&quot;,&quot;tax&quot;:&quot;portfolio-category&quot;,&quot;tax_slug&quot;:&quot;project&quot;,&quot;layout&quot;:&quot;info-below&quot;,&quot;hover_animation_info-follow&quot;:&quot;follow&quot;,&quot;hover_animation_info-on-hover&quot;:&quot;fade-in&quot;,&quot;title_tag&quot;:&quot;h5&quot;,&quot;custom_margin&quot;:&quot;no&quot;,&quot;image_hover_animation&quot;:&quot;yes&quot;,&quot;appear&quot;:&quot;no&quot;,&quot;enable_filter&quot;:&quot;yes&quot;,&quot;pagination_type&quot;:&quot;no-pagination&quot;,&quot;object_class_name&quot;:&quot;ManufakturSolutionsCore_Portfolio_List_Shortcode&quot;,&quot;taxonomy_filter&quot;:&quot;portfolio-category&quot;,&quot;additional_query_args&quot;:{&quot;tax_query&quot;:[{&quot;taxonomy&quot;:&quot;portfolio-category&quot;,&quot;field&quot;:&quot;slug&quot;,&quot;terms&quot;:&quot;project&quot;}]},&quot;space_value&quot;:10}">
+                            <div class="qodef-m-filter">
+                                <div class="qodef-m-filter-items">
+                                    <a class="qodef-m-filter-item qodef--active" href="#" data-taxonomy="portfolio-category" data-filter="*">
+                                        <span class="qodef-m-filter-item-name">All</span>
+                                    </a>
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="energy">
+                                        <span class="qodef-m-filter-item-name">Energy</span>
+                                    </a>
+
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="heat">
+                                        <span class="qodef-m-filter-item-name">Heat</span>
+                                    </a>
+
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="heavy">
+                                        <span class="qodef-m-filter-item-name">Heavy</span>
+                                    </a>
+
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="industry">
+                                        <span class="qodef-m-filter-item-name">Industry</span>
+                                    </a>
+
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="tools">
+                                        <span class="qodef-m-filter-item-name">Tools</span>
+                                    </a>
+
+                                    <span class="qodef-info-separator-single"></span>
+                                    <a class="qodef-m-filter-item" href="#" data-taxonomy="portfolio-category" data-filter="work">
+                                        <span class="qodef-m-filter-item-name">Work</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <svg class="qodef-svg--spinner qodef-filter-pagination-spinner" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>	<div class="qodef-grid-inner clear">
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3422 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-energy portfolio-category-work portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/innovative-new-construction-projects/" target="_self">
+                                                    <img fetchpriority="high" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-1.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-1-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/innovative-new-construction-projects/" target="_self">
+                                                        Innovative new construction projects
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/energy/" rel="tag">Energy</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/work/" rel="tag">Work</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3482 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-heat portfolio-category-tools portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/projects-with-fine-copper-tool-materials/" target="_self">
+                                                    <img decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-2.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-2-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/projects-with-fine-copper-tool-materials/" target="_self">
+                                                        Projects with fine copper tool materials
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/heat/" rel="tag">Heat</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/tools/" rel="tag">Tools</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3484 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-heavy portfolio-category-industry portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/high-tower-modern-and-innovative-projects/" target="_self">
+                                                    <img decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/02/p-l-img-3.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/02/p-l-img-3-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/high-tower-modern-and-innovative-projects/" target="_self">
+                                                        High tower modern and innovative projects
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/heavy/" rel="tag">Heavy</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/industry/" rel="tag">Industry</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3491 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-tools portfolio-category-work portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/projects-from-palying-with-metal-surfaces/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-4.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-4-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/projects-from-palying-with-metal-surfaces/" target="_self">
+                                                        Projects from palying with metal surfaces
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/tools/" rel="tag">Tools</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/work/" rel="tag">Work</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3493 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-energy portfolio-category-tools portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/panels-that-can-be-good-in-work-and-design/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-5.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-5-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/panels-that-can-be-good-in-work-and-design/" target="_self">
+                                                        Panels that can be good in work and design
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/energy/" rel="tag">Energy</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/tools/" rel="tag">Tools</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3495 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-heavy portfolio-category-industry portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/all-the-sparks-and-new-construction-tasks/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-6.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-6-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/all-the-sparks-and-new-construction-tasks/" target="_self">
+                                                        All the sparks and new construction tasks
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/heavy/" rel="tag">Heavy</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/industry/" rel="tag">Industry</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3498 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-industry portfolio-category-tools portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/offshore-transport-for-construction-tools/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-7.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-7-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/offshore-transport-for-construction-tools/" target="_self">
+                                                        Offshore transport for construction tools
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/industry/" rel="tag">Industry</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/tools/" rel="tag">Tools</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3516 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-industry portfolio-category-work portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/construction-parts-and-gas-business-tasks/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-8.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-8-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/construction-parts-and-gas-business-tasks/" target="_self">
+                                                        Construction parts and gas business tasks
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/industry/" rel="tag">Industry</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/work/" rel="tag">Work</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="qodef-e qodef-grid-item qodef-item--full post-3519 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-energy portfolio-category-heavy portfolio-tag-brass portfolio-tag-in portfolio-tag-metal portfolio-tag-steel">
+                                    <div class="qodef-e-inner">
+                                        <div class="qodef-e-image">
+                                            <div class="qodef-e-media-image">
+                                                <a itemprop="url" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/the-whole-cycle-of-the-drilling-procedure/" target="_self">
+                                                    <img loading="lazy" decoding="async" width="1300" height="1603" src="../../wp-content/uploads/2022/10/p-l-img-9.jpg" class="attachment-full size-full" alt="c" srcset="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9.jpg 1300w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9-800x986.jpg 800w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9-243x300.jpg 243w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9-830x1024.jpg 830w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9-768x947.jpg 768w, https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/p-l-img-9-1246x1536.jpg 1246w" sizes="(max-width: 1300px) 100vw, 1300px">						<span class="qodef-e-gradient-holder">
+                                                        <span class="qodef-e-gradient">
+                                                            <span class="qodef-e-gradient-dot-1"></span>
+                                                            <span class="qodef-e-gradient-dot-2"></span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="qodef-e-content">
+                                            <div class="qodef-e-text">
+                                                <h5 itemprop="name" class="qodef-e-title entry-title">
+                                                    <a itemprop="url" class="qodef-e-title-link" href="https://manufaktursolutions.qodeinteractive.com/portfolio-item/the-whole-cycle-of-the-drilling-procedure/" target="_self">
+                                                        The whole cycle of the drilling procedure
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="qodef-e-top-holder">
+                                                <div class="qodef-e-info">
+                                                    <a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/energy/" rel="tag">Energy</a><span class="qodef-info-separator-single"></span><a href="https://manufaktursolutions.qodeinteractive.com/portfolio-category/heavy/" rel="tag">Heavy</a>	<div class="qodef-info-separator-end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

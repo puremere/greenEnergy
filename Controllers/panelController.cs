@@ -273,7 +273,6 @@ namespace greenEnergy.Controllers
                 }
                 HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
 
-
                 if (postedFile.ContentLength != 0)
                 {
                     string fileName = "";

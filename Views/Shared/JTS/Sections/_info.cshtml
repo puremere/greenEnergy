@@ -1,0 +1,97 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+    string html_header = Model.dataList.SingleOrDefault(x => x.title == "html_header") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_header").title2;
+    string html_title2 = Model.dataList.SingleOrDefault(x => x.title == "html_title2") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title2").title2;
+    string html_description = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+    
+}
+    <section class="elementor-section elementor-top-section elementor-element elementor-element-681c709 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="681c709" data-element_type="section">
+        <div class="elementor-container elementor-column-gap-default">
+            <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-5978884" data-id="5978884" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+                <div class="elementor-widget-wrap elementor-element-populated" style="
+    background-image: url(https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/Home-3-image-01.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+">
+                    <div class="elementor-element elementor-element-9060291 elementor-widget elementor-widget-manufaktursolutions_core_separator" data-id="9060291" data-element_type="widget" data-widget_type="manufaktursolutions_core_separator.default">
+                        <div class="elementor-widget-container">
+                            <div class="qodef-shortcode qodef-m  qodef-separator clear  ">
+                                <div class="qodef-m-line" style="border-color: #02010100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-a88a573" data-id="a88a573" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+                <div class="elementor-widget-wrap elementor-element-populated" style="background-image: url(https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/home-3-column-background.jpg);
+    background-size: cover;">
+                    <div class="elementor-element elementor-element-247f25c elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="247f25c" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
+                        <div class="elementor-widget-container">
+                            <div class="qodef-shortcode qodef-m qodef-section-title qodef-alignment--left qodef--appeared">
+                                <p class="qodef-m-highlight-text">Contact us now</p>
+                                <h2 class="qodef-m-title" style="color: #FFFFFF">
+                                    Happy to be<br> part of team
+                                </h2>
+                                <p class="qodef-m-subtitle" style="color: #FFFFFF">Lorem ipsum adipiscing dolor elit</p>
+                                <p class="qodef-m-text" style="color: #C1C1C1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totamet rem aperiam, to eaque ipsa quae ab illo inventore veritatis et quasi.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="elementor-section elementor-inner-section elementor-element elementor-element-0e3a842 elementor-section-boxed elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="0e3a842" data-element_type="section">
+                        <div class="elementor-container elementor-column-gap-default">
+                            <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-cf043ae" data-id="cf043ae" data-element_type="column">
+                                <div class="elementor-widget-wrap elementor-element-populated">
+                                    <section class="elementor-section elementor-inner-section elementor-element elementor-element-00417df elementor-section-boxed elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="00417df" data-element_type="section">
+                                        <div class="elementor-container elementor-column-gap-default">
+                                            <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-f74180f" data-id="f74180f" data-element_type="column">
+                                                <div class="elementor-widget-wrap elementor-element-populated">
+                                                    <div class="elementor-element elementor-element-388a719 elementor-widget elementor-widget-manufaktursolutions_core_single_image" data-id="388a719" data-element_type="widget" data-widget_type="manufaktursolutions_core_single_image.default">
+                                                        <div class="elementor-widget-container">
+                                                            <div class="qodef-shortcode qodef-m  qodef-single-image qodef-layout--default  qodef--retina">
+                                                                <div class="qodef-m-image">
+                                                                    <img decoding="async" itemprop="image" src="https://manufaktursolutions.qodeinteractive.com/wp-content/uploads/2022/10/home-3-image-small.png" width="72" height="72" alt="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-e045ca5" data-id="e045ca5" data-element_type="column">
+                                                <div class="elementor-widget-wrap elementor-element-populated">
+                                                    <div class="elementor-element elementor-element-b2da22d elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="b2da22d" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                        <div class="elementor-widget-container">
+                                                            <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-633 qodef-layout--simple" style="color: #FFFFFF;font-family: LATO;font-size: 14px;font-weight: 700">PHILL AKSERTY</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="elementor-element elementor-element-4abf563 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4abf563" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
+                                                        <div class="elementor-widget-container">
+                                                            <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-190 qodef-layout--simple" style="color: #FFFFFF;font-family: Titillium Web;font-size: 15px">Industry manager</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>

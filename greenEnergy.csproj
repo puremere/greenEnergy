@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
   <Import Project="packages\Grpc.Tools.2.65.0\build\Grpc.Tools.props" Condition="Exists('packages\Grpc.Tools.2.65.0\build\Grpc.Tools.props')" />
   <Import Project="packages\Microsoft.TypeScript.MSBuild.5.4.4\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('packages\Microsoft.TypeScript.MSBuild.5.4.4\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
@@ -134,6 +135,9 @@
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.IdentityModel.Tokens.6.35.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -313,15 +317,26 @@
     <Compile Include="Classes\tailorIGG.cs" />
     <Compile Include="Classes\TokenManager.cs" />
     <Compile Include="Controllers\adminController.cs" />
+    <Compile Include="Controllers\tipoxController.cs" />
     <Compile Include="Controllers\appController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\panelController.cs" />
     <Compile Include="Controllers\portalController.cs" />
+    <Compile Include="Controllers\webAppController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409201020574_initial.cs" />
+    <Compile Include="Migrations\202409201020574_initial.designer.cs">
+      <DependentUpon>202409201020574_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Context - Copy.cs" />
+    <Compile Include="Models\tailorIGG.cs" />
+    <Compile Include="Models\JtsContext.cs" />
+    <Compile Include="Models\Green2Context.cs" />
+    <Compile Include="Models\NfcDbContext.cs" />
+    <Compile Include="Models\TipaxContext.cs" />
+    <Compile Include="Models\HealthContext.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\appViewModel.cs" />
@@ -329,6 +344,7 @@
     <Compile Include="ViewModel\dynamicVM.cs" />
     <Compile Include="ViewModel\sectionVM.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\webapp.cs" />
     <Compile Include="webAssets\AdminPanel\ViewModel\CatPageViewModel.cs" />
     <Compile Include="webAssets\AdminPanel\ViewModel\producDetailPageViewModel.cs" />
     <Compile Include="webAssets\AdminPanel\ViewModel\productinfoviewdetail.cs" />
@@ -1584,6 +1600,11 @@
     <Content Include="fonts\webfonts\fa-solid.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\empty.png" />
+    <Content Include="Images\Green2\Uploads\logo.png" />
+    <Content Include="Images\Green2\Uploads\logo.svg" />
+    <Content Include="Images\Green2\Uploads\logoWhite.png" />
+    <Content Include="Images\Green2\Uploads\logoColor.png" />
     <Content Include="Images\Green\Uploads\about-1.jpg" />
     <Content Include="Images\Green\Uploads\about-2.jpg" />
     <Content Include="Images\Green\Uploads\about-3.jpg" />
@@ -1607,7 +1628,7 @@
     <Content Include="Images\Green\Uploads\hero-2.jpg" />
     <Content Include="Images\Green\Uploads\intro1.jpg" />
     <Content Include="Images\Green\Uploads\jobSection.png" />
-    <Content Include="Images\Green\Uploads\logo.png" />
+    <Content Include="Images\Green\Uploads\logoColor.png" />
     <Content Include="Images\Green\Uploads\parent.png" />
     <Content Include="Images\Green\Uploads\ourTeam.png" />
     <Content Include="Images\Green\Uploads\placeHolder.svg" />
@@ -1626,6 +1647,7 @@
     <Content Include="Images\Green\Uploads\testimonial.png" />
     <Content Include="Images\Green\Uploads\video-img.jpg" />
     <Content Include="Images\Green\Uploads\video.png" />
+    <Content Include="Images\img.png" />
     <Content Include="Images\JTS\Uploads\bannerFull1.png" />
     <Content Include="Images\JTS\Uploads\bannerFull2.png" />
     <Content Include="Images\JTS\Uploads\bannerSet1.png" />
@@ -2063,7 +2085,50 @@
     <Content Include="Views\panel\LayoutPartData.cshtml" />
     <Content Include="Views\panel\meta.cshtml" />
     <Content Include="Views\Shared\JTS\Layouts\_Layout.cshtml" />
+    <Content Include="webAssets\green2\css\animate.min.css" />
+    <Content Include="webAssets\green2\css\bootstrap.min.css" />
+    <Content Include="webAssets\green2\css\custom.css" />
+    <Content Include="webAssets\green2\css\font-awesome.min.css" />
+    <Content Include="webAssets\green2\css\font.css" />
+    <Content Include="webAssets\green2\css\ionicons.min.css" />
+    <Content Include="webAssets\green2\css\main.css" />
+    <Content Include="webAssets\green2\css\slick-theme.css" />
+    <Content Include="webAssets\green2\css\slick.css" />
+    <Content Include="webAssets\green2\css\swipebox.css" />
+    <Content Include="webAssets\green2\fonts\fontawesome-webfont.svg" />
+    <Content Include="webAssets\green2\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="webAssets\green2\fonts\ionicons.svg" />
+    <Content Include="webAssets\green2\img\11.jpg" />
+    <Content Include="webAssets\green2\js\bootstrap.min.js" />
+    <Content Include="webAssets\green2\js\custom.js" />
+    <Content Include="webAssets\green2\js\device.min.js" />
+    <Content Include="webAssets\green2\js\form.min.js" />
+    <Content Include="webAssets\green2\js\jquery-1.12.4.min.js" />
+    <Content Include="webAssets\green2\js\jquery.circle-progress.min.js" />
+    <Content Include="webAssets\green2\js\jquery.countdown.min.js" />
+    <Content Include="webAssets\green2\js\jquery.easing.min.js" />
+    <Content Include="webAssets\green2\js\jquery.mb.YTPlayer.js" />
+    <Content Include="webAssets\green2\js\jquery.mb.YTPlayer.min.js" />
+    <Content Include="webAssets\green2\js\jquery.parallax.min.js" />
+    <Content Include="webAssets\green2\js\jquery.placeholder.min.js" />
+    <Content Include="webAssets\green2\js\jquery.shuffle.min.js" />
+    <Content Include="webAssets\green2\js\jquery.smartmenus.js" />
+    <Content Include="webAssets\green2\js\jquery.swipebox.min.js" />
+    <Content Include="webAssets\green2\js\magic.min.js" />
+    <Content Include="webAssets\green2\js\magic2.min.js" />
+    <Content Include="webAssets\green2\js\main.js" />
+    <Content Include="webAssets\green2\js\map-dark.js" />
+    <Content Include="webAssets\green2\js\map.js" />
+    <Content Include="webAssets\green2\js\numScroller.js" />
+    <Content Include="webAssets\green2\js\slick.js" />
+    <Content Include="webAssets\green2\js\smoothscroll.min.js" />
+    <Content Include="webAssets\green2\js\text-rotator.min.js" />
+    <Content Include="webAssets\green2\js\vegas\vegas.min.css" />
+    <Content Include="webAssets\green2\js\vegas\vegas.min.js" />
+    <Content Include="webAssets\green2\js\wow.min.js" />
     <Content Include="webAssets\green\assets\css\custom.css" />
+    <Content Include="webAssets\jahan\css\custom.css" />
+    <Content Include="webAssets\jahan\css\slick-theme.css" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\css\stylesa78f.css" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\js\indexa78f.js" />
     <Content Include="webAssets\jahan\Industry\wp-content\plugins\contact-form-7\includes\swv\js\indexa78f.js" />
@@ -3129,6 +3194,30 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Views\Shared\Green\Layouts\_mainLayout.cshtml" />
+    <Content Include="Views\Shared\Green2\Layouts\_mainLayout.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_parent.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_section.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_slider.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_portfolio.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_heading.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_contentSlider.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_blogListItem.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_counter.cshtml" />
+    <Content Include="Views\Shared\Green2\Sections\_form.cshtml" />
+    <Content Include="Views\webApp\Index.cshtml" />
+    <Content Include="Views\Shared\_getAppURL.cshtml" />
+    <Content Include="Views\Shared\Elements\_label.cshtml" />
+    <Content Include="Views\Shared\Elements\_dynamicForm.cshtml" />
+    <Content Include="Views\Shared\Elements\_button.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_mainParent.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_form.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_section.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_sectionDetail.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_header.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_info.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_contentSlider.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_blogListItem.cshtml" />
+    <Content Include="Views\Shared\JTS\Sections\_portfolio.cshtml" />
     <None Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.js" />
     <Content Include="webAssets\AdminPanel\Scripts\jquery-3.3.1.min.js" />
@@ -3649,6 +3738,36 @@
     <Content Include="webAssets\newPortal\js\vendor\ckeditor5-build-classic\ckeditor.js.map" />
     <Content Include="webAssets\newPortal\js\vendor\ckeditor5-build-classic\LICENSE.md" />
     <Content Include="webAssets\newPortal\js\vendor\ckeditor5-build-classic\README.md" />
+    <Content Include="webAssets\green2\css\main.css.map" />
+    <Content Include="webAssets\green2\js\.DS_Store" />
+    <Content Include="webAssets\green2\js\vegas\vegas.min.js.map" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Black.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Bold.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Light.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Medium.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Regular.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-SemiBold.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-Thin.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-UltraBold.ttf" />
+    <Content Include="webAssets\green2\fonts\Arlon\Arlon-UltraLight.ttf" />
+    <Content Include="webAssets\green2\fonts\fontawesome-webfont.eot" />
+    <Content Include="webAssets\green2\fonts\fontawesome-webfont.ttf" />
+    <Content Include="webAssets\green2\fonts\fontawesome-webfont.woff" />
+    <Content Include="webAssets\green2\fonts\fontawesome-webfont.woff2" />
+    <Content Include="webAssets\green2\fonts\FontAwesome.otf" />
+    <Content Include="webAssets\green2\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="webAssets\green2\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="webAssets\green2\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="webAssets\green2\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="webAssets\green2\fonts\Helvetica\Helvetica-Bold.ttf" />
+    <Content Include="webAssets\green2\fonts\Helvetica\Helvetica-BoldOblique.ttf" />
+    <Content Include="webAssets\green2\fonts\Helvetica\helvetica-compressed.otf" />
+    <Content Include="webAssets\green2\fonts\Helvetica\helvetica-light.ttf" />
+    <Content Include="webAssets\green2\fonts\Helvetica\Helvetica-Oblique.ttf" />
+    <Content Include="webAssets\green2\fonts\Helvetica\Helvetica.ttf" />
+    <Content Include="webAssets\green2\fonts\ionicons.eot" />
+    <Content Include="webAssets\green2\fonts\ionicons.ttf" />
+    <Content Include="webAssets\green2\fonts\ionicons.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -3674,6 +3793,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202409201020574_initial.resx">
+      <DependentUpon>202409201020574_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -3716,6 +3840,7 @@
     <Error Condition="!Exists('packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
     <Error Condition="!Exists('packages\Grpc.Tools.2.65.0\build\Grpc.Tools.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grpc.Tools.2.65.0\build\Grpc.Tools.props'))" />
     <Error Condition="!Exists('packages\Grpc.Tools.2.65.0\build\Grpc.Tools.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grpc.Tools.2.65.0\build\Grpc.Tools.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
   </Target>
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net45\Stub.System.Data.SQLite.Core.NetFramework.targets')" />

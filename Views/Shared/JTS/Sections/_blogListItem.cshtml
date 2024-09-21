@@ -1,0 +1,48 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+}
+
+<section class="section-small" id="news">
+    <div class="container">
+        <h3 class="pull-left">News</h3>
+        <div class="pull-right">
+            <h4>OUR LATEST NEWS</h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row grid-pad">
+            @if (Model.childList != null)
+            {
+                if (Model.childList.Count() > 0)
+                {
+                    foreach (var child in Model.childList)
+                    {
+                        <div class="col-sm-6 col-md-4">
+                            <a href="news-single-sidebar.html">
+                                <img class="img-responsive center-block" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@child.image" alt="">
+                                <h5>@child.title</h5>
+                            </a>
+                            <p>@child.description</p>
+                            <a style="display:flex;align-items:center;" href="news-single.html"><span>Read more</span>   <i style="margin:0 10px" class="fa fa-chevron-right"></i></a>
+
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</section>

@@ -24,7 +24,7 @@ namespace greenEnergy.Controllers
                 
                 pageSectionVM responsemodel = new pageSectionVM();
                 getURLVM model = new getURLVM();
-                string lang = Session["lang"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lang"].ToString();
+                string lang = Session["lan"] == null ? @System.Configuration.ConfigurationManager.AppSettings["lan"] : Session["lan"].ToString();
                 if (first == "de")
                     lang = "de";
                 if (first == "fa")
@@ -32,7 +32,7 @@ namespace greenEnergy.Controllers
                 if (first == "en" || string.IsNullOrEmpty(first))
                     lang = "/";
                 Session["lan"] = lang;
-                ViewBag.lang = lang;
+                ViewBag.lang = lang == "/" ? "En" : lang;
                 model.lang = lang == "/" ? "en" : lang; 
                 model.slug = (first + "/" + second ).Trim('/');
                 model.slug = !string.IsNullOrEmpty(third) ? model.slug + "/" + third : model.slug;
@@ -60,8 +60,8 @@ namespace greenEnergy.Controllers
             }
             catch (Exception e)
             {
-
-                return Content("");
+                string message = e.InnerException != null ? e.InnerException.Message : e.Message;
+                return Content(message);
             }
         }
         public ActionResult Index()

@@ -116,7 +116,14 @@ namespace greenEnergy.ViewModel
     {
         public string background_image  { get; set; }
         public string background { get; set; }
+        public string border_size { get; set; }
+        public string border_color { get; set; }
         public string border_radius { get; set; }
+        public string width { get; set; }
+        public string height { get; set; }
+        public string padding { get; set; }
+        public string margin { get; set; }
+        public string box_shadow { get; set; }
       
     }
     public class marginVM
@@ -167,10 +174,12 @@ namespace greenEnergy.ViewModel
     {
         public string baseURL { get; set; }
         public string socketURL { get; set; }
+        public string endPoint { get; set; }
         public string startPage { get; set; }
         public Lang lang { get; set; }
         public Theme theme { get; set; }
         public TabBar tabBar { get; set; }
+        public Dictionary<string, string> data { get; set; }
     }
 
     public class streamModel
@@ -182,6 +191,7 @@ namespace greenEnergy.ViewModel
     {
         public int code { get; set; }
         public Result result { get; set; }
+       
     }
 
     public class TabBar

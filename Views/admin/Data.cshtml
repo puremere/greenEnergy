@@ -45,31 +45,98 @@
     <script>
         tinymce.init({
             selector: 'textarea',
+             a_plugin_option: true,
+            a_configuration_option: 400,
             height: 500,
             menubar: false,
 
             plugins: [
-                'code advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
+                'autolink,lists,spellchecker,pagebreak,style,layer,table,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template'
             ],
 
-            toolbar: 'undo redo | formatselect | ' +
-                ' bold italic backcolor | alignleft aligncenter ' +
-                ' alignright alignjustify | bullist numlist outdent indent |' +
-                ' removeformat | help| link image | code',
+            toolbar: '  blocks fontfamily fontsize | bold italic underline forecolor backcolor  |  alignleft aligncenter alignright alignjustify lineheight  |formatselect |  undo redo formatpainter |' +
+                
+                ' bullist numlist outdent indent |' +
+                ' removeformat | help| link image | code | removeformat',
             content_css: [
                 '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                 '//www.tiny.cloud/css/codepen.min.css'
-            ]
+            ],
+          fontsize_formats:
+             "8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt",
+               menubar: false,
+        color_cols: 6,
+        color_map: [
+            '#F0F8FF', 'aliceblue',
+            '#FAEBD7', 'antiquewhite',
+            '#F0FFFF', 'azure',
+            '#FFEBCD', 'blanchedalmond',
+            '#DEB887', 'burlywood',
+            '#FFFFFF', 'white',
+            '#7FFF00', 'chartreuse',
+            '#DC143C', 'crimson',
+            ],
         });
         //tinymce.activeEditor.execCommand('mceDirectionRTL');
+    </script>
+    <script>
+        var placeToGo;
+       $(".card-img-left").click(function ()
+         {
+           placeToGo = $(this).attr("classToFit");
+           $(".imageCollection").show();
+         });
+        $(".bigone").click(function(){
+           $("."+placeToGo).val($(this).attr("nameToGo"));
+           $(".imageCollection").hide();
+        });
+       $(".removebid").click(function () {
+           $(".imageCollection").hide();
+       })
+
+        $('input[type="file"]').change(function (e) {
+                const geekss = e.target.files[0].name;
+                $(this).siblings('input[name = "title2"]').val(geekss);
+        });
     </script>
 }
 
 
 
+<div class="imageCollection" style="display:none ;position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.9);top:0;bottom:0; left:0; z-index:999999999; ">
+    <div style="display:flex; position:relative; margin:100px">
+        <i class="iconsminds-back removebid" style="color:white; font-size:30px; position:fixed; top:50px; right:50px"></i>
+        <div>
+            <img nameToGo="" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/empty.png" />
 
+            @if (Model.imageList != null)
+            {
+                foreach (var item in Model.imageList.Distinct())
+                {
+                    if (item.Contains("background"))
+                    {
+                        greenEnergy.ViewModel.styleVM stylemodel = JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(item);
+                        string imgname = stylemodel.background_image;
+                        if (!Model.imageList.Contains(imgname))
+                        {
+                            <img nameToGo="@imgname" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@imgname" />
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        <img nameToGo="@item" style="width:150px; object-fit:scale-down" class="bigone" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item" />
+
+                    }
+                }
+
+            }
+        </div>
+
+    </div>
+</div>
 <div style=" ">
     <div class="row">
         <div class="col-sm-12">
@@ -89,7 +156,6 @@
 
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Title </th>
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Value </th>
-
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 170px;">Actions </th>
 
 
@@ -120,10 +186,20 @@
 
                                                     <div class="lableMode">
 
-                                                        @if (@prod.title.Contains("image"))
+                                                        @if (@prod.title.Contains("img"))
                                                         {
-                                                            <img style="max-width:100%" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.title2" />
+                                                            if (@prod.title2 != "")
+                                                            {
+                                                                <img style="max-width:250px" src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@prod.title2" />
+                                                            }
                                                         }
+                                                        else if (@prod.title.Contains("html"))
+                                                        {
+                                                            <div style="max-width:100%">
+                                                                @Html.Raw(prod.title2)
+                                                            </div>
+                                                        }
+
                                                         else if (@prod.title == "video")
                                                         {
                                                             <div style="max-width:100%">
@@ -144,22 +220,59 @@
                                                             <input hidden name="contentID" value="@Model.selectedContent.contentID" />
                                                             <input hidden name="dataID" value="@prod.dataID" />
                                                             <input hidden name="title" value="@prod.title" />
+
+
                                                             @{
-                                                                if (@prod.title.Contains("image"))
+                                                                if (@prod.title.Contains("img"))
                                                                 {
-                                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@prod.title" value="" />
+
+                                                                    @**@
+
+                                                                    @*<img class="" src="~/Images/img.png" />*@
+                                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="image" value="" />
+                                                                    <input placeholder="Choose From Upload Center" classToFit="@prod.title" style="flex:1; margin:10px" name="title2" class="@prod.title card-img-left form-control" />
+
                                                                 }
-                                                                else if (prod.title == "stylesrt")
+                                                                else if (@prod.title.Contains("Class"))
                                                                 {
+
+                                                                    <select multiple class="form-control" name="title2">
+                                                                        <option value="btn-border">btn-border</option>
+                                                                        <option value="btn-white">btn-white</option>
+                                                                        <option value="btn-dark-border">btn-dark-border</option>
+                                                                        <option value="btn-dark">btn-dark</option>
+                                                                        <option value="imageCurve">imageCurve</option>
+                                                                        <option value="itemcentre">centre</option>
+                                                                        <option value="itemleft">left</option>
+                                                                        <option value="itemright">right</option>
+                                                                    </select>
+                                                                }
+                                                                else if (prod.title == "style")
+                                                                {
+
                                                                     greenEnergy.ViewModel.styleVM stylemodel = string.IsNullOrEmpty(prod.title2) ? new greenEnergy.ViewModel.styleVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(prod.title2);
 
                                                                     <div>
-                                                                        <p style="display:flex"><span> background_image : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background_image" /></span> </p>
-                                                                        <p style="display:flex"><span> background : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background" /></span></p>
-                                                                        <p style="display:flex"><span> border-radius : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_radius" /></span> </p>
+                                                                        <p style="display:flex">
+                                                                            <span style="width:30%"> background_image : </span>
+                                                                            <span style="width:70%">
+                                                                                <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@prod.title" value="" />
+                                                                                <input classToFit="@prod.title" style="flex:1; margin:0 10px" name="title2" class="@prod.title card-img-left form-control" value="@stylemodel.background_image" />
+
+                                                                            </span>
+                                                                        </p>
+                                                                        <p style="display:flex"><span style="width:30%"> background : </span> <span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background" /></span></p>
+                                                                        <p style="display:flex"><span style="width:30%">  border-size : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_size" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%">  border-radius : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_radius" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%">  width : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.width" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%"> height : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.height" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%"> padding : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.padding" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%"> margin : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.margin" /></span> </p>
+                                                                        <p style="display:flex"><span style="width:30%"> box-shadow : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.box_shadow" /></span> </p>
 
                                                                     </div>
                                                                 }
+
                                                                 else if (prod.title == "marginsrt")
                                                                 {
 
@@ -174,21 +287,17 @@
                                                                 }
                                                                 else if (prod.title.Contains("html"))
                                                                 {
-                                                                    <textarea name="title2" required="required" class="form-control" style="height:170px">@prod.title2</textarea>
+                                                                    <textarea name="title2" class="form-control" style="height:170px">@prod.title2</textarea>
 
                                                                 }
-                                                                else if (prod.title.Contains("html"))
-                                                                {
-                                                                    <textarea name="title2" required="required" class="form-control" style="height:170px">@prod.title2</textarea>
 
-                                                                }
                                                                 else
                                                                 {
                                                                     <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@prod.title2" />
                                                                 }
 
                                                             }
-                                                            <button class="btn ripple btn-primary" type="submit">Verify</button>
+                                                            <button style="max-height:50px; margin:0 15px" class="btn ripple btn-primary" type="submit">Verify</button>
                                                         </form>
                                                     </div>
 

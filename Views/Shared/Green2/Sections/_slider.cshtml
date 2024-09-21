@@ -1,0 +1,92 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+<!-- Intro Slider-->
+
+
+<script>
+
+</script>
+<header class="intro carousel carousel-big slide carousel-fade" id="Carousel-intro" data-ride="carousel">
+    <!-- Indicators-->
+    <ol class="carousel-indicators">
+        @foreach (var item in @Model.contentChild)
+        {
+
+            int index = @Model.contentChild.IndexOf(item);
+            string active = index == 0 ? "active" : "";
+            <li class="@active" data-target="#Carousel-intro" data-slide-to="@index"></li>
+        }
+
+
+    </ol>
+    <div class="carousel-inner">
+        @foreach (var item in @Model.contentChild)
+        {
+            string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+            string image = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "img_image").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + item.dataList.SingleOrDefault(x => x.title.Contains("image")).title2;
+            string html_title = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_title").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+            string html_description = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_description").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+            string vedioLink = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "videoLink").title2) ? "" : item.dataList.SingleOrDefault(x => x.title == "videoLink").title2;
+            string buttonText = item.dataList.SingleOrDefault(x => x.title == "buttonText") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+            string buttonClass = item.dataList.SingleOrDefault(x => x.title == "buttonClass") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonClass").title2;
+            string buttonLink = item.dataList.SingleOrDefault(x => x.title == "buttonLink") == null ? "" : item.dataList.SingleOrDefault(x => x.title == "buttonLink").title2;
+
+
+
+
+            int index = @Model.contentChild.IndexOf(item);
+            string active = index == 0 ? "active" : "";
+
+            <div class="item @active">
+                <div class="fill" style="background-image:url('@image');">
+                    <div class="intro-body">
+                        <div class="sliderInfo">
+                            @if (!string.IsNullOrEmpty(vedioLink))
+                            {
+                                <a class="swipebox-video" href="@vedioLink" data-rel="video">
+                                    @if (html_title != "")
+                                    {
+                                        <h2 class="wow fadeInUp" data-wow-delay=".4s">@Html.Raw(html_title)</h2>
+
+                                    }
+                                    @if (html_description != "")
+                                    {
+                                        <h5 style="" class="wow fadeInUp  sliderDescription">@Html.Raw(html_description)</h5>
+
+                                    }
+                                    <i class="icon icon-big ion-ios-play-outline wow fadeInUp"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                if (html_title != "")
+                                {
+                                    <h2 class="wow fadeInUp">@Html.Raw(html_title)</h2>
+
+                                }
+                                if (html_description != "")
+                                {
+                                    <h5 style="" class="wow fadeInUp sliderDescription">@Html.Raw(html_description)</h5>
+
+                                }
+
+                                if (buttonText != "")
+                                {
+                                    <a class="btn @buttonClass btn-lg page-scroll wow fadeInUp" href="@buttonLink">@buttonText</a>
+                                }
+                            }
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <!-- Controls--><a class="left carousel-control" href="#Carousel-intro" data-slide="prev">
+        <span class="icon-prev"></span>
+    </a><a class="right carousel-control" href="#Carousel-intro" data-slide="next">
+        <span class="icon-next"></span>
+    </a>
+</header>

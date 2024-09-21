@@ -30,19 +30,18 @@
 
 @import url(fontiran.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
 body {
-    font-family: Arlon_medium !important;
+    font-family: IRANSans;  /*Arlon_medium !important;*/
     font-weight: 300;
     font-size: 13px;
     background-color: #E2E2E2;
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, input, textarea, a, span {
-    font-family: Arlon_medium !important;
+h1, h2, h3, h4, h5, h6, input, textarea, a, span, strong {
+    font-family: IRANSans !important; /*Arlon_medium*/
 }
-p{
-    font-family : helvica !important;
-   
+p {
+    font-family: IRANSans /*helvica*/ !important;
 }
 
 @media (max-width: 600px) {
