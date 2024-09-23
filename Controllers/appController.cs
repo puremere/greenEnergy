@@ -1160,6 +1160,7 @@ namespace greenEnergy.Controllers
             srtlist.Add("app/clientAddedProfileList");
             srtlist.Add("app/payeshPage");
             srtlist.Add("app/clientDashboard");
+            srtlist.Add("app/clientPayeshHistoryList");
             if (srtlist.Contains(model.slug))
             {
                 if (userID == null)
@@ -1520,7 +1521,7 @@ namespace greenEnergy.Controllers
                     }
                     if (model.slug == "app/notif")
                     {
-                        await sendNotif("2", "", "فرم ارزیابی جدیدی ثبت شده است", "reload", "app/homePageMedium");
+                        await sendNotif("1", "", "فرم ارزیابی جدیدی ثبت شده است", "reload", "app/homePageMedium");
                     }
                     if (model.slug == "app/verificationPopup")
                     {
@@ -3609,11 +3610,12 @@ namespace greenEnergy.Controllers
                         var flo = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == flw.userID && x.formID == formbase);
                         if (flo != null)
                         {
+                            int idnumber = flo.newOrderFlowID;
                             if (flo != null)
                             {
                                 if (!string.IsNullOrEmpty(flo.meta))
                                 {
-                                    meta = JsonConvert.DeserializeObject<Dictionary<string, string>>(flw.meta);
+                                    meta = JsonConvert.DeserializeObject<Dictionary<string, string>>(flo.meta);
                                 }
                                 else
                                 {
@@ -5627,7 +5629,7 @@ namespace greenEnergy.Controllers
                     Guid workingID = workingquery.First().workingStatusID;
                     Guid partnerID = Guid.NewGuid();
 
-                    user newuser = await dbcontext.users.SingleOrDefaultAsync(x => x.phone == sendingUser.phone);
+                    user newuser = await dbcontext.users.SingleOrDefaultAsync(x => x.phone == dphone);
                     // ثبت کاربر
                     if (newuser == null)
                     {
@@ -5663,7 +5665,7 @@ namespace greenEnergy.Controllers
                         creationDate = timetosave,
                         actionDate = timetosave,
                         isFinished = "1",
-                        serventPhone = sendingUser.phone,
+                        serventPhone = dphone,
                         userID = partnerID,
                         terminationDate = timetosave,
                         formID = 7,
@@ -6183,22 +6185,22 @@ namespace greenEnergy.Controllers
                     {
 
                         //string status = "0";
-                        //Guid statusID = dbcontext.verifyStatuses.FirstOrDefault().verifyStatusID;
-                        //Guid workingID = dbcontext.userWorkingStatuses.FirstOrDefault().workingStatusID;
-                        //Guid uid = Guid.NewGuid();
-                        //user newuser = new user()
-                        //{
-                        //    userID = uid,
-                        //    phone = finalPhone,
-                        //    name = "",
-                        //    code = "9999", // num.ToString(),
-                        //    userType = "0",
-                        //    verifyStatusID = statusID,
-                        //    workingStatusID = workingID
-                        //};
-                        //dbcontext.users.Add(newuser);
-                        //dbcontext.SaveChanges();
-                        //await setUserProfile(null, uid, dbcontext);
+                        Guid statusID = dbcontext.verifyStatuses.FirstOrDefault().verifyStatusID;
+                        Guid workingID = dbcontext.userWorkingStatuses.FirstOrDefault().workingStatusID;
+                        Guid uid = Guid.NewGuid();
+                        user newuser = new user()
+                        {
+                            userID = uid,
+                            phone = finalPhone,
+                            name = "",
+                            code = "9999", // num.ToString(),
+                            userType = "0",
+                            verifyStatusID = statusID,
+                            workingStatusID = workingID
+                        };
+                        dbcontext.users.Add(newuser);
+                        dbcontext.SaveChanges();
+                        await setUserProfile(null, uid, dbcontext);
                     }
 
 
@@ -9665,6 +9667,7 @@ namespace greenEnergy.Controllers
                         string mdljson = JsonConvert.SerializeObject(callback);
                         Dictionary<string, string> dat = new Dictionary<string, string>();
                         dat.Add("mydata", mdljson);
+                        string tkn = item.firebaseToken;
                         var message = new Message()
                         {
 
@@ -9692,7 +9695,7 @@ namespace greenEnergy.Controllers
                                 },
 
                             },
-                            Token = item.firebaseToken
+                            Token = tkn.Trim()
                         };
                         var response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
                     }
