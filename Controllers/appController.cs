@@ -1075,6 +1075,7 @@ namespace greenEnergy.Controllers
             object someObject;
             Request.Properties.TryGetValue("UserToken", out someObject);
             bool ifcontiniu = await checktoken(model, someObject);
+            model.firstID = someObject != null ? someObject.ToString() : "";
             if (model.data != null)
             {
                 if (model.data.ContainsKey("userToken"))
@@ -2291,7 +2292,7 @@ namespace greenEnergy.Controllers
                 object Userp;
                 Request.Properties.TryGetValue("UserToken", out someObject);
                 Request.Properties.TryGetValue("Userp", out Userp);
-
+                model.firstID = someObject != null ? someObject.ToString() : "";
                 if (model.data != null)
                 {
                     if (model.data.ContainsKey("userToken"))
@@ -2299,7 +2300,7 @@ namespace greenEnergy.Controllers
                         someObject = new Guid(model.data["userToken"]);
                     }
                 }
-
+                model.userID = someObject != null ? someObject.ToString() : "";
                 if (someObject != null || (model.slug == "app/verify" || model.slug == "app/setCode"))
                 {
                     if (model.slug == "app/verify")
@@ -2367,7 +2368,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/searchFlow")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         List<int> lst = new List<int>();
                         if (model.data.ContainsKey("custom"))
                         {
@@ -2440,7 +2441,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/setClientForm")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string rsp = await setUserDynamicFormData(model, usi);
 
                         string actionToGo = "app/clientDashboard";
@@ -2644,7 +2645,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/changeFlowStatus")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string rsp = await changeFlowStatus(model, usi);
 
                         List<actionResonse> actionlst = new List<actionResonse>();
@@ -2799,7 +2800,7 @@ namespace greenEnergy.Controllers
                     //tipax
                     else if (model.slug == "app/submitEditProfileTipox")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = "";
                         using (Context dbcontext = new Context())
                         {
@@ -2841,7 +2842,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/addNewTipaxClientSubmit")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = await setNewtipaxClient(model, usi);
 
                         string message = "با موفقیت انجام شد";
@@ -2886,7 +2887,7 @@ namespace greenEnergy.Controllers
                     //health
                     else if (model.slug == "app/submitEditProfile")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = "";
                         using (Context dbcontext = new Context())
                         {
@@ -2928,7 +2929,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/addNewProfileSubmit")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = await setNewProfile(model, usi);
 
                         string message = "با موفقیت انجام شد";
@@ -2971,7 +2972,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/addNewPatientSubmit")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = await setNewPatient(model, usi);
 
                         string message = "با موفقیت انجام شد";
@@ -3010,7 +3011,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/submitNewDoctor")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string phoneSended = await setNewDoctor(model, usi);
 
                         List<actionResonse> reloadlist = new List<actionResonse>();
@@ -3049,7 +3050,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/submitPayesh")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string rsp = await setUserDynamicFormData(model, usi);
                         List<actionResonse> getOrderListManagerActionlist = new List<actionResonse>();
                         actionResonse ago = new actionResonse()
@@ -3081,7 +3082,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/submitAssess")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string rsp = await setUserDynamicFormData(model, usi);
                         List<actionResonse> getOrderListManagerActionlist = new List<actionResonse>();
                         actionResonse ago = new actionResonse()
@@ -3145,7 +3146,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/submitMoney")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         
                         string flowIDsrt = await setUserDynamicFormData(model, usi);
                         paymentVM finalModel = await paymentProcess(model, usi, flowIDsrt);
@@ -3199,7 +3200,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/setNewStaticForm")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         string rsp = await setUserDynamicFormData(model, usi);
                         string urlreload = model.data["reload"];
                         List<actionResonse> actionlst = new List<actionResonse>();
@@ -3239,7 +3240,7 @@ namespace greenEnergy.Controllers
                     // iggTailor
                     else if (model.slug == "app/NFFOSubmit")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         await setNewFlowFromOrder(model, usi);
                         List<actionResonse> actionlst = new List<actionResonse>();
                         actionResonse goaction = new actionResonse()
@@ -3273,7 +3274,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/editProfile")
                     {
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         await editProfileHandler(model, usi);
                         List<actionResonse> actionlst = new List<actionResonse>();
                         actionResonse goaction = new actionResonse()
@@ -3350,7 +3351,7 @@ namespace greenEnergy.Controllers
                     else if (model.slug == "app/rejectFlowByUser")
                     {
                         //انجام کارهای اکسپتی فلو توسط کاربر
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         await changeFlowStatusByClientHandler(model, usi, "2");
                         List<actionResonse> actionlst = new List<actionResonse>();
                         actionResonse goaction = new actionResonse()
@@ -3380,7 +3381,7 @@ namespace greenEnergy.Controllers
                     else if (model.slug == "app/acceptFlowByUser")
                     {
                         //انجام کارهای اکسپتی فلو توسط کاربر
-                        Guid usi = new Guid(someObject.ToString());
+                        Guid usi = new Guid(model.userID);
                         await changeFlowStatusByClientHandler(model, usi, "1");
                         List<actionResonse> actionlst = new List<actionResonse>();
                         actionResonse goaction = new actionResonse()
@@ -3478,7 +3479,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/setTailorForm")
                     {
-                        Guid userID = new Guid(someObject.ToString());
+                        Guid userID = new Guid(model.userID);
 
                         await setTailorForm(model, userID);
                         //getListResponceVM modeldata = await getData(model);
@@ -3505,7 +3506,7 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/setNewFlow")
                     {
-                        Guid userID = new Guid(someObject.ToString());
+                        Guid userID = new Guid(model.userID);
                         await setNewFlow(model, userID);
                         List<actionResonse> actionlist = new List<actionResonse>();
                         actionResonse action1 = new actionResonse()
@@ -4793,7 +4794,7 @@ namespace greenEnergy.Controllers
                         }
 
                         // ینی نوتیف برای ارسال فرم پالس
-                        await sendNotif("3", "", "فرم ارزیابی جدیدی ثبت شده است", "reload", "app/homePageMeduim");
+                        await sendNotif("3", "", "فرم ارزیابی جدیدی ثبت شده است", "go", "app/homePageMedium");
                     }
 
                     return flowID.ToString();

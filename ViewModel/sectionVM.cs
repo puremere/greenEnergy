@@ -624,6 +624,7 @@ namespace greenEnergy.ViewModel
     }
     public class getURLVM
     {
+        public string firstID { get; set; }
         public string userID { get; set; }
         public string slug { get; set; }
         public string lang { get; set; }
