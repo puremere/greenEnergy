@@ -21,5 +21,24 @@ namespace greenEnergy
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_BeginRequest(Object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.IsSecureConnection.Equals(false) && HttpContext.Current.Request.IsLocal.Equals(false))
+            {
+
+                Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"].Replace("www.", "")
+            + HttpContext.Current.Request.RawUrl);
+            }
+
+
+            if (Request.Url.Host.StartsWith("www") && !Request.Url.IsLoopback)
+            {
+                UriBuilder builder = new UriBuilder(Request.Url);
+                builder.Host = Request.Url.Host.Replace("www.", "");
+                Response.StatusCode = 301;
+                Response.AddHeader("Location", builder.ToString());
+                Response.End();
+            }
+        }
     }
 }

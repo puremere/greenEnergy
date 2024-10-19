@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 // بعد از اتمام کار باید کد ها کپی شوند
-namespace greenEnergy.Model.NfcDb  // اینجا عوض شه
+namespace greenEnergy.Model.nfcdb  // اینجا عوض شه
 {
 
     class Context : DbContext

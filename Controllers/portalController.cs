@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
 
 namespace greenEnergy.Controllers
 {
-    [panelCheck]
+    [portalCheck]
     [doForAll]
     public class portalController : Controller
     {
@@ -426,7 +426,7 @@ namespace greenEnergy.Controllers
                 var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(responsemodel.message + ":" + mdl.phone);
                 string tkn = System.Convert.ToBase64String(plainTextBytes);
                 Response.Cookies["adminToken"].Value = tkn;
-                return RedirectToAction("dashboard");
+                return RedirectToAction("form");
             }
             else
             {
@@ -968,12 +968,6 @@ namespace greenEnergy.Controllers
                 {
                     model.baseFile.SaveAs(path + pdfBase);
                 }
-
-
-
-
-
-
             }
             if (model.file != null)
             {

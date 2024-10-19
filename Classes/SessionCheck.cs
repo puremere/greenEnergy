@@ -64,6 +64,30 @@ namespace greenEnergy.Classes
 
         }
     }
+    public class portalCheck : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+
+            var descriptor = filterContext.ActionDescriptor;
+            var actionName = descriptor.ActionName.ToString().ToLower();
+
+            if (actionName.ToLower() != "login" && actionName.ToLower() != "setcode" && actionName.ToLower() != "getcode")
+            {
+                if (filterContext.HttpContext.Request.Cookies["adminToken"] == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                                        new RouteValueDictionary {
+                                        { "Controller", "portal" },
+                                        { "Action", "Login" }
+                                                       });
+
+                }
+            }
+
+        }
+    }
     public class homeCheck : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)

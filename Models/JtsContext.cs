@@ -684,6 +684,7 @@ namespace greenEnergy.Model.jts // اینجا عوض شه
         [Key]
         public Guid orderOptionID { get; set; }
         public string title { get; set; }
+        public int priority { get; set; }
         public string Value { get; set; }
         public string image { get; set; }
         public Guid? userID { get; set; }

@@ -705,6 +705,7 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
         public string title { get; set; }
         public string Value { get; set; }
         public string image { get; set; }
+        public int priority { get; set; }
         public Guid? userID { get; set; }
         [ForeignKey("userID")]
         public virtual user user { get; set; }

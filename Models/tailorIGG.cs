@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 // بعد از اتمام کار باید کد ها کپی شوند
-namespace greenEnergy.Model.igg  // اینجا عوض شه
+namespace greenEnergy.Model.tailor  // اینجا عوض شه
 {
 
     class Context : DbContext
@@ -702,6 +702,7 @@ namespace greenEnergy.Model.igg  // اینجا عوض شه
 
         [Key]
         public Guid orderOptionID { get; set; }
+        public int priority { get; set; }
         public string title { get; set; }
         public string Value { get; set; }
         public string image { get; set; }
