@@ -208,8 +208,10 @@ namespace greenEnergy.Model  // اینجا عوض شه
         public int formOwner { get; set; }
         public int isOrderByDate { get; set; }
         public int isForCurrentDay { get; set; }
-
+        public int isRelatedToUserToken { get; set; }
         public int? formTypeID { get; set; }
+        public string formIDString { get; set; }
+        
         public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
@@ -1128,7 +1130,9 @@ namespace greenEnergy.Model  // اینجا عوض شه
 
         public int? formID { get; set; }
 
+        public int actorFlowID { get; set; }
         public int parentID { get; set; }
+
         [ForeignKey("parentID")]
         public virtual newOrderFlow parentFlow { get; set; }
 

@@ -1,7 +1,8 @@
 ﻿@model greenEnergy.ViewModel.webapp.webapp
 
+
+
 @foreach (var item in Model.view.content)
 {
-    
     Html.RenderPartial("/Views/Shared/Elements/_" + item.type + ".cshtml",item);
 }

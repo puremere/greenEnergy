@@ -224,6 +224,7 @@ namespace greenEnergy.ViewModel
     public class splashTab
     {
         public string startPage { get; set; }
+        public int badge { get; set; }
         public string title  { get; set; }
         public string icon { get; set; }
         public Dictionary<string, string> data { set; get; }

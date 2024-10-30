@@ -330,6 +330,10 @@
     <Compile Include="Migrations\202410140849555_initial.designer.cs">
       <DependentUpon>202410140849555_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410241038417_initial1.cs" />
+    <Compile Include="Migrations\202410241038417_initial1.designer.cs">
+      <DependentUpon>202410241038417_initial1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\tailorIGG.cs" />
     <Compile Include="Models\JtsContext.cs" />
@@ -3797,6 +3801,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202410140849555_initial.resx">
       <DependentUpon>202410140849555_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410241038417_initial1.resx">
+      <DependentUpon>202410241038417_initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
