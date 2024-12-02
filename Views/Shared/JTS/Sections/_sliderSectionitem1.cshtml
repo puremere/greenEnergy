@@ -14,12 +14,12 @@
 
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
     string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
-    string html_header = Model.dataList.SingleOrDefault(x => x.title == "html_header") == null ? "header" : Model.dataList.SingleOrDefault(x => x.title == "html_header").title2;
+    string html_header1 = Model.dataList.SingleOrDefault(x => x.title == "html_header1") == null ? "header" : Model.dataList.SingleOrDefault(x => x.title == "html_header1").title2;
     string html_header2 = Model.dataList.SingleOrDefault(x => x.title == "html_header2") == null ? "header" : Model.dataList.SingleOrDefault(x => x.title == "html_header2").title2;
     string html_title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
     string html_title2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "html_title2").title2) ? "slider title2" : Model.dataList.SingleOrDefault(x => x.title == "html_title2").title2;
-    string html_description = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
-    string html_description1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "html_description1").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description1").title2;
+    string html_description1 = Model.dataList.SingleOrDefault(x => x.title == "html_description1") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description1").title2;
+    string html_description2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "html_description2").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description2").title2;
 
 }
 
@@ -47,7 +47,7 @@
                                                         <div class="elementor-widget-wrap elementor-element-populated">
                                                             <div class="elementor-element elementor-element-bf905cb elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="bf905cb" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                 <div class="elementor-widget-container">
-                                                                    <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-350 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.dataList[0].title</p>
+                                                                    <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-350 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Html.Raw(html_header1)</p>
                                                                 </div>
                                                             </div>
                                                             <div class="elementor-element elementor-element-7aa336c1 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="7aa336c1" data-element_type="widget" data-widget_type="divider.default">
@@ -178,16 +178,8 @@
                                             </section>
                                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-52b7ad32 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="52b7ad32" data-element_type="section">
                                                 <div class="elementor-container elementor-column-gap-default">
-                                                    <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5a801c11" data-id="5a801c11" data-element_type="column">
-                                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                                            <div class="elementor-element elementor-element-5f9557b2 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="5f9557b2" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
-                                                                <div class="elementor-widget-container">
-                                                                    <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-367 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.dataList[0].description</h1>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-2a7bbae0" data-id="2a7bbae0" data-element_type="column">
+                                                  
+                                                    <div style="width:100%" class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-2a7bbae0" data-id="2a7bbae0" data-element_type="column">
                                                         <div class="elementor-widget-wrap elementor-element-populated">
                                                             <div class="elementor-element elementor-element-655c2d6a elementor-widget elementor-widget-text-editor" data-id="655c2d6a" data-element_type="widget" data-widget_type="text-editor.default">
                                                                 <div class="elementor-widget-container">
@@ -224,7 +216,7 @@
                                                                             display: inline-block
                                                                         }
                                                                     </style>
-                                                                    <p class="definitionP">@Model.dataList[0].description2 </p>
+                                                                    <div class="definitionP">@Html.Raw(html_description1) </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -241,7 +233,7 @@
                                                         <div class="elementor-widget-wrap elementor-element-populated">
                                                             <div class="elementor-element elementor-element-4634647 elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4634647" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
                                                                 <div class="elementor-widget-container">
-                                                                    <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-696 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Model.dataList[1].title</p>
+                                                                    <p class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-696 qodef-layout--simple" style="color: #FFFFFF;font-size: 14px;line-height: 18px;letter-spacing: 0px;font-weight: 700;text-transform: uppercase">@Html.Raw(html_header2)</p>
                                                                 </div>
                                                             </div>
                                                             <div class="elementor-element elementor-element-3c573d28 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="3c573d28" data-element_type="widget" data-widget_type="divider.default">
@@ -258,20 +250,12 @@
                                             </section>
                                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-60d14e57 elementor-section-full_width elementor-section-height-default elementor-section-height-default qodef-elementor-content-no" data-id="60d14e57" data-element_type="section">
                                                 <div class="elementor-container elementor-column-gap-default">
-                                                    <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5a778307" data-id="5a778307" data-element_type="column">
-                                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                                            <div class="elementor-element elementor-element-4d54055c elementor-widget elementor-widget-manufaktursolutions_core_custom_font" data-id="4d54055c" data-element_type="widget" data-widget_type="manufaktursolutions_core_custom_font.default">
-                                                                <div class="elementor-widget-container">
-                                                                    <h1 class="qodef-shortcode qodef-m  qodef-custom-font qodef-custom-font-858 qodef-layout--simple" style="color: #FFFFFF;font-size: 80px;line-height: 80px">@Model.dataList[1].description</h1>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-57a593f1" data-id="57a593f1" data-element_type="column">
+                                                    
+                                                    <div style="width:100%" class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-57a593f1" data-id="57a593f1" data-element_type="column">
                                                         <div class="elementor-widget-wrap elementor-element-populated">
                                                             <div class="elementor-element elementor-element-22bac7d2 elementor-widget elementor-widget-text-editor" data-id="22bac7d2" data-element_type="widget" data-widget_type="text-editor.default">
                                                                 <div class="elementor-widget-container">
-                                                                    <p class="definitionP">@Model.dataList[1].description2</p>
+                                                                    <div class="definitionP">@Html.Raw(html_description2)</div>
                                                                 </div>
                                                             </div>
                                                         </div>

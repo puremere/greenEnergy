@@ -1,4 +1,31 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string html_title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+    string html_description = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+    string buttonText1 = Model.dataList.SingleOrDefault(x => x.title == "buttonText1") == null ? "buttonText1" : Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2;
+    string buttonText2 = Model.dataList.SingleOrDefault(x => x.title == "buttonText2") == null ? "buttonText2" : Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2;
+    string buttonText3 = Model.dataList.SingleOrDefault(x => x.title == "buttonText3") == null ? "buttonText3" : Model.dataList.SingleOrDefault(x => x.title == "buttonText3").title2;
+    string buttonText4 = Model.dataList.SingleOrDefault(x => x.title == "buttonText4") == null ? "buttonText4" : Model.dataList.SingleOrDefault(x => x.title == "buttonText4").title2;
+    string buttonURL1 = Model.dataList.SingleOrDefault(x => x.title == "buttonURL1") == null ? "buttonURL1" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL1").title2;
+    string buttonURL2 = Model.dataList.SingleOrDefault(x => x.title == "buttonURL2") == null ? "buttonURL2" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL2").title2;
+    string buttonURL3 = Model.dataList.SingleOrDefault(x => x.title == "buttonURL3") == null ? "buttonURL3" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL3").title2;
+    string buttonURL4 = Model.dataList.SingleOrDefault(x => x.title == "buttonURL4") == null ? "buttonURL4" : Model.dataList.SingleOrDefault(x => x.title == "buttonURL4").title2;
+
+}
 
 @{
 
@@ -28,12 +55,9 @@
                                                     <div class="elementor-element elementor-element-bd8a44a elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="bd8a44a" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
                                                         <div class="elementor-widget-container">
                                                             <div class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
-                                                                @if (@Model.dataList.Count > 0)
-                                                                {
-                                                                    <h6 class="qodef-m-title dirRight" style="color: #FFFFFF">
-                                                                        @Model.dataList[0].title
-                                                                    </h6>
-                                                                }
+                                                                <p class="qodef-m-title dirRight" style="color: #FFFFFF">
+                                                                    @Html.Raw(html_description)
+                                                                </p>
 
                                                             </div>
                                                         </div>
@@ -46,22 +70,32 @@
                                                         </div>
                                                     </div>
 
-                                                    @if (@Model.dataList.Count > 1)
-                                                    {
-                                                        for (int i = 1; i < Model.dataList.Count; i++)
-                                                        {
-                                                            <div class="elementor-element elementor-element-bd8a44a elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="bd8a44a" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
-                                                                <div class="elementor-widget-container">
-                                                                    <div class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
-                                                                        <h6 class="qodef-m-title dirRight" style="color: #FFFFFF">
-                                                                            @Model.dataList[i].title
-                                                                        </h6>
-                                                                    </div>
+                                                    <div class="elementor-element elementor-element-bd8a44a elementor-widget elementor-widget-manufaktursolutions_core_section_title" data-id="bd8a44a" data-element_type="widget" data-widget_type="manufaktursolutions_core_section_title.default">
+                                                        <div class="elementor-widget-container">
+                                                            <div style="margin-bottom:20px" class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
+                                                                <div class="qodef-m-title dirRight" style="color: #FFFFFF">
+                                                                    <a style="color:white;  text-decoration:none; margin-bottom:20px" style="color:white; text-decoration:none" href="@buttonURL1"> @buttonText1</a>
+
                                                                 </div>
                                                             </div>
-                                                        }
-                                                    }
 
+
+                                                            <div style="margin-bottom:20px" class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
+                                                                <div class="qodef-m-title dirRight" style="color: #FFFFFF">
+                                                                    <a style="color:white; text-decoration:none; " href="@buttonURL2"> @buttonText2</a>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div style="margin-bottom:20px" class="qodef-shortcode qodef-m  qodef-section-title qodef-alignment--left   ">
+                                                                <div class="qodef-m-title dirRight" style="color: #FFFFFF">
+                                                                    <a style="color:white; text-decoration:none; margin-bottom:20px" href="@buttonURL3"> @buttonText3</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
                                                 </div>

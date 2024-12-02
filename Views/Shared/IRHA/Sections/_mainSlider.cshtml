@@ -1,0 +1,131 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string slide1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+    string slide2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
+    string slide3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
+
+
+    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1") == null ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
+    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url1").title2;
+    string urlText1 = Model.dataList.SingleOrDefault(x => x.title == "urlText1") == null ? "عنوان دکمه" : Model.dataList.SingleOrDefault(x => x.title == "urlText1").title2;
+
+
+    string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2") == null ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
+    string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
+    string urlText2 = Model.dataList.SingleOrDefault(x => x.title == "urlText2") == null ? "عنوان دکمه" : Model.dataList.SingleOrDefault(x => x.title == "urlText2").title2;
+
+    string text3 = Model.dataList.SingleOrDefault(x => x.title == "text3") == null ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text3").title2;
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
+    string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url3").title2;
+    string urlText3 = Model.dataList.SingleOrDefault(x => x.title == "urlText3") == null ? "عنوان دکمه" : Model.dataList.SingleOrDefault(x => x.title == "urlText3").title2;
+
+
+
+
+
+}
+<!--Main Slider Start-->
+<section class="main-slider-eight">
+    <div class="main-slider-eight__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
+         "items" : 1,
+         "margin" : 0,
+         "smartSpeed" : 700,
+         "loop" :true,
+         "autoplay" : true,
+         "autoplayTimeout" : 7000,
+         "animateOut" : "fadeOut" ,
+         "animateIn" : "fadeIn" ,
+         "dots" :false,
+         "nav" :true,
+         "navText" : ["<span class=\"icon-right-arrow\"></span>","<span class=\"icon-right-arrow1\"></span>"],
+                "autoplayHoverPause": false
+                }'>
+                <div class="item">
+                    <div class="main-slider-eight__item">
+                        <div class="main-slider-eight__bg" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/slider-8-bg.png);"></div>
+                        <div class="main-slider-eight__image" style="background-image: url(@slide1);"></div>
+                        <div class="main-slider-eight__shape-one"><img src="webAssets/irha/images/update-15-2-2024/shapes/slider-8-shape-1.png" alt="insur"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <div class="main-slider-eight__content">
+                                        <div class="main-slider-eight__title-wrapper">
+                                            <h2 class="main-slider-eight__title">@text1</h2><!-- slider-title -->
+                                        </div>
+                                        <div class="main-slider-eight__text-wrapper">
+                                            <p class="main-slider-eight__text">
+                                                @desc1
+                                            </p>
+                                        </div>
+                                        <div class="main-slider-eight__btn">
+                                            <a href="@url1" class="thm-btn thm-btn--eight">@urlText1</a><!-- slider-btn -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item -->
+                <div class="item">
+                    <div class="main-slider-eight__item">
+                        <div class="main-slider-eight__bg" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/slider-8-bg.png);"></div>
+                        <div class="main-slider-eight__image" style="background-image: url(@slide2);"></div>
+                        <div class="main-slider-eight__shape-one"><img src="webAssets/irha/images/update-15-2-2024/shapes/slider-8-shape-1.png" alt="insur"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <div class="main-slider-eight__content">
+                                        <div class="main-slider-eight__title-wrapper">
+                                            <h2 class="main-slider-eight__title">@text2</h2><!-- slider-title -->
+                                        </div>
+                                        <div class="main-slider-eight__text-wrapper">
+                                            <p class="main-slider-eight__text">
+                                                @desc2
+                                            </p>
+                                        </div>
+                                        <div class="main-slider-eight__btn">
+                                            <a href="@url2" class="thm-btn thm-btn--eight">@urlText2</a><!-- slider-btn -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item -->
+       <div class="item">
+                    <div class="main-slider-eight__item">
+                        <div class="main-slider-eight__bg" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/slider-8-bg.png);"></div>
+                        <div class="main-slider-eight__image" style="background-image: url(@slide3);"></div>
+                        <div class="main-slider-eight__shape-one"><img src="webAssets/irha/images/update-15-2-2024/shapes/slider-8-shape-1.png" alt="insur"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <div class="main-slider-eight__content">
+                                        <div class="main-slider-eight__title-wrapper">
+                                            <h2 class="main-slider-eight__title">@text3</h2><!-- slider-title -->
+                                        </div>
+                                        <div class="main-slider-eight__text-wrapper">
+                                            <p class="main-slider-eight__text">
+                                                @desc3
+                                            </p>
+                                        </div>
+                                        <div class="main-slider-eight__btn">
+                                            <a href="@url3" class="thm-btn thm-btn--eight">@urlText3</a><!-- slider-btn -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item -->
+            </div>
+    <div class="main-slider-eight__shape-two wow fadeInUp" data-wow-delay="200ms" style="background-image: url(webAssets/irha/images//update-15-2-2024/shapes/slider-8-shape-2.png);"></div>
+</section>
+<!--Main Slider End-->

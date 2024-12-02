@@ -1,0 +1,116 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+   
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading") == null ? "از این قسمت به عنوان هدر بخش مزیت ها استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+
+    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1") == null ? "عنوان مرتبط یک" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
+    string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
+    string text3 = Model.dataList.SingleOrDefault(x => x.title == "text3") == null ? "عنوان مرتبط سوم" : Model.dataList.SingleOrDefault(x => x.title == "text3").title2;
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
+    string text4 = Model.dataList.SingleOrDefault(x => x.title == "text4") == null ? "عنوان مرتبط چهارم" : Model.dataList.SingleOrDefault(x => x.title == "text4").title2;
+    string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc4").title2;
+    string text5 = Model.dataList.SingleOrDefault(x => x.title == "text5") == null ? "عنوان مرتبط پنجم" : Model.dataList.SingleOrDefault(x => x.title == "text5").title2;
+    string desc5 = Model.dataList.SingleOrDefault(x => x.title == "desc5") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc5").title2;
+    string text6 = Model.dataList.SingleOrDefault(x => x.title == "text6") == null ? "عنوان مرتبط ششم" : Model.dataList.SingleOrDefault(x => x.title == "text6").title2;
+    string desc6 = Model.dataList.SingleOrDefault(x => x.title == "desc6") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc6").title2;
+
+
+
+}
+<section class="faq-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="faq-one__single">
+                    <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-1">
+                        <div class="accrodion">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text1</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                        @desc1
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion ">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text2</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                       @desc2
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion last-chiled">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text3</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                       @desc3
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="faq-one__single">
+                    <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-2">
+                        <div class="accrodion">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text4</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                       @desc4
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion active">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text5</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                       @desc5
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion last-chiled">
+                            <div class="accrodion-title">
+                                <h4><span>?</span> @text6</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p>
+                                       @desc6
+                                    </p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

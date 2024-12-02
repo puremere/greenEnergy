@@ -62,6 +62,7 @@ namespace greenEnergy.ViewModel
     /// </summary>
     /// 
 
+    
     public class managerFlowList_orderFlowCycle : parent
     {
         public string FlowID { get; set; }

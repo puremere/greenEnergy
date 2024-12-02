@@ -1,0 +1,191 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header") == null ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
+
+}
+<!--Services Eight Start-->
+<section class="services-eight" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/service-bg.png);">
+    <div class="container">
+        <div class="section-title-six text-left">
+           <h2 class="section-title-six__title">@header</h2>
+        </div>
+        <div class="services-eight__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
+             "loop" : true,
+             "autoplay" : true,
+             "autoplayTimeout" : 7000,
+             "margin" : 30,
+             "nav" : true,
+             "dots" : true,
+             "smartSpeed" : 700,
+             "navText" : ["<span class=\"fas fa-chevron-left\"></span>","<span class=\"fas fa-chevron-right\"></span>"],
+                    "responsive": {
+                        "0": {
+                            "items": 1
+                        },
+                        "768": {
+                            "items": 2
+                        },
+                        "992": {
+                            "items": 3
+                        }
+                    }
+                    }'>
+
+
+         @if (Model.typeID != new Guid("00000000-0000-0000-0000-000000000000") && Model.typeID != null)
+         {
+             if (Model.childList != null)
+             {
+                 foreach (var item in Model.childList)
+                 {
+                     string image = item.image;
+                     string url = "Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/" + @image;
+                     string title = item.title;
+                     string blogurl = item.url;
+                     int index = @Model.childList.IndexOf(item);
+                     string active = index == 0 ? "active" : "";
+
+                      <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="webAssets/irha/images/update-15-2-2024/resources/service-8-1.jpg" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><span class="insur-four-icon-governance"></span></div>
+                                <h3 class="services-eight__single__title"><a href="car-insurance.html">Car Insurance</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                                There are many variations the off passages of Lorem Ipsum free thing avagtilable, but majority
+                            </p>
+                        </div>
+                    </div><!--item-->
+                 }
+             }
+         }
+         else
+         {
+             if (Model.contentChild.Count() > 0)
+             {
+                 foreach (var item in Model.contentChild)
+                 {
+                     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+                     string userimage = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "img_user").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + item.dataList.SingleOrDefault(x => x.title.Contains("img_user")).title2;
+                     string html_title = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_title").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+                     string html_description = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_description").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+                     string html_userName = string.IsNullOrEmpty(item.dataList.SingleOrDefault(x => x.title == "html_userName").title2) ? "slider title" : item.dataList.SingleOrDefault(x => x.title == "html_userName").title2;
+                    <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="webAssets/irha/images/update-15-2-2024/resources/service-8-2.jpg" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><span class="insur-four-icon-safety"></span></div>
+                                <h3 class="services-eight__single__title"><a href="life-insurance.html">Life Insurance</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                                There are many variations the off passages of Lorem Ipsum free thing avagtilable, but majority
+                            </p>
+                        </div>
+                    </div><!--item-->
+                 }
+             }
+             else
+             {
+                 
+                 string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+                 string slide1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-15-2-2024/resources/service-8-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+                 string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1") == null ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
+                 string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
+                 string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url1").title2;
+
+
+
+                 string slide2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-15-2-2024/resources/service-8-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
+                 string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
+                 string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
+                 string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
+
+                 string slide3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-15-2-2024/resources/service-8-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
+                 string text3 = Model.dataList.SingleOrDefault(x => x.title == "text3") == null ? "عنوان مرتبط سوم" : Model.dataList.SingleOrDefault(x => x.title == "text3").title2;
+                 string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
+                 string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url3").title2;
+
+                 string slide4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4") == null ? "webAssets/irha/images/update-15-2-2024/resources/service-8-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2;
+                 string text4 = Model.dataList.SingleOrDefault(x => x.title == "text4") == null ? "عنوان مرتبط چهارم" : Model.dataList.SingleOrDefault(x => x.title == "text4").title2;
+                 string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc4").title2;
+                 string url4 = Model.dataList.SingleOrDefault(x => x.title == "url4") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url4").title2;
+
+                  <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="@slide1" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><i  class="fa fa-file"></i></div>
+                                <h3 class="services-eight__single__title"><a href="@url1">@text1</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                               @desc1
+                            </p>
+                        </div>
+                    </div><!--item-->
+                    <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="@slide2" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><i class="fa fa-file"></i></div>
+                                <h3 class="services-eight__single__title"><a href="@url2">@text2</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                                @desc2
+                            </p>
+                        </div>
+                    </div><!--item-->
+                    <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="@slide3" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><i class="fa fa-file"></i></div>
+                                <h3 class="services-eight__single__title"><a href="@url3">@text3</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                                @desc3
+                            </p>
+                        </div>
+                    </div><!--item-->
+                    <div class="item">
+                        <div class="services-eight__single">
+                            <div class="services-eight__single__image">
+                                <img src="@slide4" alt="insur">
+                            </div>
+                            <div class="services-eight__single__middle">
+                                <div class="services-eight__single__icon"><i class="fa fa-file"></i></div>
+                                <h3 class="services-eight__single__title"><a href="@url4">@text4</a></h3>
+                            </div>
+                            <p class="services-eight__single__text">
+                                @desc4
+                            </p>
+                        </div>
+                    </div><!--item-->
+             }
+
+         }
+
+
+
+                </div>
+    </div>
+</section>
+<!--Services Eight End-->

@@ -1,4 +1,29 @@
-﻿@model greenEnergy.ViewModel.pageContentVM
+﻿
+
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image") == null ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string html_header = Model.dataList.SingleOrDefault(x => x.title == "html_header") == null ? "header" : Model.dataList.SingleOrDefault(x => x.title == "html_header").title2;
+    string html_header2 = Model.dataList.SingleOrDefault(x => x.title == "html_header2") == null ? "header" : Model.dataList.SingleOrDefault(x => x.title == "html_header2").title2;
+    string html_title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
+    string html_title2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "html_title2").title2) ? "slider title2" : Model.dataList.SingleOrDefault(x => x.title == "html_title2").title2;
+    string html_description = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
+    string html_description1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "html_description1").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "html_description1").title2;
+
+}
 
 @{
     string classname = ViewBag.classname;

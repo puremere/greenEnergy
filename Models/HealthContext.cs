@@ -20,7 +20,7 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
         {
             // اینجا عوض شه
             //Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
-            //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
+            Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
         }
 
 
@@ -92,8 +92,8 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
         public DbSet<flowLog> FlowLogs { get; set; }
         public DbSet<media> medias { get; set; }
 
-
-
+        public DbSet<datalog> datalogs { get; set; }
+        public DbSet<paymentRecord> paymentRecords { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -155,6 +155,20 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
     }
 
 
+
+    public class paymentRecord
+    {
+        [Key]
+        public Guid paymentRecordID { get; set; }
+        public int relationID { get; set; }
+        public int peigiry { get; set; }
+        public double price { get; set; }
+        public int status { get; set; }
+        public double timestamp { get; set; }
+        public Guid userID { get; set; }
+        public int moneyFormID { get; set; } // ینی چه فرمی داره پرداخت میشه
+        public string planID { get; set; }
+    }
     public class media
     {
         [Key]
@@ -188,6 +202,18 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
         public DateTime creationDate { get; set; }
         public string actionTitle { get; set; }
     }
+
+
+    public class datalog
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int datalogID { get; set; }
+        public string data { get; set; }
+        public string form { get; set; }
+        public string slug { get; set; }
+        public string response { get; set; }
+    }
     public class urlData
     {
         [Key]
@@ -208,8 +234,10 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
         public int formOwner { get; set; }
         public int isOrderByDate { get; set; }
         public int isForCurrentDay { get; set; }
-
+        public int isRelatedToUserToken { get; set; }
         public int? formTypeID { get; set; }
+        public string formIDString { get; set; }
+
         public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
@@ -227,6 +255,8 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
 
         public int isLinkToMain { get; set; }
         public string conditionStatus { get; set; }
+        public string relationStatus { get; set; }
+        public string conditionRelationStatus { get; set; }
         public int conditionStatusOperator { get; set; }
         public string operat { get; set; }
         public string extraRelation { get; set; }
@@ -1128,7 +1158,9 @@ namespace greenEnergy.Model.health  // اینجا عوض شه
 
         public int? formID { get; set; }
 
+        public int actorFlowID { get; set; }
         public int parentID { get; set; }
+
         [ForeignKey("parentID")]
         public virtual newOrderFlow parentFlow { get; set; }
 

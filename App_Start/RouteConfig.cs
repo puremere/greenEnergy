@@ -22,6 +22,7 @@ namespace greenEnergy
             url: "webapp/{action}/{id}",
             defaults: new { controller = "webapp", action = "splash", id = UrlParameter.Optional }
         );
+            
             routes.MapRoute(
              name: "Default4",
              url: "admin/{action}/{id}",
@@ -42,6 +43,11 @@ namespace greenEnergy
               url: "home/{action}/{id}",
               defaults: new { controller = "Home", action = UrlParameter.Optional, id = UrlParameter.Optional }
           );
+          //  routes.MapRoute(
+          //    name: "connect",
+          //    url: "{controller}/{action}/{id}",
+          //    defaults: new { controller = "Home", action = "page", id = UrlParameter.Optional }
+          //);
             routes.MapRoute(
               name: "Default0",
               url: "{first}/{second}/{third}",

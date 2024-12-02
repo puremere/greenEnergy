@@ -28,7 +28,7 @@ namespace greenEnergy.Controllers
             model.slug = slug;
             responsemodel = await methods.PostData(model, responsemodel, "/getAppURL", "");
             webapp view = JsonConvert.DeserializeObject<webapp>(responsemodel.result.page);
-            return PartialView("/Views/Shared/_getAppURL.cshtml", view);
+            return PartialView("/Views/Shared/_getAppURL.cshtml");
         }
         public async Task<ActionResult> splash()
         {

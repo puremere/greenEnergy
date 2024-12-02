@@ -11,6 +11,9 @@ namespace greenEnergy.ViewModel
         public string to { get; set; }
         public string url { get; set; }
         public string payment { get; set; }
+        public int month { get; set; }
+        public Guid paymentRecortID { get; set; }
+
     }
     public class callVM
     {

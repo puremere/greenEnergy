@@ -16,7 +16,7 @@ namespace greenEnergy.Model  // اینجا عوض شه
     class Context : DbContext
     {
 
-        public Context() : base("health") // NfcDb green2
+        public Context() : base("NfcDb") // NfcDb green2
         {
             // اینجا عوض شه
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
@@ -208,10 +208,8 @@ namespace greenEnergy.Model  // اینجا عوض شه
         public int formOwner { get; set; }
         public int isOrderByDate { get; set; }
         public int isForCurrentDay { get; set; }
-        public int isRelatedToUserToken { get; set; }
+
         public int? formTypeID { get; set; }
-        public string formIDString { get; set; }
-        
         public int? formID { get; set; }
         [ForeignKey("formID")]
         public virtual form form { get; set; }
@@ -707,7 +705,6 @@ namespace greenEnergy.Model  // اینجا عوض شه
         public string title { get; set; }
         public string Value { get; set; }
         public string image { get; set; }
-        public int priority { get; set; }
         public Guid? userID { get; set; }
         [ForeignKey("userID")]
         public virtual user user { get; set; }
@@ -953,7 +950,7 @@ namespace greenEnergy.Model  // اینجا عوض شه
         public string itemtImage { get; set; }
         public string catchUrl { get; set; }
         public string isMultiple { get; set; }
-
+        public string isValidate { get; set; }
 
         public string isRequired { get; set; }
         public string validationType { get; set; }
@@ -1130,9 +1127,7 @@ namespace greenEnergy.Model  // اینجا عوض شه
 
         public int? formID { get; set; }
 
-        public int actorFlowID { get; set; }
         public int parentID { get; set; }
-
         [ForeignKey("parentID")]
         public virtual newOrderFlow parentFlow { get; set; }
 

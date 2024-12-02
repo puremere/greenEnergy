@@ -1,0 +1,102 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-15-2-2024/resources/author-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+    string name1 = Model.dataList.SingleOrDefault(x => x.title == "name1") == null ? "نام فرد" : Model.dataList.SingleOrDefault(x => x.title == "name1").title2;
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1") == null ? "تایتل فرد" : Model.dataList.SingleOrDefault(x => x.title == "title1").title2;
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
+
+
+
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-25-2-2024/resources/author-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
+    string name2 = Model.dataList.SingleOrDefault(x => x.title == "name2") == null ? "نام فرد" : Model.dataList.SingleOrDefault(x => x.title == "name2").title2;
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2") == null ? "تایتل فرد" : Model.dataList.SingleOrDefault(x => x.title == "title2").title2;
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
+
+    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-35-2-2024/resources/author-3.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
+    string name3 = Model.dataList.SingleOrDefault(x => x.title == "name3") == null ? "نام فرد" : Model.dataList.SingleOrDefault(x => x.title == "name3").title2;
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3") == null ? "تایتل فرد" : Model.dataList.SingleOrDefault(x => x.title == "title3").title2;
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
+
+    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4") == null ? "webAssets/irha/images/update-45-2-2024/resources/author-4.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2;
+    string name4 = Model.dataList.SingleOrDefault(x => x.title == "name4") == null ? "نام فرد" : Model.dataList.SingleOrDefault(x => x.title == "name4").title2;
+    string title4 = Model.dataList.SingleOrDefault(x => x.title == "title4") == null ? "تایتل فرد" : Model.dataList.SingleOrDefault(x => x.title == "title4").title2;
+    string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc4").title2;
+
+}
+
+
+<!--Testimonial Eight Start-->
+<section class="testimonial-eight" style="background-color:white">
+    <div class="container">
+        <div class="section-title-six text-center">
+            <h2 class="section-title-six__title">نظرات شما در مورد ما</h2>
+        </div>
+        <div class="testimonial-eight__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
+             "loop" : true,
+             "autoplay" : true,
+             "autoplayTimeout" : 7000,
+             "margin" : 30,
+             "nav" : false,
+             "dots" : false,
+             "smartSpeed" : 700,
+             "navText" : ["<span class=\"icon-right-arrow\"></span>","<span class=\"icon-right-arrow1\"></span>"],
+                        "responsive": {
+                            "0": {
+                                "items": 1
+                            },
+                            "992": {
+                                "items": 2
+                            }
+                        }
+                    }'>
+                    <div class="item">
+                        <div class="testimonial-eight__single">
+                            <div class="testimonial-eight__single__shape" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/testimonial-bg-shape.png);"></div>
+                            <div class="testimonial-eight__single__author">
+                                <img src="@image1" alt="insur">
+                                <h4 class="testimonial-eight__single__name">@name1</h4>
+                                <p class="testimonial-eight__single__designation">@title1</p>
+                            </div>
+                            <p class="testimonial-eight__single__text">
+                               @desc1
+                            </p>
+                            <div class="testimonial-eight__single__rating">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                        </div>
+                    </div>
+    <div class="item">
+                        <div class="testimonial-eight__single">
+                            <div class="testimonial-eight__single__shape" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/testimonial-bg-shape.png);"></div>
+                            <div class="testimonial-eight__single__author">
+                                <img src="@image1" alt="insur">
+                                <h4 class="testimonial-eight__single__name">@name1</h4>
+                                <p class="testimonial-eight__single__designation">@title1</p>
+                            </div>
+                            <p class="testimonial-eight__single__text">
+                               @desc1
+                            </p>
+                            <div class="testimonial-eight__single__rating">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+    </div>
+</section>
+<!--Testimonial Eight End-->

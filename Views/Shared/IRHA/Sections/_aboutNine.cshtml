@@ -1,0 +1,80 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-15-2-2024/resources/about-nine-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-15-2-2024/resources/about-nine-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
+    string counter = Model.dataList.SingleOrDefault(x => x.title == "counter") == null ? "50" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "counter").title2;
+    string counterText = Model.dataList.SingleOrDefault(x => x.title == "counterText") == null ? "سال تجربه موفق در حوزه" : Model.dataList.SingleOrDefault(x => x.title == "counterText").title2;
+
+
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading") == null ? "از این قسمت به عنوان هدر بخش معرفی استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description") == null ? "توضیحات در مورد این بخش میتواند  در اینجا قرار داده شود" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url1").title2;
+    string urlText1 = Model.dataList.SingleOrDefault(x => x.title == "urlText1") == null ? "عنوان دکمه" : Model.dataList.SingleOrDefault(x => x.title == "urlText1").title2;
+
+
+
+
+}
+
+<!--About Nine Start-->
+<section class="about-nine" style="background-color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7">
+                <div class="about-nine__image wow fadeInUp" data-wow-delay="00ms">
+                    <div class="about-nine__image__one">
+                        <img src="@image1" alt="insur">
+                    </div>
+                    <div class="about-nine__image__two">
+                        <img src="@image2" alt="insur">
+                    </div>
+                    <div class="about-nine__experience">
+                        <div class="about-nine__experience__number">
+                            <span style="direction:ltr" class="odometer" data-count="@counter">00</span>
+                            <span class="about-nine__experience__nuber__plus">+</span>
+                        </div>
+                        <p class="about-nine__experience__text">@counterText</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5">
+                <div class="about-nine__content">
+                    <div class="section-title-six text-left">
+                        <h2 class="section-title-six__title">@heading</h2>
+                    </div>
+                    <p class="about-nine__content__text">
+                        @description
+                    </p>
+                    <ul class="about-nine__box list-unstyled">
+                        <li>
+                            <div class="about-nine__box__top">
+                                <div class="about-nine__box__icon"><span class="insur-four-icon-icon"></span></div>
+                                <h3 class="about-nine__box__title">تیتر قابل استفاده</h3>
+                            </div>
+                            <p class="about-nine__box__text">توضیحات مرتبط </p>
+                        </li>
+                        <li>
+                            <div class="about-nine__box__top">
+                                <div class="about-nine__box__icon"><span class="insur-four-icon-governance"></span></div>
+                                <h3 class="about-nine__box__title">تیتر قابل استفاده</h3>
+                            </div>
+                            <p class="about-nine__box__text">توضیحات مرتبط</p>
+                        </li>
+                    </ul>
+                    <ul class="about-nine__list list-unstyled">
+                        <li><span class="about-nine__list__icon"><i class="insur-four-icon-checked"></i></span>لیست قابل استفاده</li>
+                        <li><span class="about-nine__list__icon"><i class="insur-four-icon-checked"></i></span>لیست قابل استفاده</li>
+                        <li><span class="about-nine__list__icon"><i class="insur-four-icon-checked"></i></span>لیست قابل استفاده</li>
+                    </ul>
+                    <a href="@url1" class="thm-btn thm-btn--eight">@urlText1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--About Eight End-->
