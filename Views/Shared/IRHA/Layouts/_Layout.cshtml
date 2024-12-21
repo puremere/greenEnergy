@@ -2,6 +2,7 @@
 @using greenEnergy.ViewModel;
 @{
     greenEnergy.ViewModel.getsectionLayoutVM layoutmodel = @ViewBag.layoutModel;
+    getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
 }
 
 <!DOCTYPE html>
@@ -10,12 +11,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Home Eight || Insur || Insur HTML 5 Template </title>
+    <title>@ViewBag.title </title>
     <!-- favicons Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="webAssets/irha/images/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="webAssets/irha/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="webAssets/irha/images/favicons/favicon-16x16.png">
-    <link rel="manifest" href="webAssets/irha/images/favicons/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/webAssets/irha/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/webAssets/irha/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/webAssets/irha/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/webAssets/irha/images/favicons/site.webmanifest">
     <meta name="description" content="Insur HTML 5 Template ">
 
     <!-- fonts -->
@@ -23,53 +24,79 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="webAssets/irha/vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/animate/animate.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/animate/custom-animate.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/jarallax/jarallax.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/jquery-magnific-popup/jquery.magnific-popup.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/nouislider/nouislider.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/nouislider/nouislider.pips.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/odometer/odometer.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/swiper/swiper.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/insur-icons/style.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/insur-two-icon/style.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/insur-four-icon/style.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/tiny-slider/tiny-slider.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/reey-font/stylesheet.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/owl-carousel/owl.theme.default.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/bxslider/jquery.bxslider.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/bootstrap-select/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/vegas/vegas.min.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/jquery-ui/jquery-ui.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/timepicker/timePicker.css">
-    <link rel="stylesheet" href="webAssets/irha/vendors/ion.rangeSlider/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/animate/animate.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/animate/custom-animate.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/jarallax/jarallax.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/jquery-magnific-popup/jquery.magnific-popup.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/nouislider/nouislider.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/nouislider/nouislider.pips.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/odometer/odometer.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/swiper/swiper.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/insur-icons/style.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/insur-two-icon/style.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/insur-four-icon/style.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/tiny-slider/tiny-slider.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/reey-font/stylesheet.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/owl-carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/bxslider/jquery.bxslider.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/vegas/vegas.min.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/timepicker/timePicker.css">
+    <link rel="stylesheet" href="/webAssets/irha/vendors/ion.rangeSlider/css/ion.rangeSlider.min.css">
 
     <link href="~/webAssets/irha/css/custom.css" rel="stylesheet" />
     <!-- template styles -->
-    <link rel="stylesheet" id="langLtr" href="webAssets/irha/css/insur.css">
-    <link rel="stylesheet" href="webAssets/irha/css/color-6.css">
+    <link rel="stylesheet" id="langLtr" href="/webAssets/irha/css/insur.css">
+    <link rel="stylesheet" href="/webAssets/irha/css/color-6.css">
     @RenderSection("heading", required: false)
     @*<link href="~/webAssets/irha/css/insur-rtl.css" rel="stylesheet" />*@
     <link href="~/Content/font.css" rel="stylesheet" />
     <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+
     <style>
+        .childButton, .editButton, .removeButton, .priorityButton{
+            width:25px; height:25px;
+            margin:5px;
+        }
+        .controllerButtons {
+            display:flex;
+            justify-content:center;
+            background-color:white;
+            padding:5px;
+            width:100%
+        }
+        .controllerButtonsRight {
+            margin:0 10px;
+            background-color:#eee;
+            border-radius:8px;
+            padding:8px
+        }
+        .close {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
         /*.services-eight__single__icon {
             width: 35px !important;
             height: 35px !important;
         }*/
         .get-insurance-five__content {
-            border-radius: 20px 0px 40px 0!important;
+            border-radius: 20px 0px 40px 0 !important;
         }
+
         .get-insurance-five__tabs li {
             border-radius: 40px 0px 0 0px !important;
         }
+
         .services-seven__img {
             right: unset !important;
             left: 0 !important;
         }
+
         .services-eight {
             padding: 180px 0 245px
         }
@@ -98,10 +125,142 @@
             left: 0 !important;
             right: unset !important;
         }
+
+        .main-slider-eight__title-wrapper, .main-slider-eight__text-wrapper {
+            direction: rtl !important;
+            text-align: right !important;
+            margin-right: 50% !important;
+            margin-bottom: 40px !important;
+        }
+
+        .main-slider-eight__title {
+            font-size: 45px;
+        }
     </style>
+    <script src="/webAssets/irha/vendors/jquery/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="custom-cursor ">
+
+    @if (Request.Cookies["adminToken"] != null)
+    {
+        <div class="modal addMenuDataModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="direction:rtl">
+                        <h5 class="modal-title">ویرایش</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" action="/panel/setLayoutPartData" enctype="multipart/form-data" style="direction:rtl; padding:20px">
+                        @Html.AntiForgeryToken()
+                        <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
+                        <input hidden name="pageurl" value="@ViewBag.url" />
+                        <input hidden name="fromHome" value="1" />
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
+                            <label class="form-label-title col-sm-12 mb-0">Title:</label>
+                            <div class="col-sm-10">
+                                <input value=" " required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
+                            <label class="form-label-title col-sm-12 mb-0">Section Type:</label>
+                            <div class="col-sm-10">
+
+                                <select name="dataType" class="form-control">
+                                    <option value="headerMenu">headerMenu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                            <label class="form-label-title col-sm-12 mb-0">یو ار ال:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                            <label class="form-label-title col-sm-12 mb-0">یو ار ال تایتل:</label>
+                            <div class="col-sm-10">
+                                <input required type="text" id="" name="urlTitle" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                            <label class="form-label-title col-sm-12 mb-0">اولویت:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                            <label class="form-label-title col-sm-12 mb-0">پرنت:</label>
+                            <div class="col-sm-10">
+
+                                @Html.DropDownList("parentID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "select parent", new { @class = "form-control", name = "parentID" })
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
+                            <label class="form-label-title col-sm-12 mb-0">image  :</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                            <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
+                                <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal removeMenuDataModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="direction:rtl">
+                        <h5 class="modal-title">ویرایش</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/panel/removeLayoutpartData" method="post" enctype="multipart/form-data" style="direction:rtl;padding:25px">
+                        @Html.AntiForgeryToken()
+                        <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
+                        <input hidden name="pageurl" value="@ViewBag.url" />
+                        <input hidden name="fromHome" value="1" />
+                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+
+                            <div class="col-sm-10">
+
+                                @Html.DropDownList("layoutDataID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "انتخاب آیتم", new { @class = "form-control", name = "parentID" })
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn ripple btn-primary" type="submit">تایید</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    }
 
     <div class="custom-cursor__cursor"></div>
     <div class="custom-cursor__cursor-two"></div>
@@ -148,385 +307,71 @@
                 <div class="main-menu-eight__wrapper" style="direction:rtl">
                     <div class="main-menu-eight__logo">
                         <a href="index.html">
-                            <img src="webAssets/irha/images/update-15-2-2024/resources/logo.png" width="159" alt="insur">
+                            <img src="/webAssets/irha/images/update-15-2-2024/resources/logo.png" width="159" alt="insur">
                         </a>
                     </div>
                     <div class="main-menu-eight__left">
                         <div class="main-menu-eight__main-menu-box">
                             <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
-                            <ul class="main-menu__list">
-                                <li class="current megamenu megamenu-clickable megamenu-clickable--toggler is-new-menu">
-                                    <a href="index.html">تیتر</a>
-                                    <ul>
-                                        <li>
-                                            <div class="megamenu-popup">
-                                                <span class="megamenu-clickable--close">
-                                                    <a href="#"></a>
-                                                </span><!-- /.megamenu-clickable--close -->
-                                                <div class="megamenu-popup__content">
-                                                    <div class="demos-one">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <span class="demos-one__new">new</span>
-                                                                        <!-- /.demos-one__new -->
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-15-2-2024/demos/home-1-10.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index9.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index9-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 09</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <span class="demos-one__new">new</span>
-                                                                        <!-- /.demos-one__new -->
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-15-2-2024/demos/home-1-9.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index8.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index8-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 08</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <span class="demos-one__new">new</span>
-                                                                        <!-- /.demos-one__new -->
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-17-06-2023/demos/home-1-9.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index6.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index6-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 06</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <span class="demos-one__new">new</span>
-                                                                        <!-- /.demos-one__new -->
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-17-06-2023/demos/home-1-10.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index7.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index7-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 07</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-7.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index4.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index4-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 04</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-8.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index5.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index5-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 05</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-1.png"
-                                                                                 alt="Home Page 01">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 01</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-2.png"
-                                                                                 alt="Home Page 02">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index2.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index2-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home page 02</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-3.png"
-                                                                                 alt="Home page 03">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index3.html"
-                                                                                   class="thm-btn">
-                                                                                    Multi
-                                                                                    Page
-                                                                                </a>
-                                                                                <a href="index3-one-page.html"
-                                                                                   class="thm-btn">
-                                                                                    One
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>
-                                                                                Home page
-                                                                                03
-                                                                            </h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-4.png"
-                                                                                 alt="Home Boxed">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index-boxed.html"
-                                                                                   class="thm-btn">
-                                                                                    View
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home boxed</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-5.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index-dark.html"
-                                                                                   class="thm-btn">
-                                                                                    View
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home dark</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                                <div class="col-md-6 col-lg-4">
-                                                                    <div class="demos-one__single">
-                                                                        <div class="demos-one__image">
-                                                                            <img width="370" height="431"
-                                                                                 src="webAssets/irha/images/update-10-02-2023/demos/home-1-6.png"
-                                                                                 alt="Home Dark">
-                                                                            <div class="demos-one__buttons">
-                                                                                <a href="index-rtl.html#googtrans(en%7Car)"
-                                                                                   class="thm-btn">
-                                                                                    View
-                                                                                    Page
-                                                                                </a>
-                                                                            </div>
-                                                                            <!-- /.demos-one__buttons -->
-                                                                        </div><!-- /.demos-one__image -->
-                                                                        <div class="demos-one__text">
-                                                                            <h3>Home RTL</h3>
-                                                                        </div><!-- /.demos-one__text -->
-                                                                    </div><!-- /.demos-one__single -->
-                                                                </div><!-- /.col-md-6 -->
-                                                            </div><!-- /.row -->
-                                                        </div><!-- /.container -->
-                                                    </div><!-- /.demos-one -->
-                                                </div><!-- /.megamenu-popup__content -->
-                                            </div><!-- /.megamenu-popup -->
+                            <ul class="main-menu__list" style="direction:ltr">
+                                @if (Request.Cookies["adminToken"] != null)
+                                {
+                                    <li><i style="color:white" class="fa fa-plus addMenuData"></i></li>
+                                    <li><i style="color:white" class="fa fa-minus removeMenuData"></i></li>
+                                }
+                                @{
+
+                                    foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
+                                    {
+
+                                        List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
+                                        String dropdown = firstChilds.Count() > 0 ? "dropdown" : "";
+
+                                        <li class="@dropdown">
+
+                                            @if (firstChilds.Count() > 0)
+                                            {
+                                                <a>
+                                                    @item.urlTitle
+                                                </a>
+                                                <ul>
+                                                    @foreach (var secitem in firstChilds)
+                                                    {
+                                                        <li><a href="news.html"> @secitem.urlTitle</a></li>
+                                                    }
+
+
+                                                </ul>
+
+                                            }
+
+                                            else
+                                            {
+                                                string furl = item.url == null ? "/" : item.url;
+                                                <a href="@furl">
+                                                    <span class="qodef-menu-item-text">
+                                                        @item.urlTitle
+                                                    </span>
+                                                </a>
+                                            }
+
                                         </li>
-                                    </ul>
-                                </li>
-                           
-                                <li class="dropdown">
-                                    <a href="#">تیتر </a>
-                                    <ul>
-                                        <li><a href="insurance-01.html">Insurance 01</a></li>
-                                        <li><a href="insurance-02.html">Insurance 02</a></li>
-                                        <li><a href="insurance-03.html">Insurance 03</a></li>
-                                        <li><a href="car-insurance.html">Car insurance</a></li>
-                                        <li><a href="life-insurance.html">Life insurance</a></li>
-                                        <li>
-                                            <a href="home-insurance.html">Home insurance</a>
-                                        </li>
-                                        <li><a href="health-insurance.html">Health insurance</a></li>
-                                        <li><a href="business-insurance.html">Business insurance</a></li>
-                                        <li><a href="fire-insurance.html">Fire insurance</a></li>
-                                        <li><a href="marriage-insurance.html">Marriage insurance</a></li>
-                                        <li><a href="travel-insurance.html">Travel insurance</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="products.html">تیتر</a>
-                                    <ul>
-                                        <li><a href="products.html">Shop</a></li>
-                                        <li><a href="product-details.html">Shop details</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#">تیتر</a>
-                                    <ul>
-                                        <li><a href="news.html">News</a></li>
-                                        <li><a href="news-carousel.html">News carousel</a></li>
-                                        <li><a href="news-sidebar.html">News right sidebar</a></li>
-                                        <li class="is-new-menu">
-                                            <a href="news-sidebar-left.html">
-                                                News left
-                                                sidebar
-                                            </a>
-                                        </li>
-                                        <li><a href="news-details.html">News details</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="contact.html">تیتر </a>
-                                </li>
+
+                                    }
+                                }
+
+
                             </ul>
                         </div>
                     </div>
                     <div class="main-menu-eight__right">
                         @*<a href="#" class="main-menu-eight__search search-toggler"><i class="icon-magnifying-glass"></i></a>
-                        <a href="cart.html" class="main-menu-eight__cart"><i class="insur-two-icon-shopping-cart"></i></a>
-                        <div class="main-menu-eight__call">
-                            <div class="main-menu-eight__call__icon"><i class="fas fa-phone-alt"></i></div>
-                            <div class="main-menu-eight__call__title">Emergency call</div>
-                            <a class="main-menu-eight__call__text" href="tel:9238008060">+92 3800 8060</a>
-                        </div>*@
+                            <a href="cart.html" class="main-menu-eight__cart"><i class="insur-two-icon-shopping-cart"></i></a>
+                            <div class="main-menu-eight__call">
+                                <div class="main-menu-eight__call__icon"><i class="fas fa-phone-alt"></i></div>
+                                <div class="main-menu-eight__call__title">Emergency call</div>
+                                <a class="main-menu-eight__call__text" href="tel:9238008060">+92 3800 8060</a>
+                            </div>*@
                     </div>
                 </div>
             </nav>
@@ -583,7 +428,7 @@
                         </div>
                         <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                             <div class="site-footer-five__column site-footer-five__contact">
-                                <a href="index.html" class="site-footer-five__contact__logo"><img src="webAssets/irha/images/update-15-2-2024/resources/footer-logo.png" width="159" alt="insur"></a>
+                                <a href="index.html" class="site-footer-five__contact__logo"><img src="/webAssets/irha/images/update-15-2-2024/resources/footer-logo.png" width="159" alt="insur"></a>
                                 <ul class="site-footer-five__contact__list list-unstyled">
                                     <li>
                                         <div class="site-footer-five__contact__icon">
@@ -636,10 +481,10 @@
                             <div class="site-footer-five__column site-footer-five__gallery clearfix">
                                 <h3 class="site-footer-five__title">Gallery</h3>
                                 <div class="site-footer-five__gallery__wrapper">
-                                    <img src="webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-1.jpg" alt="insur">
-                                    <img src="webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-2.jpg" alt="insur">
-                                    <img src="webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-3.jpg" alt="insur">
-                                    <img src="webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-4.jpg" alt="insur">
+                                    <img src="/webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-1.jpg" alt="insur">
+                                    <img src="/webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-2.jpg" alt="insur">
+                                    <img src="/webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-3.jpg" alt="insur">
+                                    <img src="/webAssets/irha/images/update-15-2-2024/resources/footer-widget-gallery-img-4.jpg" alt="insur">
                                 </div>
                             </div>
                         </div>
@@ -665,7 +510,7 @@
 
             <div class="logo-box">
                 <a href="index.html" aria-label="logo image">
-                    <img src="webAssets/irha/images/resources/logo-2.png" width="143"
+                    <img src="/webAssets/irha/images/resources/logo-2.png" width="143"
                          alt="">
                 </a>
             </div>
@@ -719,36 +564,98 @@
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
 
-    <script src="webAssets/irha/vendors/jquery/jquery-3.6.0.min.js"></script>
-    <script src="webAssets/irha/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="webAssets/irha/vendors/jarallax/jarallax.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-appear/jquery.appear.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-validate/jquery.validate.min.js"></script>
-    <script src="webAssets/irha/vendors/nouislider/nouislider.min.js"></script>
-    <script src="webAssets/irha/vendors/odometer/odometer.min.js"></script>
-    <script src="webAssets/irha/vendors/swiper/swiper.min.js"></script>
-    <script src="webAssets/irha/vendors/tiny-slider/tiny-slider.min.js"></script>
-    <script src="webAssets/irha/vendors/wnumb/wNumb.min.js"></script>
-    <script src="webAssets/irha/vendors/wow/wow.js"></script>
-    <script src="webAssets/irha/vendors/isotope/isotope.js"></script>
-    <script src="webAssets/irha/vendors/countdown/countdown.min.js"></script>
-    <script src="webAssets/irha/vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="webAssets/irha/vendors/bxslider/jquery.bxslider.min.js"></script>
-    <script src="webAssets/irha/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
-    <script src="webAssets/irha/vendors/vegas/vegas.min.js"></script>
-    <script src="webAssets/irha/vendors/jquery-ui/jquery-ui.js"></script>
-    <script src="webAssets/irha/vendors/timepicker/timePicker.js"></script>
-    <script src="webAssets/irha/vendors/circleType/jquery.circleType.js"></script>
-    <script src="webAssets/irha/vendors/circleType/jquery.lettering.min.js"></script>
-    <script src="webAssets/irha/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+
+    <script src="/webAssets/irha/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/webAssets/irha/vendors/jarallax/jarallax.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-appear/jquery.appear.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="/webAssets/irha/vendors/nouislider/nouislider.min.js"></script>
+    <script src="/webAssets/irha/vendors/odometer/odometer.min.js"></script>
+    <script src="/webAssets/irha/vendors/swiper/swiper.min.js"></script>
+    <script src="/webAssets/irha/vendors/tiny-slider/tiny-slider.min.js"></script>
+    <script src="/webAssets/irha/vendors/wnumb/wNumb.min.js"></script>
+    <script src="/webAssets/irha/vendors/wow/wow.js"></script>
+    <script src="/webAssets/irha/vendors/isotope/isotope.js"></script>
+    <script src="/webAssets/irha/vendors/countdown/countdown.min.js"></script>
+    <script src="/webAssets/irha/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/webAssets/irha/vendors/bxslider/jquery.bxslider.min.js"></script>
+    <script src="/webAssets/irha/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="/webAssets/irha/vendors/vegas/vegas.min.js"></script>
+    <script src="/webAssets/irha/vendors/jquery-ui/jquery-ui.js"></script>
+    <script src="/webAssets/irha/vendors/timepicker/timePicker.js"></script>
+    <script src="/webAssets/irha/vendors/circleType/jquery.circleType.js"></script>
+    <script src="/webAssets/irha/vendors/circleType/jquery.lettering.min.js"></script>
+    <script src="/webAssets/irha/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(".close").click(function(){
+          $(this).closest('.modal').modal('toggle');
+        })
+
+        $(".addMenuData").click(function(){
+
+          $(".addMenuDataModal").modal('toggle');
+        })
+        $(".removeMenuData").click(function(){
+
+          $(".removeMenuDataModal").modal('toggle');
+        })
+
+        $(".childButton").click(function(){
+
+          $(this).parent().parent().find(".childButtonModal").modal('toggle');
+        })
+        $(".editButton").click(function(){
+
+          $(this).parent().parent().find(".editButtonModal").modal('toggle');
+        })
+        $(".removeButton").click(function(){
+
+          $(this).parent().parent().find(".removeButtonModal").modal('toggle');
+        })
+        $(".priorityButton").click(function(){
+
+          $(this).parent().parent().find(".priorityButtonModal").modal('toggle');
+        })
+    $(".submitForm").click(function(){
+         var form = new FormData();
+       $(this).parent().find('input').each(function(){
 
 
 
+             if ($(this).attr('type') === 'file')
+                {
+                  var image = $(this)[0].files[0];
+                  form.append('image', image);
+                }
+             else
+                {
+                  var value = $(this).val();
+                  var name = $(this).attr('name');
+                  form.append(name, value);
+                }
+
+       })
+        $.ajax({
+                url: '/panel/setDataFromHome',
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success:function(response) {
+                    alert("با موفقیت انجام شد");
+                }
+            });
+    })
+    </script>
     <!-- template js -->
-    <script src="webAssets/irha/js/insur.js"></script>
+    <script src="/webAssets/irha/js/insur.js"></script>
 </body>
 
 </html>

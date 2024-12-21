@@ -1,114 +1,32 @@
 ﻿  <!--Team Seven Start-->
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+<!-- Intro Slider-->
+
+@{
+    string header1 = Model.dataList.SingleOrDefault(x => x.title == "header1").title2 == "" ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header1").title2;
+    string header2 = Model.dataList.SingleOrDefault(x => x.title == "header2").title2 == "" ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header2").title2;
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("img_image")).title2;
+
+
+}
+
+
+@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+
 <section class="team-seven">
-    <div class="team-seven__bg" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/team-bg.png);"></div>
+    <div class="team-seven__bg" style="background-image: url(@image); "></div>
     <div class="container">
         <div class="section-title-six text-center">
-            <span class="section-title-six__tagline"><span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>Our Team Member</span>
-            <h2 class="section-title-six__title">Meet Our Experienced<br> Team People</h2>
+            <span class="section-title-six__tagline">
+            <span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>@header1</span>
+            <h2 class="section-title-six__title" style="font-size:28px "> @header2<br></h2>
         </div>
         <div class="row gutter-y-30">
-            <!--Team Start-->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="00ms">
-                <div class="team-seven__single">
-                    <div class="team-seven__single__image">
-                        <img src="webAssets/irha/images/update-15-2-2024/team/team-7-1.jpg" alt="insur">
-                    </div>
-                    <div class="team-seven__single__hover">
-                        <div class="team-seven__single__hover__iconwrap"><i class="fa fa-share-alt"></i></div>
-                        <div class="team-seven__single__social">
-                            <a href="https://facebook.com">
-                                <i class="fab fa-facebook-f"></i>
-                                <span class="sr-only">Facebook</span>
-                            </a>
-                            <a href="https://twitter.com">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                                <span class="sr-only">Twitter</span>
-                            </a>
-                            <a href="https://linkedin.com">
-                                <i class="fab fa-linkedin-in"></i>
-                                <span class="sr-only">Linkedin</span>
-                            </a>
-                            <a href="https://www.instagram.com/">
-                                <i class="fab fa-instagram"></i>
-                                <span class="sr-only">Instagram</span>
-                            </a>
-                        </div><!-- /.team-card__social -->
-                    </div>
-                    <div class="team-seven__single__content">
-                        <h3 class="team-seven__single__name"><a href="team-details.html">Mike Hardson</a></h3>
-                        <span class="team-seven__single__designation">Designer</span>
-                    </div>
-                </div>
-            </div>
-            <!--Team End-->
-            <!--Team Start-->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                <div class="team-seven__single">
-                    <div class="team-seven__single__image">
-                        <img src="webAssets/irha/images/update-15-2-2024/team/team-7-2.jpg" alt="insur">
-                    </div>
-                    <div class="team-seven__single__hover">
-                        <div class="team-seven__single__hover__iconwrap"><i class="fa fa-share-alt"></i></div>
-                        <div class="team-seven__single__social">
-                            <a href="https://facebook.com">
-                                <i class="fab fa-facebook-f"></i>
-                                <span class="sr-only">Facebook</span>
-                            </a>
-                            <a href="https://twitter.com">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                                <span class="sr-only">Twitter</span>
-                            </a>
-                            <a href="https://linkedin.com">
-                                <i class="fab fa-linkedin-in"></i>
-                                <span class="sr-only">Linkedin</span>
-                            </a>
-                            <a href="https://www.instagram.com/">
-                                <i class="fab fa-instagram"></i>
-                                <span class="sr-only">Instagram</span>
-                            </a>
-                        </div><!-- /.team-card__social -->
-                    </div>
-                    <div class="team-seven__single__content">
-                        <h3 class="team-seven__single__name"><a href="team-details.html">Jenny Wilson</a></h3>
-                        <span class="team-seven__single__designation">Manager</span>
-                    </div>
-                </div>
-            </div>
-            <!--Team End-->
-            <!--Team Start-->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
-                <div class="team-seven__single">
-                    <div class="team-seven__single__image">
-                        <img src="webAssets/irha/images/update-15-2-2024/team/team-7-3.jpg" alt="insur">
-                    </div>
-                    <div class="team-seven__single__hover">
-                        <div class="team-seven__single__hover__iconwrap"><i class="fa fa-share-alt"></i></div>
-                        <div class="team-seven__single__social">
-                            <a href="https://facebook.com">
-                                <i class="fab fa-facebook-f"></i>
-                                <span class="sr-only">Facebook</span>
-                            </a>
-                            <a href="https://twitter.com">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                                <span class="sr-only">Twitter</span>
-                            </a>
-                            <a href="https://linkedin.com">
-                                <i class="fab fa-linkedin-in"></i>
-                                <span class="sr-only">Linkedin</span>
-                            </a>
-                            <a href="https://www.instagram.com/">
-                                <i class="fab fa-instagram"></i>
-                                <span class="sr-only">Instagram</span>
-                            </a>
-                        </div><!-- /.team-card__social -->
-                    </div>
-                    <div class="team-seven__single__content">
-                        <h3 class="team-seven__single__name"><a href="team-details.html">Robert Fox</a></h3>
-                        <span class="team-seven__single__designation">Director</span>
-                    </div>
-                </div>
-            </div>
-            <!--Team End-->
+            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
         </div>
     </div>
 </section>

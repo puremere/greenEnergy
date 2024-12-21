@@ -13,7 +13,7 @@ namespace greenEnergy.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202412021640504_initial"; }
+            get { return "202412030531455_initial"; }
         }
         
         string IMigrationMetadata.Source

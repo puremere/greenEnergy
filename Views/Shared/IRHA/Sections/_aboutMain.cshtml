@@ -2,19 +2,23 @@
 @using Newtonsoft.Json;
 @using greenEnergy.ViewModel;
 @{
-    
+
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
-    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
-    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-3.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
-    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4") == null ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-4.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2;
-    string image5 = Model.dataList.SingleOrDefault(x => x.title == "img_image5") == null ? "/webAssets/irha/images/update-17-06-2023/shapes/about-eight-experience-shape-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image5").title2;
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 == "" ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 == "" ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-2.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
+    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 == "" ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-3.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
+    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2 == "" ? "webAssets/irha/images/update-17-06-2023/resources/about-eight-img-4.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2;
+    string image5 = Model.dataList.SingleOrDefault(x => x.title == "img_image5").title2 == "" ? "/webAssets/irha/images/update-17-06-2023/shapes/about-eight-experience-shape-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image5").title2;
 
-    string aboutTitle = Model.dataList.SingleOrDefault(x => x.title == "aboutTitle") == null ? "عنوان موضوع" : Model.dataList.SingleOrDefault(x => x.title == "aboutTitle").title2;
-    string title = Model.dataList.SingleOrDefault(x => x.title == "title") == null ? "ارائه دهنده بهترین خدمات" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
-    string description = Model.dataList.SingleOrDefault(x => x.title == "description") == null ? "توضیحاتی در مورد شرکت که میتواند منجر به شناخت بهتر شود" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string aboutTitle = Model.dataList.SingleOrDefault(x => x.title == "aboutTitle").title2 == "" ? "عنوان موضوع" : Model.dataList.SingleOrDefault(x => x.title == "aboutTitle").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 == "" ? "ارائه دهنده بهترین خدمات" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 == "" ? "توضیحاتی در مورد شرکت که میتواند منجر به شناخت بهتر شود" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string titr1 = Model.dataList.SingleOrDefault(x => x.title == "titr1").title2 == "" ? "توضیحاتی در" : Model.dataList.SingleOrDefault(x => x.title == "titr1").title2;
+    string titr2 = Model.dataList.SingleOrDefault(x => x.title == "titr2").title2 == "" ? "توضیحاتی در " : Model.dataList.SingleOrDefault(x => x.title == "titr2").title2;
+    string titr3 = Model.dataList.SingleOrDefault(x => x.title == "titr3").title2 == "" ? "توضیحاتی در " : Model.dataList.SingleOrDefault(x => x.title == "titr3").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "توضیحاتی در " : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
 
-  
+
 
 }
 
@@ -38,13 +42,7 @@
                         <div class="about-eight__img-two">
                             <img src="@image2" alt="">
                         </div>
-                        <div class="about-eight__experience">
-                            <div class="about-eight__experience-shape"
-                                 style="background-image: url(@image2);">
-                            </div>
-                            <h3>22</h3>
-                            <p>سال تجربه</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -65,8 +63,8 @@
                                 <span class="icon-insurance-2"></span>
                             </div>
                             <div class="text">
-                                <p>تیتر قابل استفاده</p>
-                                
+                                <p>@titr1</p>
+
                             </div>
                         </li>
                         <li>
@@ -74,7 +72,7 @@
                                 <span class="icon-agreement"></span>
                             </div>
                             <div class="text">
-                                <p>تیتر قابل استفاده</p>
+                                <p>@titr2</p>
                             </div>
                         </li>
                         <li>
@@ -82,33 +80,23 @@
                                 <span class="icon-cashback"></span>
                             </div>
                             <div class="text">
-                                <p>تیتر قابل استفاده</p>
+                                <p>@titr3</p>
                             </div>
                         </li>
                     </ul>
-                    @*<ul class="list-unstyled about-eight__points">
+                    <ul class="list-unstyled about-eight__points">
                         <li>
-                            <div class="icon">
-                                <span class="icon-tick"></span>
-                            </div>
-                            <div class="text">
-                                <p>Duis aute irure dolor in reprehenderit in</p>
-                            </div>
+
                         </li>
                         <li>
-                            <div class="icon">
-                                <span class="icon-tick"></span>
-                            </div>
-                            <div class="text">
-                                <p>Duis aute irure dolor in reprehenderit in</p>
-                            </div>
+
                         </li>
                     </ul>
                     <div class="about-eight__btn-box">
-                        <a href="about.html" class="about-eight__btn thm-btn-four">
-                            Discover More<span class="fas fa-arrow-right"></span>
+                        <a href="@url" class="about-eight__btn thm-btn-four">
+                            جزئیات بیشتر<span class="fas fa-arrow-right"></span>
                         </a>
-                    </div>*@
+                    </div>
                 </div>
             </div>
         </div>

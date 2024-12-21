@@ -4,40 +4,18 @@
 @{
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
 
-    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading") == null ? "از این قسمت به عنوان هدر بخش مزیت ها استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
-
-    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-10-02-2023/services/services-5-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
-    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1") == null ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
-    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
-    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url1").title2;
-
-
-    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-10-02-2023/services/services-5-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
-    string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
-    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
-    string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
-
-    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-10-02-2023/services/services-5-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
-    string text3 = Model.dataList.SingleOrDefault(x => x.title == "text3") == null ? "عنوان مرتبط سوم" : Model.dataList.SingleOrDefault(x => x.title == "text3").title2;
-    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
-    string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url3").title2;
-
-
-    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4") == null ? "webAssets/irha/images/update-10-02-2023/services/services-5-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2;
-    string text4 = Model.dataList.SingleOrDefault(x => x.title == "text4") == null ? "عنوان مرتبط چهارم" : Model.dataList.SingleOrDefault(x => x.title == "text4").title2;
-    string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc4").title2;
-    string url4 = Model.dataList.SingleOrDefault(x => x.title == "url4") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url4").title2;
-
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading").title2 == "" ? "از این قسمت به عنوان هدر بخش مزیت ها استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
 
 }
 
+@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
 
 <section class="services-five" style="margin-top:150px; background-color:white;">
     <div class="container">
         <div class="services-five__inner">
             <div class="section-title-three text-center">
 
-                <h2 class="section-title-three__title">@heading</h2>
+                <h4 class="section-title-three__title" style="text-align:center">@heading</h4>
             </div>
             <div class="owl-carousel thm-owl__carousel--range owl-theme services-five__carousel"
                  data-owl-options='{"loop": false,
@@ -68,115 +46,10 @@
                             "items": 4
                         }
                     }}'>
-                        <!--Services Five Single Start-->
-                        <div class="item">
-                            <div class="services-five__single">
-                                <div class="services-five__img-box">
-                                    <div class="services-five__img">
-                                        <img src="@image1" alt="">
-                                        <div class="services-five__hover-content">
-                                            <div class="services-five__hover-content-icon">
-                                                <span class="insur-three-icon-car"></span>
-                                            </div>
-                                            <h4 class="services-five__hover-content-title"><a
-                                                    href="@url1"  style="margin-right:10px">@text1</a></h4>
-                                            <p style="margin-right:10px" class="services-five__hover-content-text">
-                                                @desc1
-                                        </div>
-                                    </div>
-                                    <div class="services-five__title-box">
-                                        <h4 class="services-five__title " style="text-align:center"><a  href="@url1" >@text1</a>
-                                        </h4>
-                                        <div class="services-five__icon">
-                                            <span class="insur-three-icon-car"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Five Single End-->
 
-             <!--Services Five Single Start-->
-                        <div class="item">
-                            <div class="services-five__single">
-                                <div class="services-five__img-box">
-                                    <div class="services-five__img">
-                                        <img src="@image2" alt="">
-                                        <div class="services-five__hover-content">
-                                            <div class="services-five__hover-content-icon">
-                                                <span class="insur-three-icon-car"></span>
-                                            </div>
-                                            <h4 class="services-five__hover-content-title"><a
-                                                    href="@url2"  style="margin-right:10px">@text2</a></h4>
-                                            <p style="margin-right:10px" class="services-five__hover-content-text">
-                                                @desc2
-                                        </div>
-                                    </div>
-                                    <div class="services-five__title-box">
-                                        <h4 class="services-five__title " style="text-align:center"><a  href="@url2" >@text2</a>
-                                        </h4>
-                                        <div class="services-five__icon">
-                                            <span class="insur-three-icon-car"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Five Single End-->
-              <!--Services Five Single Start-->
-                        <div class="item">
-                            <div class="services-five__single">
-                                <div class="services-five__img-box">
-                                    <div class="services-five__img">
-                                        <img src="@image3" alt="">
-                                        <div class="services-five__hover-content">
-                                            <div class="services-five__hover-content-icon">
-                                                <span class="insur-three-icon-car"></span>
-                                            </div>
-                                            <h4 class="services-five__hover-content-title"><a
-                                                    href="@url3"  style="margin-right:10px">@text3</a></h4>
-                                            <p style="margin-right:10px" class="services-five__hover-content-text">
-                                                @desc3
-                                        </div>
-                                    </div>
-                                    <div class="services-five__title-box">
-                                        <h4 class="services-five__title " style="text-align:center"><a  href="@url3" >@text3</a>
-                                        </h4>
-                                        <div class="services-five__icon">
-                                            <span class="insur-three-icon-car"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Five Single End-->
-                         <!--Services Five Single Start-->
-                        <div class="item">
-                            <div class="services-five__single">
-                                <div class="services-five__img-box">
-                                    <div class="services-five__img">
-                                        <img src="@image4" alt="">
-                                        <div class="services-five__hover-content">
-                                            <div class="services-five__hover-content-icon">
-                                                <span class="insur-three-icon-car"></span>
-                                            </div>
-                                            <h4 class="services-five__hover-content-title"><a
-                                                    href="@url4"  style="margin-right:10px">@text4</a></h4>
-                                            <p style="margin-right:10px" class="services-five__hover-content-text">
-                                                @desc4
-                                        </div>
-                                    </div>
-                                    <div class="services-five__title-box">
-                                        <h4 class="services-five__title " style="text-align:center"><a  href="@url4" >@text4</a>
-                                        </h4>
-                                        <div class="services-five__icon">
-                                            <span class="insur-three-icon-car"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Five Single End-->
+
+                       @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
 
 
                     </div>

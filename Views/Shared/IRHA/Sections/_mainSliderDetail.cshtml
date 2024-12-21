@@ -1,0 +1,54 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+
+    
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string slide1 = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text").title2 == "" ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text").title2;
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc").title2;
+    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+    string urlText1 = Model.dataList.SingleOrDefault(x => x.title == "urlText").title2 == "" ? "عنوان دکمه" : Model.dataList.SingleOrDefault(x => x.title == "urlText").title2;
+
+
+
+}
+
+
+
+
+<div class="item">
+    <div class="main-slider-eight__item">
+        <div class="main-slider-eight__bg" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/slider-8-bg.png);"></div>
+        <div class="main-slider-eight__image" style="background-image: url(@slide1);"></div>
+        <div class="main-slider-eight__shape-one">
+            @*<img src="webAssets/irha/images/update-15-2-2024/shapes/slider-8-shape-1.png" alt="insur">*@
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <div class="main-slider-eight__content">
+                        <div class="main-slider-eight__title-wrapper">
+                            <h3 class="main-slider-eight__title">@text1</h3><!-- slider-title -->
+                        </div>
+                        <div class="main-slider-eight__text-wrapper">
+                            <p class="main-slider-eight__text">
+                                @desc1
+                            </p>
+                        </div>
+                        @*<div class="main-slider-eight__btn">
+                                <a href="@url1" class="thm-btn thm-btn--eight">@urlText1</a>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- item -->
+<!--Main Slider End-->
+
+

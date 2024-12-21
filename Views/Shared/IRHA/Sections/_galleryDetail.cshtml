@@ -1,0 +1,43 @@
+﻿
+
+
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string group = Model.dataList.SingleOrDefault(x => x.title == "group").title2 == "" ? "عنوان مرتبط یک" : Model.dataList.SingleOrDefault(x => x.title == "group").title2.Replace(",", " ");
+    string desc = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc").title2;
+    string text = Model.dataList.SingleOrDefault(x => x.title == "text").title2 == "" ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+
+
+}
+    
+
+<div class="col-xl-4 col-lg-6 col-md-6 filter-item @group">
+    <div class="portfolio__single">
+        <div class="portfolio__img">
+            <img src="@image" alt="">
+            <div class="portfolio__plus">
+                <a href="@image" class="img-popup">
+                    <span class="icon-plus"></span>
+                </a>
+            </div>
+            <div class="portfolio__content">
+                <p class="portfolio__sub-title">@text</p>
+                <h4 class="portfolio__title">
+                    <a href="@url">@desc</a>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading").title2 == "" ? "از این قسمت به عنوان هدر بخش مزیت ها استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+
+    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1").title2 == "" ? "عنوان مرتبط یک" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
+    string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2").title2 == "" ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
+
+
+}
+
+
+    <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="faq-one__single">
+                        <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-1">
+                            <div class="accrodion">
+                                <div class="accrodion-title">
+                                    <h4><span>?</span> @text1</h4>
+                                </div>
+                                <div class="accrodion-content">
+                                    <div class="inner">
+                                        <p>
+                                            @desc1
+                                        </p>
+                                    </div><!-- /.inner -->
+                                </div>
+                            </div>
+                          
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="faq-one__single">
+                        <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-1">
+                            <div class="accrodion ">
+                                <div class="accrodion-title">
+                                    <h4><span>?</span> @text2</h4>
+                                </div>
+                                <div class="accrodion-content">
+                                    <div class="inner">
+                                        <p>
+                                            @desc2
+                                        </p>
+                                    </div><!-- /.inner -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

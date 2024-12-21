@@ -3,32 +3,16 @@
 @using Newtonsoft.Json;
 @using greenEnergy.ViewModel;
 @{
-    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-
+    
     string heading = Model.dataList.SingleOrDefault(x => x.title == "heading") == null ? "از این قسمت به عنوان هدر بخش مزیت ها استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
 
-    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-17-06-2023/services/services-7-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
-    string imageHover1 = Model.dataList.SingleOrDefault(x => x.title == "img_imageHover1") == null ? "webAssets/irha/images/update-17-06-2023/services/services-seven-hover-bg-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_imageHover1").title2;
-    string text1 = Model.dataList.SingleOrDefault(x => x.title == "text1") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text1").title2;
-    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc1").title2;
-    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
-
-
-    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2") == null ? "webAssets/irha/images/update-17-06-2023/services/services-7-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2;
-    string imageHover2 = Model.dataList.SingleOrDefault(x => x.title == "img_imageHover2") == null ? "webAssets/irha/images/update-17-06-2023/services/services-seven-hover-bg-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_imageHover2").title2;
-    string text2 = Model.dataList.SingleOrDefault(x => x.title == "text2") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text2").title2;
-    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc2").title2;
-    string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
-
-    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3") == null ? "webAssets/irha/images/update-37-06-2023/services/services-7-3.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2;
-    string imageHover3 = Model.dataList.SingleOrDefault(x => x.title == "img_imageHover3") == null ? "webAssets/irha/images/update-37-06-2023/services/services-seven-hover-bg-3.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_imageHover3").title2;
-    string text3 = Model.dataList.SingleOrDefault(x => x.title == "text3") == null ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "text3").title2;
-    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3") == null ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc3").title2;
-    string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3") == null ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
-
+ 
 
 
 }
+
+@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+
 
 <section class="services-seven" style="background-color:white;background-image: url(webAssets/irha/images/update-15-2-2024/shapes/service-bg.png);">
     <div class="container">
@@ -37,75 +21,8 @@
             <h2 class="section-title-five__title">@heading</h2>
         </div>
         <div class="row">
-            <!--Services Seven Single Start-->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                <div class="services-seven__single">
-                    <h3 class="services-seven__title"><a href="life-insurance.html">@text1</a></h3>
-                    <p class="services-seven__text">
-                        @desc1
-                    </p>
+            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
 
-
-                    <div class="services-seven__hover-box">
-                        <div class="services-seven__hover-bg"
-                             style="background-image: url(@imageHover1);">
-                        </div>
-                        @*<h3 class="services-seven__hover-title">
-                            <a href="life-insurance.html">@text1</a>
-                        </h3>*@
-                        <a href="@url1" class="services-seven__btn-two thm-btn-four">
-                            جزئیات<span class="fa fa-arrow-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--Services Seven Single End-->
-            <!--Services Seven Single Start-->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                <div class="services-seven__single">
-                    <h3 class="services-seven__title"><a href="life-insurance.html">@text2</a></h3>
-                    <p class="services-seven__text">
-                        @desc2
-                    </p>
-
-
-                    <div class="services-seven__hover-box">
-                        <div class="services-seven__hover-bg"
-                             style="background-image: url(@imageHover2);">
-                        </div>
-                        @*<h3 class="services-seven__hover-title">
-                            <a href="life-insurance.html">@text2</a>
-                        </h3>*@
-                        <a href="@url2" class="services-seven__btn-two thm-btn-four">
-                            جزئیات<span class="fas fa-arrow-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--Services Seven Single End-->
-            <!--Services Seven Single Start-->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                <div class="services-seven__single">
-                    <h3 class="services-seven__title"><a href="life-insurance.html">@text3</a></h3>
-                    <p class="services-seven__text">
-                        @desc3
-                    </p>
-
-
-                    <div class="services-seven__hover-box">
-                        <div class="services-seven__hover-bg"
-                             style="background-image: url(@imageHover3);">
-                        </div>
-                        @*<h3 class="services-seven__hover-title">
-                            <a href="@url2">@text2</a>
-                        </h3>*@
-                        <a href="@url3" class="services-seven__btn-two thm-btn-four">
-                            جزئیات<span class="fa fa-arrow-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--Services Seven Single End-->
 
         </div>
     </div>

@@ -1,48 +1,77 @@
-﻿  <!--Feature Seven Start-->
-<section class="feature-seven">
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header") == null ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("img_image1")).title2;
+    string image2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("img_image2")).title2;
+    string image3 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("img_image3")).title2;
+
+    string html_title1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title1").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title1").title2;
+    string html_title2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title2").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title2").title2;
+    string html_title3 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title3").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title3").title2;
+    string html_description1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description1").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description1").title2;
+    string html_description2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description2").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description2").title2;
+    string html_description3 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description3").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description3").title2;
+    string url1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url1").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url1").title2;
+    string url2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url2").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url2").title2;
+    string url3 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url3").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url3").title2;
+
+}
+
+
+
+
+<section class="feature-seven" style="margin:50px 0">
     <div class="container">
         <div class="row">
-            <!--Feature Start-->
+           
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="00ms">
                 <div class="feature-seven__single">
-                    <div class="feature-seven__single__icon">
-                        <span class="insur-four-icon-jar"></span>
-                    </div>
-                    <h3 class="feature-seven__single__title"><a href="about.html">Safe Your Money</a></h3>
-                    <p class="feature-seven__single__text">
-                        There are many variations free the off passages of Lorem Ipsum about to thing avagtilable, but majority
-                    </p>
+                    <a href="@url1">
+                        <div class="feature-seven__single__icon">
+                            <img  src="@image1" style="width:100px; border-radius:50%; aspect-ratio:1/1" />
+                        </div>
+                        <h3 class="feature-seven__single__title"><a href="about.html">@html_title1</a></h3>
+                        <p class="feature-seven__single__text">
+                            @html_description1
+                        </p>
+                    </a>
+                    
                 </div>
             </div>
-            <!--Feature End-->
-            <!--Feature Start-->
+           
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
                 <div class="feature-seven__single feature-seven__single--featured" style="background-image: url(webAssets/irha/images/update-15-2-2024/resources/feature-bg.jpg);">
-                    <div class="feature-seven__single__icon">
-                        <span class="insur-four-icon-investment"></span>
-                    </div>
-                    <h3 class="feature-seven__single__title"><a href="contact.html">Get Free Quote</a></h3>
-                    <p class="feature-seven__single__text">
-                        There are many variations the off passages of Lorem Ipsum free thing avagtilable, but
-                        majority the off passages of Lorem Ipsum free thing
-                    </p>
+                    <a href="@url2">
+                        <div class="feature-seven__single__icon">
+                            <img src="@image2" style="width:100px; border-radius:50%; aspect-ratio:1/1" />
+                        </div>
+                        <h3 class="feature-seven__single__title"><a href="about.html">@html_title2</a></h3>
+                        <p class="feature-seven__single__text">
+                            @html_description2
+                        </p>
+                    </a>
                 </div>
             </div>
-            <!--Feature End-->
-            <!--Feature Start-->
+           
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="200ms">
                 <div class="feature-seven__single feature-seven__single--last">
-                    <div class="feature-seven__single__icon">
-                        <span class="insur-four-icon-banking"></span>
-                    </div>
-                    <h3 class="feature-seven__single__title"><a href="about.html">Fast & Reliable</a></h3>
-                    <p class="feature-seven__single__text">
-                        There are many variations free the off passages of Lorem Ipsum about to thing avagtilable, but majority
-                    </p>
+                    <a href="@url3">
+                        <div class="feature-seven__single__icon">
+                            <img src="@image3" style="width:100px; border-radius:50%; aspect-ratio:1/1" />
+                        </div>
+                        <h3 class="feature-seven__single__title"><a href="about.html">@html_title3</a></h3>
+                        <p class="feature-seven__single__text">
+                            @html_description3
+                        </p>
+                    </a>
                 </div>
             </div>
-            <!--Feature End-->
+       
         </div>
     </div>
 </section>
-<!--Feature Seven End-->

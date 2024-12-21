@@ -1,0 +1,28 @@
+﻿@model greenEnergy.ViewModel.contentListVM
+
+
+
+@foreach (var item in Model.htmlList)
+{
+    string active = "active";
+    string ischecked = "checked";
+    if (Model.htmlList.IndexOf(item) != 0)
+    {
+        active = "";
+        ischecked = "";
+    }
+
+    <div class="carousel-item @active">
+        <div class="col-md-3">
+            <div class="card htmlcard" style="">
+                @*<div class="card-img">
+                    <img src="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="img-fluid">
+                </div>*@
+                <div urltogo="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="">@item.htmlName</div>
+            </div>
+            <input @ischecked type="radio" value="@item.htmlID" name="htmlID" />
+        </div>
+    </div>
+
+}
+

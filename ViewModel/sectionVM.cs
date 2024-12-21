@@ -141,7 +141,9 @@ namespace greenEnergy.ViewModel
         public Guid? sectionTypeID { get; set; }
         public Guid? parentID { get; set; }
         public int priority { get; set; }
-
+        
+        public string fromHome { get; set; }
+        public string pageurl { get; set; }
         public string title { get; set; }
         public string dataType { get; set; }
         public string urlTitle { get; set; }
@@ -250,10 +252,14 @@ namespace greenEnergy.ViewModel
         public Guid contentID { get; set; }
         public Guid sectionID { get; set; }
         public Guid parentID { get; set; }
+        public string  url { get; set; }
+
 
     }
     public class setContentVM
     {
+        public string url { get; set; }
+        public string fromHome { get; set; }
         public Guid contentID { get; set; }
         public Guid mirrorID { get; set; }
         
@@ -301,6 +307,7 @@ namespace greenEnergy.ViewModel
     public class HTMLVM
     {
         public Guid htmlID { get; set; }
+        public string parentID { get; set; }
         public string htmlName { get; set; }
         public string image { get; set; }
         public string partialView { get; set; }
@@ -472,6 +479,9 @@ namespace greenEnergy.ViewModel
 
         public Guid contentParent { get; set; }
         public Guid layoutID { get; set; }
+
+        public Guid mirrorID { get; set; }
+        public string isCopy { get; set; }
     }
 
 
@@ -481,6 +491,9 @@ namespace greenEnergy.ViewModel
         public List<poseVM> poseList { get; set; }
         public List<sectionVM> childList { get; set; }
         public List<pageContentVM> contentChild { get; set; }
+
+        public int index { get; set; }
+        public int multilayer { get; set; }
         public string partialName { get; set; } // از روی اچ تی ام میاد
         public string stackWeight { get; set; } // از روی اچ تی ام میاد
         public string title { get; set; } // از روی اچ تی ام میاد
@@ -495,6 +508,7 @@ namespace greenEnergy.ViewModel
         public Guid? typeID { get; set; } // از روی اچ تی ام میاد
         public Guid conentID { get; set; } // از روی اچ تی ام میاد
         public Guid? parentID { get; set; } // از روی اچ تی ام میاد
+        public Guid? sectionID { get; set; } // از روی اچ تی ام میاد
         public int?  formID { get; set; } // از روی اچ تی ام میاد
     }
 
@@ -592,9 +606,10 @@ namespace greenEnergy.ViewModel
         public Guid? sectionLayoutID { get; set; }
 
         public getsectionLayoutVM layoutModel { get; set; }
-
-
-
+        public contentListVM contentListVM { get; set; }
+        public categoryPageVM catTypeList { get; set; }
+        public categoryPageVM tagTypeList { get; set; }
+        public layoutPageVM layoutList { get; set; }
 
 
 

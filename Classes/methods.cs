@@ -16,10 +16,30 @@ namespace greenEnergy.Classes
         private static string baseServer = System.Configuration.ConfigurationManager.AppSettings["baseurl"];//"https://localhost:44394/api/app";
         public static string RandomString(int number)
         {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, number)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            Random rand = new Random();
+
+            // Choosing the size of string 
+            // Using Next() string 
+            int stringlen = number;
+            int randValue;
+            string str = "";
+            char letter;
+            for (int i = 0; i < stringlen; i++)
+            {
+
+                // Generating a random number. 
+                randValue = rand.Next(0, 26);
+
+                // Generating random character by converting 
+                // the random number into character. 
+                letter = Convert.ToChar(randValue + 65);
+
+                // Appending the letter to string. 
+                str = str + letter;
+            }
+            return str;
+
+          
         }
 
 
@@ -39,6 +59,7 @@ namespace greenEnergy.Classes
                 return JsonConvert.DeserializeObject<T2>(final);
             }
         }
+     
         public static async Task<string> removenull(string main, string sub,string name)
         {
             //{ "nav":{"sample":null, "title":"titlesrt","color":"colorsrt" , "leading":leadsrt, "trailing":trailsrt},"viewID": "viewMetaIDsrt", "view":childMetaString}

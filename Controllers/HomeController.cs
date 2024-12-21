@@ -23,6 +23,7 @@ namespace greenEnergy.Controllers
         public async Task <ActionResult> page(string first, string second,string third)
         {
             try
+            
             {
                 
                 pageSectionVM responsemodel = new pageSectionVM();
@@ -40,6 +41,28 @@ namespace greenEnergy.Controllers
                 model.slug = (first + "/" + second ).Trim('/');
                 model.slug = !string.IsNullOrEmpty(third) ? model.slug + "/" + third : model.slug;
                 responsemodel = await methods.PostData(model, responsemodel, "/getURL", ""); //Request.Cookies["clientToken"].Value  فقط برای گرین
+                if (Request.Cookies["adminToken"] != null)
+                {
+                    sectionVM inputModel = new sectionVM();
+                    inputModel.sectinoID =  new Guid();
+                    inputModel.contentParent = responsemodel.Contents.First().conentID;
+                    contentListVM outputModel = new contentListVM();
+                    outputModel = await methods.PostData(inputModel, outputModel, "/getContent", Request.Cookies["adminToken"].Value);
+                    responsemodel.contentListVM = outputModel;
+
+
+                    categoryPageVM catTypeResponsemodel = new categoryPageVM();
+                    catTypeResponsemodel = await methods.PostData(new nullclass(), catTypeResponsemodel, "/getCategoryList", Request.Cookies["adminToken"].Value);
+                    responsemodel.catTypeList = catTypeResponsemodel;
+                    categoryPageVM tagTypeResponsemodel = new categoryPageVM();
+                    tagTypeResponsemodel = await methods.PostData(new nullclass(), tagTypeResponsemodel, "/getTagList", Request.Cookies["adminToken"].Value);
+                    responsemodel.tagTypeList = tagTypeResponsemodel;
+                    layoutPageVM layoutResponsemodel = new layoutPageVM();
+                    layoutResponsemodel = await methods.PostData(new nullclass(), layoutResponsemodel, "/getLayout", Request.Cookies["adminToken"].Value);
+                    responsemodel.layoutList = layoutResponsemodel;
+
+
+                }
 
                 //if (Request.Cookies[responsemodel.sectionLayoutID.ToString()] == null)
                 //{
@@ -56,6 +79,7 @@ namespace greenEnergy.Controllers
                 ViewBag.image = responsemodel.image;
                 ViewBag.layout = responsemodel.layoutModel.title + ".cshtml";
                 ViewBag.metaTitle = responsemodel.metatitle;
+                ViewBag.slug = model.slug;
                 //doctorListCycleView,go*a.reload*app/clientDashboard_putvar*formType*3;
                 //go*a.reload*app/clientDashboard_putvar*formType*3
 
@@ -67,6 +91,32 @@ namespace greenEnergy.Controllers
                 return Content(message);
             }
         }
+        
+
+        public async Task<ActionResult> addSubContent(string contentID)
+        {
+            sectionVM model = new sectionVM();
+            model.contentParent = !string.IsNullOrEmpty(contentID) ? new Guid(contentID) : new Guid();
+            contentListVM responsemodel = new contentListVM();
+            responsemodel = await methods.PostData(model, responsemodel, "/getSubHTML", Request.Cookies["adminToken"].Value);
+            string partialaddress = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_subContent.cshtml";
+           
+            //return Content("jhjh");
+            return PartialView(partialaddress, responsemodel);
+        }
+        public async Task<ActionResult> getTypeCatList()
+        {
+            categoryPageVM responsemodel = new categoryPageVM();
+            responsemodel = await methods.PostData(new nullclass(), responsemodel, "/getCategoryList", Request.Cookies["adminToken"].Value);
+
+            return PartialView("_TypeCatList.cshtml",responsemodel);
+        }
+
+        public ActionResult getTypeTagList()
+        {
+            return PartialView();
+        }
+
         public ActionResult Index()
         {
             return View();

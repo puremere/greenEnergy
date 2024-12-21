@@ -1,14 +1,36 @@
-﻿<section class="testimonial-five">
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-10-02-2023/shapes/testimonial-five-shape-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+
+
+    string heading = Model.dataList.SingleOrDefault(x => x.title == "heading").title2 == "" ? "از این قسمت به عنوان هدر این بخش استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading").title2;
+
+
+
+
+}
+@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+
+<section class="testimonial-five">
     <div class="testimonial-five__shape-1"
-         style="background-image: url(assets/images/update-10-02-2023/shapes/testimonial-five-shape-1.png);">
+         style="background-image: url(@image);">
     </div>
     <div class="container">
         <div class="section-title-three text-center">
             <div class="section-title-three__sub-title-box">
-                <p class="section-title-three__sub-title">Our Feedbacks</p>
+                
                 <div class="section-title-three__shape"></div>
             </div>
-            <h2 class="section-title-three__title">What They’re Talking?</h2>
+            <h2 class="section-title-three__title">@heading</h2>
         </div>
         <div class="testimonial-five__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
              "loop" : true,
@@ -34,87 +56,8 @@
                         }
                     }
                 }'>
-                    <!--Testimonial Five Single Start-->
-                    <div class="item">
-                        <div class="testimonial-five__single">
-                            <div class="testimonial-five__content">
-                                <div class="testimonial-five__rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <p class="testimonial-five__text">“All of our lorries are fitted with Satellite Tracking
-                                    and Temperature Controlled monitoring systems so that the transportation of high
-                                    value and temperature sensitive loads can be monitored at all times.</p>
-                            </div>
-                            <div class="testimonial-five__client-info">
-                                <div class="testimonial-five__client-img">
-                                    <img src="assets/images/update-10-02-2023/testimonial/testimonial-5-1.jpg" alt="">
-                                </div>
-                                <div class="testimonial-five__client-content">
-                                    <p class="testimonial-five__client-sub-title">Co Founder</p>
-                                    <h4 class="testimonial-five__client-name">David Cooper</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Testimonial Five Single End-->
-                    <!--Testimonial Five Single Start-->
-                    <div class="item">
-                        <div class="testimonial-five__single">
-                            <div class="testimonial-five__content">
-                                <div class="testimonial-five__rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <p class="testimonial-five__text">“All of our lorries are fitted with Satellite Tracking
-                                    and Temperature Controlled monitoring systems so that the transportation of high
-                                    value and temperature sensitive loads can be monitored at all times.</p>
-                            </div>
-                            <div class="testimonial-five__client-info">
-                                <div class="testimonial-five__client-img">
-                                    <img src="assets/images/update-10-02-2023/testimonial/testimonial-5-2.jpg" alt="">
-                                </div>
-                                <div class="testimonial-five__client-content">
-                                    <p class="testimonial-five__client-sub-title">Co Founder</p>
-                                    <h4 class="testimonial-five__client-name">Sarah Albert</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Testimonial Five Single End-->
-                    <!--Testimonial Five Single Start-->
-                    <div class="item">
-                        <div class="testimonial-five__single">
-                            <div class="testimonial-five__content">
-                                <div class="testimonial-five__rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <p class="testimonial-five__text">“All of our lorries are fitted with Satellite Tracking
-                                    and Temperature Controlled monitoring systems so that the transportation of high
-                                    value and temperature sensitive loads can be monitored at all times.</p>
-                            </div>
-                            <div class="testimonial-five__client-info">
-                                <div class="testimonial-five__client-img">
-                                    <img src="assets/images/update-10-02-2023/testimonial/testimonial-5-3.jpg" alt="">
-                                </div>
-                                <div class="testimonial-five__client-content">
-                                    <p class="testimonial-five__client-sub-title">Co Founder</p>
-                                    <h4 class="testimonial-five__client-name">Michale Smith</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Testimonial Five Single End-->
+            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
                 </div>
     </div>
 </section>

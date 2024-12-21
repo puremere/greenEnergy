@@ -1,0 +1,42 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-10-02-2023/services/services-5-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string text = Model.dataList.SingleOrDefault(x => x.title == "text").title2 == "" ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "text").title2;
+    string desc = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+
+}
+
+
+
+<div class="item">
+    <div class="services-five__single">
+        <div class="services-five__img-box">
+            <div class="services-five__img">
+                <img style="max-width:250px; aspect-ratio:1/1; object-fit:scale-down" src="@image" alt="">
+                <div class="services-five__hover-content">
+                    <div class="services-five__hover-content-icon">
+                        <span class="insur-three-icon-car"></span>
+                    </div>
+                    <h4 class="services-five__hover-content-title">
+                        <a href="@url" style="margin-right:10px">@text</a>
+                    </h4>
+                    <p style="margin-right:10px" class="services-five__hover-content-text">
+                        @desc
+                </div>
+            </div>
+            <div class="services-five__title-box">
+                <h4 class="services-five__title " style="text-align:center">
+                    <a href="@url">@text</a>
+                </h4>
+                <div class="services-five__icon">
+                    <span class="insur-three-icon-car"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

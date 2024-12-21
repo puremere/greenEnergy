@@ -331,9 +331,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202412021640504_initial.cs" />
-    <Compile Include="Migrations\202412021640504_initial.designer.cs">
-      <DependentUpon>202412021640504_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202412030531455_initial.cs" />
+    <Compile Include="Migrations\202412030531455_initial.designer.cs">
+      <DependentUpon>202412030531455_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\irhaContext.cs" />
@@ -1693,6 +1693,8 @@
     <Content Include="fonts\webfonts\fa-solid.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\data.png" />
+    <Content Include="Images\element.png" />
     <Content Include="Images\empty.png" />
     <Content Include="Images\Green2\Uploads\logo.png" />
     <Content Include="Images\Green2\Uploads\logo.svg" />
@@ -1767,6 +1769,8 @@
     <Content Include="Images\JTS\Uploads\verticalSliderSection4.png" />
     <Content Include="Images\JTS\Uploads\verticalSliderSection5.png" />
     <Content Include="Images\paymentError.png" />
+    <Content Include="Images\remove.png" />
+    <Content Include="Images\sorting.png" />
     <Content Include="Images\successPayment.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3964,6 +3968,26 @@
     <Content Include="Assets\fonts\Vazirmatn[wght].woff2" />
     <Content Include="Assets\images\Drawing1.pdf" />
     <Content Include="Assets\images\Untitled design.zip" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Black.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Bold.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-ExtraBold.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-ExtraLight.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Light.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Medium.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Regular.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-SemiBold.ttf" />
+    <Content Include="fonts\vazir\ttf\Vazirmatn-Thin.ttf" />
+    <Content Include="fonts\vazir\variable\Vazirmatn[wght].ttf" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Black.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Bold.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-ExtraBold.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-ExtraLight.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Light.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Medium.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Regular.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-SemiBold.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn-Thin.woff2" />
+    <Content Include="fonts\vazir\webfonts\Vazirmatn[wght].woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\panel\Pose.cshtml" />
     <Content Include="Views\admin\category.cshtml" />
@@ -4057,6 +4081,21 @@
     <Content Include="Views\Shared\IRHA\Sections\_teacherList.cshtml" />
     <Content Include="Views\Shared\IRHA\Sections\_aboutMain.cshtml" />
     <Content Include="Views\Shared\IRHA\Sections\_heading.cshtml" />
+    <Content Include="Views\Shared\_TypeCatList.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_faqDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Layouts\_subContent.cshtml" />
+    <Content Include="Views\Shared\IRHA\Layouts\_controllerModal.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_mainSliderDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Layouts\_controllerModalParent.cshtml" />
+    <Content Include="Views\Shared\IRHA\Layouts\_childContent.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_galleryDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_callToActionDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_benefitDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_newsSevenDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_servicesEightDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_teamSevenDetail.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_insuranceFive - Copy.cshtml" />
+    <Content Include="Views\Shared\IRHA\Sections\_headingDetail.cshtml" />
     <None Include="Web References\MellatWebService\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatWebService\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatWebService\Reference.map">
@@ -4722,8 +4761,8 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202412021640504_initial.resx">
-      <DependentUpon>202412021640504_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412030531455_initial.resx">
+      <DependentUpon>202412030531455_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

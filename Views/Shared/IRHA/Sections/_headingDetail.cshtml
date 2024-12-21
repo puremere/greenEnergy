@@ -1,0 +1,40 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-15-2-2024/resources/slider-8-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 == "" ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 == "" ? "عنوان مرتبط اول" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
+    string desc = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 == "" ? "این بخش می تواند به عنوان توضیحات تمیلی استفاده شود" : Model.dataList.SingleOrDefault(x => x.title == "desc").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+  
+
+
+}
+
+
+<div class="item">
+    <div class="testimonial-five__single">
+        <div class="testimonial-five__content">
+
+            <p class="testimonial-five__text">
+                @desc
+            </p>
+        </div>
+        <div class="testimonial-five__client-info">
+            <div class="testimonial-five__client-img">
+                <img src="@image" alt="">
+            </div>
+            <div class="testimonial-five__client-content">
+                <p class="testimonial-five__client-sub-title">@header</p>
+                <h4 class="testimonial-five__client-name">@title</h4>
+            </div>
+        </div>
+    </div>
+</div>

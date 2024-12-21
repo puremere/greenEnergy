@@ -1,45 +1,60 @@
-﻿  <!--Why Choose Seven Start-->
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header") == null ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image1").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image1")).title2;
+    string image2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image2").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image2")).title2;
+    string bannerImage = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "bannerImage").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("bannerImage")).title2;
+    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string url = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+    string bannerTitle = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2;
+
+
+}
+
+
 <section class="why-choose-seven" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/why-choose-bg.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-xl-6">
                 <div class="why-choose-seven__content">
                     <div class="section-title-six text-left">
-                        <span class="section-title-six__tagline"><span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>Why Choose Us</span>
-                        <h2 class="section-title-six__title">Why You should Choose Our<br> Insurance Policy's</h2>
+                        <span class="section-title-six__tagline"><span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>@header</span>
+                        <h2 class="section-title-six__title">@title</h2>
                     </div>
                     <p class="why-choose-seven__content__text">
-                        There are many variations of passages of Lorem Ipsum avalable, but the majority have suffered alteration in some form,
-                        by injected humour, or randomised words which don't look even slightly believable.
+                        @description
                     </p>
                     <div class="why-choose-seven__box-wrapper">
                         <div class="why-choose-seven__box">
                             <div class="why-choose-seven__box__top">
-                                <div class="why-choose-seven__box__icon"><span class="insur-four-icon-jar"></span></div>
-                                <h3 class="why-choose-seven__box__title">Save Your<br> Money</h3>
+                                <div class="why-choose-seven__box__icon">
+                                    <img src="@bannerImage" style="width:100px"/>
+                              
+                                </div>
+                                <h3 class="why-choose-seven__box__title">@bannerTitle</h3>
                             </div>
-                            <p class="why-choose-seven__box__text">There are many variations<br> of passages of Lorem </p>
+                            <p class="why-choose-seven__box__text" style="min-height:50px"> </p>
                         </div>
                         <div class="why-choose-seven__box-wrapper__image float-bob-y">
-                            <img src="webAssets/irha/images/update-15-2-2024/resources/why-choose-seven-2.png" alt="insur">
+                            <img style="border-radius:35px" src="@image2" alt="insur">
                         </div>
                     </div>
                     <div class="why-choose-seven__wrapper">
-                        <a href="about.html" class="thm-btn thm-btn--eight">Discover More</a>
-                        <div class="why-choose-seven__customer">
-                            <div class="why-choose-seven__customer__number">
-                                <span class="odometer" data-count="30">00</span>
-                                <span class="why-choose-seven__customer__nuber__count">K</span>
-                            </div>
-                            <p class="why-choose-seven__customer__text">Satisfied<br> Customer</p>
-                        </div>
+                        <a href="about.html" class="thm-btn thm-btn--eight">جزئیات بیشتر</a>
+
                     </div>
                 </div>
             </div>
             <div class="col-xl-6">
                 <div class="insur-stretch-element-inside-column">
                     <div class="why-choose-seven__image wow slideInRight" data-wow-delay="100ms">
-                        <img src="webAssets/irha/images/update-15-2-2024/resources/why-choose-seven-1.jpg" alt="insur">
+                        <img src="@image1" alt="insur">
                     </div>
                     <div class="why-choose-seven__shape">
                         <img src="webAssets/irha/images/update-15-2-2024/shapes/why-choose-shape.png" alt="insur">
@@ -49,4 +64,3 @@
         </div>
     </div>
 </section>
-<!--Why Choose Seven End-->

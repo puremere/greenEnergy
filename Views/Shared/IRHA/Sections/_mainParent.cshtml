@@ -1,14 +1,480 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+}
+<script>
+ async function start(elID,contentID) {
+
+  const data = await fetchData(contentID);
+     displayData(data,elID);
+ }
+
+ async function fetchData(id) {
+     
+     return new Promise((resolve, reject) => {
+         $.ajax({
+             url: '/Home/addSubContent', // Replace with your API URL
+             data : {
+                  contentID : id
+             },
+
+             method: 'GET',
+             success: function(response) {
+                 
+                 resolve(response);
+             },
+             error: function(xhr, status, error) {
+                
+                 reject(error);
+             }
+         });
+     });
+ }
+ function displayData(data,elID) {
+     $('#'+elID).html(data);
+ }
+    </script>
 
 @if (Model.contentChild != null)
 {
     foreach (var item in Model.contentChild)
     {
-        
-        string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+<div>
+    <div class="controllerButtons">
 
-        @Html.RenderPartial(partialPath, item);
+
+        @if (Request.Cookies["adminToken"] != null)
+        {
+
+
+           
+            <div style="background-color:transparent">
+
+                <div style="display:flex">
+
+                    @if (item.multilayer == 1)
+                    {
+                        <img class="childButton" src="~/Images/element.png" />
+
+
+                    }
+                    @if (item.dataList.Count > 0)
+                    {
+                        <img class="editButton" src="~/Images/data.png" />
+
+                    }
+                    <img class="priorityButton" src="~/Images/sorting.png" />
+                    <img class="removeButton" src="~/Images/remove.png" />
+
+
+
+                </div>
+                @if (item.multilayer == 1)
+                {
+                    <div class="modal childButtonModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="direction:rtl">
+                                    <h5 class="modal-title">افزودن جزئیات</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form method="post" action="/panel/setContnet" style="direction:rtl">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input hidden name="url" value="@ViewBag.url" />
+                                            <input hidden name="fromHome" value="1" />
+                                            <input hidden name="contentParent" value="@item.conentID" />
+                                            <input hidden name="sectionID" value="@Model.sectionID" />
+                                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                                <label class="form-label-title ">اولویت:</label>
+                                                <div class="col-sm-10">
+                                                    <input required type="text" id="seachQuery" name="priority" class="form-control ">
+                                                </div>
+                                            </div>
+                                            @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                                    <label class="form-label-title ">Use Page Data:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="checkbox" id="selfUsed" name="selfUsed" class=" ">
+                                                    </div>
+                                                </div>*@
+                                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
+                                                <label class="form-label-title ">عنوان :</label>
+                                                <div class="col-sm-10">
+                                                    <input value=" " required type="text" id="seachQuery" name="title" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
+                                                <label class="form-label-title ">توضیحات:</label>
+                                                <div class="col-sm-10">
+                                                    <input value=" " type="text" id="descr" name="description" class="form-control ">
+                                                </div>
+                                            </div>
+
+                                            @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                                    <label class="form-label-title col-sm-6 mb-0">تولید دیتا از پیچ با تایپ  :</label>
+                                                    <div class="col-sm-10">
+                                                        @Html.DropDownList("typeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
+                                                    </div>
+                                                </div>*@
+                                            @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
+                                                    <label class="form-label-title col-sm-6 mb-0">Mirror View  :</label>
+                                                    <div class="col-sm-10">
+                                                        @Html.DropDownList("mirrorID", new SelectList(Model.allContents, "contentID", "title"), "choose one", new { @class = "form-control", name = "mirrorID" })
+                                                    </div>
+                                                </div>*@
+                                            <div class="col-lg-12 mb-12 row align-items-center" style="display:inline-block">
+                                                <label class="form-label-title col-sm-12 col-lg-12 mb-0">انتخاب المان:</label>
+                                                <div class="col-sm-10" style="background-color:#eee; border-radius:15px; padding:0">
+
+
+
+
+                                                    <div class="container text-center my-3" style="padding:0">
+                                                        <div class="row mx-auto my-auto justify-content-center">
+                                                            <div id="recipeCarousel" class="carousel slide" data-interval="false">
+                                                                <div id="@item.conentID.ToString().Replace("-","")" class="carousel-inner" role="listbox">
+
+
+
+
+
+
+                                                                </div>
+                                                                <script>
+                                                                          var elID = '@item.conentID.ToString().Replace("-", "")';
+                                                                          var contentID = '@item.conentID';
+                                                                          start(elID,contentID);
+
+                                                                </script>
+                                                                <a class="carousel-control-prev bg-transparent w-aut carascontrol" href="#recipeCarousel" role="button" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                </a>
+                                                                <a class="carousel-control-next bg-transparent w-aut carascontrol" href="#recipeCarousel" role="button" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                let itemsinner = document.querySelectorAll(".carousel .carousel-item");
+
+                                                itemsinner.forEach((el) => {
+                                                    const minPerSlide = 4;
+                                                    let next = el.nextElementSibling;
+                                                    for (var i = 1; i < minPerSlide; i++) {
+                                                        if (!next) {
+                                                            // wrap carousel by using first child
+                                                            next = items[0];
+                                                        }
+                                                        let cloneChild = next.cloneNode(true);
+                                                        el.appendChild(cloneChild.children[0]);
+                                                        next = next.nextElementSibling;
+                                                    }
+                                                });
+
+                                                $(".card-img-overlay").click(function () {
+                                                    var url = $(this).attr('urltogo');
+
+                                                    $(".bigone").attr("src", url)
+                                                    $(".bigparent").show();
+
+                                                })
+                                                $(".removebid").click(function () {
+                                                    $(".bigparent").hide();
+                                                })
+                                                    </script>
+                                                    <style>
+                                                        .carascontrol {
+                                                            background-color: #ddd !important;
+                                                        }
+
+                                                        .carousel-control-prev {
+                                                            border-radius: 15px 0px 0px 15px;
+                                                            width: 5% !important;
+                                                        }
+
+                                                        .carousel-control-next {
+                                                            border-radius: 0 15px 15px 0;
+                                                            width: 5% !important;
+                                                        }
+
+                                                        .htmlcard {
+                                                            background-color: #eee
+                                                        }
+
+
+
+                                                        @@media (max-width: 767px) {
+                                                            .carousel-inner .carousel-item > div {
+                                                                display: none;
+                                                            }
+
+                                                                .carousel-inner .carousel-item > div:first-child {
+                                                                    display: block;
+                                                                }
+                                                        }
+
+                                                        .carousel-inner .carousel-item.active,
+                                                        .carousel-inner .carousel-item-next,
+                                                        .carousel-inner .carousel-item-prev {
+                                                            display: flex;
+                                                        }
+
+                                                        /* medium and up screens */
+                                                        @@media (min-width: 768px) {
+                                                            .carousel-inner .carousel-item-end.active,
+                                                            .carousel-inner .carousel-item-next {
+                                                                transform: translateX(25%);
+                                                            }
+
+                                                            .carousel-inner .carousel-item-start.active,
+                                                            .carousel-inner .carousel-item-prev {
+                                                                transform: translateX(-25%);
+                                                            }
+                                                        }
+
+                                                        .carousel-inner .carousel-item-end,
+                                                        .carousel-inner .carousel-item-start {
+                                                            transform: translateX(0);
+                                                        }
+                                                    </style>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 mb-4 row align-items-center" style="display: inline-block ">
+                                                <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
+                                                    <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="modal priorityButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">ویرایش</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form style="" action="/panel/editContnetFromHome" method="post" enctype="multipart/form-data">
+                                <div class="modal-body" style="direction:rtl">
+
+
+
+
+                                    <p>اولویت</p>
+                                    @Html.AntiForgeryToken()
+                                    <input hidden name="contentID" value="@item.conentID" />
+                                    <input hidden name="url" value="@ViewBag.slug" />
+                                    <input style="width:200px" type="text" id="" class="form-control" name="priority" value="@item.priority" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                </div>
+
+
+                            </form>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal removeButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">متغیرهای اسلایدر</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="/panel/removeContentFromHome" method="post">
+                                <div class="modal-body">
+                                    <p>آیا از حذف آیتم اطمینان دارد</p>
+
+
+                                    @Html.AntiForgeryToken()
+                                    <input hidden name="contentID" value="@item.conentID" />
+                                    <input hidden name="url" value="@ViewBag.slug" />
+
+                                    @*<div class="row" style="display:flex">
+                                            <button class="btn btn-primary">تایید</button>
+                                            <p class="btn btn-silver">لغو</p>
+                                        </div>*@
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal editButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">متغیرهای اسلایدر</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var filed in item.dataList.OrderBy(x => x.title))
+                                {
+                                    string name = filed.title;
+                                    <div class="formMode editMode" style="direction:rtl">
+                                        <div>
+                                            <div style=" padding: 10px; margin-top:25px!important">@filed.title :</div>
+
+                                        </div>
+                                        <div id="sliderForm" style="display:flex;justify-content:center" action="/panel/setData" method="post" enctype="multipart/form-data">
+
+                                            @Html.AntiForgeryToken()
+                                            <input hidden name="contentID" value="@item.conentID" />
+                                            <input hidden name="dataID" value="@filed.dataID" />
+                                            <input hidden name="title" value="@filed.title" />
+
+
+                                            @{
+                                                if (filed.title.Contains("img"))
+                                                {
+
+                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="image" value="" />
+                                                    <input placeholder="Choose From Upload Center" classToFit="@filed.title" style="flex:1; margin:10px" name="title2" class="@filed.title card-img-left form-control" />
+
+                                                }
+                                                else if (filed.title.Contains("Class"))
+                                                {
+
+                                                    <select multiple class="form-control" name="title2">
+                                                        <option value="btn-border">btn-border</option>
+                                                        <option value="btn-white">btn-white</option>
+                                                        <option value="btn-dark-border">btn-dark-border</option>
+                                                        <option value="btn-dark">btn-dark</option>
+                                                        <option value="imageCurve">imageCurve</option>
+                                                        <option value="itemcentre">centre</option>
+                                                        <option value="itemleft">left</option>
+                                                        <option value="itemright">right</option>
+                                                    </select>
+                                                }
+                                                else if (filed.title == "style")
+                                                {
+
+                                                    greenEnergy.ViewModel.styleVM stylemodel = string.IsNullOrEmpty(filed.title2) ? new greenEnergy.ViewModel.styleVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(filed.title2);
+
+                                                    <div>
+                                                        <p style="display:flex">
+                                                            <span style="width:30%"> background_image : </span>
+                                                            <span style="width:70%">
+                                                                <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@filed.title" value="" />
+                                                                <input classToFit="@filed.title" style="flex:1; margin:0 10px" name="title2" class="@filed.title card-img-left form-control" value="@stylemodel.background_image" />
+
+                                                            </span>
+                                                        </p>
+                                                        <p style="display:flex"><span style="width:30%"> background : </span> <span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background" /></span></p>
+                                                        <p style="display:flex"><span style="width:30%">  border-size : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_size" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%">  border-radius : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_radius" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%">  width : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.width" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> height : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.height" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> padding : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.padding" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> margin : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.margin" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> box-shadow : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.box_shadow" /></span> </p>
+
+                                                    </div>
+                                                }
+
+                                                else if (filed.title == "marginsrt")
+                                                {
+
+                                                    greenEnergy.ViewModel.marginVM marginmodel = string.IsNullOrEmpty(filed.title2) ? new greenEnergy.ViewModel.marginVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.marginVM>(filed.title2);
+
+                                                    <div>
+                                                        <p style="display:flex"><span> lead : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.lead" /></span> </p>
+                                                        <p style="display:flex"><span> trail : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.trail" /></span></p>
+                                                        <p style="display:flex"><span> top : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.top" /></span> </p>
+                                                        <p style="display:flex"><span> bottom : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.bottom " /></span></p>
+                                                    </div>
+                                                }
+                                                else if (filed.title.Contains("html"))
+                                                {
+                                                    <textarea name="title2" class="form-control" style="height:170px">@filed.title2</textarea>
+
+                                                }
+
+                                                else
+                                                {
+                                                    <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@filed.title2" />
+                                                }
+
+                                            }
+
+
+                                            <div class="submitForm btn ripple btn-primary">تایید</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+    <div style="position:relative">
+        @{
+            string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+
+            
+            Html.RenderPartial(partialPath, item);
+
+
+          
+        }
+    </div>
+       
+
+
+
     }
 }
+
+
+
+
+
 
 

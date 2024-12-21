@@ -1,0 +1,36 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+   
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-17-06-2023/services/services-7-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 == "" ? "عنوان مرتبط دوم" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+    string date = Model.dataList.SingleOrDefault(x => x.title == "date").title2 == "" ? "#" : Model.dataList.SingleOrDefault(x => x.title == "date").title2;
+
+
+
+
+}
+
+
+<!--News Seven Single Start-->
+<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="00ms">
+    <div class="news-seven__single">
+        <div class="news-seven__single__image">
+            <img src="@image" alt="insur">
+            <a href="news-details.html" class="news-seven__single__image__link"></a>
+        </div>
+        <div class="news-seven__single__content">
+            <div class="news-seven__single__date">
+                <span class="news-seven__single__date__day">@date</span>
+                <span class="news-seven__single__date__month">دی</span>
+            </div>
+          
+            <h3 style="margin-top:30px!important" class="news-seven__single__title"><a href="news-details.html">@title</a></h3>
+        </div>
+        <a class="news-seven__single__rm" href="@url">اطلاعات بیشتر<span class="insur-four-icon-right-arrow"></span></a>
+    </div>
+</div>

@@ -306,6 +306,88 @@ namespace greenEnergy.Controllers
            
             return RedirectToAction("Page", new { id = model.sectinoTypeID });
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setPageFromHome(sectionVM model)
+        {
+
+            if (System.Web.HttpContext.Current.Request.Files.Count > 0)
+            {
+                //Create the Directory.
+                string path = System.Web.HttpContext.Current.Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
+
+                if (postedFile.ContentLength != 0)
+                {
+                    string fileName = "";
+                    string name = methods.RandomString(5);
+                    //Fetch the File Name.
+                    fileName = name + Path.GetExtension(postedFile.FileName);
+                    //Save the File.
+                    postedFile.SaveAs(path + fileName);
+                    model.image = fileName;
+                }
+            }
+
+
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setSection", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    // اینجا اگر کپی بود باید فرزند اول بسازیم از نوع پیج
+                    if (model.isCopy == "on")
+                    {
+                        setContentVM inputmodel = new setContentVM()
+                        {
+                            mirrorID = model.mirrorID,
+                            sectionID = new Guid(responsemodel.message),
+                            priority = 1,
+                              
+                        };
+                        responseModel outputresponsemodel = new responseModel();
+                        outputresponsemodel = await methods.PostData(inputmodel, outputresponsemodel, "/setContent", Request.Cookies["adminToken"].Value);
+                        return Redirect("~/");
+                    }
+                    else
+                    {
+                        setContentVM inputmodel = new setContentVM()
+                        {
+                           
+                             sectionID = new Guid(responsemodel.message),
+                             priority = 1,
+                             htmlID = new Guid("5088cfd2-4c45-33ce-88a2-c9d2d4afd3ae"), // mainPage
+                             title = "MainPage",
+                             formID = 0
+
+                        };
+                        responseModel outputresponsemodel = new responseModel();
+                        outputresponsemodel = await methods.PostData(inputmodel, outputresponsemodel, "/setContent", Request.Cookies["adminToken"].Value);
+                        return Redirect("~/");
+                        
+                    }
+
+                    // بعد با ای دی اومده میرور کنیم
+
+                    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+
+            return RedirectToAction("page", "Home");
+        }
 
 
 
@@ -313,7 +395,6 @@ namespace greenEnergy.Controllers
         public async Task<ActionResult> Content(string id,string contentID)
         {
             sectionVM model = new sectionVM();
-           
             model.sectinoID = !string.IsNullOrEmpty(id) ? new Guid(id) : new Guid();
             model.contentParent = !string.IsNullOrEmpty(contentID) ? new Guid(contentID) : new Guid();
             
@@ -339,7 +420,28 @@ namespace greenEnergy.Controllers
             }
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            if (!string.IsNullOrEmpty(model.fromHome))
+            {
+                return Redirect("~/" + model.url);
+            }
             return RedirectToAction("Content", new { id = model.sectionID, contentID = model.contentParent });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> editContnetFromHome(setContentVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setContent", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                string image = responsemodel.message;
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            return Redirect("~/" + model.url);
+
         }
 
         [HttpPost]
@@ -376,6 +478,42 @@ namespace greenEnergy.Controllers
 
             //return Content("");
             return RedirectToAction("Content", new { id = model.sectionID , contentID = model.parentID });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> removeContentFromHome(removeContentPageVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            try
+            {
+                responsemodel = await methods.PostData(model, responsemodel, "/removeContent", Request.Cookies["adminToken"].Value);
+                if (responsemodel.status != 200)
+                    TempData["er"] = responsemodel.message;
+                else
+                {
+
+                    if (!string.IsNullOrEmpty(responsemodel.message))
+                    {
+                        string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                        bool exists = System.IO.File.Exists(fname);
+                        if (exists)
+                            System.IO.File.Delete(fname);
+
+                    }
+                }
+                if (Request.Cookies["typelist"] != null)
+                    ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            }
+            catch (Exception e)
+            {
+
+                return Content(e.InnerException.Message);
+            }
+
+
+            //return Content("");
+            return Redirect("~/"+model.url);
         }
 
         //element
@@ -546,6 +684,57 @@ namespace greenEnergy.Controllers
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
             return RedirectToAction("Data", new { id = model.contentID });
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> setDataFromHome(setDataVM model)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.Count > 0)
+            {
+                //Create the Directory.
+                string path = System.Web.HttpContext.Current.Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                HttpPostedFile postedFile = System.Web.HttpContext.Current.Request.Files[0];
+                if (postedFile.ContentLength != 0)
+                {
+                    string fileName = "";
+                    string name = methods.RandomString(5);
+                    //Fetch the File Name.
+                    fileName = name + Path.GetExtension(postedFile.FileName);
+                    //Save the File.
+                    postedFile.SaveAs(path + fileName);
+                    List<string> lst = new List<string>();
+                    lst.Add(fileName);
+                    model.title2 = lst;
+                }
+            }
+
+            
+
+
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/setData", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            if (Request.Cookies["typelist"] != null)
+                ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+
+            return Content("");
+            return RedirectToAction("Data", new { id = model.contentID });
+        }
 
 
         [HttpPost]
@@ -708,6 +897,10 @@ namespace greenEnergy.Controllers
 
                 }
             }
+            if (model.fromHome == "1")
+            {
+                return Redirect("~/" + model.pageurl);
+            }
             return RedirectToAction("LayoutPartData", new { id= model.layoutPartID});
         }
 
@@ -731,7 +924,14 @@ namespace greenEnergy.Controllers
                 }
             }
 
+            if (model.fromHome == "1")
+            {
+                string finalurl = model.pageurl == null ? "" : model.pageurl;
+                return Redirect("~/" + finalurl);
+            }
             return RedirectToAction("LayoutPartData", new { id = model.layoutPartID });
+
+
         }
 
 
