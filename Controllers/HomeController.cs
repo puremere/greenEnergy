@@ -54,7 +54,7 @@ namespace greenEnergy.Controllers
                     categoryPageVM catTypeResponsemodel = new categoryPageVM();
                     catTypeResponsemodel = await methods.PostData(new nullclass(), catTypeResponsemodel, "/getCategoryList", Request.Cookies["adminToken"].Value);
                     responsemodel.catTypeList = catTypeResponsemodel;
-                    categoryPageVM tagTypeResponsemodel = new categoryPageVM();
+                    tagPageVM tagTypeResponsemodel = new tagPageVM();
                     tagTypeResponsemodel = await methods.PostData(new nullclass(), tagTypeResponsemodel, "/getTagList", Request.Cookies["adminToken"].Value);
                     responsemodel.tagTypeList = tagTypeResponsemodel;
                     layoutPageVM layoutResponsemodel = new layoutPageVM();

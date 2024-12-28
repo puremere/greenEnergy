@@ -8,8 +8,10 @@
 
 }
 
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
 <section class="services-five" style="margin-top:150px; background-color:white;">
     <div class="container">
         <div class="services-five__inner">

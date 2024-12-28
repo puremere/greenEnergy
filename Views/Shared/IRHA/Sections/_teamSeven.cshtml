@@ -13,15 +13,17 @@
 
 }
 
-
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
 <section class="team-seven">
     <div class="team-seven__bg" style="background-image: url(@image); "></div>
     <div class="container">
         <div class="section-title-six text-center">
             <span class="section-title-six__tagline">
-            <span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>@header1</span>
+                <span class="section-title-six__tagline__icon"><i class="insur-four-icon-check"></i></span>@header1
+            </span>
             <h2 class="section-title-six__title" style="font-size:28px "> @header2<br></h2>
         </div>
         <div class="row gutter-y-30">

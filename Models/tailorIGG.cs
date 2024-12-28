@@ -9,8 +9,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
-// بعد از اتمام کار باید کد ها کپی شوند
-namespace greenEnergy.Model.tailor  // اینجا عوض شه
+
+namespace greenEnergy.Model.igg // اینجا عوض شه
 {
 
     class Context : DbContext
@@ -46,7 +46,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         //public DbSet<user> users { get; set; }
 
         public DbSet<city> cities { get; set; }
-
+        public DbSet<datalog> datalogs { get; set; }
         public DbSet<orderResponse> orderResponses { get; set; }
         public DbSet<Comment> comments { get; set; }
 
@@ -82,7 +82,6 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public DbSet<newOrderStatus> newOrderStatuses { get; set; }
         public DbSet<flowCoding> flowCodings { get; set; }
         public DbSet<flowProduct> flowProducts { get; set; }
-        public DbSet<JAView> jAViews { get; set; }
         public DbSet<relationType> relationTypes { get; set; }
         public DbSet<userRelation> userRelations { get; set; }
         public DbSet<sectionRelation> sectionRelations { get; set; }
@@ -91,6 +90,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public DbSet<flowStatus> flowStatuses { get; set; }
         public DbSet<flowLog> FlowLogs { get; set; }
         public DbSet<media> medias { get; set; }
+        public DbSet<paymentRecord> paymentRecords { get; set; }
 
 
 
@@ -154,7 +154,31 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
 
     }
 
-
+    public class paymentRecord
+    {
+        [Key]
+        public Guid paymentRecordID { get; set; }
+        public int relationID { get; set; }
+        public int peigiry { get; set; }
+        public double price { get; set; }
+        public int status { get; set; }
+        public double timestamp { get; set; }
+        public Guid userID { get; set; }
+        public int moneyFormID { get; set; } // ینی چه فرمی داره پرداخت میشه
+        public string planID { get; set; }
+    }
+    public class datalog
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int datalogID { get; set; }
+        public string data { get; set; }
+        public string form { get; set; }
+        public string slug { get; set; }
+        public string response { get; set; }
+        public string where { get; set; }
+        public string userID { get; set; }
+    }
     public class media
     {
         [Key]
@@ -198,6 +222,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public string name { get; set; }
         public string formFields { get; set; }
         public string flowFields { get; set; }
+        public string formIDString { get; set; }
         public string userFields { get; set; }
         public string statusFields { get; set; }
         public string logFields { get; set; }
@@ -227,6 +252,8 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
 
         public int isLinkToMain { get; set; }
         public string conditionStatus { get; set; }
+        public string relationStatus { get; set; }
+        public string conditionRelationStatus { get; set; }
         public int conditionStatusOperator { get; set; }
         public string operat { get; set; }
         public string extraRelation { get; set; }
@@ -319,7 +346,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         }
         [Key]
         public Guid sectionID { get; set; }
-        public JAView JAView { get; set; }
+
         public string url { get; set; }
         public string buttonText { get; set; }
         public DateTime date { get; set; }
@@ -417,25 +444,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
     }
 
 
-    public class JAView
-    {
-        [Key]
-        public Guid JAViewID { get; set; }
-        public string viewID { get; set; }
-        public string type { get; set; }
-        public string meta { get; set; }
-        public int height { get; set; }
-        public int width { get; set; }
 
-        public Guid? parentID { get; set; }
-        [ForeignKey("parentID")]
-        public virtual JAView parent { get; set; }
-
-        public virtual ICollection<JAView> childList { get; set; }
-
-
-
-    }
     //public class JAStackView : JAView
     //{
     //    public int orientation { get; set; }
@@ -702,8 +711,8 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
 
         [Key]
         public Guid orderOptionID { get; set; }
-        public int priority { get; set; }
         public string title { get; set; }
+        public int priority { get; set; }
         public string Value { get; set; }
         public string image { get; set; }
         public Guid? userID { get; set; }
@@ -935,8 +944,8 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int formItemID { get; set; }
-        public string continueWithError { get; set; }
         public string itemName { get; set; }
+        public string continueWithError { get; set; }
         public string groupNumber { get; set; }
         public string itemDesc { get; set; }
         public string itemx { get; set; }
@@ -951,19 +960,15 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public string itemtImage { get; set; }
         public string catchUrl { get; set; }
         public string isMultiple { get; set; }
-
-
+        public string isValidate { get; set; }
+        public string regx { get; set; }
         public string isRequired { get; set; }
         public string validationType { get; set; }
         public string otherFieldName { get; set; }
         public string referTo { get; set; }
 
-        public string regx { get; set; }
         public double minNumber { get; set; }
         public double maxNumber { get; set; }
-
-
-
         public string mediaType { get; set; }
         public string collectionName { get; set; }
         public string operat { get; set; }
@@ -1127,7 +1132,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public DateTime? childEndDate { get; set; }
 
         public int? formID { get; set; }
-
+        public int actorFlowID { get; set; }
         public int parentID { get; set; }
         [ForeignKey("parentID")]
         public virtual newOrderFlow parentFlow { get; set; }
@@ -1153,7 +1158,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int newOrderFlowID { get; set; }
 
-
+        public string meta { get; set; }
 
         //public Guid newOrder_newOrderID { get; set; }
         public Guid? newOrderID { get; set; }
@@ -1162,7 +1167,7 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
 
 
         //public Guid OrderID { get; set; }
-
+        //public string serventPhone2 { get; set; }
 
         public string serventPhone { get; set; }
 
@@ -1189,7 +1194,6 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
 
         public string isFinished { get; set; }
         public string isAccepted { get; set; }
-        public string meta { get; set; }
         public DateTime creationDate { get; set; }
         public DateTime actionDate { get; set; }
         public DateTime terminationDate { get; set; }
@@ -1338,10 +1342,9 @@ namespace greenEnergy.Model.tailor  // اینجا عوض شه
         public string emPhone { get; set; }
         public string typeID { get; set; }
         public string postalCode { get; set; }
-
+        public int badge { get; set; }
         public string lat { get; set; }
         public string lon { get; set; }
-        public int badge { get; set; }
         public DbGeography point { get; set; }
 
 

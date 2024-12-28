@@ -32,7 +32,7 @@
             toastr.error('@ViewBag.error');
         </script>
     }
-<script>
+    <script>
     var hideInnerEl = function (el) {
 
         var element = $(el);
@@ -65,8 +65,15 @@
     $(".editButton").click(function () {
         $("#editID").val($(this).attr("idtogo"));
         $("#editTitle").val($(this).attr("nametogo"));
+        $("#editProirity").val($(this).attr("priority"));
+        $("#editValue").val($(this).attr("itemvalue"));
+        $("#editarentID").val($(this).attr("parent"));
+
     })
-</script>
+        $(".removeBotton").click(function(){
+          $("#orderID").val($(this).attr("idtogo"));
+        })
+    </script>
 
 }
 
@@ -96,6 +103,7 @@
 
                                             <th>عنوان</th>
                                             <th>مقدار</th>
+                                            <th>اولویت</th>
                                             <th>تصویر</th>
                                             <th>اقدامات</th>
 
@@ -106,38 +114,41 @@
 
                                         @if (Model.prtlist != null)
                                         {
-                                            foreach (var item in Model.prtlist.Where(x => x.parentID == x.orderOptionID))
+                                            foreach (var item in Model.prtlist.Where(x => x.parentID == x.orderOptionID).OrderByDescending(x=>x.priority).ToList())
                                             {
                                                 string parentclassname = "1" + item.orderOptionID;
-                                                <tr parentID="@parentclassname" class="childItem firstchild">
-                                                    <td>@item.title</td>
-                                                    <td>@item.value</td>
-                                                    
-                                                    <td>
-                                                        @if (@item.image != "Uploads/")
-                                                        {
-                                                            <img style="max-width:70px" src="/@item.image" />
-                                                        }
+                                        <tr parentID="@parentclassname" class="childItem firstchild">
+                                            <td>@item.title</td>
+                                            <td>@item.value</td>
+                                            <td>@item.priority</td>
 
-                                                    </td>
-                                                    <td>
-                                                        <button id="@item.orderOptionID" onclick="removeProcess(this)" type="button" class="btn ripple btn-primary btn-sm">حذف </button>
-                                                        <button data-bs-target="#editModal" data-bs-toggle="modal" nametogo="@item.title" idtogo="@item.orderOptionID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
+                                            <td>
+                                                @if (@item.image != "Uploads/")
+                                                {
+                                                    <img style="max-width:70px" src="/@item.image" />
+                                                }
 
-                                                    </td>
-                                                </tr>
-                                                foreach (var grouh in Model.prtlist.Where(x => x.parentID == item.orderOptionID && x.parentID != x.orderOptionID ))
+                                            </td>
+                                            <td>
+                                                <button data-bs-target="#removeModal" data-bs-toggle="modal" idtogo="@item.orderOptionID" type="button" class="btn ripple btn-primary btn-sm">حذف </button>
+                                                <button data-bs-target="#editModal" data-bs-toggle="modal" nametogo="@item.title" idtogo="@item.orderOptionID" priority="@item.priority" itemvalue="@item.value" parent="@item.parentID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
+
+                                            </td>
+                                        </tr>
+                                                foreach (var grouh in Model.prtlist.Where(x => x.parentID == item.orderOptionID && x.parentID != x.orderOptionID))
                                                 {
                                                     string classname = "1" + item.orderOptionID;
-                                                    <tr parentID="@parentclassname" class="childItem @classname">
-                                                        <td>---@grouh.title</td>
-                                                        <td><img style="max-width:70px" src="/@grouh.image" /></td>
-                                                        <td>
-                                                            <button id="@item.orderOptionID" onclick="removeProcess(this)" type="button" class="btn ripple btn-primary btn-sm">حذف </button>
-                                                            <button  data-bs-target="#editModal" data-bs-toggle="modal" nametogo="@grouh.title" idtogo="@grouh.orderOptionID"  type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
-                                                        </td>
-                                                    </tr>
-                                                    
+                                    <tr parentID="@parentclassname" class="childItem @classname">
+                                        <td>---@grouh.title</td>
+                                        <td>@grouh.value</td>
+                                        <td>@grouh.priority</td>
+                                        <td><img style="max-width:70px" src="/@grouh.image" /></td>
+                                        <td>
+                                            <button data-bs-target="#removeModal" data-bs-toggle="modal" idtogo="@grouh.orderOptionID" type="button" class="btn ripple btn-primary btn-sm removeBotton">حذف </button>
+                                            <button data-bs-target="#editModal" data-bs-toggle="modal" nametogo="@grouh.title" priority="@grouh.priority" itemvalue="@grouh.value" idtogo="@grouh.orderOptionID" parent="@grouh.parentID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
+                                        </td>
+                                    </tr>
+
                                                 }
                                             }
                                         }
@@ -169,11 +180,11 @@
                                         </div>
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> مقدار </h6>
-                                            <input class="form-control" name="value" placeholder="مقدار   "  type="text">
+                                            <input class="form-control" name="value" placeholder="مقدار   " type="text">
                                         </div>
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> اولویت </h6>
-                                            <input class="form-control" name="priority" placeholder="مقدار   "  type="text">
+                                            <input class="form-control" name="priority" placeholder="مقدار   " type="text">
                                         </div>
                                         <div class="col-lg-3 form-group">
                                             <h6 style="margin-bottom:15px" class="main-content-label mb-1"> تصویر </h6>
@@ -226,8 +237,54 @@
                     <p>نام</p>
                     <input type="text" id="editTitle" class="form-control" name="title" value="" />
                     <p style="margin:10px"></p>
+                    <p>اولویت</p>
+                    <input type="text" id="editProirity" class="form-control" name="priority" value="" />
+                    <p style="margin:10px"></p>
+                    <p>مقدار</p>
+                    <input type="text" id="editValue" class="form-control" name="value" value="" />
+                    <p style="margin:10px"></p>
+                    <div class="col-lg-12 form-group">
+                        <h6 style="margin-bottom:15px" class="main-content-label mb-1"> انتخاب آیتم بالاسری </h6>
+                        <select id="editarentID" name="parentID" class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <option label="یکی را انتخاب کن" data-select2-id="3">
+                            </option>
+                            @if (Model.prtlist != null)
+                            {
+                                foreach (var item in Model.prtlist.Where(x => x.parentID == x.orderOptionID))
+                                {
+                                    <option value="@item.orderOptionID">
+                                        @item.title
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                    </div>
+                    <p style="margin:10px"></p>
                     <p>تصویر</p>
                     <input class="form-control" type="file" name="file" value="" />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-primary" type="submit">تایید</button>
+                    <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="removeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">ویرایش</h6><button aria-label="بستن" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+            </div>
+            <form action="removeOrderOption" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <input hidden type="text" id="orderID" class="form-control" name="orderOptionID" value="" />
+                    <p>آیا از حذف آیتم اطمینان دارید؟</p>
 
                 </div>
                 <div class="modal-footer">

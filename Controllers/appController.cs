@@ -41,20 +41,29 @@ namespace greenEnergy.Controllers
         public string getFlowData(string title, viewVM? datamodel)
         {
             string srt = "";
-            var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
-
-            if (formDataSection != null)
+            try
             {
-                var inmodel = formDataSection.items.SingleOrDefault(x => x.name == title);
-                if (inmodel != null)
+                
+                var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
+
+                if (formDataSection != null)
                 {
-                    showFormAllVM mymodel = (showFormAllVM)inmodel;
-                    srt = JsonConvert.SerializeObject(mymodel);
-
+                    var inmodel = formDataSection.items.SingleOrDefault(x => x.name == title);
+                    if (inmodel != null)
+                    {
+                        showFormAllVM mymodel = (showFormAllVM)inmodel;
+                        srt = JsonConvert.SerializeObject(mymodel);
+                    }
                 }
+                
             }
-            return srt;
+            catch (Exception)
+            {
 
+                
+            }
+
+            return srt;
         }
 
 
@@ -730,31 +739,36 @@ namespace greenEnergy.Controllers
                                     }
                                     else
                                     {
-                                        int? finalFlowID = null;
-                                        if (datamodel.chunkList != null)
+                                        myresult = getFlowData(item.title, datamodel);
+                                        if (myresult == "")
                                         {
-                                            itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
-
-                                            if (dlst != null)
+                                            int? finalFlowID = null;
+                                            if (datamodel.chunkList != null)
                                             {
-                                                string itemnamee = item.title;
+                                                itemParent dlst = datamodel.chunkList.SingleOrDefault(x => x.name == "main");
 
-                                                if (dlst.items != null)
+                                                if (dlst != null)
                                                 {
+                                                    string itemnamee = item.title;
 
-                                                    if (dlst.items[0].GetType().GetProperty(itemnamee) != null)
+                                                    if (dlst.items != null)
                                                     {
-                                                        string newsrt = dlst.items[0].GetType().GetProperty(itemnamee).GetValue(dlst.items[0], null) + "";
-                                                        finalFlowID = Int32.Parse(newsrt); // new Guid(newsrt);
-                                                    }
 
+                                                        if (dlst.items[0].GetType().GetProperty(itemnamee) != null)
+                                                        {
+                                                            string newsrt = dlst.items[0].GetType().GetProperty(itemnamee).GetValue(dlst.items[0], null) + "";
+                                                            finalFlowID = Int32.Parse(newsrt); // new Guid(newsrt);
+                                                        }
+
+                                                    }
                                                 }
+
                                             }
 
+
+                                            myresult = await getFormData(finalFlowID, item.formID, datamodel);
                                         }
-
-
-                                        myresult = await getFormData(finalFlowID, item.formID, datamodel);
+                                        
                                     }
 
                                 }
@@ -957,6 +971,7 @@ namespace greenEnergy.Controllers
                                                             {
                                                                 if (!iii.ContainsKey(cycleM.dataProperty))
                                                                 {
+                                                                    
                                                                     iii.Add(cycleM.dataProperty, flowDetail.allData[cycleM.dataProperty]);
                                                                 }
 
@@ -970,7 +985,11 @@ namespace greenEnergy.Controllers
                                                         {
 
                                                             string vll = dd.GetType().GetProperty(cycleM.dataProperty).GetValue(dd, null) == null ? "" : dd.GetType().GetProperty(cycleM.dataProperty).GetValue(dd, null).ToString();
-                                                            iii.Add(cycleM.dataProperty, vll);
+                                                            if (!iii.ContainsKey(cycleM.dataProperty))
+                                                            {
+                                                                iii.Add(cycleM.dataProperty, vll);
+                                                            }
+                                                                
                                                         }
 
 
@@ -1594,6 +1613,31 @@ namespace greenEnergy.Controllers
                         }
 
                     }
+
+
+                    // productRetaledSections
+                    if (model.slug.Contains("app/getProductFilter"))
+                    {
+                        if (model.data.ContainsKey("selectedForm"))
+                        {
+                            int selectedForm =Int32.Parse(model.data["selectedForm"]);
+
+                            allDataDynamic.Add("stackProductFilter_visibilitysrt", "1");
+
+
+                            List<formItemList> showForm = await getFormDataFromForm(selectedForm);
+                            showFormAllVM formModel = new showFormAllVM()
+                            {
+                                name = "dynamicForm",
+                                allForm = showForm
+                            };
+                            parentlist.Add(formModel);
+                            cycle0.items = parentlist;
+                            lst0.Add(cycle0);
+
+                        }
+                    }
+                    // general
                     if (model.slug == "app/notif")
                     {
                         await sendNotif("1", "", "فرم ارزیابی جدیدی ثبت شده است", "reload", "app/homePageMedium");
@@ -1644,7 +1688,6 @@ namespace greenEnergy.Controllers
 
 
                         if (model.data.ContainsKey("nextFormType"))
-
                         {
                             string nextFormType = model.data["nextFormType"];
                             allDataDynamic.Add("formType_valuesrt", nextFormType);
@@ -2074,6 +2117,25 @@ namespace greenEnergy.Controllers
                         lst0.Add(cycle0);
                         rsp.chunkList = lst0;
                     }
+                    else if (model.slug == "app/setFormByClient")
+                    {
+                        string flowId = model.data["flowID"];
+                        setNewFlowForm info = new setNewFlowForm();
+                        info.flowForm = flowId;
+                        showFormInputVM fmodel = new showFormInputVM();
+                        fmodel.flowID = Int32.Parse(flowId);
+                        List<formItemList> showForm = await getFormItems(fmodel);
+                        showFormAllVM formModel = new showFormAllVM()
+                        {
+                            name = "flowForm",
+                            allForm = showForm
+                        };
+                        parentlist.Add(formModel);
+                        //parentlist.Add(info);
+                        cycle0.items = parentlist;
+                        lst0.Add(cycle0);
+                        rsp.chunkList = lst0;
+                    }
                     else if (model.slug == "app/managerProfile")
                     {
                         profileVM info = new profileVM();
@@ -2084,17 +2146,7 @@ namespace greenEnergy.Controllers
                         lst0.Add(cycle0);
                         rsp.chunkList = lst0;
                     }
-                    else if (model.slug == "app/setFormByClient")
-                    {
-                        string flowId = model.data["flowID"];
-                        setNewFlowForm info = new setNewFlowForm();
-                        info.flowForm = flowId;
-
-                        parentlist.Add(info);
-                        cycle0.items = parentlist;
-                        lst0.Add(cycle0);
-                        rsp.chunkList = lst0;
-                    }
+                   
                     else if (model.slug == "app/requestFormSetNewFLow")
                     {
                         string orderid = model.data["orderID"];
@@ -2201,12 +2253,20 @@ namespace greenEnergy.Controllers
                                 }
                             }
                         }
-
-                        List<cycleStackView_orderListManagerVM> cyclelist = await dbcontext.NewOrders.Include(x => x.newOrderStatus).Select(x => new cycleStackView_orderListManagerVM { setFlow_orderListManager_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\"" + x.newOrderID + "\"},{\"type\":\"a.go\",\"to\":\"app/requestFormSetNewFLow\"}]", setFlow_orderListManager_visibilitysrt = x.newOrderStatus.statusCode == "1" ? "1" : "0", orderStatus_valueTextsrt = x.newOrderStatus.title, orderStatus_valueColorsrt = x.newOrderStatus.statusCode == "1" ? "cRed" : "cGreen", projectName_orderListManager_valueTextsrt = x.orderName, orderDate_orderListManager_valueTextsrtdate = x.creationDate, historyButton_orderListManager_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\"" + x.newOrderID + "\"},{\"type\":\"a.go\",\"to\":\"app/getOrderFlowManager\"}]" }).ToListAsync();
+                        //setFlow_orderListManager_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\"" + x.newOrderID + "\"},{\"type\":\"a.go\",\"to\":\"app/requestFormSetNewFLow\"}]"
+                        //historyButton_orderListManager_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\"" + x.newOrderID + "\"},{\"type\":\"a.go\",\"to\":\"app/getOrderFlowManager\"}]" 
+                        List<cycleStackView_orderListManagerVM> cyclelist = await dbcontext.NewOrders.Include(x => x.newOrderStatus).Select(x => new cycleStackView_orderListManagerVM {
+                            orderID_valuesrt = x.newOrderID+"",
+                            setFlow_orderListManager_visibilitysrt = x.newOrderStatus.statusCode == "1" ? "1" : "0",
+                            orderStatus_valueTextsrt = x.newOrderStatus.title, 
+                            orderStatus_valueColorsrt = x.newOrderStatus.statusCode == "1" ? "cRed" : "cGreen", 
+                            projectName_orderListManager_valueTextsrt = x.orderName,
+                            orderDate_orderListManager_valueTextsrtdate = x.creationDate}
+                        ).ToListAsync();
                         parentlist = new List<parent>();
                         foreach (var item in cyclelist)
                         {
-
+                           
                             item.orderDate_orderListManager_valueTextsrt = item.orderDate_orderListManager_valueTextsrtdate.ToShortDateString();
                             parentlist.Add(item);
                         }
@@ -2351,30 +2411,32 @@ namespace greenEnergy.Controllers
                         Guid userID = new Guid(someObject.ToString());
                         parentlist = new List<parent>();
                         List<clientorderListPending> CYCLElIST = await dbcontext.newOrderFlows.Where(x => x.serventPhone == userPhone.ToString() && x.isFinished == "0" && x.isAccepted != "2").
+//acceptOrderButton_cycleActionsrt = x.isAccepted == "0" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"isPopUp\":1,\"width\":300,\"height\":220,\"to\":\"app/clientAcceptFlow\"}]" : "[]",
+//rejectOrderButton_cycleActionsrt = x.isAccepted == "0" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"isPopUp\":1,\"width\":300,\"height\":220,\"to\":\"app/clientRejectFlow\"}]" : "[]",                            
                             Select(x => new clientorderListPending
                             {
-                                flowID = x.newOrderFlowID.ToString(),
-                                //projectName_valueTextsrt = x.NewOrder.orderName,
+
                                 processName_valueTextsrt = x.newOrderProcess.title,
-                                orderDate_valueText = x.creationDate,
                                 historyButton_cycleActionsrt = "[{\"type\" : \"a.putVar\", \"varName\":\"orderID\",\"value\":\"" + x.newOrderID + "\"},{\"type\":\"a.go\",\"to\":\"app/getOrderFlowManager\"}]",
                                 historyButton_visibilitysrt = "1",
-
-                                acceptOrderButton_cycleActionsrt = x.isAccepted == "0" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"isPopUp\":1,\"width\":300,\"height\":220,\"to\":\"app/clientAcceptFlow\"}]" : "[]",
+                                orderDate_valueTextsrt = x.actionDate+"",
+                                
                                 acceptOrderButton_visibilitysrt = x.isAccepted == "0" ? "1" : "0",
 
-                                rejectOrderButton_cycleActionsrt = x.isAccepted == "0" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"isPopUp\":1,\"width\":300,\"height\":220,\"to\":\"app/clientRejectFlow\"}]" : "[]",
+                                
                                 rejectOrderButton_visibilitysrt = x.isAccepted == "0" ? "1" : "0",
 
                                 productRegistration_cycleActionsrt = x.isAccepted == "1" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"to\":\"app/setProduct\"}]" : "[]",
-                                productRegistration_visibilitysrt = "0",// x.isAccepted == "1" ? "1" : "0",
+                                productRegistration_visibilitysrt = x.isAccepted == "1" ? "1" : "0",
 
                                 costRegistration_cycleActionsrt = x.isAccepted == "1" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"to\":\"app/setCost\"}]" : "[]",
-                                costRegistration_visibilitysrt = "0",// x.isAccepted ==  "1" ? "1" : "0",
+                                costRegistration_visibilitysrt =  x.isAccepted ==  "1" ? "1" : "0",
 
                                 setFlowFormButton_cycleActionsrt = x.isAccepted == "1" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"to\":\"app/setFormByClient\"}]" : "[]",
                                 setFlowFormButton_visibilitysrt = x.isAccepted == "1" ? "1" : "0",
-
+                                 projectName_valueTextsrt =x.NewOrder.orderName,
+                                flowID_valuesrt = x.newOrderFlowID.ToString(),
+                                orderID_valuesrt = x.newOrderID.ToString()
 
                             }).ToListAsync();
 
@@ -3156,6 +3218,114 @@ namespace greenEnergy.Controllers
 
                     }
 
+                    // product sepecific section 
+                    else if (model.slug == "app/returnProductCode")
+                    {
+                        Guid usi = new Guid(model.userID);
+                        string phoneSended = "";
+                        using (Context dbcontext = new Context())
+                        {
+                            phoneSended = await getProductCode(model, usi, dbcontext);
+                            List<actionResonse> actionlst = new List<actionResonse>();
+                            List<actionResonse> reloadlist = new List<actionResonse>();
+                            actionResonse reloadaction = new actionResonse()
+                            {
+                                type = "a.formModify",
+                                to = "form",
+                                varName = "filterCode",
+                                value = phoneSended,
+                            };
+                            reloadlist.Add(reloadaction);
+                            actionResonse goaction = new actionResonse()
+                            {
+                                type = "a.back",
+                                depth = "1",
+                                actions = reloadlist,
+                                startDelay = 2000
+
+                            };
+                            actionlst.Add(goaction);
+                            result.actions = actionlst;
+                            response.result = result;
+                            response.code = 0;
+                        }
+                    }
+                    else if (model.slug == "app/setCatVariable")
+                    {
+                        List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+                        string selectedForm = lstform.SingleOrDefault(x => x.key.Contains("category")) != null ? lstform.SingleOrDefault(x => x.key.Contains("category")).value : "";
+                        List<actionResonse> actionlst = new List<actionResonse>();
+                        string id = selectedForm.Trim(',').Split(':').ToList().First();
+                        using (Context dbccontext = new Context())
+                        {
+                            Guid idguid = new Guid(id);
+                            orderOption selectedOrderOption = await dbccontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == idguid);
+                            string formID = selectedOrderOption.Value;
+                            actionResonse goaction = new actionResonse()
+                            {
+                                type = "a.putVar",
+                                varName = "selectedForm",
+                                value = formID,
+                            };
+                            actionlst.Add(goaction);
+                            goaction = new actionResonse()
+                            {
+                                type = "a.reload",
+                                to = "app/getProductFilter",
+
+                            };
+                            actionlst.Add(goaction);
+
+
+
+                            result.actions = actionlst;
+                            response.result = result;
+                            response.code = 0;
+                        }
+                          
+
+                        
+                       
+
+
+                    }
+                    else if (model.slug == "app/setNewProduct")
+                    {
+                        using (Context dbcontext = new Context())
+                        {
+                            Guid usi = new Guid(model.firstID);
+                            string rsp = await setProduct(model, usi, dbcontext);
+                            List<actionResonse> actionlst = new List<actionResonse>();
+
+                            actionResonse goaction = new actionResonse()
+                            {
+                                type = "a.back",
+                                text = "با موفقیت انجام شد",
+                                startDelay = 2000
+
+                            };
+
+                            actionlst.Add(goaction);
+                            goaction = new actionResonse()
+                            {
+                                type = "a.message",
+                                text = "با موفقیت انجام شد"
+
+
+                            };
+                            actionlst.Add(goaction);
+
+
+
+
+
+                            result.actions = actionlst;
+                            response.result = result;
+                            response.code = 0;
+                        }
+                            
+                    }  
+
 
                     //tipax
                     else if (model.slug == "app/submitEditProfileTipox")
@@ -3274,8 +3444,6 @@ namespace greenEnergy.Controllers
                         {
                             type = "a.message",
                             text = "با موفقیت انجام شد"
-
-
                         };
                         actionlst.Add(goaction);
 
@@ -5667,6 +5835,70 @@ namespace greenEnergy.Controllers
             }
             return Content;
         }
+
+        //product 
+        private async Task<string> getProductCode(getURLVM model, Guid userID, Context dbcontext) 
+        {
+            string code = "";
+            List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+            foreach (var item in lstform)
+            {
+                string id = item.value.Trim(',').Split(':').ToList().First();
+                Guid idguid = new Guid(id);
+                orderOption selectedOrderOption = await dbcontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == idguid);
+                string detailValue = selectedOrderOption.Value;
+                string parentValue = selectedOrderOption.optionParent.Value;
+                code = parentValue + detailValue;
+            }
+            return code; 
+        }
+        private async Task<string> setProduct(getURLVM model, Guid userID, Context dbcontext)
+        {
+            string result = "";
+            try
+            {
+                List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+                int formID = lstform.First().formID;
+                user selectedUser = await dbcontext.users.SingleOrDefaultAsync(x => x.userID == userID);
+                Guid firstIdGUID = new Guid(model.firstID);
+                user firstUser = await dbcontext.users.SingleOrDefaultAsync(x => x.userID == firstIdGUID);
+                int baseFormID = dynamicMethods.getBaseFlowID(selectedUser.userType);
+
+                // انیجا فلو کاربر باید پیدا بشه که به اردر کاربر فلو اضافه بشه
+                newOrderFlow userFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userID && x.formID == baseFormID);//اولین فلو ثبت اطلاعات کاربر
+
+
+                DateTime creationTIME = DateTime.Now;
+                newOrderFlow newOrderFlow = new newOrderFlow()
+                {
+                    creationDate = creationTIME,
+                    actionDate = DateTime.Now,
+                    isFinished = "1",
+                    serventPhone = selectedUser.phone,
+                    userID = userID,
+                    terminationDate = DateTime.Now,
+                    formID = formID,
+                    flowStatusID = 1,
+                    changeStatusDate = DateTime.Now,
+
+                };
+                dbcontext.newOrderFlows.Add(newOrderFlow);
+                await dbcontext.SaveChangesAsync();
+                newOrderFlow.meta = await doSaveForm(lstform, newOrderFlow.newOrderFlowID, dbcontext);
+                await dbcontext.SaveChangesAsync();
+                result = "200";
+            }
+            catch (Exception e)
+            {
+
+                result = e.InnerException.Message;
+            }
+           
+            
+            return result;
+
+        }
+
         //tipox
         private async Task<string> setUserTipoxProfile(getURLVM model, Guid userID, Context dbcontext)
         {
@@ -8018,10 +8250,10 @@ namespace greenEnergy.Controllers
                         processID = pr.processID;
                     }
 
-
+                    newOrderFlow selectedflow = new newOrderFlow();
                     if (finaldic.ContainsKey("flowID"))
                     {
-                        newOrderFlow selectedflow = await dbcontext.newOrderFlows.FirstOrDefaultAsync(x => x.newOrderFlowID == flowID);
+                         selectedflow = await dbcontext.newOrderFlows.FirstOrDefaultAsync(x => x.newOrderFlowID == flowID);
                         selectedflow.isFinished = "1";
 
 
@@ -8029,7 +8261,7 @@ namespace greenEnergy.Controllers
                     else
                     {
 
-                        newOrderFlow newOrderFlow = new newOrderFlow()
+                        selectedflow = new newOrderFlow()
                         {
                             creationDate = now,
                             actionDate = now,
@@ -8041,12 +8273,11 @@ namespace greenEnergy.Controllers
                             terminationDate = now,
                             changeStatusDate = now,
                         };
-                        dbcontext.newOrderFlows.Add(newOrderFlow);
+                        dbcontext.newOrderFlows.Add(selectedflow);
                     }
 
                     await dbcontext.SaveChangesAsync();
                     DateTime nowend = now.AddMilliseconds(999);
-                    newOrderFlow lastflow = await dbcontext.newOrderFlows.FirstOrDefaultAsync(x => x.creationDate >= now && x.creationDate < nowend && x.userID == userID);
                     foreach (var item in lstform)
                     {
                         string fieldToGo = "";
@@ -8087,7 +8318,7 @@ namespace greenEnergy.Controllers
                         fieldItem.formItemID = item.formItemID;
                         fieldItem.name = item.key;
                         fieldItem.newOrderFieldsID = Guid.NewGuid();
-                        fieldItem.newOrderFlowID = lastflow.newOrderFlowID;
+                        fieldItem.newOrderFlowID = selectedflow.newOrderFlowID;
                         fieldItem.usedFeild = fieldToGo;
                         fieldItem.valueInt = 0;
                         fieldItem.valueDuoble = 0;
@@ -8204,15 +8435,39 @@ namespace greenEnergy.Controllers
             }
             return initdatamodel;
         }
-
         private async Task<string> editProfileHandler(getURLVM model, Guid userID)
         {
             Dictionary<string, string> finaldic = new Dictionary<string, string>();
             using (Context dbcontext = new Context())
             {
+                newOrderFlow userFlow = await dbcontext.newOrderFlows.SingleOrDefaultAsync(x => x.userID == userID && x.formID == 983073566);//اولین فلو ثبت اطلاعات کاربر
                 user user = await dbcontext.users.SingleOrDefaultAsync(x => x.userID == userID);
                 List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
                 string name = lstform.SingleOrDefault(x => x.key == "Fullname").value;
+                if (userFlow == null)
+                {
+                    userFlow = new newOrderFlow()
+                    {
+                        creationDate = DateTime.Now,
+                        isFinished = "0",
+                        isAccepted = "0",
+                        serventPhone = "",
+                        userID = userID,
+                        terminationDate = DateTime.Now,
+                        actionDate = DateTime.Now,
+                        formID = 983073566,
+                        changeStatusDate = DateTime.Now,
+
+                    };
+                    dbcontext.newOrderFlows.Add(userFlow);
+                    await dbcontext.SaveChangesAsync();
+                }
+
+                userFlow.meta = await doSaveForm(lstform, userFlow.newOrderFlowID, dbcontext);
+                await dbcontext.SaveChangesAsync();
+
+
+                
                 user.name = name;
                 await dbcontext.SaveChangesAsync();
             }
@@ -8275,7 +8530,8 @@ namespace greenEnergy.Controllers
                     userID = userID,
                     terminationDate = DateTime.Now.Date,
                     actionDate = actinDate.Date,
-                    changeStatusDate = DateTime.Now,
+                    changeStatusDate = DateTime.Now
+                     
 
                 };
                 dbcontext.newOrderFlows.Add(newOrderFlow);
@@ -9456,7 +9712,7 @@ namespace greenEnergy.Controllers
 
             using (Context dbcontext = new Context())
             {
-                response.list = await dbcontext.categories.Include(x => x.sectionType).Select(x => new categoryVM { sectionTypeName = x.sectionType.title, title = x.title, categoryID = x.sectionTypeID }).ToListAsync();
+                response.list = await dbcontext.categories.Include(x => x.sectionType).Select(x => new categoryVM { sectionTypeName = x.sectionType.title, title = x.title, categoryID = x.categoryID }).ToListAsync();
                 response.typelist = await dbcontext.sectionTypes.Select(x => new typeVM { title = x.title, typeID = x.sectionTypeID }).ToListAsync();
             }
             return response;
@@ -9527,7 +9783,7 @@ namespace greenEnergy.Controllers
             using (Context dbcontext = new Context())
             {
                 response.list = await dbcontext.SecTags.Include(x => x.sectionType).Select(x => new secTagVM { sectionTypeName = x.sectionType.title, title = x.title, tagID = x.secTagID }).ToListAsync();
-                response.typelist = await dbcontext.sectionTypes.Select(x => new typeVM { title = x.title, typeID = x.sectionTypeID }).ToListAsync();
+                response.typelist = await dbcontext.sectionTypes.Select(x => new typeVM {  title = x.title, typeID = x.sectionTypeID }).ToListAsync();
             }
             return response;
         }
@@ -12311,6 +12567,7 @@ namespace greenEnergy.Controllers
                         formItem.isRequired = model.isRequired;
                         formItem.minNumber = model.minNumber;
                         formItem.maxNumber = model.maxNumber;
+                        formItem.isHidden = model.hiddenCheckBox == "on" ? 1 : 0;
                         formItem.regx = model.regx;
                         formItem.groupNumber = model.groupNumber;
                         formItem.continueWithError = continueWithError;
@@ -13092,8 +13349,17 @@ namespace greenEnergy.Controllers
                     {
 
                         orderOption selecteOption = await dbcontext.orderOptions.FirstOrDefaultAsync(x => x.orderOptionID == model.orderOptionID);
-                        mymodel.message = selecteOption.image;
-                        selecteOption.image = model.image;
+                        
+                        
+                        if (!string.IsNullOrEmpty(model.image))
+                        {
+                            mymodel.message = !string.IsNullOrEmpty(selecteOption.image) ? selecteOption.image : "";
+                            selecteOption.image = model.image;
+                        }
+                        selecteOption.parentID = model.parentID;
+                        selecteOption.title = model.title;
+                        selecteOption.Value = model.value;
+                        selecteOption.priority = model.priority;
                         mymodel.status = 200;
                         await dbcontext.SaveChangesAsync();
 
@@ -13101,7 +13367,7 @@ namespace greenEnergy.Controllers
                     }
                     else
                     {
-                        var orop = await dbcontext.orderOptions.FirstOrDefaultAsync(i => i.title == model.title);
+                        var orop = await dbcontext.orderOptions.FirstOrDefaultAsync(i => i.title == model.title && i.parentID == model.parentID);
                         if (orop == null)
                         {
                             Guid ptid = Guid.NewGuid();
@@ -13148,6 +13414,52 @@ namespace greenEnergy.Controllers
             {
 
                 throw;
+            }
+
+            string result = JsonConvert.SerializeObject(mymodel);
+            JObject jObject = JObject.Parse(result);
+            return jObject;
+        }
+
+
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<JObject> removeOrderOption([FromBody] addOrderOptionVM model)
+        {
+            responseModel mymodel = new responseModel();
+            try
+            {
+                object someObject;
+                Request.Properties.TryGetValue("UserToken", out someObject);
+                Guid userID = new Guid(someObject.ToString());
+                using (Context dbcontext = new Context())
+                {
+                    var prolist = await dbcontext.orderOptions.ToListAsync();
+                    var product = await dbcontext.orderOptions.FirstOrDefaultAsync(x => x.orderOptionID == model.orderOptionID);
+                    if (product != null)
+                    {
+                        dbcontext.orderOptions.Remove(product);
+
+                        await dbcontext.SaveChangesAsync();
+
+                        mymodel.status = 200;
+                        mymodel.message = "ok";
+
+                    }
+                    else
+                    {
+                        mymodel.status = 400;
+                        mymodel.message = "خطا";
+                    }
+
+
+                }
+            }
+            catch (Exception eror)
+            {
+
+                mymodel.status = 400;
+                mymodel.message = "خطا !!!";
             }
 
             string result = JsonConvert.SerializeObject(mymodel);
@@ -13213,12 +13525,7 @@ namespace greenEnergy.Controllers
 
 
                             dbcontext.forms.Add(addform);
-
-
                             await dbcontext.SaveChangesAsync();
-
-
-
                             mymodel.status = 200;
                             mymodel.message = "ok";
 

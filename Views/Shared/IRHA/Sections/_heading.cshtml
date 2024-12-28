@@ -18,16 +18,17 @@
 
 
 }
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-
-<section class="testimonial-five">
-    <div class="testimonial-five__shape-1"
-         style="background-image: url(@image);">
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+<section class="testimonial-five" style="@finalStyle">
+    <div class="testimonial-five__shape-1">
     </div>
     <div class="container">
         <div class="section-title-three text-center">
             <div class="section-title-three__sub-title-box">
-                
+
                 <div class="section-title-three__shape"></div>
             </div>
             <h2 class="section-title-three__title">@heading</h2>

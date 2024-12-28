@@ -205,6 +205,11 @@ namespace greenEnergy.Controllers
                 TempData["er"] = responsemodel.message;
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+
+            if (model.fromHome == "1")
+            {
+                return Redirect("~/" + model.url);
+            }
             return RedirectToAction("type");
         }
 
@@ -224,6 +229,10 @@ namespace greenEnergy.Controllers
                 TempData["er"] = responsemodel.message;
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            if (model.fromHome == "1")
+            {
+                return Redirect("~/" + model.url);
+            }
             return RedirectToAction("tag");
         }
 
@@ -243,6 +252,10 @@ namespace greenEnergy.Controllers
                 TempData["er"] = responsemodel.message;
             if (Request.Cookies["typelist"] != null)
                 ViewBag.menu = Request.Cookies["typelist"].Value.ToString();
+            if (model.fromHome == "1")
+            {
+                return Redirect("~/" + model.url);
+            }
             return RedirectToAction("category");
         }
 

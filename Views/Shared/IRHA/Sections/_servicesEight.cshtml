@@ -10,10 +10,10 @@
     string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 == "" ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
 
 }
-
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-
-<!--Services Eight Start-->
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}<!--Services Eight Start-->
 <section class="services-eight" style="background-image: url(webAssets/irha/images/update-15-2-2024/shapes/service-bg.png);">
     <div class="container">
         <div class="section-title-six text-left">

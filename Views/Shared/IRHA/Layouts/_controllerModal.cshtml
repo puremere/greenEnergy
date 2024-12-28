@@ -130,7 +130,11 @@
 
 
                                             @{
-                                                if (filed.title.Contains("img"))
+                                                if(filed.title == "image1")
+                                                {
+
+                                                }
+                                                if (filed.title.Contains("img") || filed.title.Contains("image") || filed.title.Contains("Image"))
                                                 {
                                                     string finalURL = @baseImage +"/"+ filed.title2;
                                                      <img src="@finalURL" style="width:100px"/>

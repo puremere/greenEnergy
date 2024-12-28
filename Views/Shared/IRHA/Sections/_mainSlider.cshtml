@@ -19,9 +19,10 @@
 
 
 
-   
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-<!--Main Slider Start-->
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}<!--Main Slider Start-->
 <section class="main-slider-eight" style="">
 
     <div class="main-slider-eight__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
@@ -40,7 +41,7 @@
                 }'>
 
 
-             
+
 
              @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
 

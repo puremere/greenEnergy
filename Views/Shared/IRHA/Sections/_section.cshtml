@@ -17,6 +17,11 @@
     }
 }
 
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
 <section class="section-small" id="about" style="@finalStyle">
     <div class="section" style="background-color:transparent">
         @if (!string.IsNullOrEmpty(html_heading))

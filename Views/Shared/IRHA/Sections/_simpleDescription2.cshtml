@@ -1,0 +1,56 @@
+﻿
+
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 == "" ? "webAssets/irha/images/update-17-06-2023/services/services-7-1.png" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 == "" ? "از این قسمت به عنوان هدر بخش   استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 == "" ? "از این قسمت به عنوان هدر بخش   استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+
+
+}
+
+<section class="about-three" style="@finalStyle">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="about-three__left">
+                    <div class="about-three__img-box wow slideInLeft animated" data-wow-delay="100ms" data-wow-duration="2500ms" style="visibility: visible; animation-duration: 2500ms; animation-delay: 100ms; animation-name: slideInLeft;">
+                        <div class="about-three__img">
+                            <img src="@image1" alt="">
+                        </div>
+                       
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="about-three__right">
+                    <div class="section-title text-left">
+
+                        <h2 class="section-title__title" style="font-size:28px">
+                            @title
+                        </h2>
+                    </div>
+
+                    <p class="about-three__text">
+                        @description
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

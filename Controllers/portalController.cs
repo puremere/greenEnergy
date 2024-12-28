@@ -717,10 +717,6 @@ namespace greenEnergy.Controllers
             return PartialView("/Views/Shared/panel/_vehicleList.cshtml", responsemodel);
 
         }
-
-
-        
-
         [HttpPost]
         public async Task<ActionResult> changeVehicleInfo(setYadakForVM model)
         {
@@ -851,7 +847,7 @@ namespace greenEnergy.Controllers
                 TempData["er"] = responsemodel.message;
             else
             {
-                if (responsemodel.message != "")
+                if (!string.IsNullOrEmpty(responsemodel.message))
                 {
                     string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
                     bool exists = System.IO.File.Exists(fname);
@@ -860,6 +856,28 @@ namespace greenEnergy.Controllers
 
                 }
             }
+            return RedirectToAction("orderOptions");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> removeOrderOption(addOrderOptionVM model)
+        {
+
+            responseModel responsemodel = await methods.PostData(model, new responseModel(), "/removeOrderOption", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("Uploads"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+
             return RedirectToAction("orderOptions");
         }
 
@@ -939,6 +957,7 @@ namespace greenEnergy.Controllers
             }
             return RedirectToAction("form");
         }
+
 
         //form
 

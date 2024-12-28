@@ -10,12 +10,14 @@ namespace greenEnergy.Classes
     {
         public static int getBaseFlowID(string userType)
         {
+            // tailor
+            int formbase = 983073566;
             // health
-            int formbase = 5;
-            if (userType == "2")
-            {
-                formbase = 7;
-            }
+            //int formbase = 5;
+            //if (userType == "2")
+            //{
+            //    formbase = 7;
+            //}
 
             //tipax
             //int formbase = 1;

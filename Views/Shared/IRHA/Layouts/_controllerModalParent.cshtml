@@ -1,7 +1,7 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
 
 
-<div style="display:flex;">
+<div style="display:flex; flex-wrap:wrap; flex: 1 0 9%;">
     @foreach (var item in Model.contentChild)
     {
         @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModal.cshtml", @item)

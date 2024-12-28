@@ -4,6 +4,14 @@
 @using Newtonsoft.Json;
 @using greenEnergy.ViewModel;
 @{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
     string image = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "img_image").title2) ? "" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2;
 
@@ -14,15 +22,11 @@
     string btnLink = Model.dataList.SingleOrDefault(x => x.title == "buttonLink") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonLink").title2;
     string html_description = Model.dataList.SingleOrDefault(x => x.title == "html_description") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_description").title2;
     string html_title = Model.dataList.SingleOrDefault(x => x.title == "html_title") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_title").title2;
-    string style0 = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
 
 
-    styleVM styleModelDetail = new greenEnergy.ViewModel.styleVM();
-    string detailStyle = "";
-    detailStyle = greenEnergy.Classes.methods.getMyStyle(style0);
 
 }
-<div style="@detailStyle">
+<div style="@style">
     @if (!string.IsNullOrEmpty(image))
     {
         <img class="@imageClass.Replace(",", " ") imageDetail" src="@image" />

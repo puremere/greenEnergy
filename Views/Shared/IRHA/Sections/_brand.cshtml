@@ -1,5 +1,27 @@
-﻿  <!--Brand Start-->
-<section class="brand-section">
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+
+}
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+<section class="brand-section" style="@finalStyle">
     <div class="container">
         <div class="brand-section__carousel owl-carousel owl-theme thm-owl__carousel" data-owl-options='{
                     "loop": true,
@@ -27,56 +49,8 @@
                         }
                     }
                     }'>
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
-            <div class="item">
-                <div class="brand-section__image">
-                    <img src="webAssets/irha/images/update-15-2-2024/resources/brand-1-1.png" alt="insur">
-                </div>
-            </div><!-- /.item -->
+            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
         </div>
     </div>
 </section>

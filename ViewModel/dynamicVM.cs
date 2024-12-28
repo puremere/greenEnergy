@@ -83,15 +83,17 @@ namespace greenEnergy.ViewModel
     public class cycleStackView_orderListManagerVM : parent
     {
         
+
+        public string orderID_valuesrt { get; set; }
         public string orderStatus_valueTextsrt { get; set; }
         public string orderStatus_valueColorsrt { get; set; }
         public string projectName_orderListManager_valueTextsrt { get; set; }
 
         public string orderDate_orderListManager_valueTextsrt { get; set; }
         public DateTime orderDate_orderListManager_valueTextsrtdate { get; set; }
-        public string historyButton_orderListManager_cycleActionsrt { get; set; }
+       // public string historyButton_orderListManager_cycleActionsrt { get; set; }
 
-        public string setFlow_orderListManager_cycleActionsrt { get; set; }
+        //public string setFlow_orderListManager_cycleActionsrt { get; set; }
         public string setFlow_orderListManager_visibilitysrt { get; set; }
 
 
@@ -112,13 +114,13 @@ namespace greenEnergy.ViewModel
     }
     public class clientorderListPending: parent
     {
-        public string flowID { get; set; }
+        public string flowID_valuesrt { get; set; }
         public string projectName_valueTextsrt { get; set; }
         public string orderDate_valueTextsrt { get; set; }
         public DateTime orderDate_valueText { get; set; }
         public string processName_valueTextsrt { get; set; }
       
-
+        public string orderID_valuesrt { get; set; }
 
 
 

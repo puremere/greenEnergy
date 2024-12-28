@@ -6,13 +6,13 @@
 
     string header = Model.dataList.SingleOrDefault(x => x.title == "header") == null ? "عنوان قسمت مورد نظر وارد می شود" : Model.dataList.SingleOrDefault(x => x.title == "header").title2;
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-    string image1 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image1").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image1")).title2;
-    string image2 = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "image2").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image2")).title2;
-    string bannerImage = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "bannerImage").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("bannerImage")).title2;
-    string title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
-    string description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
-    string url = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
-    string bannerTitle = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2;
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 == "" ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image1")).title2;
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 == "" ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("image2")).title2;
+    string bannerImage = Model.dataList.SingleOrDefault(x => x.title == "img_bannerImage").title2 == "" ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("bannerImage")).title2;
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 == "" ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 == "" ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 == "" ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
+    string bannerTitle = Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2 == "" ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "bannerTitle").title2;
 
 
 }

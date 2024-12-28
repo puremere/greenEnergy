@@ -92,6 +92,14 @@
         $("#regx").val($(this).attr("regx"));
 
 
+        if ($(this).attr("isHidden") == "1") {
+
+            $("#editHidden").attr("checked", "checked");
+        } else {
+
+            $("#editHidden").removeAttr("checked");
+        }
+
         if ($(this).attr("isMultiple") == "on") {
 
             $("#isMultiple").attr("checked", "checked");
@@ -216,7 +224,7 @@
 
                                                             </form>
                                                             <p style="margin:0 15px"></p>
-                                                            <button data-bs-target="#editModal" data-bs-toggle="modal" continueWithError="@item.continueWithError" regx="@item.regx" referTo="@item.referTo" validationType="@item.validationType" otherFieldName="@item.otherFieldName" maxNumber="@item.maxNumber" minNumber="@item.minNumber" isRequired="@item.isRequired" isMultiple="@item.isMultiple" collectiontogo="@item.optionSelected" designtogo="@item.formItemDesingID" prioritytogo="@item.priority" typetogo="@item.formItemTypeID" placeholdertogo="@item.itemPlaceholder" grouptogo="@item.groupNumber" desctogo="@item.itemDesc" nametogo="@item.itemName" idtogo="@item.formItemID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
+                                                            <button data-bs-target="#editModal" data-bs-toggle="modal" continueWithError="@item.continueWithError" regx="@item.regx" referTo="@item.referTo" validationType="@item.validationType" otherFieldName="@item.otherFieldName" maxNumber="@item.maxNumber" minNumber="@item.minNumber" isRequired="@item.isRequired" isMultiple="@item.isMultiple" isHidden="@item.isHidden" collectiontogo="@item.optionSelected" designtogo="@item.formItemDesingID" prioritytogo="@item.priority" typetogo="@item.formItemTypeID" placeholdertogo="@item.itemPlaceholder" grouptogo="@item.groupNumber" desctogo="@item.itemDesc" nametogo="@item.itemName" idtogo="@item.formItemID" type="button" class="btn ripple btn-primary btn-sm editButton">ویرایش </button>
 
                                                         </div>
 
@@ -535,7 +543,11 @@
                     </div>
                     <div class="col-lg-4 form-group">
                         <p> غیر قابل رویت</p>
-                        <input type="checkbox" id="editHidden" class="form-control" name="isHidden" value="" />
+                        <label class="custom-switch">
+                            <input id="editHidden" type="checkbox" name="hiddenCheckBox" class="custom-switch-input inlistinput">
+                            <span class="custom-switch-indicator"></span>
+                        </label>
+                      
                     </div>
                     <div class="col-lg-4 form-group">
                         <p>وضعیت چند انتخابی</p>

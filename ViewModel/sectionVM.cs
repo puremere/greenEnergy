@@ -415,6 +415,8 @@ namespace greenEnergy.ViewModel
         public Guid sectionTypeID { get; set; }
         public string sectionTypeName { get; set; }
         public string title { get; set; }
+        public string fromHome { get; set; }
+        public string url { get; set; }
     }
     public class secTagVM
     {
@@ -422,6 +424,8 @@ namespace greenEnergy.ViewModel
         public Guid sectionTypeID { get; set; }
         public string sectionTypeName { get; set; }
         public string title { get; set; }
+        public string fromHome { get; set; }
+        public string url { get; set; }
     }
     public class typePageVM
     {
@@ -431,6 +435,8 @@ namespace greenEnergy.ViewModel
     {
         public Guid typeID { get; set; }
         public string title { get; set; }
+        public string fromHome { get; set; }
+        public string url { get; set; }
     }
 
 
@@ -608,7 +614,7 @@ namespace greenEnergy.ViewModel
         public getsectionLayoutVM layoutModel { get; set; }
         public contentListVM contentListVM { get; set; }
         public categoryPageVM catTypeList { get; set; }
-        public categoryPageVM tagTypeList { get; set; }
+        public tagPageVM tagTypeList { get; set; }
         public layoutPageVM layoutList { get; set; }
 
 

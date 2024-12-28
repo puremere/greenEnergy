@@ -6,12 +6,12 @@
 @{
     
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1") == null ? "webAssets/irha/images/update-10-02-2023/resources/about-six-img-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 == "" ? "webAssets/irha/images/update-10-02-2023/resources/about-six-img-1.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2;
 
 
-    string heading1 = Model.dataList.SingleOrDefault(x => x.title == "heading1") == null ? "از این قسمت به عنوان هدر بخش معرفی استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading1").title2;
-    string heading2 = Model.dataList.SingleOrDefault(x => x.title == "heading2") == null ? "از این قسمت به عنوان هدر بخش معرفی استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading2").title2;
-    string description = Model.dataList.SingleOrDefault(x => x.title == "description") == null ? "توضیحات در مورد این بخش میتواند  در اینجا قرار داده شود" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
+    string heading1 = Model.dataList.SingleOrDefault(x => x.title == "heading1").title2 == "" ? "از این قسمت به عنوان هدر بخش معرفی استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading1").title2;
+    string heading2 = Model.dataList.SingleOrDefault(x => x.title == "heading2").title2 == "" ? "از این قسمت به عنوان هدر بخش معرفی استفاده میشود" : Model.dataList.SingleOrDefault(x => x.title == "heading2").title2;
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 == "" ? "توضیحات در مورد این بخش میتواند  در اینجا قرار داده شود" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
 
 
 

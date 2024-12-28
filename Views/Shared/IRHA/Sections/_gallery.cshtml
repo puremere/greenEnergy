@@ -16,17 +16,20 @@
 
 }
 
-@Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
-
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
 @{
     Dictionary<string, string> groups = new Dictionary<string, string>();
     foreach (var item in Model.contentChild)
     {
+        int index = Model.contentChild.IndexOf(item) + 1;
         string key = item.dataList.SingleOrDefault(x => x.title == "group").title2 == "" ? "عنوان مرتبط یک" : item.dataList.SingleOrDefault(x => x.title == "group").title2;
         List<string> keys = key.Trim(',').Split(',').ToList();
         foreach (var ky in keys)
         {
-            int index = keys.IndexOf(ky) + 1;
+
             if (!groups.ContainsKey(ky))
             {
                 Random rnd = new Random();
@@ -37,7 +40,7 @@
             }
             else
             {
-                item.dataList.SingleOrDefault(x => x.title == "group").title2 = item.dataList.SingleOrDefault(x => x.title == "group").title2.Replace(ky, groups[ky]) ;
+                item.dataList.SingleOrDefault(x => x.title == "group").title2 = item.dataList.SingleOrDefault(x => x.title == "group").title2.Replace(ky, groups[ky]);
             }
         }
 
