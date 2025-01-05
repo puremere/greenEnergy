@@ -48,29 +48,18 @@
 
         @if (Request.Cookies["adminToken"] != null)
         {
-
-
-           
             <div style="background-color:transparent">
-
                 <div style="display:flex">
-
                     @if (item.multilayer == 1)
                     {
                         <img class="childButton" src="~/Images/element.png" />
-
-
                     }
                     @if (item.dataList.Count > 0)
                     {
                         <img class="editButton" src="~/Images/data.png" />
-
                     }
                     <img class="priorityButton" src="~/Images/sorting.png" />
                     <img class="removeButton" src="~/Images/remove.png" />
-
-
-
                 </div>
                 @if (item.multilayer == 1)
                 {
@@ -164,8 +153,6 @@
                         </div>
                     </div>
                 }
-
-
                 <div class="modal priorityButtonModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -348,9 +335,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         }
     </div>
 </div>

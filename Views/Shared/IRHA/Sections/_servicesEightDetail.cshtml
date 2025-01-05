@@ -9,7 +9,6 @@
     string userimage = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "img_image").title2) ? "/webAssets/green2/img/11.jpg" : baseImage + Model.dataList.SingleOrDefault(x => x.title.Contains("img_image")).title2;
     string html_title = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "title").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "title").title2;
     string html_description = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "description").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "description").title2;
-    string html_userName = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "userName").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "userName").title2;
     string url = string.IsNullOrEmpty(Model.dataList.SingleOrDefault(x => x.title == "url").title2) ? "slider title" : Model.dataList.SingleOrDefault(x => x.title == "url").title2;
 
 }
@@ -26,4 +25,4 @@
             @html_description
         </p>
     </div>
-</div><!--item-->
+</div>

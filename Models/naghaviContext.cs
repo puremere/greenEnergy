@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 
-namespace greenEnergy.Model.naghavi // اینجا عوض شه
+namespace greenEnergy.Model.naghav // اینجا عوض شه
 {
 
     class Context : DbContext

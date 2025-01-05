@@ -134,7 +134,7 @@ namespace greenEnergy.Model.igg // اینجا عوض شه
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
-            //modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.orderID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.newOrderID).WillCascadeOnDelete(false);
             //modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
@@ -220,6 +220,7 @@ namespace greenEnergy.Model.igg // اینجا عوض شه
         [ForeignKey("sectionID")]
         public virtual section section { get; set; }
         public string name { get; set; }
+        public string actionFields { get; set; }
         public string formFields { get; set; }
         public string flowFields { get; set; }
         public string formIDString { get; set; }
@@ -1162,8 +1163,8 @@ namespace greenEnergy.Model.igg // اینجا عوض شه
 
         //public Guid newOrder_newOrderID { get; set; }
         public Guid? newOrderID { get; set; }
-        //[ForeignKey("orderID")]
-        //public virtual newOrder NewOrder { get; set; }
+        [ForeignKey("orderID")]
+        public virtual newOrder NewOrder { get; set; }
 
 
         //public Guid OrderID { get; set; }

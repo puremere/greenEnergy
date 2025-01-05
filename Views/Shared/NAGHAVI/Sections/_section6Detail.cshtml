@@ -1,0 +1,34 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    //string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    //styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    //string finalStyle = "";
+    //if (!string.IsNullOrEmpty(style))
+    //{
+    //    finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    //}
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/NAGHAVI/images/bg-image-1.jpg";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "Your attorney partner.";
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "Decades of Experience in the Field.";
+    string desc = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc").title2 : "The attorney-client relationship is a unique relationship";
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url").title2 : "Decades of Experience in the Field.";
+    string urlTitle = Model.dataList.SingleOrDefault(x => x.title == "urlTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "urlTitle").title2 : "#";
+}
+
+<li>
+    <img src="@image1" alt="" style="position:relative !important ">
+    <div class="slide-wrap">
+        <div class="slide-content">
+            <div class="container">
+                <h5 class="mb-15 cursive">@header</h5>
+                <h1 class="font-variant-small-caps font-medium serif">@title</h1>
+                <h5>@desc</h5>
+                <p class="mt-25">
+                    <a href="url" class="btn btn-color">@urlTitle</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</li>

@@ -1,0 +1,226 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+
+@{
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    <div class="controllerButtonsRight"  style="">
+
+
+        @if (Request.Cookies["adminToken"] != null)
+        {
+
+            string title = (Model.priority ).ToString();
+
+            <div style="background-color:transparent">
+                <p style="margin:0;padding: 3px;line-height: 1;text-align: center;background-color: white;border-radius: 8px;" class="">@title</p>
+                <div class="priceItem" style="display:flex; direction:rtl; align-items:center;">
+                    
+                    <img style="width:35px;height:35px" class="priorityButton" src="~/Images/sorting.png" />
+                    <img  style="width:35px;height:35px" class="removeButton" src="~/Images/remove.png" />
+
+                    @if (Model.dataList.Count > 0)
+                    {
+                        <img  style="width:35px;height:35px" class="editButton" src="~/Images/data.png" />
+
+                    }
+
+                </div>
+
+
+                <div class="modal priorityButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">تغییر موقعیت در صفحه</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form style="" action="/panel/editContnetFromHome" method="post" enctype="multipart/form-data">
+                                <div class="modal-body" style="direction:rtl">
+
+
+
+
+                                    <p>اولویت</p>
+                                    @Html.AntiForgeryToken()
+                                    <input hidden name="contentID" value="@Model.conentID" />
+                                    <input hidden name="url" value="@ViewBag.slug" />
+                                    <input style="width:200px" type="text" id="" class="form-control" name="priority" value="@Model.priority" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                </div>
+
+
+                            </form>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal removeButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">حذف ساب آیتم</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="/panel/removeContentFromHome" method="post">
+                                <div class="modal-body">
+                                    <p>آیا از حذف آیتم اطمینان دارد</p>
+
+
+                                    @Html.AntiForgeryToken()
+                                    <input hidden name="contentID" value="@Model.conentID" />
+                                    <input hidden name="url" value="@ViewBag.slug" />
+
+                                    @*<div class="row" style="display:flex">
+                                            <button class="btn btn-primary">تایید</button>
+                                            <p class="btn btn-silver">لغو</p>
+                                        </div>*@
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal editButtonModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="direction:rtl">
+                                <h5 class="modal-title">ویرایش متغیرها</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var filed in Model.dataList.OrderBy(x => x.title))
+                                {
+                                    string name = filed.title;
+                                    <div class="formMode editMode" style="direction:rtl">
+                                        <div>
+                                            <div style=" padding: 10px; margin-top:25px!important">@filed.title :</div>
+
+                                        </div>
+                                        <div id="sliderForm" style="display:flex;justify-content:center" action="/panel/setData" method="post" enctype="multipart/form-data">
+
+                                            @Html.AntiForgeryToken()
+                                            <input hidden name="contentID" value="@Model.conentID" />
+                                            <input hidden name="dataID" value="@filed.dataID" />
+                                            <input hidden name="title" value="@filed.title" />
+
+
+                                            @{
+                                                if(filed.title == "image1")
+                                                {
+
+                                                }
+                                                if (filed.title.Contains("img") || filed.title.Contains("image") || filed.title.Contains("Image"))
+                                                {
+                                                    string finalURL = @baseImage +"/"+ filed.title2;
+                                                     <img src="@finalURL" style="width:100px"/>
+                                                    <input style="flex:1; margin:0 10px" class="form-control" type="file" name="image" value="" />
+                                                    <input placeholder="Choose From Upload Center" classToFit="@filed.title" style="flex:1; margin:10px" name="title2" class="@filed.title card-img-left form-control" />
+
+                                                }
+                                                else if (filed.title.Contains("Class"))
+                                                {
+
+                                                    <select multiple class="form-control" name="title2">
+                                                        <option value="btn-border">btn-border</option>
+                                                        <option value="btn-white">btn-white</option>
+                                                        <option value="btn-dark-border">btn-dark-border</option>
+                                                        <option value="btn-dark">btn-dark</option>
+                                                        <option value="imageCurve">imageCurve</option>
+                                                        <option value="itemcentre">centre</option>
+                                                        <option value="itemleft">left</option>
+                                                        <option value="itemright">right</option>
+                                                    </select>
+                                                }
+                                                else if (filed.title == "style")
+                                                {
+
+                                                    greenEnergy.ViewModel.styleVM stylemodel = string.IsNullOrEmpty(filed.title2) ? new greenEnergy.ViewModel.styleVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.styleVM>(filed.title2);
+
+                                                    <div>
+                                                        <p style="display:flex">
+                                                            <span style="width:30%"> background_image : </span>
+                                                            <span style="width:70%">
+                                                                <input style="flex:1; margin:0 10px" class="form-control" type="file" name="@filed.title" value="" />
+                                                                <input classToFit="@filed.title" style="flex:1; margin:0 10px" name="title2" class="@filed.title card-img-left form-control" value="@stylemodel.background_image" />
+
+                                                            </span>
+                                                        </p>
+                                                        <p style="display:flex"><span style="width:30%"> background : </span> <span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.background" /></span></p>
+                                                        <p style="display:flex"><span style="width:30%">  border-size : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_size" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%">  border-radius : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.border_radius" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%">  width : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.width" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> height : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.height" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> padding : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.padding" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> margin : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.margin" /></span> </p>
+                                                        <p style="display:flex"><span style="width:30%"> box-shadow : </span><span style="width:70%"> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@stylemodel.box_shadow" /></span> </p>
+
+                                                    </div>
+                                                }
+
+                                                else if (filed.title == "marginsrt")
+                                                {
+
+                                                    greenEnergy.ViewModel.marginVM marginmodel = string.IsNullOrEmpty(filed.title2) ? new greenEnergy.ViewModel.marginVM() : JsonConvert.DeserializeObject<greenEnergy.ViewModel.marginVM>(filed.title2);
+
+                                                    <div>
+                                                        <p style="display:flex"><span> lead : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.lead" /></span> </p>
+                                                        <p style="display:flex"><span> trail : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.trail" /></span></p>
+                                                        <p style="display:flex"><span> top : </span><span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.top" /></span> </p>
+                                                        <p style="display:flex"><span> bottom : </span> <span> <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@marginmodel.bottom " /></span></p>
+                                                    </div>
+                                                }
+                                                else if (filed.title.Contains("html"))
+                                                {
+                                                    <textarea name="title2" class="form-control" style="height:170px">@filed.title2</textarea>
+
+                                                }
+
+                                                else
+                                                {
+                                                    <input style="flex:1;  margin:0 10px" type="text" id="editTitle2" class="form-control" name="title2" value="@filed.title2" />
+                                                }
+
+                                            }
+
+
+                                            <div class="submitForm btn ripple btn-primary">تایید</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    </div>
+}
+

@@ -1,0 +1,50 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    //string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    //styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    //string finalStyle = "";
+    //if (!string.IsNullOrEmpty(style))
+    //{
+    //    finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    //}
+
+}
+
+
+@*@if (Request.Cookies["adminToken"] != null)
+    {
+        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+    }
+    <section>
+        <div class="flexslider" id="home-slider">
+            <ul class="slides">
+            </ul>
+        </div>
+    </section>*@
+<style>
+    .slide-image{
+        position:relative !important;
+    }
+    .slide-wrap{
+        position:absolute;
+        top:0px;
+        z-index:99999
+    }
+</style>
+
+    <div style="position:relative">
+        @if (Request.Cookies["adminToken"] != null)
+        {
+            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+        }
+        <section >
+            <div class="flexslider" id="home-slider">
+                <ul class="slides" style="position:relative">
+                    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+
+                </ul>
+            </div>
+        </section>
+    </div>

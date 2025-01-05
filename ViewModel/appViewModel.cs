@@ -210,4 +210,10 @@ namespace greenEnergy.ViewModel
         public Dic dic { get; set; }
     }
 
+
+    public class productInfoVM
+    {
+        public string code { get; set; }
+        public string name { get; set; }
+    }
 }

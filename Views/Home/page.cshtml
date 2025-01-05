@@ -20,7 +20,7 @@
 
                 </div>
                 <div class="modal-body">
-                    <div>
+                    <div class="row">
                         <form method="post" action="/panel/setContnet" style="direction:rtl">
 
                             @Html.AntiForgeryToken()
@@ -29,91 +29,65 @@
                             <input hidden name="fromHome" value="1" />
                             <input hidden name="contentParent" value="@Model.Contents.First().conentID" />
                             <input hidden name="sectionID" value="@Model.sectionID" />
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title ">اولویت:</label>
-                                <div class="col-sm-10">
-                                    <input required type="text" id="seachQuery" name="priority" class="form-control ">
-                                </div>
+                            <input hidden value=" " type="text" id="descr" name="description">
+                            <div class="row" style="margin:20px">
+                                <p>اولویت:</p>
+                                <input required type="text" id="seachQuery" name="priority" class="form-control ">
+                            </div>
+                           
+                            <div class="row" style="margin:20px">
+                                <p>تولید دیتا از پیچ با تایپ :</p>
+                                @Html.DropDownList("typeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
+
+                            </div>
+                            <div class="row" style="margin:20px">
+                                <p>انتخاب المان :</p>
+                                <select name="htmlID" class="form-control">
+                                    @foreach (var item in Model.contentListVM.htmlList)
+                                    {
+                                        string active = "active";
+                                        string ischecked = "checked";
+                                        if (Model.contentListVM.htmlList.IndexOf(item) != 0)
+                                        {
+                                            active = "";
+                                            ischecked = "";
+                                        }
+
+
+                                        <option @ischecked value="@item.htmlID" class=" @active">
+
+                                            @item.htmlName
+                                            @*<div class="col-md-3">
+                            <div class="card htmlcard" style="">
+
+                                <div urltogo="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="" style="border:none"></div>
+                            </div>
+
+                        </div>*@
+                                        </option>
+
+                                    }
+
+                                </select>
+
                             </div>
                             @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                    <label class="form-label-title ">Use Page Data:</label>
-                                    <div class="col-sm-10">
-                                        <input type="checkbox" id="selfUsed" name="selfUsed" class=" ">
-                                    </div>
-                                </div>*@
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                                <label class="form-label-title ">عنوان :</label>
-                                <div class="col-sm-10">
-                                    <input value=" " required type="text" id="seachQuery" name="title" class="form-control ">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                                <label class="form-label-title ">توضیحات:</label>
-                                <div class="col-sm-10">
-                                    <input value=" " type="text" id="descr" name="description" class="form-control ">
-                                </div>
-                            </div>
+            <label class="form-label-title ">Use Page Data:</label>
+            <div class="col-sm-10">
+                <input type="checkbox" id="selfUsed" name="selfUsed" class=" ">
+            </div>
+        </div>*@
 
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-6 mb-0">تولید دیتا از پیچ با تایپ  :</label>
-                                <div class="col-sm-10">
-                                    @Html.DropDownList("typeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
-                                </div>
-                            </div>
                             @*<div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                    <label class="form-label-title col-sm-6 mb-0">Mirror View  :</label>
-                                    <div class="col-sm-10">
-                                        @Html.DropDownList("mirrorID", new SelectList(Model.allContents, "contentID", "title"), "choose one", new { @class = "form-control", name = "mirrorID" })
-                                    </div>
-                                </div>*@
-
-                            <div class="col-lg-12 mb-12 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-12 col-lg-12 mb-0">انتخاب المان:</label>
-                                <div class="col-sm-10" style="background-color:#eee; border-radius:15px; padding:0">
+            <label class="form-label-title col-sm-6 mb-0">Mirror View  :</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("mirrorID", new SelectList(Model.allContents, "contentID", "title"), "choose one", new { @class = "form-control", name = "mirrorID" })
+            </div>
+        </div>*@
 
 
 
-
-                                    <div class="container text-center my-3" style="padding:0">
-                                        <div class="row mx-auto my-auto justify-content-center">
-                                            <select name="htmlID">
-                                                @foreach (var item in Model.contentListVM.htmlList)
-                                                {
-                                                    string active = "active";
-                                                    string ischecked = "checked";
-                                                    if (Model.contentListVM.htmlList.IndexOf(item) != 0)
-                                                    {
-                                                        active = "";
-                                                        ischecked = "";
-                                                    }
-
-
-                                                    <option @ischecked value="@item.htmlID" class=" @active">
-
-                                                        @item.htmlName
-                                                        @*<div class="col-md-3">
-                    <div class="card htmlcard" style="">
-
-                        <div urltogo="~/Images/@System.Configuration.ConfigurationManager.AppSettings["name"]/Uploads/@item.image" class="" style="border:none"></div>
-                    </div>
-
-                </div>*@
-                                                    </option>
-
-                                                }
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display: inline-block ">
-                                <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
-                                    <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
-                                </div>
-                            </div>
+                            <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
 
                         </form>
                     </div>
@@ -417,7 +391,7 @@
         string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
 
         Html.RenderPartial(partialPath, item);
-        
+
 
     }
 }

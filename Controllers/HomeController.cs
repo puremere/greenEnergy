@@ -13,6 +13,7 @@ using greenEnergy.Classes;
 using greenEnergy.ViewModel;
 using Newtonsoft.Json;
 
+
 namespace greenEnergy.Controllers
 {
     //[homeCheck]
@@ -72,7 +73,7 @@ namespace greenEnergy.Controllers
                 //    layoutinput.sectionLayoutID = responsemodel.sectionLayoutID;
                 //    layoutresponse = await methods.PostData(layoutinput, layoutresponse, "/getPageLayout","");
                 //}
-
+                
 
                 ViewBag.layoutModel = responsemodel.layoutModel;
                 ViewBag.title = responsemodel.title;

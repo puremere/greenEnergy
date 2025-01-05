@@ -379,7 +379,7 @@ namespace greenEnergy.Controllers
                 List<pageContentVM> response = new List<pageContentVM>();
                 if (sectinoID != null)
                 {
-                    response = await dbcontext.contents.Include(x => x.HTML).Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM {sectionID = l.sectionID, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Where(x => x.title2 != "").Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Include(x => x.HTML).Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM {sectionID = l.sectionID, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
                 }
                 else
                 {
@@ -2434,7 +2434,7 @@ namespace greenEnergy.Controllers
 
                                 setFlowFormButton_cycleActionsrt = x.isAccepted == "1" ? "[{\"type\" : \"a.putVar\", \"varName\":\"flowID\",\"value\":\"" + x.newOrderFlowID + "\"},{\"type\":\"a.go\",\"to\":\"app/setFormByClient\"}]" : "[]",
                                 setFlowFormButton_visibilitysrt = x.isAccepted == "1" ? "1" : "0",
-                                 projectName_valueTextsrt =x.NewOrder.orderName,
+                                 //projectName_valueTextsrt =x.NewOrder.orderName,
                                 flowID_valuesrt = x.newOrderFlowID.ToString(),
                                 orderID_valuesrt = x.newOrderID.ToString()
 
@@ -2694,7 +2694,6 @@ namespace greenEnergy.Controllers
                             {
                                 type = "a.go",
                                 to = model.data["searchPage"],
-
                             };
                             actionlst.Add(goaction);
                         }
@@ -3225,7 +3224,7 @@ namespace greenEnergy.Controllers
                         string phoneSended = "";
                         using (Context dbcontext = new Context())
                         {
-                            phoneSended = await getProductCode(model, usi, dbcontext);
+                            productInfoVM info  = await getProductCode(model, usi, dbcontext);
                             List<actionResonse> actionlst = new List<actionResonse>();
                             List<actionResonse> reloadlist = new List<actionResonse>();
                             actionResonse reloadaction = new actionResonse()
@@ -3233,7 +3232,15 @@ namespace greenEnergy.Controllers
                                 type = "a.formModify",
                                 to = "form",
                                 varName = "filterCode",
-                                value = phoneSended,
+                                value = info.code,
+                            };
+                            reloadlist.Add(reloadaction);
+                            reloadaction = new actionResonse()
+                            {
+                                type = "a.formModify",
+                                to = "form",
+                                varName = "titleStandard",
+                                value = info.name,
                             };
                             reloadlist.Add(reloadaction);
                             actionResonse goaction = new actionResonse()
@@ -3252,6 +3259,8 @@ namespace greenEnergy.Controllers
                     }
                     else if (model.slug == "app/setCatVariable")
                     {
+
+                        string to = model.data["to"].ToString();
                         List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
                         string selectedForm = lstform.SingleOrDefault(x => x.key.Contains("category")) != null ? lstform.SingleOrDefault(x => x.key.Contains("category")).value : "";
                         List<actionResonse> actionlst = new List<actionResonse>();
@@ -3271,7 +3280,7 @@ namespace greenEnergy.Controllers
                             goaction = new actionResonse()
                             {
                                 type = "a.reload",
-                                to = "app/getProductFilter",
+                                to = to,
 
                             };
                             actionlst.Add(goaction);
@@ -3324,9 +3333,8 @@ namespace greenEnergy.Controllers
                             response.code = 0;
                         }
                             
-                    }  
-
-
+                    }
+                   
                     //tipax
                     else if (model.slug == "app/submitEditProfileTipox")
                     {
@@ -3640,7 +3648,6 @@ namespace greenEnergy.Controllers
                         response.code = 0;
                         // این ینی برو وفرم دوم این داکتر  وردار بیار
                     }
-
                     else if (model.slug == "app/submitDiscount")
                     {
                         //List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
@@ -4833,6 +4840,33 @@ namespace greenEnergy.Controllers
                             }
 
                         }
+                        //if (Item.actionFields != null)
+                        //{
+                        //    foreach (var field in Item.actionFields.Trim().Split(',').ToList())
+                        //    {
+                        //        List<string> stringList = field.Split(';').ToList();
+                        //        string actionname = stringList[0];
+                        //        string actionType = stringList[1];
+                        //        List<actionResonse> actionlst = new List<actionResonse>();
+                        //        if (actionType == "formModify")
+                        //        {
+
+                        //            string formName = stringList[2];
+                        //            string fieldName = stringList[3];
+                        //            actionResonse goaction = new actionResonse()
+                        //            {
+                        //                type = "a.formModify",
+                        //                to = formName,
+                        //                varName = fieldName,
+                        //                value = flowID.ToString()
+
+                        //            };
+                        //            actionlst.Add(goaction);
+                        //        }
+
+                        //        dic.Add(actionname, JsonConvert.SerializeObject(actionlst));
+                        //    }
+                        //}
                         if (Item.userFields != null)
                         {
                             Guid userID = selectedFLow.userID;
@@ -5307,8 +5341,35 @@ namespace greenEnergy.Controllers
             using (Context dbcontext = new Context())
             {
                 string name = model.data["name"];
+                //tailor
+                if (name == "productList")
+                {
+                    var responsQuerable = dbcontext.newOrderFlows.Where(x => x.formID == 1991128411).AsQueryable();
+
+                    List<detailCollection> lstform = model.form == null ? new List<detailCollection>() : JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
+                    if (lstform != null){
+                        var filterCode = lstform.SingleOrDefault(x => x.key == "filterCode");
+                        var title = lstform.SingleOrDefault(x => x.key == "title");
+
+                        if (filterCode != null)
+                        {
+                            List<string> filterCodelist = filterCode.value.ToString().Trim('-').Split('-').ToList();
+                            foreach (var code in filterCodelist)
+                            {
+                                responsQuerable = responsQuerable.Where(x => x.meta.Contains(code));
+                            }
+                        }
+                        if (title != null)
+                        {
+                            responsQuerable = responsQuerable.Where(x => x.meta.Contains(title.ToString()));
+                        }
+                    }
+                    
+                    response = await responsQuerable.OrderByDescending(x => x.creationDate).Select(x => x.newOrderFlowID).ToListAsync();
+
+                }
                 //tipax
-                if (name == "userActionList")
+                else if (name == "userActionList")
                 {
                     var responsQuerable = dbcontext.newOrderFlows.Include(x => x.newOrderFlowServent).Where(x => x.formID == 4 || x.formID == 7).AsQueryable();
                     if (model.form != null)
@@ -5837,20 +5898,32 @@ namespace greenEnergy.Controllers
         }
 
         //product 
-        private async Task<string> getProductCode(getURLVM model, Guid userID, Context dbcontext) 
+        private async Task<productInfoVM> getProductCode(getURLVM model, Guid userID, Context dbcontext) 
         {
+            productInfoVM resultmodel = new productInfoVM();
             string code = "";
+            string name = "";
             List<detailCollection> lstform = JsonConvert.DeserializeObject<List<detailCollection>>(model.form);
             foreach (var item in lstform)
             {
-                string id = item.value.Trim(',').Split(':').ToList().First();
-                Guid idguid = new Guid(id);
-                orderOption selectedOrderOption = await dbcontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == idguid);
-                string detailValue = selectedOrderOption.Value;
-                string parentValue = selectedOrderOption.optionParent.Value;
-                code = parentValue + detailValue;
+                List<string> itemsSelected = item.value.Trim(',').Split(',').ToList();
+                foreach(var s in itemsSelected)
+                {
+                    string id = item.value.Trim(',').Split(':').ToList().First();
+                    Guid idguid = new Guid(id);
+                    orderOption selectedOrderOption = await dbcontext.orderOptions.SingleOrDefaultAsync(x => x.orderOptionID == idguid);
+                    string detailValue = selectedOrderOption.Value;
+                    string parentValue = selectedOrderOption.optionParent.Value;
+                    name += selectedOrderOption.optionParent.title + "(" + selectedOrderOption.title + ")" +  "-"; ;
+                    code += parentValue + detailValue + "-";
+                }
+               
             }
-            return code; 
+            code = code.Trim('-');
+            name = name.Trim('-');
+            resultmodel.code = code;
+            resultmodel.name = name;
+            return resultmodel;
         }
         private async Task<string> setProduct(getURLVM model, Guid userID, Context dbcontext)
         {

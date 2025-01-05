@@ -337,7 +337,8 @@
                                                 <ul>
                                                     @foreach (var secitem in firstChilds)
                                                     {
-                                                        <li><a href="news.html"> @secitem.urlTitle</a></li>
+                                                        string furl = secitem.url == null ? "/" : secitem.url;
+                                                        <li><a href="@furl"> @secitem.urlTitle</a></li>
                                                     }
 
 

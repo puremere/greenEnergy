@@ -1,0 +1,364 @@
+.top-nav-collapse .container {
+    width: unset !important;
+}
+
+.navbar-custom {
+    background-color: #151858 !important;
+}
+
+.firstLi {
+    color: white !important;
+}
+
+.navbar-nav > li > ul {
+    border-top: 5px solid #FCB321;
+}
+
+    .navbar-nav > li > ul::before {
+        position: absolute;
+        left: 20px;
+        top: -7px;
+        /*border-left: 7px solid transparent;
+        border-right: 7px solid transparent;*/
+        border-bottom: 5px solid #FCB321;
+        content: "";
+    }
+
+li:hover ul.dropdown-menu {
+    animation: fadeInUniversal 0.4s !important;
+}
+
+
+.innerToggle {
+    display: relative;
+}
+
+.lang {
+    padding: 12px 10px 10px 10px;
+    border-radius: 8px
+}
+
+.subcidiary {
+    color: white;
+    padding: 7px 10px;
+    margin: 10px;
+    /*background-color: #Fcb321;*/
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+.headerTitleCustom {
+    white-space: nowrap;
+}
+
+.childHolder {
+}
+
+.section {
+    padding: 15px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.imageDetail {
+    width: 100%;
+    object-fit: scale-down
+}
+
+.padding15 {
+    padding: 15px
+}
+
+.imageCurve {
+    border-radius: 15px
+}
+
+.intro .intro-body {
+    vertical-align: unset !important;
+    padding: 20% 200px 30px 150px;
+    padding: 0 !important;
+    text-align: left;
+    position: relative;
+}
+
+.sliderInfo {
+    position: absolute;
+    top: 40%;
+    left: 10%
+}
+
+.intro {
+    height: 90% !important;
+}
+
+.titleParent > h1, h2, h3, h4, h5, h6 {
+    margin: 0 !important
+}
+
+.itemcentre {
+    display: block;
+    margin: auto;
+    max-width: 150px;
+}
+
+.itemleft {
+    float: left;
+}
+
+.itemright {
+    float: right;
+}
+
+.navbar-custom.top-nav-collapse .navbar-brand .logodark {
+    max-width: unset !important;
+}
+
+.navbar-custom.top-nav-collapse {
+    border: none !important
+}
+
+.btn-white {
+    color: #72499D;
+    border-radius: 8px;
+    border-radius: 8px !important;
+}
+
+.btn-white-border {
+    border-radius: 8px !important;
+}
+
+.btn-dark {
+    background-color: #72499D;
+    color: white !important;
+    border-color: #72499D !important;
+    border-radius: 8px !important;
+}
+
+.btn-dark-border {
+    border: 2px solid;
+    border-color: #72499D !important;
+    border-radius: 8px !important;
+    color: #72499D !important
+}
+
+p {
+    font-size: 14px;
+}
+
+/*.navbar-custom.top-nav-collapse a{
+    color :white !important;
+}*/
+.portfolio-overlay {
+    background: none repeat scroll 0 0 rgba(21, 24,88, 0.75);
+}
+
+.color-white {
+    color: white !important;
+}
+
+.footer .footer-menu a, .footer a, .footer h4, .footer h5, .footer h6 {
+    color: white !important;
+}
+
+.bg-base {
+    background-color: #151858 !important;
+}
+
+.language-select {
+    padding: 6px 8px;
+    background: transparent;
+    color: white;
+    border: 1px solid;
+    border-radius: 5px !important;
+}
+
+    .language-select option {
+        color: black
+    }
+
+.companyList {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 35px;
+}
+
+.iconTopHolder {
+    display: flex;
+    align-items: center;
+}
+
+.sliderDescription {
+    width: 50%;
+}
+
+.navbar > .container .navbar-brand{
+    margin-left:15px;
+    padding-top:5px;
+    min-height:80px
+}
+.logo,, logodark {
+    margin-left: 50px;
+}
+
+.navbar-custom {
+}
+
+
+
+.navbar-custom.top-nav-collapse .navbar-brand {
+    margin-left: 15px;
+}
+
+.navbar-custom .navbar-brand {
+    padding: 0;
+}
+
+    .navbar-custom .navbar-brand .logo {
+        max-height: 65px;
+    }
+
+.navbar-custom.top-nav-collapse .navbar-brand .logodark {
+    max-height: 65px;
+}
+.top-nav-collapse .icon-bar{
+    background:white
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 3px 5px;
+}
+
+    select::-ms-expand {
+        display: none;
+    }
+
+.navbar-custom.top-nav-collapse a{
+    color:white
+}
+.slick-prev:before {
+    font-family: "ionicons" !important;
+    content: "\f3d2" !important;
+    font-size: 45px !important;
+    font-weight: 600;
+    color: #4d4d4d !important;
+
+
+   
+}
+
+.slick-next:before {
+    font-family: "ionicons" !important;
+    content: "\f3d3" !important;
+    font-size: 45px !important;
+    font-weight: 600;
+    color: #4d4d4d !important;
+}
+@media sceen and (min-width:1200px) {
+    .imageDetail{
+        max-width:80%;
+        display:block;
+        margin:auto;
+    }
+}
+@media screen and (max-width: 600px) {
+    .navbar-toggle {
+        margin: 0;
+        margin-top:15px
+    }
+    .titleParent {
+        margin: 15px 0
+    }
+
+    .section {
+        display: block;
+    }
+
+        .section > div {
+            width: 100% !important;
+            margin: 5px !important;
+            padding: 5px !important;
+        }
+
+    p {
+        margin: 10px 0 !important;
+        text-align: justify;
+    }
+
+    
+    .btn{
+        padding:15px
+    }
+    .sliderDescription {
+        width: 95%;
+    }
+
+    .sliderInfo {
+        top: 20%;
+        left: 25px;
+    }
+
+    .language-select {
+        border-color: black;
+        color: black
+    }
+
+    .navbar-brand {
+        height: unset !important;
+    }
+
+    .navbar-toggle {
+        margin-right: 25px 0;
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 80px;
+        width: 100%;
+    }
+
+    .iconTopHolder {
+        align-items: center;
+        padding: 0px !important
+    }
+
+    .navbar-header {
+        width: 100%
+    }
+
+    .container {
+        margin: 0 auto
+    }
+
+    .logo, .logodark {
+        max-width: 120px;
+        margin-left: 0 !important;
+    }
+    .navbar-custom.top-nav-collapse .navbar-brand .logodark {
+        max-width: 120px !important;
+        margin-left: 0 !important;
+    }
+    .navbar-custom.top-nav-collapse .navbar-brand {
+        margin-left: 15px;
+        padding-top: 15px;
+    }
+    .companyList {
+        padding: 0;
+        display: none;
+        flex-direction: column;
+        column-count: 2
+    }
+
+    .subcidiary {
+        background-color: white;
+        color: black;
+    }
+}
