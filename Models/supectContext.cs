@@ -10,13 +10,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 
-namespace greenEnergy.Model // اینجا عوض شه
+namespace greenEnergy.Model.supect // اینجا عوض شه
 {
 
     class Context : DbContext
     {
 
-        public Context() : base("supect") // NfcDb green2
+        public Context() : base("supecct") // NfcDb green2
         {
             // اینجا عوض شه
             //Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());

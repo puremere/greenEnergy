@@ -332,11 +332,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202501050910142_initial.cs" />
-    <Compile Include="Migrations\202501050910142_initial.designer.cs">
-      <DependentUpon>202501050910142_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\supectContext.cs" />
     <Compile Include="Models\naghaviContext.cs" />
     <Compile Include="Models\irhaContext.cs" />
     <Compile Include="Models\palsContext.cs" />
@@ -3913,21 +3910,36 @@
     <Content Include="Views\Shared\IRHA\Sections\_brandDetail.cshtml" />
     <Content Include="Views\Shared\IRHA\Sections\_simpleDescription.cshtml" />
     <Content Include="Views\Shared\IRHA\Sections\_simpleDescription2.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Layouts\_Layout.cshtml" />
+    <Content Include="Views\Shared\Supect\Layouts\_Layout.cshtml" />
+    <Content Include="Views\Shared\Supect\Layouts\_childContent.cshtml" />
+    <Content Include="Views\Shared\Supect\Layouts\_controllerModal.cshtml" />
+    <Content Include="Views\Shared\Supect\Layouts\_controllerModalParent.cshtml" />
+    <Content Include="Views\Shared\Supect\Layouts\_subContent.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section1.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section2.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section6.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section5.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section4.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section3.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section7.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section7Detail.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_mainParent.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section6Detail.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Layouts\_childContent.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Layouts\_controllerModal.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Layouts\_controllerModalParent.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Layouts\_Layout.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Layouts\_subContent.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_mainParent.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Sections\_section1.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Sections\_section2.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Sections\_section6.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Sections\_section5.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Sections\_section4.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Sections\_section3.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section4.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section5.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section6.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section6Detail.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Sections\_section7.cshtml" />
     <Content Include="Views\Shared\NAGHAVI\Sections\_section7Detail.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Sections\_mainParent.cshtml" />
-    <Content Include="Views\Shared\NAGHAVI\Sections\_section6Detail.cshtml" />
     <None Include="Web References\MellatWebService\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatWebService\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatWebService\Reference.map">
@@ -4367,11 +4379,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>greenEnergy_MellatWebService_PaymentGatewayImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202501050910142_initial.resx">
-      <DependentUpon>202501050910142_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

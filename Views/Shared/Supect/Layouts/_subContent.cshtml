@@ -1,0 +1,24 @@
+﻿@model greenEnergy.ViewModel.contentListVM
+
+
+    <select name="htmlID" class="form-control">
+        @foreach (var item in Model.htmlList)
+        {
+            string active = "active";
+            string ischecked = "checked";
+            if (Model.htmlList.IndexOf(item) != 0)
+            {
+                active = "";
+                ischecked = "";
+            }
+
+            <option @ischecked value="@item.htmlID" class=" @active">
+               
+                @item.htmlName
+               
+            </option>
+
+        }
+    </select>
+
+
