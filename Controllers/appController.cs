@@ -203,160 +203,166 @@ namespace greenEnergy.Controllers
 
 
         }
-        public async Task<string> getFormData(int? flowID, int? formID, viewVM? datamodel)
+        public async Task<string> getFormData(int? flowID, string? formID, viewVM? datamodel)
         {
             string srt = "";
             listOfFormVM response = new listOfFormVM();
             List<formItemList> formList = new List<formItemList>();
             try
             {
+                List<string> formIDLIst = formID.Trim(',').Split(',').ToList();
                 using (Context dbcontext = new Context())
                 {
-                    form form = new form();
-                    if (flowID != null)
+                    foreach(var formIDITEM in formIDLIst)
                     {
-                        List<process> prc = await dbcontext.newOrderFlows.Include(x => x.newOrderProcess).Include(x => x.newOrderProcess.formList).Where(x => x.newOrderFlowID == flowID).Select(x => x.newOrderProcess).ToListAsync();
-                        form = prc.First().formList.First();
-
-                    }
-                    else
-                    {
-                        form = await dbcontext.forms.SingleOrDefaultAsync(x => x.formID == formID);
-                    }
-
-                    Guid typeid = new Guid("bdbf1018-bad4-43c5-9181-f8ea3fb1d994");// متنی تصویر دار
-                    formItemList fil = new formItemList();
-                    fil.formID = form.formID;
-                    fil.formTitle = form.title;
-                    fil.formImage = form.image;
-                    fil.formHieght = form.imageHeight;
-                    fil.formWidth = form.imageWidth;
-                    fil.zaribWidth = form.zaribWidth;
-                    fil.zaribHeight = form.zaribHeight;
-
-                    fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).OrderBy(x => x.priority).Select(x => new formFullDetailItemVM { continueWithError = x.continueWithError, referTo = x.referTo, regx = x.regx, validationType = x.validationType, isRequired = x.isRequired, minNumber = x.minNumber, maxNumber = x.maxNumber, otherFieldName = x.otherFieldName, isHidden = x.isHidden, operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).OrderBy(x => x.priority).Select(t => new orderOptionVM { parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null ? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = x.itemtImage, mediaType = x.mediaType }).OrderBy(x => x.formItemID).ToListAsync();
-
-                    foreach (var item in fil.formItemDetailList)
-                    {
-                        validator validator = new validator();
-                        if (item.isRequired == "on")
+                        int formIDITEMINT = int.Parse(formIDITEM);
+                        form form = new form();
+                        if (flowID != null)
                         {
-
-                            validatorItem requiredItem = new validatorItem()
-                            {
-                                error = "مقدار آیتم نمیتواند خالی باشد",
-                            };
-                            validator.required = requiredItem;
-
+                            List<process> prc = await dbcontext.newOrderFlows.Include(x => x.newOrderProcess).Include(x => x.newOrderProcess.formList).Where(x => x.newOrderFlowID == flowID).Select(x => x.newOrderProcess).ToListAsync();
+                            form = prc.First().formList.First();
 
                         }
-                        if (item.validationType == "observe")
+                        else
                         {
-                            validatorItem observe = new validatorItem()
-                            {
-                                type = "observe",
-                                error = "مقدار وارد شده صحیح نیست",
-                                referTo = item.referTo,
-                            };
-                            validator.observe = observe;
-
+                            form = await dbcontext.forms.SingleOrDefaultAsync(x => x.formID == formIDITEMINT);
                         }
-                        else if (item.validationType == "range")
+
+                        Guid typeid = new Guid("bdbf1018-bad4-43c5-9181-f8ea3fb1d994");// متنی تصویر دار
+                        formItemList fil = new formItemList();
+                        fil.formID = form.formID;
+                        fil.formTitle = form.title;
+                        fil.formImage = form.image;
+                        fil.formHieght = form.imageHeight;
+                        fil.formWidth = form.imageWidth;
+                        fil.zaribWidth = form.zaribWidth;
+                        fil.zaribHeight = form.zaribHeight;
+
+                        fil.formItemDetailList = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID != typeid).Include(x => x.FormItemDesign).Include(x => x.op).Include(x => x.op.childList).Include(x => x.FormItemType).OrderBy(x => x.priority).Select(x => new formFullDetailItemVM { continueWithError = x.continueWithError, referTo = x.referTo, regx = x.regx, validationType = x.validationType, isRequired = x.isRequired, minNumber = x.minNumber, maxNumber = x.maxNumber, otherFieldName = x.otherFieldName, isHidden = x.isHidden, operat = x.operat, relatedFormItemID = x.relatedForemItemID, formItemTypeCode = x.FormItemType.formItemTypeCode, orderOptions = x.op.childList.Where(x => x.parentID != x.orderOptionID).OrderBy(x => x.priority).Select(t => new orderOptionVM { parentID = t.parentID, image = t.image, orderOptionID = t.orderOptionID, title = t.title }).ToList(), UIName = x.FormItemDesign.title, formItemDesingID = x.FormItemDesign.formItemDesignID, formItemDesignNumber = x.FormItemDesign == null ? 0 : x.FormItemDesign.number, formItemTypeID = x.formItemTypeID, optionSelected = x.OptionID, collectionName = x.op.title, formItemTypeTitle = x.FormItemType.title, itemx = x.itemx, itemy = x.itemy, itemHeight = x.itemHeight, itemlength = x.itemLenght, pageNumber = x.pageNumber, itemDesc = x.itemDesc, catchUrl = x.catchUrl, formItemID = x.formItemID, isMultiple = x.isMultiple, itemName = x.itemName, itemPlaceholder = x.itemPlaceholder, itemtImage = x.itemtImage, mediaType = x.mediaType }).OrderBy(x => x.formItemID).ToListAsync();
+
+                        foreach (var item in fil.formItemDetailList)
                         {
-                            validatorItem lenght = new validatorItem()
-                            {
-                                type = "range",
-                                error = " مقدار وارد شده باید در بازه " + item.minNumber.ToString() + " و " + item.maxNumber.ToString() + " باشد. ",
-                                min = item.minNumber.ToString(),
-                                max = item.maxNumber.ToString(),
-                            };
-                            validator.valueNumber = lenght;
-                        }
-                        else if (item.validationType == "min")
-                        {
-                            validatorItem min = new validatorItem()
-                            {
-                                type = "min",
-                                error = "حداقل مقدار وارد شده  " + item.minNumber.ToString() + " می باشد",
-                                value = item.minNumber.ToString(),
-
-                            };
-                            validator.valueNumber = min;
-                        }
-                        else if (item.validationType == "max")
-                        {
-                            validatorItem max = new validatorItem()
-                            {
-                                type = "max",
-                                error = "کداکثر مقدار وارد شده " + item.maxNumber.ToString() + " می باشد",
-                                value = item.maxNumber.ToString(),
-                            };
-                            validator.valueNumber = max;
-                        }
-                        else if (item.validationType == "regex")
-                        {
-                            string finalValue = "";
-                            if (item.regx == "email")
+                            validator validator = new validator();
+                            if (item.isRequired == "on")
                             {
 
-                            }
-                            else if (item.regx == "ID")
-                            {
-                                finalValue = "^([0-9]){10}$";
-                            }
-                            validatorItem format = new validatorItem()
-                            {
-                                type = "regex",
-                                error = "فورمت وارد شده صحیح نیست",
-                                value = finalValue,
-                                max = item.maxNumber.ToString(),
-                            };
-                            validator.format = format;
-                        }
-                        item.validator = validator;
-                    }
-
-
-
-                    if (datamodel.chunkList != null)
-                    {
-                        var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "formData");
-
-
-                        if (formDataSection != null)
-                        {
-
-                            foreach (var oplist in formDataSection.items)
-                            {
-                                var selecteditem = fil.formItemDetailList.SingleOrDefault(x => x.itemName == oplist.name);
-                                if (selecteditem != null)
+                                validatorItem requiredItem = new validatorItem()
                                 {
-                                    formOptionObject mymodel = (formOptionObject)oplist;
-                                    selecteditem.orderOptions = mymodel.lst;
+                                    error = "مقدار آیتم نمیتواند خالی باشد",
+                                };
+                                validator.required = requiredItem;
+
+
+                            }
+                            if (item.validationType == "observe")
+                            {
+                                validatorItem observe = new validatorItem()
+                                {
+                                    type = "observe",
+                                    error = "مقدار وارد شده صحیح نیست",
+                                    referTo = item.referTo,
+                                };
+                                validator.observe = observe;
+
+                            }
+                            else if (item.validationType == "range")
+                            {
+                                validatorItem lenght = new validatorItem()
+                                {
+                                    type = "range",
+                                    error = " مقدار وارد شده باید در بازه " + item.minNumber.ToString() + " و " + item.maxNumber.ToString() + " باشد. ",
+                                    min = item.minNumber.ToString(),
+                                    max = item.maxNumber.ToString(),
+                                };
+                                validator.valueNumber = lenght;
+                            }
+                            else if (item.validationType == "min")
+                            {
+                                validatorItem min = new validatorItem()
+                                {
+                                    type = "min",
+                                    error = "حداقل مقدار وارد شده  " + item.minNumber.ToString() + " می باشد",
+                                    value = item.minNumber.ToString(),
+
+                                };
+                                validator.valueNumber = min;
+                            }
+                            else if (item.validationType == "max")
+                            {
+                                validatorItem max = new validatorItem()
+                                {
+                                    type = "max",
+                                    error = "کداکثر مقدار وارد شده " + item.maxNumber.ToString() + " می باشد",
+                                    value = item.maxNumber.ToString(),
+                                };
+                                validator.valueNumber = max;
+                            }
+                            else if (item.validationType == "regex")
+                            {
+                                string finalValue = "";
+                                if (item.regx == "email")
+                                {
+
+                                }
+                                else if (item.regx == "ID")
+                                {
+                                    finalValue = "^([0-9]){10}$";
+                                }
+                                validatorItem format = new validatorItem()
+                                {
+                                    type = "regex",
+                                    error = "فورمت وارد شده صحیح نیست",
+                                    value = finalValue,
+                                    max = item.maxNumber.ToString(),
+                                };
+                                validator.format = format;
+                            }
+                            item.validator = validator;
+                        }
+
+
+
+                        if (datamodel.chunkList != null)
+                        {
+                            var formDataSection = datamodel.chunkList.SingleOrDefault(x => x.name == "formData");
+
+
+                            if (formDataSection != null)
+                            {
+
+                                foreach (var oplist in formDataSection.items)
+                                {
+                                    var selecteditem = fil.formItemDetailList.SingleOrDefault(x => x.itemName == oplist.name);
+                                    if (selecteditem != null)
+                                    {
+                                        formOptionObject mymodel = (formOptionObject)oplist;
+                                        selecteditem.orderOptions = mymodel.lst;
+                                    }
                                 }
                             }
+
                         }
 
+
+                        List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { isHidden = l.isHidden, relatedFormItemID = l.relatedForemItemID, operat = l.operat, itemHeight = l.itemHeight, itemlength = l.itemLenght, itemx = l.itemx, itemy = l.itemy, pageNumber = l.pageNumber, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
+
+                        int index = 0;
+
+                        foreach (var item in lst)
+                        {
+                            formFullDetailItemVM extraDetail = new formFullDetailItemVM();
+                            extraDetail.stringImageCollection = item;
+                            extraDetail.formItemTypeCode = "2";
+
+
+                            fil.formItemDetailList.Insert(index, extraDetail);
+                            index += 1;
+                        }
+
+
+                        formList.Add(fil);
                     }
-
-
-                    List<List<formFullDetailItemVM>> lst = await dbcontext.formItems.Where(x => x.formID == form.formID && x.formItemTypeID == typeid).OrderBy(x => x.FormItemType.formItemTypeCode).Include(x => x.FormItemType).GroupBy(x => x.groupNumber).Select(grp => grp.Select(l => new formFullDetailItemVM { isHidden = l.isHidden, relatedFormItemID = l.relatedForemItemID, operat = l.operat, itemHeight = l.itemHeight, itemlength = l.itemLenght, itemx = l.itemx, itemy = l.itemy, pageNumber = l.pageNumber, groupNumber = l.groupNumber, formItemTypeCode = l.FormItemType.formItemTypeCode, UIName = l.FormItemDesign.title, formItemTypeTitle = l.FormItemType.title, itemDesc = l.itemDesc, formItemID = l.formItemID, itemName = l.itemName, itemPlaceholder = l.itemPlaceholder, itemtImage = l.itemtImage, mediaType = l.mediaType }).ToList()).ToListAsync();
-
-                    int index = 0;
-
-                    foreach (var item in lst)
-                    {
-                        formFullDetailItemVM extraDetail = new formFullDetailItemVM();
-                        extraDetail.stringImageCollection = item;
-                        extraDetail.formItemTypeCode = "2";
-
-
-                        fil.formItemDetailList.Insert(index, extraDetail);
-                        index += 1;
-                    }
-
-
-                    formList.Add(fil);
+                    
                 }
                 response.allForm = formList;
                 srt = JsonConvert.SerializeObject(response);
@@ -8286,7 +8292,7 @@ namespace greenEnergy.Controllers
                         Random rnd = new Random();
                         int month = rnd.Next(11111, 99999);
                         string orderName = month.ToString();
-                        detailCollection nameItem = lstform.SingleOrDefault(x => x.key == "name");
+                        detailCollection nameItem = lstform.SingleOrDefault(x => x.key == "Client");
                         if (nameItem != null)
                         {
                             orderName = nameItem.value;
@@ -8409,7 +8415,11 @@ namespace greenEnergy.Controllers
 
                         {
                             List<string> lst = item.value.Split(':').ToList();
-                            fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            if (lst.Count() > 1)
+                            {
+                                fieldItem.valueString = string.IsNullOrEmpty(lst[1]) ? "" : lst[1];
+                            }
+                            
                             fieldItem.valueGuid = new Guid(lst[0]);
                         }
                         if (fieldToGo == "valueDuoble")
@@ -8996,9 +9006,9 @@ namespace greenEnergy.Controllers
                     {
                         foreach (var form in process.formList.OrderBy(x => x.priority))
                         {
-
-                            Guid typeid = new Guid("96479ab5-f846-432f-b176-8ad98f0cb89b");// متنی تصویر دار
-                            Guid typeid2 = new Guid("9c77d5e9-a956-45dd-8451-b71eb5b5e7a7");// چند گزینه ای
+                            
+                            Guid typeid = new Guid("05e29c47-6442-4448-a485-105bde493d56");// متنی تصویر دار
+                            Guid typeid2 = new Guid("ecb81d8b-84f0-41f0-9741-5b0e29f1989b");// چند گزینه ای
 
 
 
@@ -10207,9 +10217,15 @@ namespace greenEnergy.Controllers
                                 cnt.stackWeight = model.stackWeight;
 
                             }
-                            else if (model.formID != 0)
+                            else if (model.formID != null)
                             {
-                                cnt.formID = model.formID;
+                                if (model.formID.Count() > 0)
+                                {
+                                    string finalformID = string.Join(",", model.formID);
+                                    
+                                    cnt.formID = finalformID;
+                                }
+                                
                             }
                             if (!string.IsNullOrEmpty(model.title))
                             {
@@ -10268,8 +10284,15 @@ namespace greenEnergy.Controllers
                             newlItem.sectionTypeID = model.typeID;
                         if (model.contentParent != new Guid("00000000-0000-0000-0000-000000000000"))
                             newlItem.parentID = model.contentParent;
-                        if (model.formID != 0)
-                            newlItem.formID = model.formID;
+                        if (model.formID != null)
+                        {
+                            if (model.formID.Count() > 0)
+                            {
+                                string finalformID = string.Join(",", model.formID);
+                                newlItem.formID = finalformID;
+                            }
+                        }
+                           
                         dbcontext.contents.Add(newlItem);
 
                         string fielditem = selectedHtml.dataField;
@@ -10347,7 +10370,7 @@ namespace greenEnergy.Controllers
                     newContent.sectionTypeID = mirror.sectionTypeID;
                 if (mirror.parentID != new Guid("00000000-0000-0000-0000-000000000000"))
                     newContent.parentID = parentID;
-                if (mirror.formID != 0)
+                if (mirror.formID != "")
                     newContent.formID = mirror.formID;
                 dbcontext.contents.Add(newContent);
                 dbcontext.SaveChanges();

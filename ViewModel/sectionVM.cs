@@ -267,7 +267,7 @@ namespace greenEnergy.ViewModel
         
         public Guid contentParent { get; set; }
         public Guid newParent { get; set; }
-        public int formID { get; set; }
+        public List<string> formID { get; set; }
         public Guid htmlID { get; set; }
         public int priority { get; set; }
         public List<string> chosenForCycle { get; set; }
@@ -284,7 +284,7 @@ namespace greenEnergy.ViewModel
     {
         public Guid contentID { get; set; }
 
-        public int?  formID { get; set; }
+        public string?  formID { get; set; }
         public Guid typeID { get; set; }
         public Guid htmlID { get; set; }
         public string htmlType { get; set; }
@@ -515,7 +515,7 @@ namespace greenEnergy.ViewModel
         public Guid conentID { get; set; } // از روی اچ تی ام میاد
         public Guid? parentID { get; set; } // از روی اچ تی ام میاد
         public Guid? sectionID { get; set; } // از روی اچ تی ام میاد
-        public int?  formID { get; set; } // از روی اچ تی ام میاد
+        public string?  formID { get; set; } // از روی اچ تی ام میاد
     }
 
 

@@ -332,6 +332,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501061159498_initial.cs" />
+    <Compile Include="Migrations\202501061159498_initial.designer.cs">
+      <DependentUpon>202501061159498_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\supectContext.cs" />
     <Compile Include="Models\naghaviContext.cs" />
@@ -4379,6 +4383,11 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>greenEnergy_MellatWebService_PaymentGatewayImplService</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202501061159498_initial.resx">
+      <DependentUpon>202501061159498_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

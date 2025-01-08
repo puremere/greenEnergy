@@ -678,8 +678,7 @@
                 <input hidden name="contentID" id="addCycleFieldContentID" />
                 <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
                 <div id="cycleFieldsHolder">
-
-                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" })
+                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" , multiple = "multiple" })
                 </div>
 
                 <div class="modal-footer">
@@ -702,7 +701,7 @@
                 <input hidden name="contentID" id="addformContentID" />
                 <input hidden name="sectionID" value="@Model.selectedSection.sectinoID" />
                 <div id="formHolder">
-                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" })
+                    @Html.DropDownList("formID", new SelectList(Model.formList, "formID", "title"), new { @class = "form-control", name = "formID", id = "formID" , multiple ="multiple"})
                 </div>
 
                 <div class="modal-footer">

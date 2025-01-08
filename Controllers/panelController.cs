@@ -373,13 +373,10 @@ namespace greenEnergy.Controllers
                     {
                         setContentVM inputmodel = new setContentVM()
                         {
-                           
                              sectionID = new Guid(responsemodel.message),
                              priority = 1,
                              htmlID = new Guid("5088cfd2-4c45-33ce-88a2-c9d2d4afd3ae"), // mainPage
                              title = "MainPage",
-                             formID = 0
-
                         };
                         responseModel outputresponsemodel = new responseModel();
                         outputresponsemodel = await methods.PostData(inputmodel, outputresponsemodel, "/setContent", Request.Cookies["adminToken"].Value);
