@@ -1,0 +1,28 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/uploads/2023/08/jobs-banner-1.jpg";
+
+
+
+}
+
+
+
+
+<section>
+    <div class="blog-single-image-holder" itemprop="image" itemscope="" itemtype=" ">
+        <img width="925" height="397" itemprop="url" alt="  " style="border-radius:12px;" src="@image">
+    </div>
+</section>
+

@@ -1,0 +1,94 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2017/05/بنر-نهایی-حقوقی.jpg";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سوپکت دوست دیجیتال شما";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " ، طراحی سایت برای وکلا یک ابزار ضروری است که به وکلا و دفاتر حقوقی در جذب مشتریان جدید، افزایش اعتبار و بهبود ارتباط با مراجعین کمک می‌کند. یک وب‌سایت حرفه‌ای می‌تواند به عنوان ویترینی آنلاین، اطلاعات و خدمات حقوقی را به راحتی در دسترس مخاطبان قرار دهد و موجب رشد کسب‌وکار شما شود.با توجه به اهمیت این ابزار، پیشنهاد می‌شود که وکلا برای رسیدن به بهترین نتیجه، با شرکت سوپکت همکاری کنند و از این فرصت برای ارتقای حرفه خود بهره‌مند شوند.";
+    string buttonTitle1 = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle1").title2 : "ثبت درخواست";
+    string btnURL = Model.dataList.SingleOrDefault(x => x.title == "btnURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnURL").title2 : "contact-us";
+
+}
+
+
+
+
+<section>
+    <div class="vc_row section vc_row-fluid" id="row-64e56bb35ed00">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder" style="padding-top:40px;padding-bottom:60px">
+                <div class="wrapper specialitySecion">
+                    <div class="row-inner-holder align-right">
+                        <div data-wow-duration="1.5s" class="wow fadeInUp wpb_column vc_column_container vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="wpb_single_image wpb_content_element vc_align_center   academy-category-single-image">
+
+                                        <figure class="wpb_wrapper vc_figure">
+                                            <div class="vc_single_image-wrapper   vc_box_border_grey">
+                                                <img width="776" height="500"
+                                                     src="@image"
+                                                     class="vc_single_image-img attachment-full"
+                                                     alt="" decoding="async"
+                                                     sizes="(max-width: 776px) 100vw, 776px">
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 32px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-wow-duration="1.5s" class="wow fadeInUp center-in-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-right section-title center-in-tablet">
+                                        <h2 class="custom-heading">@header</h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="custom-heading-holder align-right section-subtitle center-in-tablet">
+                                        <h3 class="custom-heading"></h3>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 20px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+
+                                    <div class="wpb_text_column wpb_content_element  section-text">
+                                        <div class="wpb_wrapper">
+                                            <p style="text-align:justify;">
+                                                @description
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 22px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="button-holder button-inline">
+
+                                        <a href="@btnURL" class="button kt-modal-button button-default"
+                                           data-modal="contact">@buttonTitle1</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

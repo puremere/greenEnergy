@@ -1,0 +1,51 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/themes/supect-1/images/boom-logo.png";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سیستم یکپارچه فروش بوم پلاس";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " سیستم یکپارچه فروش بوم پلاس شامل ابزارهای کلیدی برای بهبود کارایی کسب‌وکار ، کاهش هزینه ها و افزایش بهره وری سازمان شما می باشد. با مدیریت هوشمند فرآیندها و تجزیه و تحلیل دقیق داده‌ها، به دنیایی پر از فرصت‌ها و بهره‌وری بیشتر خواهید پیوست. بوم پلاس امکاناتی بی‌نظیر از جمله اتصال بین بخش‌های مختلف کسب‌وکار، پیگیری دقیق موجودی، و مدیریت بهتر منابع سازمانی را فراهم  می‌کند. بوم پلاس نه تنها به شما کمک می‌کند تا همگام با تغییرات بازار باشید، بلکه شما را برای رشد پایدار آماده می‌کند. ایجاد یک آینده موفق با بوم پلاس، حالا ممکن است.";
+    string buttonText1 = Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 : "ورود به صفحه اختصاصی";
+    string buttonText2 = Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 : "سیستم یکپارچه فروش بوم پلاس";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "#";
+
+}
+
+
+
+<section id="product-content">
+    <div class="boom">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <div class="wrapper" style="direction: ltr">
+            <div class="hero-inner" style="direction: rtl; text-align: right">
+                <h2 class="hero-title">
+                    @header
+                </h2>
+
+                <div class="hero-text" style="margin-top: 25px;">
+                    @description
+                </div>
+                <div class="hero-badges row">
+                    <div class="column ">
+                        <a href="@buttonURL" class="hero-badge">
+                            <img src="@image" width="60" height="60" loading="lazy" alt="اجرای پروژه های بین المللی">
+                            <div class="hero-badge-inner">
+                                <span style="font-size: 16px;">@buttonText1</span>
+                                <h4 class="index-boxs-style">@buttonText2</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,96 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "خدمات دیجیتال سوپکت";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " آمادۀ رشد کسب و کارتان هستید؟";
+
+}
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+<section>
+    <h1>section 11 options </h1>
+    <div class="row-outer-holder" style="padding-top:50px;padding-bottom:150px">
+        <div class="wrapper">
+            <div class="row-inner-holder align-right">
+                <div class="wpb_column vc_column_container vc_col-sm-12">
+                    <div class="vc_column-inner2 ">
+                        <div class="wpb_wrapper">
+                            <div id="services-content">
+                                <div class="vc_row vc_inner section vc_row-fluid" id="row-64e5dcf5b275d">
+                                    <div class="row-inner clearfix row-background-transparent">
+                                        <div class="row-outer-holder">
+                                            <div class="wrapper">
+                                                <div class="row-inner-holder align-right">
+                                                    <div class="wpb_column vc_column_container column-vertical-content column-content-middle">
+                                                        <div class="vc_column-inner2 ">
+                                                            <div class="wpb_wrapper">
+                                                                <div class="custom-heading-holder  align-center section-title center-in-mobile">
+                                                                    <h2 class="custom-heading">
+                                                                        @title
+                                                                    </h2>
+                                                                </div>
+                                                                <div class="vc_empty_space" style="height: 10px">
+                                                                    <span class="vc_empty_space_inner"></span>
+                                                                </div>
+                                                                <div class="custom-heading-holder align-center section-subtitle center-in-mobile">
+                                                                    <h3 class="custom-heading">
+                                                                        @description
+                                                                    </h3>
+                                                                </div>
+                                                                <div class="vc_empty_space" style="height: 20px">
+                                                                    <span class="vc_empty_space_inner"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vc_empty_space" style="height: 25px">
+                                    <span class="vc_empty_space_inner"></span>
+                                </div>
+
+
+
+                                <div class="vc_row vc_inner section vc_row-fluid" id="row-64e5dcf5b2efbx">
+                                    <div class="row-inner clearfix row-background-transparent">
+                                        <div class="row-outer-holder">
+                                            <div class="wrapper">
+                                                <div class="row-inner-holder align-right">
+
+                                                    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

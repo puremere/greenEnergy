@@ -1,0 +1,42 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : " چرا طراحی سایت برای وکلا مهم است؟";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "طراحی سایت برای وکلا این امکان را می‌دهد که به راحتی خدمات حقوقی خود را به عموم معرفی کنند، اعتماد مشتریان جدید را جلب کنند و از طریق جستجوهای آنلاین به مشتریان جدید دسترسی پیدا کنند. همچنین، با استفاده از امکاناتی مانند نوبت‌دهی آنلاین و چت آنلاین، می‌توانند مدیریت زمان بهتری داشته باشند.";
+
+
+}
+
+
+
+
+
+
+<div class="course-chapter">
+    <div class="course-chapter-title">
+        <h3 class="course-chapter-title-inner index-boxs-style">
+            @title
+        </h3>
+        <span class="course-chapter-time"></span>
+    </div>
+    <div class="course-chapter-content">
+        <div class="course-chapter-content-inner">
+            <div class="course-chapter-description">
+                <p style="box-sizing: border-box; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: IRANSans; padding: 0px; vertical-align: baseline; margin: 0px 0px 10px; border: 0px; color: #181522; text-align: right;">
+                    @description
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

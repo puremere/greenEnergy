@@ -1,0 +1,29 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "قیمت طراحی وب‌سایت پزشکی در سوپکت بستگی به ویژگی‌ها و امکانات مورد نظر شما دارد. ما با ارائه بسته‌های مختلف، سعی داریم تا نیازهای متنوع پزشکان و کلینیک‌ها را برآورده کنیم. از طراحی‌های ساده تا پیچیده، تمام خدمات ما با کیفیت بالا و قیمت‌های مناسب ارائه می‌شود. همچنین، ما در سوپکت به شما این امکان را می‌دهیم که با مشاوره رایگان، بهترین گزینه را بر اساس بودجه و نیازهای خود انتخاب کنید. هدف ما این است که شما بتوانید با حداقل هزینه، یک وب‌سایت کارآمد و جذاب داشته باشید که به رشد و موفقیت کسب‌وکار شما کمک کند.";
+    
+
+
+
+}
+
+
+
+    <section id="dr-pricing-plan">
+        <div class="margin-bottom-section">
+            <p class="seprator-style">
+                @description
+            </p>
+        </div>
+    </section>

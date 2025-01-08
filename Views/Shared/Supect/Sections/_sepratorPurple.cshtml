@@ -1,0 +1,155 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "رسانۀ شما به سوی تجارتی نو با سوپکت";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "تجربه کاری";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : " مشتری‌ها";
+    string title4 = Model.dataList.SingleOrDefault(x => x.title == "title4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title4").title2 : "پروژه فعال";
+    string title5 = Model.dataList.SingleOrDefault(x => x.title == "title5").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title5").title2 : "شعبه ها";
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 : " + 10 سال";
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 : "+ 100 کسب و کار";
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 : "+ 80 پروژه";
+    string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc4").title2 : " 5شعبه فعال";
+
+
+
+}
+
+
+
+
+
+<section id="banner-voip" class="margin-bottom-section">
+    <div data-wow-duration="1.5s" class="wow fadeInUp vc_row section vc_row-fluid statistics-section anti-radus" style="border-width:0 0 1px 0;border-color:#e5e5e8" id="row-64e575d7dcec6">
+        <div class="row-inner clearfix row-background-transparent row-columns-equal-height">
+            <div class="row-outer-holder">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right flex-responsive">
+                        <div class="autoheight-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-2">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder">
+                                        <h2 class="custom-heading text-white" style="font-size:18px;font-weight:400;color:#ffffff">
+                                            @title1
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 30px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="autoheight-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-10">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="vc_row vc_inner section vc_row-fluid" id="row-64e575d7dd3d7">
+                                        <div class="row-inner clearfix row-background-transparent">
+                                            <div class="row-outer-holder">
+                                                <div class="wrapper">
+                                                    <div class="row-inner-holder align-right">
+                                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-3 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="icon-box2">
+                                                                        <i class="icon-box2-icon icon-box2-font-icon linea-ecommerce linea-ecommerce-diamond" style="font-size:44px;color:#ffffff"></i>
+                                                                        <div class="icon-box2-inner">
+                                                                            <h4 class="icon-box2-title text-white">
+                                                                                @title2
+                                                                            </h4>
+                                                                            <div class="icon-box2-text text-white">
+                                                                                @desc1
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="vc_empty_space" style="height: 30px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-3 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="icon-box2">
+                                                                        <i class="icon-box2-icon icon-box2-font-icon linea-basic linea-basic-case" style="font-size:44px;color:#ffffff"></i>
+                                                                        <div class="icon-box2-inner">
+                                                                            <h4 class="icon-box2-title text-white">
+                                                                                @title3
+                                                                            </h4>
+                                                                            <div class="icon-box2-text text-white">
+
+                                                                                @desc2
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="vc_empty_space" style="height: 30px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-3 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="icon-box2">
+                                                                        <i class="icon-box2-icon icon-box2-font-icon linea-basic linea-basic-life-buoy" style="font-size:44px;"></i>
+                                                                        <div class="icon-box2-inner">
+                                                                            <h4 class="icon-box2-title text-white">
+                                                                                @title4
+                                                                            </h4>
+                                                                            <div class="icon-box2-text text-white">
+                                                                                @desc3
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="vc_empty_space" style="height: 30px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-3 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="icon-box2">
+                                                                        <i class="icon-box2-icon icon-box2-font-icon linea-basic linea-basic-webpage-multiple" style="font-size:44px;color:#ffffff"></i>
+                                                                        <div class="icon-box2-inner">
+                                                                            <h4 class="icon-box2-title text-white">
+                                                                                @title5
+                                                                            </h4>
+                                                                            <div class="icon-box2-text text-white">
+                                                                                @desc4
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="vc_empty_space" style="height: 30px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

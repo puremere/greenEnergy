@@ -1,0 +1,107 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/web.png";
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/android.png";
+    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/ios.png";
+
+    string bgImage1 = Model.dataList.SingleOrDefault(x => x.title == "img_backimage1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/web.png";
+    string bgImage2 = Model.dataList.SingleOrDefault(x => x.title == "img_backimage2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/android.png";
+    string bgImage3 = Model.dataList.SingleOrDefault(x => x.title == "img_backimage3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "/webAssets/supect/Assets/wp-content/uploads/2020/02/ios.png";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "وب سایت";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : " اپلیکیشن اندروید";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "اپلیکیشن iOS";
+
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 : "طراحی حرفه ای انواع وب سایت";
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 : "طراحی حرفه ای اپلیکیشن اندروید";
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 : "طراحی حرفه ای اپلیکیشن iOS";
+
+    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url1").title2 : "/Web";
+    string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url2").title2 : "/Android";
+    string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url3").title2 : "/iOS";
+}
+
+
+
+
+
+<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-4 vc_col-xs-12">
+    <div class="vc_column-inner2 ">
+        <div class="wpb_wrapper">
+            <a title="وب سایت" href="@url1" target="_self" class="service-box service-box-type-icon service-box-adwords">
+                <div class="service-box-top">
+                    <div class="service-box-icon">
+                        <img style="max-width: 100%; opacity: 0.5;" height="512" src="@image1">
+                    </div>
+                    <h4 class="service-box-title index-boxs-style" style="color:#6c6789;">
+                        @title1
+                    </h4>
+                </div>
+                <div class="service-box-text">
+                    @desc1
+                </div>
+                <img style="left: 80px; opacity: 0.02;" width="512" height="512" class="service-box-overlay" src="@bgImage1">
+            </a>
+            <div class="vc_empty_space" style="height: 24px">
+                <span class="vc_empty_space_inner"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-4 vc_col-xs-12">
+    <div class="vc_column-inner2 ">
+        <div class="wpb_wrapper">
+            <a title="اپلیکیشن اندروید" href="@url2" target="_self" class="service-box service-box-type-icon service-box-reportage">
+                <div class="service-box-top">
+                    <div class="service-box-icon">
+                        <img style="max-width: 100%; opacity: 0.5;" height="480" src="@image2">
+                    </div>
+                    <h4 class="service-box-title index-boxs-style" style="color:#7e92a2;">
+                        @title2
+                    </h4>
+                </div>
+                <div class="service-box-text">
+                    @desc2
+                </div>
+                <img style="left: 80px; opacity: 0.02;" width="480" height="480" class="service-box-overlay" src="@bgImage2">
+            </a>
+            <div class="vc_empty_space" style="height: 24px">
+                <span class="vc_empty_space_inner"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-md-4 vc_col-xs-12">
+    <div class="vc_column-inner2 ">
+        <div class="wpb_wrapper">
+            <a title="اپلیکیشن iOS" href="@url3" target="_self" class="service-box service-box-type-icon service-box-seo">
+                <div class="service-box-top">
+                    <div class="service-box-icon ">
+                        <img class="radius" style="max-width: 100%; opacity: 0.5;" height="512" src="@image3">
+                    </div>
+                    <h4 class="service-box-title index-boxs-style" style="color:#a49a7e;  direction: rtl; ">
+                        @title3
+                    </h4>
+                </div>
+                <div class="service-box-text">
+
+                    @desc3
+
+                </div>
+                <img style="left: 80px; opacity: 0.02;" width="512" height="512" class="service-box-overlay radius" src="@bgImage3">
+            </a>
+            <div class="vc_empty_space" style="height: 24px">
+                <span class="vc_empty_space_inner"></span>
+            </div>
+        </div>
+    </div>
+</div>

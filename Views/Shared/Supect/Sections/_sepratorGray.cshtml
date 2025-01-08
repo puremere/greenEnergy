@@ -1,0 +1,63 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "فرآیند ثبت درخواست وب سایت پزشکی از شرکت سوپکت";
+    string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : "در محل متنی بویسید";
+    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : "با ثبت درخواست خود، گام اول را به سوی یک وب‌سایت پزشکی حرفه‌ای بردارید. ما در سوپکت آماده‌ایم تا به شما کمک کنیم!";
+}
+
+
+<section>
+    <div class=" vc_row section vc_row-fluid margin-bottom-section" id="row-64e561762a35a">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder">
+                <div class="wrapper margin-bottom-section specialitySecion">
+                    <div class="row-inner-holder align-right">
+
+                        <div data-wow-duration="1.5s" class=" wow fadeInUp center-in-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-12 vc_col-xs-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-right section-title center-in-tablet">
+                                        <h2 class="custom-heading web-title-main-responsive">
+                                            @header
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+
+                                    <div class="wpb_text_column wpb_content_element  section-text ">
+                                        <div class="wpb_wrapper margin-left-section">
+
+                                            <p class="web-text-main-responsive">
+                                                @description1
+                                            </p>
+                                            <p class="web-text-main-responsive"><strong>@description2</strong></p>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

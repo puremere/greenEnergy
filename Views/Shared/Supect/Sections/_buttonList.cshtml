@@ -1,0 +1,92 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/supect/../../Assets/wp-content/uploads/2017/05/نمایش-خدمات-بازسازی.jpg";
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/../../Assets/wp-content/uploads/2017/05/نوبت-آنلاین-بازسازی.jpg";
+    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "/webAssets/supect/../../Assets/wp-content/uploads/2017/05/گالری-تصاویر-بازسازی.jpg";
+    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2 : "/webAssets/supect/../../Assets/wp-content/uploads/2017/05/پشتیبانی-فنی-بازسازی.jpg";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "خدمات ویژه طراحی سایت بازسازی ساختمان";
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 : "نمایش تمامی خدمات و پروژه‌ها به‌طور جامع";
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 : "سیستم نوبت‌دهی آنلاین برای راحتی مشتریان";
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 : "گالری تصاویر با قابلیت نمایش پروژه‌های تکمیل‌شده";
+    string desc4 = Model.dataList.SingleOrDefault(x => x.title == "desc4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc4").title2 : "پشتیبانی فنی و آپدیت منظم سایت";
+    string url1 = Model.dataList.SingleOrDefault(x => x.title == "url1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url1").title2 : "#";
+    string url2 = Model.dataList.SingleOrDefault(x => x.title == "url2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url2").title2 : "#";
+    string url3 = Model.dataList.SingleOrDefault(x => x.title == "url3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url3").title2 : "#";
+    string url4 = Model.dataList.SingleOrDefault(x => x.title == "url4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url4").title2 : "#";
+}
+
+
+
+
+<section id="section4" class="margin-bottom-section">
+    <div data-wow-duration="1.5s" class="wow fadeInUp vc_row section vc_row-fluid home-courses academy-categories-section" id="row-64e577c2b2de7">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder">
+                <div class="wrapper margin-bottom-section">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div data-wow-duration="1.5s" class="wow fadeInUp custom-heading-holder align-center section-title;" style="position:relative;height: 50px;">
+                                        <div style="height:2px; background-color:#f7f7f7; "></div>
+                                        <div style="position:absolute;top: -15px;display:flex;align-items:center;width: 100%;justify-content: center;/* padding: 15px; */">
+                                            <h3 style="background-color:white;margin: 0 !important;padding: 0 25px;" class="custom-heading">@header</h3>
+                                        </div>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 40px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="academy-categories row margin-bottom-section">
+
+                                        <div data-wow-duration="1.5s" class="wow fadeInUp column kt-col-xs-12 kt-col-sm-6">
+                                            <a href="@url1" class="academy-category" style="background-image:url('@image1');">
+                                                <h3 class="text-white">
+                                                    @desc1
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div data-wow-duration="1.5s" class="wow fadeInUp column kt-col-xs-12 kt-col-sm-6">
+
+                                            <a href="@url2" class="academy-category" style="background-image:url('@image2');">
+                                                <h3 class="text-white">
+                                                    @desc2
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div data-wow-duration="1.5s" class="wow fadeInUp column kt-col-xs-12 kt-col-sm-6">
+                                            <a href="@url3" class="academy-category" style="background-image:url('@image3');">
+                                                <h3 class="text-white">
+                                                    @desc3
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div data-wow-duration="1.5s" class="wow fadeInUp column kt-col-xs-12 kt-col-sm-6">
+
+                                            <a href="@url4" class="academy-category" style="background-image:url('@image4');">
+                                                <h3 class="text-white">
+                                                    @desc4
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

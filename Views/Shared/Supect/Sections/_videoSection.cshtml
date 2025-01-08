@@ -1,0 +1,103 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string videoURL = Model.dataList.SingleOrDefault(x => x.title == "videoURL").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "videoURL").title2 : " @*جای لینک ویدئو*@";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "دوره دیجیتال مارکتینگ (پکیج کامل)";
+    string desc = Model.dataList.SingleOrDefault(x => x.title == "desc").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc").title2 : "بیش از 25 آموزش تخصصی دیجیتال مارکتینگ که برای هر کسب‌و‌کار آنلاینی واجب است (دانش تخصصی، عمیق و کامل + انتقال بیش از 17 سال تجربه نوین +<strong> تخفیف ویژه + معرفی به کار </strong>در پلتفرم متخصصان نوین)";
+    string timeText = Model.dataList.SingleOrDefault(x => x.title == "timeText").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "timeText").title2 : "+150 ساعت";
+    string price = Model.dataList.SingleOrDefault(x => x.title == "price").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "price").title2 : "<del>13.2</del><b>4.9</b> میلیون تومان";
+    string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2 : "ثبت‌نام در دوره";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "#";
+    string btnText1 = Model.dataList.SingleOrDefault(x => x.title == "btnText1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnText1").title2 : "مشاوره رایگان";
+    string btnText2 = Model.dataList.SingleOrDefault(x => x.title == "btnText2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnText2").title2 : "021-63404 داخلی 3";
+
+
+}
+
+
+
+
+<section>
+    <div class="wrapper">
+        <div class="course-header-holder">
+            <div class="row flex-row-reverse">
+                <div class="column kt-col-xs-12 kt-col-md-6">
+                    <div class="course-header-image-holder">
+                        <div id="76966600198">
+                            <div class="h_iframe-aparat_embed_frame"> <span style="display: block;padding-top: 57%"></span><iframe width="100%" height="100%" title="معرفی دوره دیجیتال مارکتینگ نوین" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="autoplay" src="@videoURL"></iframe></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column kt-col-xs-12 kt-col-md-6">
+                    <div class="course-header-inner d-flex flex-column h-100">
+                        <div class="flex-grow-1 pt-25">
+
+                            <div class="mb-20 clearfix">
+                                <h1 itemprop="name" class="product_title entry-title">@header</h1>
+                            </div>
+                            <div class="woocommerce-product-details__short-description">
+                                <p>@desc</p>
+                            </div>
+                            <div class="course-item-meta">
+                                <li>
+                                    <i class="dripicons dripicons-archive text-muted"></i><span class="text-muted">@timeText</span>
+                                </li>
+                            </div>
+                        </div>
+
+                        <div class="w-100 pt-25">
+                            <div class="mb-20 d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="kt-product-price"><span class="font-weight-medium text-dark text-normal"></span>@price</div>
+                            </div>
+                            <div class="course-header-buttons row m-n5 align-items-center">
+
+                                <div class="column kt-col-xs-12 kt-col-sm-6 p-5">
+                                    <div class="course-header-purchase-holder">
+                                        <a href="@buttonURL" class="button button-green w-100 line-height-sm kt-ajax-button">@buttonText</a>
+                                    </div>
+                                </div>
+                                <div class="column kt-col-xs-12 kt-col-sm-auto mr-auto p-5">
+                                    <div class="page-header-phone justify-content-center">
+                                        <i class="elegant-icon icon_phone text-larger ml-8"></i>
+                                        <span class="text-xxs ml-12">@btnText1</span>
+                                        <b class="text-xxs">@btnText2</b>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .h_iframe-aparat_embed_frame {
+        position: relative;
+    }
+
+        .h_iframe-aparat_embed_frame .ratio {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .h_iframe-aparat_embed_frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+</style>

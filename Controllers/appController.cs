@@ -38,7 +38,7 @@ namespace greenEnergy.Controllers
     {
 
 
-        public string getFlowData(string title, viewVM? datamodel)
+        public string getFlowData(string title, viewVM datamodel)
         {
             string srt = "";
             try

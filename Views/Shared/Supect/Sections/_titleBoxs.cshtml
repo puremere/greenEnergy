@@ -1,0 +1,49 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "طراحی نیتیو و حرفه‌ای";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "سیستم نوبت‌دهی آنلاین";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "چت آنلاین و پشتیبانی";
+    string title4 = Model.dataList.SingleOrDefault(x => x.title == "title4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title4").title2 : "سرعت بالا و امنیت قوی";
+    string title5 = Model.dataList.SingleOrDefault(x => x.title == "title5").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title5").title2 : "بخش سؤالات متداول حقوقی";
+    string title6 = Model.dataList.SingleOrDefault(x => x.title == "title6").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title6").title2 : "طراحی ریسپانسیو";
+    string title7 = Model.dataList.SingleOrDefault(x => x.title == "title7").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title7").title2 : "سئوی قدرتمند برای دیده شدن بهترک";
+    string title8 = Model.dataList.SingleOrDefault(x => x.title == "title8").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title8").title2 : "پشتیبانی فنی مداوم";
+
+
+
+
+}
+
+
+
+
+<section>
+    <div class="container">
+        <div class="item-list-1">
+            <div data-wow-duration="1.5s" class="wow fadeInUp item-list-style-1 margin-bottom-section">
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title1</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title2</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title3</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title4</span>
+            </div>
+            <div data-wow-duration="1.5s" class="wow fadeInUp item-list-style-1">
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title5</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title6</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title7</span>
+                <span class="item-list-items"><i class=" fa fa-check"></i>@title8</span>
+            </div>
+
+        </div>
+    </div>
+</section>

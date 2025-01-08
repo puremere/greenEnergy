@@ -1,0 +1,73 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+   string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سوپکت دوست دیجیتال شما";
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "با خیالی آسوده کسب و کار خود را به ما بسپارید.";
+   
+
+}
+
+
+@*imageIcon1,imageIcon2,header,title,description,buttonText1,buttonText2,buttonURL,cardTitle1,cardTitle2,cardDesc1,cardDesc2,cardUrl1,cardUrl2*@
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+<section id="testimonals-content" style="    margin-top: 22px;
+            background: #f6f7fa;">
+    <div class="vc_row section vc_row-fluid home-testimonials"
+         style="border-width:0 0 1px 0;border-color:#f0f1f7" id="row-64e5dcf5b42c7">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder" style="padding-top:70px;padding-bottom:105px">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-center">
+                                        <h2 class="custom-heading">
+                                           @header
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="custom-heading-holder align-center section-subtitle">
+                                        <h3 class="custom-heading">@title</h3>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 40px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="testimonials-holder">
+                                        <div class="testimonials">
+                                            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+                                          
+
+                                        </div>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 35px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

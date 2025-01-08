@@ -1,0 +1,55 @@
+.elementor-100759 .elementor-element.elementor-element-1f93ef52{font-family:"iransansx";font-weight:normal;line-height:2.2em;}/* Start Custom Fonts CSS */@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-Regular.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-Regular.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: 500;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-DemiBold.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-DemiBold.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-DemiBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: 600;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-Bold.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-Bold.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: 300;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-Light.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-Light.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: 900;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-Black.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-Black.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-Black.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'iransansx';
+	font-style: normal;
+	font-weight: bold;
+	font-display: auto;
+	src: url('../../2021/06/IRANSansXFaNum-DemiBold.woff2') format('woff2'),
+		url('../../2021/06/IRANSansXFaNum-DemiBold.woff') format('woff'),
+		url('../../2021/06/IRANSansXFaNum-DemiBold.ttf') format('truetype');
+}
+/* End Custom Fonts CSS */

@@ -4,911 +4,1141 @@
     greenEnergy.ViewModel.getsectionLayoutVM layoutmodel = @ViewBag.layoutModel;
     getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
 }
-<html lang="en">
 
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
 <head>
-    <title>Dylan | Responsive Multi-Purpose HTML Template</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="images/favicon.png">
-    <link rel="stylesheet" href="/webAssets/NAGHAVI/css/bundle.css">
-    <link rel="stylesheet" href="/webAssets/NAGHAVI/css/hody-icons.css">
-    <link rel="stylesheet" href="/webAssets/NAGHAVI/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Tangerine:400" rel="stylesheet" type="text/css">
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFM4FSDT0Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GFM4FSDT0Y');
+    </script>
+
+    @RenderSection("metatags", required: false)
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta property="og:url" content="https://www.supect.com/" />
+    <meta property="og:site_name" content="سوپکت" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:modified_time" content="2023-03-16T09:08:22+00:00" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="سوپکت &raquo; خوراک" href="" />
+    <link rel="alternate" type="application/rss+xml" title="سوپکت &raquo; خوراک دیدگاه‌ها" href="" />
+    <link rel="stylesheet" type="style" href="css/css/style.css" />
+    <link rel='stylesheet' id='kt-style-css' href='~/webAssets/supect/Assets/wp-content/themes/supect-1/assets/app5cd4.css?5&amp;ver=6.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='kt-fontawesome-css' href='~/webAssets/supect/Assets/wp-content/themes/supect-1/static/css/fontawesome/fontawesome.min74cf.css?1&amp;ver=6.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='kt-elegant-icon-css' href='~/webAssets/supect/Assets/wp-content/themes/supect-1/static/css/elegant-icons/elegant-icon.min84c7.css?2&amp;ver=6.3' type='text/css' media='all' />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/favicon-16x16.png">
+    <link rel="supect" href="/www.supect.com">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="~/webAssets/supect/Assets/wp-content/themes/supect-1/assets/Custom.css?v=1.1" />
+
+    <link href="~/Content/animate.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font.css" rel="stylesheet" />
     <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
-    <script type="text/javascript" src="/webAssets/NAGHAVI/js/jquery.js"></script>
+    @RenderSection("tags", required: false)
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    @*<script type='text/javascript' src='~/webAssets/supect/Assets/wp-includes/js/jquery/jquery.min3088.js?ver=3.7.0' id='jquery-core-js'></script>
+        <script type='text/javascript' src='~/webAssets/supect/Assets/wp-includes/js/jquery/jquery-migrate.min5589.js?ver=3.4.1' id='jquery-migrate-js'></script>*@
+    @*
+        <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/plugins/duracelltomi-google-tag-manager/js/gtm4wp-woocommerce-enhancedf86b.js?ver=1.16.2' id='gtm4wp-woocommerce-enhanced-js'></script>*@
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.minf161.js?ver=2.7.0-wc.8.0.1' id='jquery-blockui-js'></script>
+
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.minfd24.js?ver=8.0.1' id='wc-add-to-cart-js'></script>
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/plugins/js_composer/assets/js/vendors/woocommerce-add-to-cart24b2.js?ver=5.5.5' id='vc_woocommerce-add-to-cart-js-js'></script>
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("styles", required: false)
+
+    <!--- schema section -->
+    @RenderSection("schema", required: false)
+    <!--- schema section -->
     @RenderSection("heading", required: false)
-    <style>
-        .childButton, .editButton, .removeButton, .priorityButton {
-            width: 25px;
-            height: 25px;
-            margin: 5px;
-        }
-
-        .controllerButtons {
-            display: flex;
-            justify-content: center;
-            background-color: white;
-            padding: 5px;
-            width: 100%
-        }
-
-        .controllerButtonsRight {
-            margin: 0 10px;
-            background-color: #eee;
-            border-radius: 8px;
-            padding: 8px
-        }
-
-        .close {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
-<body>
-
-    @if (Request.Cookies["adminToken"] != null)
-    {
-        <div class="modal addMenuDataModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="direction:rtl">
-                        <h5 class="modal-title">ویرایش</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="post" action="/panel/setLayoutPartData" enctype="multipart/form-data" style="direction:rtl; padding:20px">
-                        @Html.AntiForgeryToken()
-                        <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
-                        <input hidden name="pageurl" value="@ViewBag.url" />
-                        <input hidden name="fromHome" value="1" />
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                            <label class="form-label-title col-sm-12 mb-0">Title:</label>
-                            <div class="col-sm-10">
-                                <input value=" " required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                            <label class="form-label-title col-sm-12 mb-0">Section Type:</label>
-                            <div class="col-sm-10">
-
-                                <select name="dataType" class="form-control">
-                                    <option value="headerMenu">headerMenu</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                            <label class="form-label-title col-sm-12 mb-0">یو ار ال:</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                            <label class="form-label-title col-sm-12 mb-0">یو ار ال تایتل:</label>
-                            <div class="col-sm-10">
-                                <input required type="text" id="" name="urlTitle" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                            <label class="form-label-title col-sm-12 mb-0">اولویت:</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                            <label class="form-label-title col-sm-12 mb-0">پرنت:</label>
-                            <div class="col-sm-10">
-
-                                @Html.DropDownList("parentID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "select parent", new { @class = "form-control", name = "parentID" })
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                            <label class="form-label-title col-sm-12 mb-0">image  :</label>
-                            <div class="col-sm-10">
-                                <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
-
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                            <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
-                                <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
-                            </div>
-                        </div>
-
-                    </form>
+<body data-rsssl=1
+      class="rtl home page-template page-template-index-page page-template-index-page-php page page-id-7 theme-supect-1 woocommerce-no-js kt-desktop navbar-shadow-none wpb-js-composer js-comp-ver-5.5.5 vc_responsive">
 
 
 
+    <div class="page-holder">
 
-                </div>
-            </div>
-        </div>
-        <div class="modal removeMenuDataModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="direction:rtl">
-                        <h5 class="modal-title">ویرایش</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="/panel/removeLayoutpartData" method="post" enctype="multipart/form-data" style="direction:rtl;padding:25px">
-                        @Html.AntiForgeryToken()
-                        <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
-                        <input hidden name="pageurl" value="@ViewBag.url" />
-                        <input hidden name="fromHome" value="1" />
-                        <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-
-                            <div class="col-sm-10">
-
-                                @Html.DropDownList("layoutDataID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "انتخاب آیتم", new { @class = "form-control", name = "parentID" })
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn ripple btn-primary" type="submit">تایید</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    }
-
-    <!-- Preloader-->
-    <div id="loader">
-        <div class="centrize">
-            <div class="v-center">
-                <div id="mask">
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Preloader-->
-    <!-- Navigation Bar-->
-    <header id="topnav" style="position:relative; background-color:black">
-        <div class="container">
-            <!-- Logo container-->
-            <div class="logo">
-                <a href="index.html">
-                    <img class="logo-light" src="/webAssets/NAGHAVI/images/logo_light.png" alt="">
-                    <img class="logo-dark" src="/webAssets/NAGHAVI/images/logo_dark.png" alt="">
-                </a>
-            </div>
-            <!-- End Logo container-->
-            <div class="menu-extras">
-                <div class="menu-item">
-                    <div class="open-search-form">
-                        <a href="#">
-                            <i class="hc-search"></i>
+        <!-- header START -->
+        <section id="header">
+            <header class="menu-holder anti-radus">
+                <div class="wrapper">
+                    <div class="menu-inner">
+                        <a class="logo-holder" href="https://supect.com"
+                           title="سوپکت: طراحی و توسعه اپلیکیشن های موبایل و وب سایت">
+                            <img class="logo" width='36' height='46' style="border-radius: initial;" src="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/logo.png"
+                                 alt="سوپکت: طراحی و توسعه اپلیکیشن های موبایل و وب سایت" />
+                            <h3 class="menu-title">سوپکت</h3>
                         </a>
-                    </div>
-                </div>
-                <div class="menu-item toggle-nav">
-                    <!-- Mobile menu toggle-->
-                    <a class="menu-toggle" href="#">
-                        <div class="toggle-inner"></div>
-                    </a>
-                    <!-- End mobile menu toggle-->
-                </div>
-            </div>
-            <div id="navigation">
-                <ul class="navigation-menu nav">
-                    @if (Request.Cookies["adminToken"] != null)
-                    {
-                        <li class="">
-                            <img src="~/Images/plus-w.png" class="addMenuData"/>
-                    @*<i style="color:white" class="fa fa-plus "></i>*@
-                        </li>
-                        <li class="">
-                            <img src="~/Images/minus-w.png" class="removeMenuData" />
-                            @*<i style="color:white" class="fa fa-minus removeMenuData"></i>*@
-                        </li>
-                    }
-                    @{
-
-                        foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
-                        {
-
-                            List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
-                            String dropdown = firstChilds.Count() > 0 ? "menu-item-has-children" : "";
-
-                            <li class="@dropdown">
-
-                                @if (firstChilds.Count() > 0)
-                                {
-                                    <a>
-                                        <span> @item.urlTitle</span>
-                                       
-                                    </a>
+                        <nav class="main-menu">
+                            <ul id="menu-main-menu" class="menu">
+                                <li id="menu-item-264784"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-264784 menu-item-style-normal menu-item-level-0">
+                                    <div class="menu-item-inner">
+                                        <a>تولید اپلیکیشن موبایل</a>
+                                    </div>
                                     <ul class="sub-menu">
-                                        @foreach (var secitem in firstChilds)
-                                        {
-                                            <li><a href="news.html"><span>@secitem.urlTitle</span> </a></li>
-                                        }
-
-
-                                    </ul>
-
-                                }
-
-                                else
-                                {
-                                    string furl = item.url == null ? "/" : item.url;
-                                    <a href="@furl">
-                                        <span> @item.urlTitle</span>
-                                       
-                                    </a>
-                                }
-
-                            </li>
-
-                        }
-                    }
-                   
-                </ul>
-            </div>
-        </div>
-    </header>
-    <!-- End Navigation Bar-->
-    @RenderBody()
-
-
-    @*<footer id="footer-widgets">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7 ov-h">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>About Dylan</h5>
-                                    <div class="textwidget">
-                                        <p>
-                                            <span>350 5th Ave</span>
-                                            <br><span>New York, NY 10118</span>
-                                            <br><span>hello@dylan.co</span>
-                                        </p>
-                                        <h5>+1 301-736-4321</h5>
-                                        <p>
-                                            <a class="mt-15 btn btn-color btn-sm" href="#">Contact Us</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>The Company</h5>
-                                    <div class="menu-footer-1-container">
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">Who We Are</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Services</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Careers</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Culture</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Contact</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>Recent Posts</h5>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Minimum Viable DevOps</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">How to Get What You Want</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Answering Everything</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Startup Rules</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Email Can Wait</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="widget clearfix">
-                                    <h5>Get Our Newsletter</h5>
-                                    <div class="footer-newsletter">
-                                        <p class="serif">Sign Up to get the latest updates.</p>
-                                        <form class="newsletter-form" data-mailchimp="true" data-url="http://hody.us12.list-manage.com/subscribe/post?u=d9d1052c1b2ba81576842a9fb&amp;id=c70c5d0c82">
-                                            <div class="input-group">
-                                                <input class="form-control" type="email" name="EMAIL" placeholder="Email"><span class="input-group-btn"><button class="btn newsletter-btn" type="submit">Subscribe</button></span>
+                                        <li id="menu-item-264785"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-264785 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Android">
+                                                    اپلیکیشن
+                                                    اندروید
+                                                </a>
                                             </div>
-                                        </form>
+                                        </li>
+                                        <li id="menu-item-264786"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-264786 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/iOS">
+                                                    اپلیکیشن
+                                                    iOS
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @*
+                                            <li id="menu-item-264800"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-264800 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        انتشار
+                                                        اپلیکیشن های موبایل
+                                                    </a>
+                                                </div>
+                                            </li>*@
+                                    </ul>
+                                </li>
+
+
+                                <li id="menu-item-264799"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264799 menu-item-style-normal menu-item-level-0">
+                                    <div class="menu-item-inner">
+                                        <a>طراحی سایت</a>
                                     </div>
-                                </div>
-                                <div class="widget clearfix">
-                                    <h5>Follow Us</h5>
-                                    <ul class="social-list">
-                                        <li class="social-item-facebook">
-                                            <a target="_blank" href="#"><i class="hc-facebook"></i></a>
+                                    <ul class="sub-menu">
+                                        <li id="menu-item-73776"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-73776 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Corporateweb">
+                                                    طراحی سایت شرکتی
+                                                </a>
+                                            </div>
                                         </li>
-                                        <li class="social-item-twitter">
-                                            <a target="_blank" href="#"><i class="hc-twitter"></i></a>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Ecommers">
+                                                    طراحی وب سایت فروشگاهی
+                                                </a>
+                                            </div>
                                         </li>
-                                        <li class="social-item-instagram">
-                                            <a target="_blank" href="#"><i class="hc-instagram"></i></a>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/medicine">
+                                                    طراحی وب سایت پزشکی
+                                                </a>
+                                            </div>
                                         </li>
-                                        <li class="social-item-dribbble">
-                                            <a target="_blank" href="#"><i class="hc-dribbble"></i></a>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/decoration">
+                                                    طراحی وب سایت دکوراسیون
+                                                </a>
+                                            </div>
                                         </li>
-                                        <li class="social-item-youtube">
-                                            <a target="_blank" href="#"><i class="hc-youtube"></i></a>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Repairshop">
+                                                    طراحی وب سایت تعمیرگاهی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/lawyer">
+                                                    طراحی وب سایت وکلا
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Home_appliance_repairs">
+                                                    طراحی وب سایت تعمیرات لوازم خانگی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Renovation_building">
+                                                    طراحی وب سایت بازسازی ساختمان
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @*<li id="menu-item-265382"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="/Gearboxrepairshop">
+                                                        طراحی وب سایت تعمیرگاه گیربکس
+                                                    </a>
+                                                </div>
+                                            </li>*@
+                                    </ul>
+
+                                </li>
+
+
+                                <li id="menu-item-5000"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-264799 menu-item-style-normal menu-item-level-0">
+                                    <div class="menu-item-inner">
+                                        <a href="/Seo">سئو</a>
+                                    </div>
+                                    @*<ul class="sub-menu">
+                                            <li id="menu-item-90001"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90001 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        تحقیق کلمات
+                                                        کلیدی
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li id="menu-item-90002"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90002 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        بهینه سازی
+                                                        و سئو
+                                                        داخلی
+                                                        سایت
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li id="menu-item-90003"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90003 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        لبنک سازی و
+                                                        رپورتاژ
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li id="menu-item-90004"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90004 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        تدوین استراتژی
+                                                        سایت
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li id="menu-item-90005"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90005 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        تحلیل وضعیت
+                                                        سئو
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>*@
+
+                                </li>
+
+
+                                <li id="menu-item-72806"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18930 menu-item-style-normal menu-item-level-0">
+
+                                    <div class="menu-item-inner">
+                                        <a href="/Portfo">نمونه کارها</a>
+                                    </div>
+
+                                </li>
+
+
+                                <li id="menu-item-18930"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18930 menu-item-style-normal menu-item-level-0">
+                                    <div class="menu-item-inner">
+                                        <a href="/Blogs">وبلاگ</a>
+                                    </div>
+                                </li>
+
+
+                                <li id="menu-item-264812"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264812 menu-item-style-normal menu-item-level-0">
+                                    <div class="menu-item-inner">
+                                        <a>تماس</a>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li id="menu-item-18929"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18929 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/About">
+                                                    درباره
+                                                    ما
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-18927"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18927 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Contact">
+                                                    تماس
+                                                    با ما
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-18927"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18927 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Jobs">همکاری با ما</a>
+                                            </div>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <div class="header-phone-holder">
+                            <a href="tel:+982191017049">
+                                <i class=" elegant-icon icon_phone header-phone-icon active"></i>
+                            </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <footer id="footer">
-            <div class="container">
-                <div class="copy-text">
-                    <p>© 2016 Dylan. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>*@
-    <div id="search-modal">
-        <div class="centrize">
-            <div class="v-center">
-                <div class="container">
-                    <div class="search-form">
-                        <!-- Search Form-->
-                        <form class="searchform">
-                            <div class="input-group">
-                                <input class="form-control" type="search" data-required="required" name="s" placeholder="Search..." value=""><span class="input-group-btn">
-                                    <button class="btn btn-color" type="submit">
-                                        <span><i class="hc-search"></i></span>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                        <!-- End Search Form-->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a id="close-search-modal" href="#">
-            <i class="hc-close"></i>
-        </a>
-    </div>
-    <div class="go-top">
-        <a href="#top">
-            <i class="hc-angle-up"></i>
-        </a>
-    </div>
-    <script type="text/javascript" src="/webAssets/NAGHAVI/js/jquery.js"></script>
-    <script type="text/javascript" src="/webAssets/NAGHAVI/js/bundle.js"></script>
-    <script type="text/javascript" src="/webAssets/NAGHAVI/js/SmoothScroll.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNGOsBBZo9vf0Tw4w6aJiilSTFVfQ5GPI"></script>
-    <script type="text/javascript" src="/webAssets/NAGHAVI/js/main.js"></script>
-    @RenderSection("scripts", required: false)
-    <script>
-            $(".close").click(function(){
-              $(this).closest('.modal').modal('toggle');
-            })
-
-            $(".addMenuData").click(function(){
-
-              $(".addMenuDataModal").modal('toggle');
-            })
-            $(".removeMenuData").click(function(){
-
-              $(".removeMenuDataModal").modal('toggle');
-            })
-
-            $(".childButton").click(function(){
-
-              $(this).parent().parent().find(".childButtonModal").modal('toggle');
-            })
-            $(".editButton").click(function(){
-
-              $(this).parent().parent().find(".editButtonModal").modal('toggle');
-            })
-            $(".removeButton").click(function(){
-
-              $(this).parent().parent().find(".removeButtonModal").modal('toggle');
-            })
-            $(".priorityButton").click(function(){
-
-              $(this).parent().parent().find(".priorityButtonModal").modal('toggle');
-            })
-        $(".submitForm").click(function(){
-             var form = new FormData();
-           $(this).parent().find('input').each(function(){
 
 
-
-                 if ($(this).attr('type') === 'file')
-                    {
-                      var image = $(this)[0].files[0];
-                      form.append('image', image);
-                    }
-                 else
-                    {
-                      var value = $(this).val();
-                      var name = $(this).attr('name');
-                      form.append(name, value);
-                    }
-
-           })
-            $.ajax({
-                    url: '/panel/setDataFromHome',
-                    data: form,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'POST',
-                    success:function(response) {
-                        alert("با موفقیت انجام شد");
-                    }
-                });
-        })
-    </script>
-</body>
-
-</html>
-
-
-@*<!DOCTYPE html>
-    <html lang="en">
-    @using greenEnergy.ViewModel;
-    @{
-        greenEnergy.ViewModel.getsectionLayoutVM layoutmodel = @ViewBag.layoutModel;
-        getlayoutPartVM menuPart = layoutmodel.LayoutParts.SingleOrDefault(x => x.title.ToLower() == "menu");
-    }
-    <head>
-        <title>Dylan | Responsive Multi-Purpose HTML Template</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="shortcut icon" href="/webAssets/NAGHAVI/images/favicon.png">
-        <link rel="stylesheet" href="/webAssets/NAGHAVI/css/bundle.css">
-        <link rel="stylesheet" href="/webAssets/NAGHAVI/css/hody-icons.css">
-        <link rel="stylesheet" href="/webAssets/NAGHAVI/css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Tangerine:400" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="/webAssets/NAGHAVI/css/lawyer-skin.css">
-        <link href="~/Content/font.css" rel="stylesheet" />
-        <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
-
-        @RenderSection("heading", required: false)
-
-        <script type="text/javascript" src="/webAssets/NAGHAVI/js/jquery.js"></script>
-
-
-    </head>
-
-    <body>
-        @if (Request.Cookies["adminToken"] != null)
-        {
-            <div class="modal addMenuDataModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" style="direction:rtl">
-                            <h5 class="modal-title">ویرایش</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="header-social">
+                            <a href="https://www.linkedin.com/company/%D8%B4%D8%B1%DA%A9%D8%AA-%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D9%88-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%DB%8C%D8%B3%DB%8C-%D8%B3%D9%88%D9%BE%DA%A9%D8%AA-supect?trk=blended-typeahead" target="_blank">
+                                <i class="button header-btn button-light elegant-icon social_linkedin d-flex"></i>
+                            </a>
                         </div>
-                        <form method="post" action="/panel/setLayoutPartData" enctype="multipart/form-data" style="direction:rtl; padding:20px">
-                            @Html.AntiForgeryToken()
-                            <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
-                            <input hidden name="pageurl" value="@ViewBag.url" />
-                            <input hidden name="fromHome" value="1" />
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                                <label class="form-label-title col-sm-12 mb-0">Title:</label>
-                                <div class="col-sm-10">
-                                    <input value=" " required type="text" id="" name="title" class="form-control col-md-7 col-xs-12">
 
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                                <label class="form-label-title col-sm-12 mb-0">Section Type:</label>
-                                <div class="col-sm-10">
-
-                                    <select name="dataType" class="form-control">
-                                        <option value="headerMenu">headerMenu</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-12 mb-0">یو ار ال:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="" name="url" class="form-control col-md-7 col-xs-12">
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-12 mb-0">یو ار ال تایتل:</label>
-                                <div class="col-sm-10">
-                                    <input required type="text" id="" name="urlTitle" class="form-control col-md-7 col-xs-12">
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-12 mb-0">اولویت:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="" name="priority" class="form-control col-md-7 col-xs-12">
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <label class="form-label-title col-sm-12 mb-0">پرنت:</label>
-                                <div class="col-sm-10">
-
-                                    @Html.DropDownList("parentID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "select parent", new { @class = "form-control", name = "parentID" })
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:none">
-                                <label class="form-label-title col-sm-12 mb-0">image  :</label>
-                                <div class="col-sm-10">
-                                    <input type="file" id="" name="image" class="form-control col-md-7 col-xs-12">
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
-                                <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
-                                    <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
-                                </div>
-                            </div>
-
-                        </form>
-
-
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="modal removeMenuDataModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" style="direction:rtl">
-                            <h5 class="modal-title">ویرایش</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="header-social">
+                            <a href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fsupect_official%2F&is_from_rle" target="_blank">
+                                <i class="button header-btn button-light elegant-icon social_instagram d-flex"></i>
+                            </a>
                         </div>
-                        <form action="/panel/removeLayoutpartData" method="post" enctype="multipart/form-data" style="direction:rtl;padding:25px">
-                            @Html.AntiForgeryToken()
-                            <input hidden name="layoutPartID" value="@menuPart.layoutPartID" />
-                            <input hidden name="pageurl" value="@ViewBag.url" />
-                            <input hidden name="fromHome" value="1" />
-                            <div class="col-lg-6 mb-4 row align-items-center" style="display:inline-block">
 
-                                <div class="col-sm-10">
 
-                                    @Html.DropDownList("layoutDataID", new SelectList(menuPart.LayoutDatas, "layoutDataID", "urlTitle"), "انتخاب آیتم", new { @class = "form-control", name = "parentID" })
+                        <div class="header-social">
+                            <a href="tel:">
+                                <i class="button header-btn button-light elegant-icon social_skype d-flex"></i>
+                            </a>
+                        </div>
 
+                        <div class="header-social">
+                            <a href="mailto:support@supect.com">
+                                <i class="button header-btn button-light fa fa-envelope d-flex"></i>
+                            </a>
+                        </div>
+
+
+
+
+                        @*<div class="header-search">
+                                <button type="button" aria-label="جستجو در سایت"
+                                        class="button header-btn header-search-btn button-light elegant-icon icon_search d-flex"></button>
+                                <div class="header-search-form-holder">
+                                    <form class="header-search-form">
+                                        <input value="" type="text" placeholder="جستجو در سایت" autocomplete="off">
+                                        <button type="submit" class="elegant-icon icon_search"
+                                                aria-label="جستجو در سایت"></button>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn ripple btn-primary" type="submit">تایید</button>
-                            </div>
-                        </form>
+                            </div>*@
+
+                        <div class="responsive-menu-button">
+                            <i class="responsive-menu-button-inner"></i>
+                        </div>
 
                     </div>
                 </div>
-            </div>
-        }
-        <div id="loader">
-            <div class="centrize">
-                <div class="v-center">
-                    <div id="mask">
-                        <span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <header class="dark-menu" id="topnav">
-            <div class="container">
-
-                <div class="logo">
-                    <a href="index.html">
-                        <img class="logo-light" src="/webAssets/NAGHAVI/images/logo_light.png" alt="">
-                        <img class="logo-dark" src="/webAssets/NAGHAVI/images/logo_dark.png" alt="">
-                    </a>
-                </div>
-
-                <div class="menu-extras">
-                    <div class="menu-item toggle-nav">
-
-                        <a class="menu-toggle" href="#">
-                            <div class="toggle-inner"></div>
-                        </a>
-
-                    </div>
-                </div>
-                <div class="right-aligned-menu" id="navigation">
-                    <ul class="navigation-menu nav">
-                        @if (Request.Cookies["adminToken"] != null)
-                        {
-
-                            <li>
-                                <img src="~/Images/plus-w.png" class="addMenuData" />
-                            </li>
-                            <li>
-                                <img src="~/Images/minus-w.png" class="removeMenuData" />
-                            </li>
-                        }
-                        @{
-
-                            foreach (var item in menuPart.LayoutDatas.Where(x => x.parentID == null).OrderByDescending(x => x.priority))
-                            {
-
-                                List<getlayoutDataVM> firstChilds = menuPart.LayoutDatas.Where(x => x.parentID == item.layoutDataID).OrderBy(x => x.priority).ToList();
-                                String dropdown = firstChilds.Count() > 0 ? "dropdown" : "";
-
-                                <li class="@dropdown">
-
-                                                                     @{
-                                        string furl = item.url == null ? "/" : item.url;
-                                        }
-
-                                        <a href="@furl">
-                                            <span class="qodef-menu-item-text">
-                                                @item.urlTitle
-                                            </span>
+            </header>
+        </section>
+        <!-- header END -->
+        <!-- mobile menu start -->
+        <section id="mobile-menu-content">
+            <div class="responsive-menu-overlay anti-radus"></div>
+            <div class="responsive-menu-outer-holder anti-radus">
+                <a class="responsive-logo" href=""
+                   title="رسانه تجارت سوپکت: خدمات دیجیتال مارکتینگ و تبلیغات اینترنتی">
+                    <img width="187" height="47" src="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/responsive-logo.png"
+                         alt="رسانه تجارت سوپکت: خدمات دیجیتال مارکتینگ و تبلیغات اینترنتی" />
+                </a>
+                <div class="responsive-menu-outer">
+                    <div class="responsive-menu-holder">
+                        <nav class="responsive-menu clearfix">
+                            <ul id="menu-main-menu-1" class="responsive-menu-inner">
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-264784 menu-item-level-0 anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href="">
+                                            <span>تولیداپلیکیشن موبایل</span><i class="menu-item-toggle-icon"></i>
                                         </a>
+                                    </div>
+                                    <ul class="sub-menu anti-radus">
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-264785 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Android">
+                                                    <span>
+                                                        اپلیکیشن
+                                                        اندروید
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264786 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/iOS">
+                                                    <span>
+                                                        اپلیکیشن
+                                                        iOS
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @*
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264787 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="#">
+                                                        <span>
+                                                            انتشار اپلیکیشن
+                                                            موبایل
+                                                        </span>
+                                                    </a>
+                                                </div>
 
-                                    </li>
+                                            </li>*@
+                                    </ul>
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264799 menu-item-level-0 anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href=" ">
+                                            <span>طراحی سایت</span><i class="menu-item-toggle-icon"></i>
+                                        </a>
+                                    </div>
+                                    <ul class="sub-menu anti-radus">
+                                        <li id="menu-item-73776"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-73776 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Corporateweb">
+                                                    طراحی سایت شرکتی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Ecommers">
+                                                    طراحی وب سایت فروشگاهی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/medicine">
+                                                    طراحی وب سایت پزشکی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/decoration">
+                                                    طراحی وب سایت دکوراسیون
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Repairshop">
+                                                    طراحی وب سایت تعمیرگاهی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/lawyer">
+                                                    طراحی وب سایت وکلا
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Home_appliance_repairs">
+                                                    طراحی وب سایت تعمیرات لوازم خانگی
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li id="menu-item-265382"
+                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                            <div class="menu-item-inner">
+                                                <a href="/Renovation_building">
+                                                    طراحی وب سایت بازسازی ساختمان
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @*<li id="menu-item-265382"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-265382 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="/Gearboxrepairshop">
+                                                        طراحی وب سایت تعمیرگاه گیربکس
+                                                    </a>
+                                                </div>
+                                            </li>*@
+                                    </ul>
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-283292 menu-item-level-0 anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href="/Seo">
+                                            <span>سئو</span><i class="menu-item-toggle-icon"></i>
+                                        </a>
+                                    </div>
+                                    @*<ul class="sub-menu">
+                                            <li class="menu-item menu-item-type-taxonomy menu-item-object-expert_skill menu-item-has-children menu-item-284068 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="../seo.html">
+                                                        <span>
+                                                            تحقیق کلمات
+                                                            کلیدی
+                                                        </span>
+                                                    </a>
+                                                </div>
 
-                                }
-                        }
+                                            </li>
+                                            <li class="menu-item menu-item-type-taxonomy menu-item-object-expert_skill menu-item-has-children menu-item-284072 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="../seo.html">
+                                                        <span>
+                                                            بهینه سازی و سئو
+                                                            داخلی
+                                                        </span>
+                                                    </a>
+                                                </div>
 
+                                            </li>
+                                            <li class="menu-item menu-item-type-taxonomy menu-item-object-expert_skill menu-item-has-children menu-item-284059 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="../seo.html">
+                                                        <span>
+                                                            لینک سازی و
+                                                            رپورتاژ
+                                                        </span>
+                                                    </a>
+                                                </div>
 
-                    </ul>
+                                            </li>
+                                            <li class="menu-item menu-item-type-taxonomy menu-item-object-expert_skill menu-item-has-children menu-item-284054 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="../seo.html">
+                                                        <span>
+                                                            تدوین استراتژی
+                                                            سایت
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                            </li>
+                                            <li class="menu-item menu-item-type-taxonomy menu-item-object-expert_skill menu-item-has-children menu-item-284065 menu-item-level-1">
+                                                <div class="menu-item-inner">
+                                                    <a href="../seo.html">
+                                                        <span>
+                                                            تحلیل وضعیت
+                                                            سئو
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                            </li>
+
+                                        </ul>*@
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-72806 menu-item-level-0 anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href="/Portfo"><span>نمونه کارها</span></a>
+                                    </div>
+
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1102 current_page_item current_page_parent menu-item-18930 menu-item-level-0 active anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href="/Blogs"><span>وبلاگ</span></a>
+                                    </div>
+                                </li>
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-264812 menu-item-level-0 anti-radus">
+                                    <div class="menu-item-inner">
+                                        <a href="#">
+                                            <span>تماس</span><i class="menu-item-toggle-icon"></i>
+                                        </a>
+                                    </div>
+                                    <ul class="sub-menu anti-radus">
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18929 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/About">
+                                                    <span>
+                                                        درباره
+                                                        ما
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18927 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Contact">
+                                                    <span>
+                                                        تماس با
+                                                        ما
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18927 menu-item-level-1 anti-radus">
+                                            <div class="menu-item-inner">
+                                                <a href="/Jobs">
+                                                    <span>
+                                                        همکاری با
+                                                        ما
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </header>
+            <div class="menu-empty-space"></div>
+
+        </section>
+        <!-- mobile menu END-->
+        @RenderSection("breadcrump", required: false)
+
+
 
         @RenderBody()
 
 
+        <!-- Footer START -->
 
+        <section id="footer-content">
 
+            <footer class="footer anti-radus">
+                <div class="kt-row">
+                    <div class="wrapper footer-responsive">
 
-        <footer id="footer-widgets">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7 ov-h">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>About Dylan</h5>
-                                    <div class="textwidget">
-                                        <p>
-                                            <span>350 5th Ave</span>
-                                            <br><span>New York, NY 10118</span>
-                                            <br><span>hello@dylan.co</span>
-                                        </p>
-                                        <h5>+1 301-736-4321</h5>
-                                        <p>
-                                            <a class="mt-15 btn btn-color btn-sm" href="#">Contact Us</a>
-                                        </p>
+                        <div class="column kt-col-lg-3 kt-col-sm-5 kt-col-xs-12" style="width:40%;">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <img width="40" height="52"
+                                         src="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/footer-logo.png" alt="سوپکت">
+                                </div>
+                                <h2 class="footer-title text-white">سوپکت دوست دیجیتال شما</h2>
+                                <div class="footer-contact-items">
+                                    <div class="footer-contact-item">
+                                        <i class="footer-contact-item-icon fa fa-map-marker"></i>
+                                        <span class="footer-contact-item-text">تهران - میرداماد - پلاک 125 - واحد 4</span>
+                                    </div>
+                                    <div class="footer-contact-item">
+                                        <i class="footer-contact-item-icon fa fa-phone"></i>
+                                        <span class="footer-contact-item-text">
+                                            021-91017049
+                                        </span>
+                                    </div>
+                                    <div class="footer-contact-item">
+                                        <i class="footer-contact-item-icon fa fa-at"></i>
+                                        <span class="footer-contact-item-text">info@supect.com</span>
                                     </div>
                                 </div>
+                                <div class="btn-responsive">
+                                    <a href="/About" class="button button-dark btn-responsive-2">درباره ما</a>
+                                    <a href="/Contact" class="button button-dark">تماس با ما</a>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>The Company</h5>
-                                    <div class="menu-footer-1-container">
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">Who We Are</a>
+                        </div>
+
+                        <div class="column kt-col-lg-4 kt-col-xs-12" style="width:60%;">
+                            <div class="kt-row">
+                                <div class="footer-widget column kt-col-lg-12 kt-col-sm-5 kt-col-xs-12" style="margin-top:73px;">
+                                    <h3 class="footer-title text-white">خدمات و دسترسی ها</h3>
+
+                                    <div class="menu-%d8%af%d8%b3%d8%aa%d8%b1%d8%b3%db%8c-%d9%87%d8%a7-container">
+                                        <ul id="menu-%d8%af%d8%b3%d8%aa%d8%b1%d8%b3%db%8c-%d9%87%d8%a7"
+                                            class="footer-list clearfix two-columns">
+                                            <li id="menu-item-262957"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-262957">
+                                                <a href="/Web">طراحی وب سایت</a>
                                             </li>
-                                            <li>
-                                                <a href="#">Services</a>
+                                            <li id="menu-item-262959"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-262959">
+                                                <a href="/iOS">طراحی اپلیکیشن iOS</a>
                                             </li>
-                                            <li>
-                                                <a href="#">Careers</a>
+                                            <li id="menu-item-262961"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-262961">
+                                                <a href="/Android">طراحی اپلیکشن اندروید</a>
                                             </li>
-                                            <li>
-                                                <a href="#">Culture</a>
+                                            <li id="menu-item-262962"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-262962">
+                                                <a href="/Portfo">نمونه کارها</a>
                                             </li>
-                                            <li>
-                                                <a href="#">Contact</a>
+                                            <li id="menu-item-21998"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21998">
+                                                <a href="/Blogs">بلاگ</a>
                                             </li>
+                                            <li id="menu-item-262860"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-262860">
+                                                <a href="/Jobs">همکاری با ما</a>
+                                            </li>
+                                            @*
+                                                <li id="menu-item-33049"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33049">
+                                                    <a href="">تبلیغات در سوپکت</a>
+                                                </li>
+                                                <li id="menu-item-33050"
+                                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33050">
+                                                    <a href="">قوانین و مقررات</a>
+                                                </li>*@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="widget clearfix">
-                                    <h5>Recent Posts</h5>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Minimum Viable DevOps</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">How to Get What You Want</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Answering Everything</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Startup Rules</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Email Can Wait</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-1">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="widget clearfix">
-                                    <h5>Get Our Newsletter</h5>
-                                    <div class="footer-newsletter">
-                                        <p class="serif">Sign Up to get the latest updates.</p>
-                                        <form class="newsletter-form" data-mailchimp="true" data-url="http://hody.us12.list-manage.com/subscribe/post?u=d9d1052c1b2ba81576842a9fb&amp;id=c70c5d0c82">
-                                            <div class="input-group">
-                                                <input class="form-control" type="email" name="EMAIL" placeholder="Email"><span class="input-group-btn"><button class="btn newsletter-btn" type="submit">Subscribe</button></span>
-                                            </div>
-                                        </form>
+                                <div class="footer-widget column kt-col-lg-12 kt-col-sm-7 kt-col-xs-12">
+                                    <div class="footer-title-outer footer-outer-responsive ">
+                                        <h3 class="footer-title text-white footer-responsive-2">با ما همراه باشید</h3>
+                                        <div class="footer-social-icons">
+                                            <a href="" class="fa fa-send"></a>
+                                            <a href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fsupect_official%2F&is_from_rle" class="fa fa-instagram"></a>
+                                            <a href="https://www.linkedin.com/company/%D8%B4%D8%B1%DA%A9%D8%AA-%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D9%88-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%DB%8C%D8%B3%DB%8C-%D8%B3%D9%88%D9%BE%DA%A9%D8%AA-supect?trk=blended-typeahead" class="fa fa-linkedin"></a>
+                                            <a href="" class="aparat-icon">
+                                                <svg xmlns="" viewBox="0 0 68.3 68.3">
+                                                    <path d="M29.5 2L23.3.4c-5.6-1.5-11.5 1.8-13 7.4v.1l-1.6 5.9C13.8 7.4 21.3 3.1 29.5 2zM1.9 39.3L.4 45.1C-1.1 50.7 2.3 56.5 7.9 58l6 1.6c-6.4-5-10.7-12.2-12-20.3zm58.6-29.1l-6.7-1.8c6.9 5.3 11.3 13.1 12.4 21.7l1.9-7c1.3-5.6-2-11.3-7.6-12.9zM38.7 66.3l6.4 1.7c5.6 1.5 11.4-1.9 12.9-7.5l1.8-6.8c-5 6.8-12.7 11.3-21.1 12.6z"
+                                                          class="st0" />
+                                                    <path d="M34.2 4.5C17.8 4.5 4.5 17.8 4.5 34.2s13.3 29.6 29.6 29.6 29.6-13.3 29.6-29.6S50.5 4.5 34.2 4.5zM17.4 19.3c.9-4.6 5.3-7.6 9.9-6.7 4.6.9 7.6 5.3 6.7 9.9-.9 4.6-5.3 7.6-9.9 6.7-4.6-.9-7.6-5.3-6.7-9.9zm12.3 25.6c-.9 4.6-5.3 7.6-9.9 6.7-4.6-.9-7.6-5.3-6.7-9.9.9-4.6 5.3-7.6 9.9-6.7 4.6.9 7.6 5.3 6.7 9.9zm3.6-6.8c-2-.4-3.4-2.4-3-4.4.4-2 2.4-3.4 4.4-3 2 .4 3.4 2.4 3 4.4-.4 2-2.3 3.4-4.4 3zM50.9 49c-.9 4.6-5.3 7.6-9.9 6.7s-7.6-5.3-6.7-9.9 5.3-7.6 9.9-6.7c4.6.9 7.6 5.3 6.7 9.9zm-5.6-15.7c-4.6-.9-7.6-5.3-6.7-9.9s5.3-7.6 9.9-6.7c4.6.9 7.6 5.3 6.7 9.9-.8 4.6-5.3 7.6-9.9 6.7z"
+                                                          class="st0" />
+                                                </svg>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="widget clearfix">
-                                    <h5>Follow Us</h5>
-                                    <ul class="social-list">
-                                        <li class="social-item-facebook">
-                                            <a target="_blank" href="#"><i class="hc-facebook"></i></a>
-                                        </li>
-                                        <li class="social-item-twitter">
-                                            <a target="_blank" href="#"><i class="hc-twitter"></i></a>
-                                        </li>
-                                        <li class="social-item-instagram">
-                                            <a target="_blank" href="#"><i class="hc-instagram"></i></a>
-                                        </li>
-                                        <li class="social-item-dribbble">
-                                            <a target="_blank" href="#"><i class="hc-dribbble"></i></a>
-                                        </li>
-                                        <li class="social-item-youtube">
-                                            <a target="_blank" href="#"><i class="hc-youtube"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-        <footer id="footer">
-            <div class="container">
-                <div class="copy-text">
-                    <p>© 2016 Dylan. All rights reserved.</p>
+                <div class="footer-bottom clearfix anti-radus">
+                    <div class="wrapper">
+                        <!-- <div class="footer-logos">
+                            <img width="125" height="136" src="~/webAssets/supect/Assets/wp-content/uploads/2021/06/logo.png" alt=""
+                                onclick="window.open(&quot;https://trustseal.enamad.ir/Verify.aspx?id=88618&amp;p=eIiKsB7Zh5gBwfcE&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)"
+                                style="cursor:pointer" id="eIiKsB7Zh5gBwfcE">
+                            <img width="150" height="150" id='jxlzesgtesgtnbqeesgtesgtnbqe' style='cursor:pointer'
+                                onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=1002002&amp;p=rfthobpdobpduiwkobpdobpduiwk", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
+                                alt='logo-samandehi' src='~/webAssets/supect/Assets/wp-content/uploads/2021/06/logo-samandehi.png' />
+                        </div> -->
+                        <div class="copyright">
+                            تمامی حقوق مادی و معنوی این وبسایت متعلق به
+                            <a href="">سوپکت</a> می باشد
+                            و
+                            هر گونه کپی برداری پیگرد قانونی دارد.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <!-- Footer END -->
+
+        <div class="fixed-contact-button">
+            <a href="#" class="elegant-icon icon_phone kt-modal-button" data-modal="contact"></a>
+            <div class="tooltip">درخواست مشاوره رایگان</div>
+        </div>
+
+        <!-- registration form -->
+
+        <section id="Authentication-content">
+
+            <div class="kt-modal-outer-holder" style="background-image:url('/webAssets/supect/Assets/wp-content/uploads/2020/01/support-1.jpg');border-radius:initial;">
+                <div class="kt-modal-overlay"></div>
+                <div class="wrapper">
+                    <div class="kt-modal-holder">
+                        <div class="kt-modal-transparent-overlay"></div>
+                        <div class="kt-modal-inner kt-contact-modal">
+                            <i class="kt-modal-close"></i>
+                            <div class="kt-modal-content">
+                                <div class="consultation-top">
+                                    <div class="consultation-logo">
+                                        <img width="92" height="119" class="logo"
+                                             src="~/webAssets/supect/Assets/wp-content/themes/supect-1/images/logo.png"
+                                             style="border-radius:initial"
+                                             alt="سوپکت: خدمات بازاریابی و تبلیغات اینترنتی" />
+                                    </div>
+                                </div>
+                                <div class="consultation-content">
+                                    <h2 class="text-xl font-weight-bold text-secondary">
+                                        سوپکت دوست دیجیتال شما
+                                    </h2>
+                                    <div class="text-xs text-muted mt-4">
+                                        برای مشاوره، فرم را تکمیل کنید.
+                                    </div>
+
+                                    <form class="consultation-form text-right" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+                                        <div class="kt-form-errors">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="consultation-name"
+                                                   class="text-xs text-dark d-block mb-4">
+                                                نام
+                                                و
+                                                نام
+                                                خانوادگی <span class="text-red">*</span>
+                                            </label>
+                                            <input type="text" name="name" class="py-10" id="SenderName" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="consultation-phone"
+                                                   class="text-xs text-dark d-block mb-4">
+                                                تلفن
+                                                همراه
+                                                <span class="text-red">*</span>
+                                            </label>
+                                            <input type="text" name="phone" class="py-10" id="consultation-phone" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="consultation-name"
+                                                   class="text-xs text-dark d-block mb-4">
+                                                توضیحات
+                                                <span class="text-red">*</span>
+                                            </label>
+                                            <input type="text" name="message" class="py-10" id="consultation-name" style="height:133px" required />
+                                        </div>
+                                        <button class="button button-default kt-ajax-button w-100">
+                                            ثبت
+                                            درخواست
+                                            مشاوره
+                                        </button>
+                                    </form>
+                                    <div class="consultation-phone">
+                                        <span>
+                                            تماس با کارشناسان
+                                            ما:
+                                        </span>
+                                        <a href="tel:+982191017049">
+                                            021-91017049
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <button id="register-close" class="close-btn" onclick="window.close('Authentication-content')" style="color: white; font-weight: bold; background: rgb(105, 85, 255);z-index:2; position: relative; bottom: 728px; left: 23rem;">X</button>
+
+                            </div>
+
+                        </div>
+
+                        @*<div class="kt-modal-inner kt-login-modal">
+                                <i class="kt-modal-close"></i>
+                                <div class="kt-modal-content">
+                                    <div class="tabs tabs-style2 align-right kt-modal-tabs" id="tabs-64e5dcf5b67b0">
+                                        <ul class="tabs-title-holder">
+                                            <li class="tab-title" data-tab-id="tab-64e5dcf5b67c6">
+                                                <h4 class="tab-title-inner">
+                                                    ورود
+                                                </h4>
+                                            </li>
+                                            <li class="tab-title" data-tab-id="tab-64e5dcf5b67cc">
+                                                <h4 class="tab-title-inner">
+                                                    عضویت
+                                                </h4>
+                                            </li>
+                                        </ul>
+                                        <div class="tabs-content-holder">
+                                            <div class="tabs-content-inner">
+                                                <div class="tab-content tab-64e5dcf5b67c6">
+                                                    <div class="tab-content-inner">
+                                                        <div class="login-form">
+                                                            <form class="kt-login-form clearfix" method="post">
+                                                                <div class="kt-form-errors">
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <input type="text" name="username"
+                                                                               placeholder="شماره موبایل یا پست الکترونیکی">
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <div class="kt-login-password-holder">
+                                                                            <input type="password" name="password"
+                                                                                   placeholder="کلمه عبور">
+                                                                            <button type="button"
+                                                                                    class="button button-default button-transparent px-15 pt-2 pb-0 text-3xs d-flex align-items-center"
+                                                                                    id="reset-password-btn"
+                                                                                    tabindex="-1">
+                                                                                فراموشی
+                                                                                رمز
+                                                                                عبور
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <div class="d-flex align-items-center justify-content-between">
+                                                                            <input type="checkbox"
+                                                                                   class="kt-login-remember"
+                                                                                   name="kt-login-remember"
+                                                                                   id="kt-login-remember" /><label class="kt-login-remember-label"
+                                                                                                                   for="kt-login-remember">
+                                                                                مرا
+                                                                                به
+                                                                                خاطر
+                                                                                بسپار
+                                                                            </label>
+                                                                            <button type="submit"
+                                                                                    class="button kt-ajax-button button-default">
+                                                                                ورود
+                                                                                به
+                                                                                سایت
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="kt-reset-password-form" method="post">
+                                                                <div class="kt-form-errors">
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <input type="tel" class="text-center dir-ltr"
+                                                                               name="mobile"
+                                                                               placeholder="شماره موبایل خود را وارد نمایید">
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-6">
+                                                                        <button type="button"
+                                                                                class="button button-light w-100"
+                                                                                id="reset-password-back">
+                                                                            بازگشت
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-6">
+                                                                        <button type="submit"
+                                                                                class="button button-green kt-ajax-button w-100">
+                                                                            ارسال
+                                                                            کد
+                                                                            تایید
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <form class="kt-change-password-form" method="post">
+                                                                <div class="kt-form-errors">
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <input type="number" inputmode="numeric"
+                                                                               pattern="[0-9]*"
+                                                                               autocomplete="one-time-code"
+                                                                               name="verification_code"
+                                                                               placeholder="کد تایید تغییر کلمه عبور">
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-12">
+                                                                        <input type="password" name="password"
+                                                                               placeholder="کلمه عبور جدید">
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-6">
+                                                                        <button type="button"
+                                                                                class="button button-light w-100"
+                                                                                id="change-password-back">
+                                                                            بازگشت
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="column kt-col-xs-6">
+                                                                        <button type="submit"
+                                                                                class="button button-green kt-ajax-button w-100">
+                                                                            تغییر
+                                                                            رمز
+                                                                            عبور
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button"
+                                                                        class="button button-transparent kt-ajax-button text-xxs button-default text-default w-100 pb-4 pt-8 mt-8"
+                                                                        id="reset-password-again">
+                                                                    کد
+                                                                    تایید را
+                                                                    دریافت
+                                                                    نکردید؟
+                                                                    ارسال
+                                                                    مجدد
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-content tab-64e5dcf5b67cc">
+                                                    <div class="tab-content-inner">
+                                                        <div class="register-form">
+                                                            <form class="kt-register-form"
+                                                                  action="https://www.supect.com/" method="post">
+                                                                <div class="kt-form-errors">
+                                                                </div>
+                                                                <div class="mb-12">
+                                                                    <input type="text" name="name"
+                                                                           placeholder="نام و نام خانوادگی">
+                                                                </div>
+                                                                <div class="mb-12">
+                                                                    <input type="tel" name="mobile"
+                                                                           placeholder="شماره موبایل (جهت ارسال کد فعالسازی)">
+                                                                </div>
+                                                                <div class="mb-12">
+                                                                    <input type="password" name="password"
+                                                                           placeholder="رمز عبور">
+                                                                </div>
+                                                                <button class="button kt-ajax-button button-default w-100">
+                                                                    عضویت
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
                 </div>
             </div>
-        </footer>
 
-        <script type="text/javascript" src="/webAssets/NAGHAVI/js/bundle.js"></script>
-        <script type="text/javascript" src="/webAssets/NAGHAVI/js/SmoothScroll.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNGOsBBZo9vf0Tw4w6aJiilSTFVfQ5GPI"></script>
-        <script type="text/javascript" src="/webAssets/NAGHAVI/js/main.js"></script>
-        @RenderSection("scripts", required: false)
-        <script>
-            $(".close").click(function(){
-              $(this).closest('.modal').modal('toggle');
-            })
+        </section>
 
-            $(".addMenuData").click(function(){
+        <!-- registration form-->
 
-              $(".addMenuDataModal").modal('toggle');
-            })
-            $(".removeMenuData").click(function(){
-
-              $(".removeMenuDataModal").modal('toggle');
-            })
-
-            $(".childButton").click(function(){
-
-              $(this).parent().parent().find(".childButtonModal").modal('toggle');
-            })
-            $(".editButton").click(function(){
-
-              $(this).parent().parent().find(".editButtonModal").modal('toggle');
-            })
-            $(".removeButton").click(function(){
-
-              $(this).parent().parent().find(".removeButtonModal").modal('toggle');
-            })
-            $(".priorityButton").click(function(){
-
-              $(this).parent().parent().find(".priorityButtonModal").modal('toggle');
-            })
-        $(".submitForm").click(function(){
-             var form = new FormData();
-           $(this).parent().find('input').each(function(){
+    </div>
 
 
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-includes/js/comment-reply.minf801.js?ver=6.3' id='comment-reply-js'></script>
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/themes/supect-1/static/js/html5.js' id='kt-html5-js'></script>
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/themes/supect-1/static/js/perfect-scrollbar.min.js'
+            id='kt-perfect-scrollbar-js'></script>
 
-                 if ($(this).attr('type') === 'file')
-                    {
-                      var image = $(this)[0].files[0];
-                      form.append('image', image);
-                    }
-                 else
-                    {
-                      var value = $(this).val();
-                      var name = $(this).attr('name');
-                      form.append(name, value);
-                    }
-
-           })
-            $.ajax({
-                    url: '/panel/setDataFromHome',
-                    data: form,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'POST',
-                    success:function(response) {
-                        alert("با موفقیت انجام شد");
-                    }
-                });
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/themes/supect-1/assets/app.js' id='kt-default-js'></script>
+    <script type='text/javascript'
+            src='~/webAssets/supect/Assets/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min24b2.js?ver=5.5.5'
+            id='wpb_composer_front_js-js'></script>
+    <script type='text/javascript' src='~/webAssets/supect/Assets/wp-content/themes/supect-1/static/js/slick.min.js' id='kt-slick-js'></script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/Scripts/wow.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+        // This tween will rotate an element with a class of .my-element
+        gsap.to('.my-element', {
+            rotation: 360,
+            duration: 2,
+            ease: 'bounce.out'
         })
-        </script>
-    </body>
+    </script>
+    <script>
+        wow = new WOW(
+            {
+                boxClass: 'wow',      // default
+                animateClass: 'animated', // default
+                offset: 0,          // default
+                mobile: true,       // default
+                live: true        // default
+            }
+        )
+        wow.init();
+        $(".breadItem").click(function () {
+            var idToGo = $(this).attr('idTogo');
+            document.querySelector('#' + idToGo).scrollIntoView({
+                behavior: 'smooth'
+            });
+        })
+    </script>
 
-    </html>*@
+    <script>
+        $(".close").click(function(){
+          $(this).closest('.modal').modal('toggle');
+        })
+
+        $(".addMenuData").click(function(){
+
+          $(".addMenuDataModal").modal('toggle');
+        })
+        $(".removeMenuData").click(function(){
+
+          $(".removeMenuDataModal").modal('toggle');
+        })
+
+        $(".childButton").click(function(){
+
+          $(this).parent().parent().find(".childButtonModal").modal('toggle');
+        })
+        $(".editButton").click(function(){
+
+          $(this).parent().parent().find(".editButtonModal").modal('toggle');
+        })
+        $(".removeButton").click(function(){
+
+          $(this).parent().parent().find(".removeButtonModal").modal('toggle');
+        })
+        $(".priorityButton").click(function(){
+
+          $(this).parent().parent().find(".priorityButtonModal").modal('toggle');
+        })
+    $(".submitForm").click(function(){
+         var form = new FormData();
+       $(this).parent().find('input').each(function(){
+
+
+
+             if ($(this).attr('type') === 'file')
+                {
+                  var image = $(this)[0].files[0];
+                  form.append('image', image);
+                }
+             else
+                {
+                  var value = $(this).val();
+                  var name = $(this).attr('name');
+                  form.append(name, value);
+                }
+
+       })
+        $.ajax({
+                url: '/panel/setDataFromHome',
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success:function(response) {
+                    alert("با موفقیت انجام شد");
+                }
+            });
+    })
+    </script>
+</body>
+
+</html>

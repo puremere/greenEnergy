@@ -1,0 +1,33 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/themes/supect-1/images/logo.png";
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "اگر دوست داری یک وب سایت پزشکی داشته باشی";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "همین الان درخواستتو ثبت کن تا کارشناسان ما باهاتون تماس بگیرن";
+    string buttonTitle = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 : "الان به مشاور وصل شو";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "tel:+982191017049";
+
+
+}
+
+
+<section id="banner-2" class="margin-bottom-section">
+    <div data-wow-duration="1.5s" class="wow fadeInUp kt-cta kt-cta-light web-banner-1">
+        <img width="80" height="80" alt="" src="@image">
+        <div class="kt-cta-inner">
+            <h4>@title</h4>
+            <div class="kt-cta-text">@description </div>
+
+        </div>
+        <a href="@buttonURL" class="button button-orange" style="background:#6955ff ;">@buttonTitle</a>
+    </div>
+</section>

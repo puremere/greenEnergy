@@ -1,0 +1,24 @@
+.elementor-84380 .elementor-element.elementor-element-84380 .elementor-posts-container .elementor-post__thumbnail{padding-bottom:calc( 1 * 100% );}.elementor-84380 .elementor-element.elementor-element-84380:after{content:"1";}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__thumbnail__link{width:60px;}.elementor-84380 .elementor-element.elementor-element-84380{--grid-column-gap:10px;--grid-row-gap:10px;}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post{border-style:solid;border-width:0px 0px 0px 0px;border-radius:4px;padding:16px 16px 16px 16px;background-color:#F7F7F7;}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__text{padding:0px 0px 0px 0px;}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__thumbnail{border-radius:100px 100px 100px 100px;}.elementor-84380 .elementor-element.elementor-element-84380.elementor-posts--thumbnail-left .elementor-post__thumbnail__link{margin-right:20px;}.elementor-84380 .elementor-element.elementor-element-84380.elementor-posts--thumbnail-right .elementor-post__thumbnail__link{margin-left:20px;}.elementor-84380 .elementor-element.elementor-element-84380.elementor-posts--thumbnail-top .elementor-post__thumbnail__link{margin-bottom:20px;}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__title, .elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__title a{color:#4F4F4F;}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__title{margin-bottom:0px;}.elementor-84380 .elementor-element.elementor-element-84380 > .elementor-widget-container{margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;}@media(max-width:1024px){.elementor-84380 .elementor-element.elementor-element-84380 .elementor-posts-container .elementor-post__thumbnail{padding-bottom:calc( 0.8 * 100% );}.elementor-84380 .elementor-element.elementor-element-84380:after{content:"0.8";}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__thumbnail__link{width:45%;}}@media(max-width:767px){.elementor-84380 .elementor-element.elementor-element-84380 .elementor-posts-container .elementor-post__thumbnail{padding-bottom:calc( 1.75 * 100% );}.elementor-84380 .elementor-element.elementor-element-84380:after{content:"1.75";}.elementor-84380 .elementor-element.elementor-element-84380 .elementor-post__thumbnail__link{width:35%;}}/* Start custom CSS for posts, class: .elementor-element-84380 */.blog-archive2 .elementor-post__text {
+    text-align: right;
+}
+.blog-archive2 .elementor-post__title a {
+    font-size: 16px !important;
+    font-family:iransansx;
+    font-weight: 400;
+    
+}
+.blog-archive2 .elementor-post__thumbnail .elementor-fit-height img {
+    height: auto;
+    width: auto;
+}
+.blog-archive2 .elementor-post__text {
+    text-align: center;
+    align-items: center !important;
+    display: flex;
+}
+.blog-archive2 .elementor-post__title a::before {
+    color:#9d01eb;
+    content: 'حتما بخوانید:';
+    font-weight:bold;
+    
+}/* End custom CSS */

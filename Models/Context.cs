@@ -16,13 +16,14 @@ namespace greenEnergy.Model // اینجا عوض شه
     class Context : DbContext
     {
 
-        public Context() : base("TailorIggDynamic") // NfcDb green2
+
+        public Context() : base("supect") // NfcDb green2
         {
             // اینجا عوض شه
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
-            //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
-        }
+            //conDatabase.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
 
+       }
 
 
         public DbSet<roleNavURL> roleNavURLs { get; set; }
@@ -506,10 +507,6 @@ namespace greenEnergy.Model // اینجا عوض شه
         public string cycleFields { get; set; }
         public string cycleFormItem { get; set; }
         public string stackWeight { get; set; }
-
-
-
-
 
         public string? formID { get; set; }
         //[ForeignKey("formID")]

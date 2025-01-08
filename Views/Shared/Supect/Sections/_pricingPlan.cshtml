@@ -1,0 +1,67 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "پلن‌های قیمت‌گذاری طراحی سایت";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "پلن پایه";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : " پلن پایه و نوبت دهی";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "پلن تخصصی";
+
+    string desc1 = Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc1").title2 : "شروع از 25 میلیون تومان";
+    string desc2 = Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc2").title2 : "شروع از 35 میلیون تومان";
+    string desc3 = Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "desc3").title2 : "قیمت توافقی";
+
+    string btnTitle1 = Model.dataList.SingleOrDefault(x => x.title == "btnTitle1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnTitle1").title2 : "ثبت سفارش";
+    string btnTitle2 = Model.dataList.SingleOrDefault(x => x.title == "btnTitle2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnTitle2").title2 : "ثبت سفارش";
+    string btnTitle3 = Model.dataList.SingleOrDefault(x => x.title == "btnTitle3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnTitle3").title2 : "ثبت سفارش";
+
+    string btnURL1 = Model.dataList.SingleOrDefault(x => x.title == "btnURL1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnURL1").title2 : "../../contact-us";
+    string btnURL2 = Model.dataList.SingleOrDefault(x => x.title == "btnURL2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnURL2").title2 : "../../contact-us";
+    string btnURL3 = Model.dataList.SingleOrDefault(x => x.title == "btnURL3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "btnURL3").title2 : "../../contact-us";
+
+
+
+}
+
+
+
+
+
+<section id="dr-pricing-plan">
+    <h1>section 16 simple description</h1>
+    <h2 class="margin-bottom-section" style="text-align:center;margin-top:50px;">@header</h2>
+    <div class="pricing-container margin-bottom-section">
+        <div class="price-style-box">
+            <div class="pricing-plan">
+                <h2>@title1</h2>
+                <div class="price">@desc1</div>
+
+                <a href="@btnURL1" target="_self" class="button button-default kt-modal-button" data-modal="contact">@btnTitle1</a>
+            </div>
+            <div class="pricing-plan">
+                <h4>@title2 </h4>
+                <div class="price">@desc2</div>
+
+                <a href="@btnURL2" target="_self" class="button button-default kt-modal-button" data-modal="contact">@btnTitle2</a>
+            </div>
+            <div class="pricing-plan">
+                <h2>@title3</h2>
+                <div class="price">@desc3</div><br>
+
+                <a href="@btnURL3" target="_self" class="button button-default kt-modal-button" data-modal="contact">@btnTitle3</a>
+            </div>
+
+        </div>
+    </div>
+
+</section>

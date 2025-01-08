@@ -1,0 +1,56 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "«در سوپکت، ما همواره در کنار شما هستیم تا در هر مرحله از مسیر دیجیتال،بهترین همراه شما باشیم.»";
+    string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2 : "همراه ما باشید!";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "/Home/Contact";
+
+}
+
+
+
+<section id="about-banner">
+    <div class="vc_row section vc_row-fluid" id="row-64e554554e568">
+        <div class="row-inner clearfix row-background-image"
+             style="background-color:#41a9dc;background-image:url();background-position:left bottom;background-repeat:no-repeat">
+            <div class="row-outer-holder" style="padding-top:50px;padding-bottom:50px">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-center">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="wpb_text_column wpb_content_element ">
+                                        <div class="wpb_wrapper">
+                                            <p style="display: inline-block;">
+                                                <span style="color: #ffffff; font-size: 16px;">
+                                                    @description
+                                                </span>
+                                            </p>
+                                            <p style="display: inline-block;"></p>
+                                            <div class="button-holder button-inline">
+                                                <a href="@buttonURL" target="_self"
+                                                   class="button button-white" style="margin-right:15px">
+                                                    @buttonText
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

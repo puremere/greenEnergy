@@ -1,0 +1,123 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    //string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    //styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    //string finalStyle = "";
+    //if (!string.IsNullOrEmpty(style))
+    //{
+    //    finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    //}
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/uploads/2017/05/بنر-مین-پزشکی-1.jpg";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "طراحی وبسایت پزشکی حرفه‌ای با سوپکت راهکاری نوین برای ارتقای کلینیک و مطب شما";
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "Decades of Experience in the Field.";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " در دنیای دیجیتال امروز، داشتن یک وبسایت حرفه‌ای و کارآمد برای هر پزشک و کلینیکی ضروری است. شرکت سوپکت با سال‌ها تجربه در طراحی وبسایت‌های تخصصی، به شما کمک می‌کند تا حضور آنلاین خود را به بهترین شکل ممکن ارتقا دهید. ما در سوپکت به اهمیت ایجاد تجربه‌ای کاربرپسند برای بیماران و مخاطبان شما واقفیم.";
+    string buttonText1 = Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 : "مشاوره رایگان";
+    string buttonText2 = Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 : "ثبت سفارش";
+    string requestTitle = Model.dataList.SingleOrDefault(x => x.title == "requestTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "requestTitle").title2 : "تماس با کارشناسان سوپکت";
+    string buttonTitle = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 : "تماس با کارشناسان سوپکت";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "tel:+982191017049";
+
+
+
+
+
+
+
+}
+
+
+
+    <section data-lag="0.5" id="main-baner" class="">
+        <div class="row-outer-holder margin-bottom-section" style="padding-top:50px;">
+            <div class="wrapper margin-bottom-section">
+                <div class="row-inner-holder align-right">
+                    <div class="wpb_column vc_column_container column-content-middle vc_col-sm-12">
+                        <div class="vc_column-inner ">
+                            <div class="wpb_wrapper">
+                                <div class="vc_row vc_inner section vc_row-fluid flex-row-reverse"
+                                     id="row-64e553cc7359d">
+                                    <div class="row-inner clearfix row-background-transparent">
+                                        <div class="row-outer-holder" style="padding-bottom:25px">
+                                            <div class="wrapper">
+                                                <div class="row-inner-holder align-right">
+                                                    <div data-wow-duration="1.8s" class="wow fadeInUp academy-free-ebooks wpb_column vc_column_container vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+                                                        <div class="vc_column-inner ">
+                                                            <div class="wpb_wrapper">
+                                                                <div class="wpb_single_image wpb_content_element vc_align_left responsive-style">
+
+                                                                    <figure class="wpb_wrapper vc_figure">
+                                                                        <div class="vc_single_image-wrapper   vc_box_border_grey">
+                                                                            <img width="600" height="405"
+                                                                                 src="@baseImage"
+                                                                                 class="vc_single_image-img attachment-full"
+                                                                                 alt="   " decoding="async"
+                                                                                 fetchpriority="high"
+                                                                                 sizes="(max-width: 600px) 100vw, 600px">
+                                                                        </div>
+                                                                    </figure>
+                                                                </div>
+                                                                <div class="vc_empty_space" style="height: 35px">
+                                                                    <span class="vc_empty_space_inner"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-wow-duration="1.7s" class="wow fadeInUp center-in-tablet academy-category-hero-inner wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+                                                        <div class="vc_column-inner ">
+                                                            <div class="wpb_wrapper">
+                                                                <div class="custom-heading-holder align-right section-title center-in-tablet">
+                                                                    <h1 class="custom-heading">
+                                                                        @header
+                                                                    </h1>
+                                                                </div>
+                                                                <div class="vc_empty_space" style="height: 10px">
+                                                                    <span class="vc_empty_space_inner"></span>
+                                                                </div>
+                                                                <div class="custom-heading-holder align-right section-subtitle center-in-tablet">
+                                                                    <p class="custom-heading text-responsive"
+                                                                       style="text-align: justify;line-height: 40px;">
+                                                                                                 @description                        <br />
+
+
+                                                                    </p>
+                                                                </div>
+                                                                <div class="vc_empty_space" style="height: 20px">
+                                                                    <span class="vc_empty_space_inner"></span>
+                                                                </div>
+
+                                                                <div class="hero-buttons">
+                                                                    <div class="btn-style">
+                                                                        <i class="button button-default kt-modal-button" data-modal="contact">@buttonText1</i>
+                                                                        <i class="button button-gray kt-modal-button" data-modal="contact">@buttonText2</i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="wpb_raw_code wpb_content_element wpb_raw_html">
+                                                                    <div class="wpb_wrapper">
+                                                                        <div class="page-header-phone">
+                                                                            <i class="elegant-icon icon_phone"></i>
+                                                                            <span>
+                                                                                @requestTitle
+                                                                            </span>
+                                                                            <a href="@buttonURL">@buttonTitle</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,91 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string imageIcon1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/supect/Assets/wp-content/themes/supect-1/images/google-partner.png";
+    string imageIcon2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/Assets/wp-content/themes/supect-1/images/iwmf.png";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سوپکت دوست دیجیتال شما";
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "با خیالی آسوده کسب و کار خود را به ما بسپارید.";
+
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " سوپکت با تیمی از کارشناسان با تجربه و آشنایی با آخرین روندها در حوزه فناوری، به شما راه‌کارهایی متنوع ارائه می‌دهد. از توسعه اپلیکیشن‌های موبایل گرفته تا طراحی وب‌سایت‌های جذاب، ما با شما همراه خواهیم بود تا به بهترین شکل ممکن در دنیای دیجیتال دیده شوید";
+
+    string buttonText1 = Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText1").title2 : "درخواست مشاوره";
+    string buttonText2 = Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonText2").title2 : "021-91017049";
+    string buttonURL = Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "tel:+982191017049";
+
+    string cardTitle1 = Model.dataList.SingleOrDefault(x => x.title == "cardTitle1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "cardTitle1").title2 : "اجرای پروژه های بین المللی";
+    string cardTitle2 = Model.dataList.SingleOrDefault(x => x.title == "cardTitle2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "cardTitle2").title2 : "دارای نمایندگی های رسمی";
+
+    string cardDesc1 = Model.dataList.SingleOrDefault(x => x.title == "cardDesc1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "cardDesc1").title2 : "در بیش از 10 کشور دنیا به طور حرفه ای با استاندارهای جهانی";
+    string cardDesc2 = Model.dataList.SingleOrDefault(x => x.title == "cardDesc2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonURL").title2 : "در کشورهای امارات، آمریکا، کانادا، هند و ترکیه";
+
+    string cardUrl1 = Model.dataList.SingleOrDefault(x => x.title == "cardUrl1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "cardUrl1").title2 : "#";
+    string cardUrl2 = Model.dataList.SingleOrDefault(x => x.title == "cardUrl2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "cardUrl2").title2 : "#";
+
+}
+
+
+
+
+
+
+
+<section id="main-baner">
+    <h1>section 10 description ltr</h1>
+    <header class="hero">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <div class="wrapper">
+            <div class="hero-inner">
+                <h1 class="hero-title">
+                    @header
+                </h1>
+                <h2 class="hero-subtitle">
+                    @title
+                </h2>
+                <div class="hero-text">
+                    @description
+                </div>
+                <div class="hero-buttons">
+                    <a href="@buttonURL">
+                        <i class="button button-default kt-modal-button">@buttonText2</i>
+                    </a>
+                    <i class="button button-gray kt-modal-button" data-modal="contact">@buttonText1</i>
+                </div>
+            </div>
+            <div class="hero-badges row index-box-padding">
+                <div class="column kt-col-xs-12 kt-col-sm-6">
+                    <a href="@cardUrl1" class="hero-badge">
+                        <img src="@imageIcon1" width="60" height="60" loading="lazy" alt="اجرای پروژه های بین المللی">
+                        <div class="hero-badge-inner">
+                            <h4 class="index-boxs-style">@cardTitle1</h4>
+                            <span>@cardDesc1</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="column kt-col-xs-12 kt-col-sm-6">
+                    <a href="@cardUrl2" class="hero-badge">
+                        <img src="@imageIcon2" width="60" height="60" loading="lazy" alt="دارای نمایندگی های رسمی">
+                        <div class="hero-badge-inner">
+                            <h4 class="index-boxs-style">@cardTitle2</h4>
+                            <span>@cardDesc2 </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+
+</section>

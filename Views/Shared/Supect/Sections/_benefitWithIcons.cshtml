@@ -1,0 +1,67 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/gym.png";
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/map.png";
+    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/insurance.png";
+    string image4 = Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image4").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/cash.png";
+    string image5 = Model.dataList.SingleOrDefault(x => x.title == "img_image5").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image5").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/telecommuting.png";
+    string image6 = Model.dataList.SingleOrDefault(x => x.title == "img_image6").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image6").title2 : "/webAssets/supect/Assets/wp-content/uploads/jobs-icons/team.png";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "مزایای همکاری با سوپکت";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "کمک هزینه ورزش";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "کمک هزینه سفر";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "بیمه تکمیلی";
+    string title4 = Model.dataList.SingleOrDefault(x => x.title == "title4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title4").title2 : "وام بانکی و شرکتی";
+    string title5 = Model.dataList.SingleOrDefault(x => x.title == "title5").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title5").title2 : "امکان دورکاری";
+    string title6 = Model.dataList.SingleOrDefault(x => x.title == "title6").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title6").title2 : "کمک هزینه ورزش";
+
+
+}
+
+
+
+<section id="benefits">
+
+    <h2 class="benefit-header-style">@header</h2>
+
+    <div class="benefits-container">
+
+        <div class="benefit-item">
+            <img src="@image1">
+            <p class="benefit-title"><strong>@title1</strong></p>
+        </div>
+        <div class="benefit-item">
+            <img src="@image2">
+            <p class="benefit-title"><strong>@title2</strong></p>
+        </div>
+        <div class="benefit-item">
+            <img src="@image3">
+            <p class="benefit-title"><strong>@title3</strong></p>
+        </div>
+
+        <div class="benefit-item">
+            <img src="@image4">
+            <p class="benefit-title"><strong>@title4</strong></p>
+        </div>
+        <div class="benefit-item">
+            <img src="@image5">
+            <p class="benefit-title"><strong>@title5</strong></p>
+        </div>
+        <div class="benefit-item">
+            <img src="@image6">
+            <p class="benefit-title"><strong>@title6</strong></p>
+        </div>
+    </div>
+</section>
