@@ -6005,6 +6005,7 @@
     <Content Include="Views\Shared\Supect\Sections\_options.cshtml" />
     <Content Include="Views\Shared\Supect\Sections\_optionsDetail.cshtml" />
     <Content Include="Views\Shared\Supect\Layouts\_Layout.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_benefitWithIconsDetail.cshtml" />
     <None Include="Web References\MellatWebService\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatWebService\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatWebService\Reference.map">
