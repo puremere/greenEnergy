@@ -462,6 +462,7 @@ namespace greenEnergy.ViewModel
     public class sectionVM
     {
 
+        public string from { get; set; }
         public string url { get; set; }
         public Guid? sectinoID { get; set; }
         public Guid sectinoTypeID { get; set; }

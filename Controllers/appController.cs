@@ -10305,7 +10305,7 @@ namespace greenEnergy.Controllers
                                 data newData = new data()
                                 {
                                     dataID = Guid.NewGuid(),
-                                    title = item,
+                                    title = item.Trim(),
                                     title2 = "",
                                     description = "",
                                     description2 = "",

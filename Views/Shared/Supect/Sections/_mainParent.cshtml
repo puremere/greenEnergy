@@ -93,8 +93,8 @@
                                                 <form method="post" action="/panel/setContnet" style="direction:rtl">
 
                                                     @Html.AntiForgeryToken()
-
-                                                    <input hidden name="url" value="@ViewBag.url" />
+                                                   
+                                                    <input hidden name="url" value="@ViewBag.slug" />
                                                     <input hidden name="fromHome" value="1" />
                                                     <input hidden name="contentParent" value="@item.conentID" />
                                                     <input value=" " id="seachQuery" name="title" hidden>
@@ -117,13 +117,11 @@
                                                         </div>
                                                     </div>
 
-
-
-                                                    <div class="col-lg-6 mb-4 row align-items-center" style="display: inline-block ">
-                                                        <div id="NewList" class="col-sm-10" style="   margin-top: 20px;">
-                                                            <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
-                                                        </div>
+                                                    <div id="NewList"  style="   margin-top: 20px;">
+                                                        <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
                                                     </div>
+
+                                                    
 
                                                 </form>
 

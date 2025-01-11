@@ -18,11 +18,10 @@
     string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "در عصر دیجیتال، حضور آنلاین برای پزشکان و متخصصان نه تنها یک فرصت، بلکه یک ضرورت است. وبسایت پزشکی به عنوان یکی از اصلی‌ترین ابزارهای ارتباطی و تبلیغاتی، به پزشکان کمک می‌کند تا به طور حرفه‌ای با بیماران خود در ارتباط باشند و خدمات خود را به شکلی مؤثرتر ارائه دهند.";
 
     string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/uploads/2017/05/%d8%a8%d9%86%d8%b1-%d9%85%db%8c%d9%86-%d9%be%d8%b2%d8%b4%da%a9%db%8c-2.jpg";
-    string imageURL = Model.dataList.SingleOrDefault(x => x.title == "imageURL").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "imageURL").title2 : "#";
+    string imageURL = Model.dataList.SingleOrDefault(x => x.title == "url").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "url").title2 : "#";
 
 
 }
-
 
 
 <section id="medicine-desc">
