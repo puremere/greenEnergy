@@ -1,0 +1,59 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using Newtonsoft.Json;
+@using greenEnergy.ViewModel;
+@{
+
+    string buttonText = Model.dataList.SingleOrDefault(x => x.title == "buttonText") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonText").title2;
+    string buttonClass = Model.dataList.SingleOrDefault(x => x.title == "buttonClass") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonClass").title2;
+    string buttonLink = Model.dataList.SingleOrDefault(x => x.title == "buttonLink") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "buttonLink").title2;
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    string html_heading = Model.dataList.SingleOrDefault(x => x.title == "html_heading") == null ? "" : Model.dataList.SingleOrDefault(x => x.title == "html_heading").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+}
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+<section class="section-small" id="about" style="@finalStyle">
+    <div class="section" style="background-color:transparent">
+        @if (!string.IsNullOrEmpty(html_heading))
+        {
+            <div class="titleParent ">@Html.Raw(html_heading)</div>
+        }
+    </div>
+    <div class="sectionDiv" style="background-color:transparent">
+
+
+        @foreach (var item in Model.contentChild)
+        {
+            string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
+
+            @Html.RenderPartial(partialPath, item);
+
+
+        }
+
+
+
+    </div>
+    <div class="section" style="background-color:transparent">
+        @if (!string.IsNullOrEmpty(buttonText))
+        {
+            <a class="btn @buttonClass.Replace(",", " ") btn-lg page-scroll wow fadeInUp" href="@buttonLink">@buttonText</a>
+
+        }
+    </div>
+</section>
+
+
+
+
+

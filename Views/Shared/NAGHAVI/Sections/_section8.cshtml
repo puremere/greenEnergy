@@ -1,0 +1,49 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "h2 وارد شود";
+
+}
+
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+<section>
+    <div class="container">
+        <div class="title center">
+            <h2>@header</h2>
+        </div>
+        <div class="owl-carousel owl-loaded owl-drag" data-options="{&quot;items&quot;: 6, &quot;margin&quot;: 100, &quot;autoplay&quot;: true, &quot;mdItems&quot;: 6, &quot;smItems&quot;: 4, &quot;xsItems&quot;: 3}">
+            <div class="owl-stage-outer">
+                <div class="owl-stage" style="transform: translate3d(-1446.67px, 0px, 0px); transition: all 0.25s ease 0s; width: 3721px;">
+
+                    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+                </div>
+            </div>
+            <div class="owl-nav disabled">
+                <div class="owl-prev">
+                    <i class="hc-angle-left"></i>
+                </div>
+                <div class="owl-next">
+                    <i class="hc-angle-right"></i>
+                </div>
+            </div>
+            <div class="owl-dots disabled"></div>
+        </div>
+    </div>
+</section>

@@ -48,8 +48,6 @@
             <div style="">
                 <div class="controllerButtons" style="display:flex; justify-content:center">
 
-
-
                     <style>
                         .btnController {
                             width: 40px !important;
@@ -58,13 +56,11 @@
                     </style>
                     <div style="background-color:transparent">
 
-                        <div class="iconHolder" style="display:flex">
-
+                        <div class="iconHolder" style="display:flex; align-items:center;">
+                            <p> @item.htmlName;</p>
                             @if (item.multilayer == 1)
                             {
                                 <img class="childButton btnController" src="~/Images/element.png" />
-
-
                             }
                             @if (item.dataList.Count > 0)
                             {
@@ -132,8 +128,6 @@
                                 </div>
                             </div>
                         }
-
-
                         <div class="modal priorityButtonModal" tabindex="-1" role="dialog">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -326,8 +320,6 @@
         <div style="position:relative">
             @{
                 string partialPath = "/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Sections/" + item.partialName + ".cshtml";
-
-
                 Html.RenderPartial(partialPath, item);
 
 

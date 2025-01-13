@@ -499,6 +499,7 @@ namespace greenEnergy.ViewModel
         public List<sectionVM> childList { get; set; }
         public List<pageContentVM> contentChild { get; set; }
 
+        public string htmlName { get; set; }
         public int index { get; set; }
         public int multilayer { get; set; }
         public string partialName { get; set; } // از روی اچ تی ام میاد

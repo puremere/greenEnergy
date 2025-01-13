@@ -1,0 +1,40 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "فرق سرور های مجازی با سرور های فیزیکی در چیست ؟";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "پس اصلی ترین فرق بین سرور سخت افزای(فیزیکی) و سرور های مجازی در این است که سرور های مجازی منابع یک سرور فیزیکی را بین چند ماشین مجازی تقسیم می کنند.در حالی که سرور های فیزیکی منابع سخت افزاری را به صورت مستقل ارائه می دهد.";
+
+
+}
+
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+<section class="course-whats-learn-section course-single-section pb-20">
+    <h2 class="course-single-section-title" style="text-align:center;padding-bottom:10px;">
+        @header
+    </h2>
+    <div class="kt-row" style="display: flex;">
+        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+    </div>
+    <div style="text-align: center;margin: 0 53px 0 53px; font-size: 20px;">
+        <p style="font-weight:500 ;">
+            @description
+        </p>
+    </div>
+</section>

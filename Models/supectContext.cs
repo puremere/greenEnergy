@@ -16,13 +16,14 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
     class Context : DbContext
     {
 
-        public Context() : base("supecct") // NfcDb green2
+
+        public Context() : base("supect") // NfcDb green2
         {
             // اینجا عوض شه
             //Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
-            //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
-        }
+            //conDatabase.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
 
+        }
 
 
         public DbSet<roleNavURL> roleNavURLs { get; set; }
@@ -108,7 +109,7 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
             modelBuilder.Entity<layoutData>().HasOptional(s => s.sectionType).WithMany(l => l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s => s.parentData).WithMany(l => l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<html>().HasOptional(s => s.htlmparent).WithMany(l => l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<content>().HasOptional(s => s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<content>().HasOptional(s => s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
 
 
 
@@ -134,7 +135,7 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
             modelBuilder.Entity<user>().HasOptional(s => s.verifyStatus).WithMany().HasForeignKey(x => x.verifyStatusID);
             modelBuilder.Entity<namad>().HasRequired(s => s.user).WithMany().HasForeignKey(x => x.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.newOrderProcess).WithMany().HasForeignKey(m => m.processID).WillCascadeOnDelete(false);
-            //modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.orderID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<newOrderFlow>().HasOptional(m => m.NewOrder).WithMany().HasForeignKey(m => m.newOrderID).WillCascadeOnDelete(false);
             //modelBuilder.Entity<newOrderFlow>().HasRequired(m => m.newOrderFlowServent).WithMany().HasForeignKey(m => m.userID).WillCascadeOnDelete(false);
             modelBuilder.Entity<orderOption>().HasRequired(m => m.optionParent).WithMany(t => t.childList).HasForeignKey(m => m.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<formula>().HasOptional(m => m.FormItem).WithMany(t => t.Formulas).HasForeignKey(m => m.formItemID).WillCascadeOnDelete(false);
@@ -220,6 +221,7 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
         [ForeignKey("sectionID")]
         public virtual section section { get; set; }
         public string name { get; set; }
+        public string actionFields { get; set; }
         public string formFields { get; set; }
         public string flowFields { get; set; }
         public string formIDString { get; set; }
@@ -506,13 +508,9 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
         public string cycleFormItem { get; set; }
         public string stackWeight { get; set; }
 
-
-
-
-
-        public int? formID { get; set; }
-        [ForeignKey("formID")]
-        public virtual form form { get; set; }
+        public string? formID { get; set; }
+        //[ForeignKey("formID")]
+        //public virtual form form { get; set; }
 
         public Guid? htmlID { get; set; }
         [ForeignKey("htmlID")]
@@ -1162,8 +1160,8 @@ namespace greenEnergy.Model.supect // اینجا عوض شه
 
         //public Guid newOrder_newOrderID { get; set; }
         public Guid? newOrderID { get; set; }
-        //[ForeignKey("orderID")]
-        //public virtual newOrder NewOrder { get; set; }
+        [ForeignKey("orderID")]
+        public virtual newOrder NewOrder { get; set; }
 
 
         //public Guid OrderID { get; set; }

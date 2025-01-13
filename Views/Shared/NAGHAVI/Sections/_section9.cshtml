@@ -1,0 +1,56 @@
+﻿
+@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "Feedbacks";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "&quot;images/bg-image-21.jpg&quot;";
+
+}
+
+
+
+
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+<section class="parallax-bg pt-100 pb-100">
+    <div class="row-parallax-bg">
+        <div class="parallax-wrapper" style="transform: translate3d(0px, -39.907px, 0px);">
+            <div class="parallax-bg-element" style="background-image: url(@image);">
+
+            </div>
+        </div>
+        <div class="parallax-overlay"></div>
+    </div>
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="title center">
+                <h2>@header</h2>
+            </div>
+            <div class="flexslider nav-outside" id="testimonials-slider" data-options="{&quot;animation&quot;: &quot;slide&quot;, &quot;controlNav&quot;: true}">
+
+                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                    <ul class="slides" style="width: 800%; transition-duration: 0s; transform: translate3d(-1500px, 0px, 0px);">
+
+                        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

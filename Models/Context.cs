@@ -23,7 +23,7 @@ namespace greenEnergy.Model // اینجا عوض شه
             Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, greenEnergy.Migrations.Configuration>());
             //conDatabase.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
 
-       }
+        }
 
 
         public DbSet<roleNavURL> roleNavURLs { get; set; }

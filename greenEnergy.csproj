@@ -332,9 +332,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202501061159498_initial.cs" />
-    <Compile Include="Migrations\202501061159498_initial.designer.cs">
-      <DependentUpon>202501061159498_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202501121535395_intial.cs" />
+    <Compile Include="Migrations\202501121535395_intial.designer.cs">
+      <DependentUpon>202501121535395_intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\supectContext.cs" />
@@ -3698,6 +3698,7 @@
     <Content Include="webAssets\NAGHAVI\css\lib\flexslider.css" />
     <Content Include="webAssets\NAGHAVI\css\lib\owl.carousel.css" />
     <Content Include="webAssets\NAGHAVI\css\restaurant-skin.css" />
+    <Content Include="webAssets\NAGHAVI\css\rtlCustom.css" />
     <Content Include="webAssets\NAGHAVI\css\style.css" />
     <Content Include="webAssets\NAGHAVI\docs\css\style.css" />
     <Content Include="webAssets\NAGHAVI\docs\index.html" />
@@ -6006,6 +6007,18 @@
     <Content Include="Views\Shared\Supect\Sections\_optionsDetail.cshtml" />
     <Content Include="Views\Shared\Supect\Layouts\_Layout.cshtml" />
     <Content Include="Views\Shared\Supect\Sections\_benefitWithIconsDetail.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_section.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_sectionDetail.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section8.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section8Detail.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section9.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section9Detail.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section10.cshtml" />
+    <Content Include="Views\Shared\NAGHAVI\Sections\_section10Detail.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_explaneItemBox.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_explaneItemBoxDetail.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_copmare.cshtml" />
+    <Content Include="Views\Shared\Supect\Sections\_copmareDetail.cshtml" />
     <None Include="Web References\MellatWebService\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatWebService\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatWebService\Reference.map">
@@ -6645,8 +6658,8 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202501061159498_initial.resx">
-      <DependentUpon>202501061159498_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202501121535395_intial.resx">
+      <DependentUpon>202501121535395_intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Data.Entity.Spatial;
 
-namespace greenEnergy.Model.naghav // اینجا عوض شه
+namespace greenEnergy.Model.naghavi // اینجا عوض شه
 {
 
     class Context : DbContext
@@ -108,7 +108,7 @@ namespace greenEnergy.Model.naghav // اینجا عوض شه
             modelBuilder.Entity<layoutData>().HasOptional(s => s.sectionType).WithMany(l => l.LayoutDatas).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<layoutData>().HasOptional(s => s.parentData).WithMany(l => l.childs).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
             modelBuilder.Entity<html>().HasOptional(s => s.htlmparent).WithMany(l => l.childHtmls).HasForeignKey(x => x.parentID).WillCascadeOnDelete(false);
-            modelBuilder.Entity<content>().HasOptional(s => s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<content>().HasOptional(s => s.form).WithMany().HasForeignKey(x => x.formID).WillCascadeOnDelete(false);
 
 
 
@@ -510,9 +510,9 @@ namespace greenEnergy.Model.naghav // اینجا عوض شه
 
 
 
-        public int? formID { get; set; }
-        [ForeignKey("formID")]
-        public virtual form form { get; set; }
+        public string? formID { get; set; }
+        //[ForeignKey("formID")]
+        //public virtual form form { get; set; }
 
         public Guid? htmlID { get; set; }
         [ForeignKey("htmlID")]

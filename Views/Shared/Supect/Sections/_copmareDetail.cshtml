@@ -1,0 +1,60 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "سرورهای فیزیکی";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "سرورهای مجازی";
+    string secItem1 = Model.dataList.SingleOrDefault(x => x.title == "secItem1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "secItem1").title2 : " سرور های فیزیکی دارای منابع سخت افزاری مستقل و فیزیکی هستند";
+    string secItem2 = Model.dataList.SingleOrDefault(x => x.title == "secItem2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "secItem2").title2 : " هر سرور سخت افزاری دارای یک سخت افزار ،پردازنده ،حافظه ،هارد دیسک و منابع دیگر است که به صورت مستقل قابل استفاده قابل استفاده است";
+    string secItem3 = Model.dataList.SingleOrDefault(x => x.title == "secItem3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "secItem3").title2 : " سرور های مجازی (Virtual Machine) دارای ماشین مجازی هستند کهبر روی یک سرور فیزیکی ایجاد می شود و منابع سخت افزاری را به صورت مجازی تقسیم می کنند.";
+    string secItem4 = Model.dataList.SingleOrDefault(x => x.title == "secItem4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "secItem4").title2 : "هر ماشین مجازی VM دارای محدودیت های منبعی است مانندپردازنده،حافظه و فضای ذخیره سازی است و توسط سرور مجازی مدیریت می شوند.";
+
+
+}
+
+
+
+
+<ul class="course-whats-learn column kt-col-xs-12 kt-col-sm-6" style="padding: 45px;text-align: justify;background: border-box; box-shadow: 0 10px 12px; margin: 60px;">
+    <div style="text-align:center; font-size: 20px;">
+        <h3 style="margin-bottom: 20px;">
+            @title1
+        </h3>
+    </div>
+    <li>
+        <i class="fa fa-check"></i><span>
+            @secItem1
+        </span>
+    </li>
+    <li>
+        <i class="fa fa-check"></i><span>
+            @secItem2
+        </span>
+    </li>
+</ul>
+<ul class="course-whats-learn column kt-col-xs-12 kt-col-sm-6" style="padding: 45px; text-align: justify;background: border-box; box-shadow: 0 10px 12px; margin: 60px;">
+    <div style="text-align:center;font-size:20px;">
+        <h3 style="margin-bottom: 20px;">@title2</h3>
+    </div>
+    <li>
+        <i class="fa fa-check"></i><span>
+            @secItem3
+        </span>
+    </li>
+    <li>
+        <i class="fa fa-check"></i><span>
+            @secItem4
+        </span>
+    </li>
+
+</ul>
+

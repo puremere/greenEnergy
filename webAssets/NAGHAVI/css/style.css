@@ -6118,7 +6118,7 @@ form.register {
   letter-spacing: 0.02em;
 }
 .serif {
-  font-family: 'Quattrocento', serif !important;
+  /*font-family: 'Quattrocento', serif !important;*/
 }
 .serif h1,
 .serif h2,
@@ -6126,10 +6126,10 @@ form.register {
 .serif h4,
 .serif h5,
 .serif h6 {
-  font-family: 'Quattrocento', serif;
+  /*font-family: 'Quattrocento', serif;*/
 }
 .cursive {
-  font-family: 'Tangerine', cursive !important;
+  /*font-family: 'Tangerine', cursive !important;*/
 }
 .colored p,
 .colored-bg p,

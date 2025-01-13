@@ -1,0 +1,87 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : " سرور های سخت افزاری از بهترین برند های معتبر جهانی";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " این سرور ها از آخرین فناوری های موجود بهره می برند و با دقت و کیفیت بالا ساخته می شوند تا به شما کارایی بالا ،امنیت قوی و قابلیت مقیاس پذیری مناسب را فراهم آورند";
+    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : " این سرور ها از آخرین فناوری های موجود بهره می برند و با دقت و کیفیت بالا ساخته می شوند تا به شما کارایی بالا ،امنیت قوی و قابلیت مقیاس پذیری مناسب را فراهم آورند.";
+
+
+}
+
+
+
+
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+<section id="brand-server">
+    <div class="vc_row section vc_row-fluid" style="border-width:0 0 1px 0;border-color:#e3e9ee" id="row-64e554554d196">
+        <div class="row-inner clearfix row-background-image" style="background-color:#f7fafd;background-image:url(~/Assets/wp-content/uploads/2017/05/bg5.png);background-position:center bottom;background-repeat:no-repeat">
+            <div class="row-outer-holder" style="padding-top:110px;padding-bottom:80px">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-center">
+                                        <h2 class="custom-heading">
+
+                                            @header
+
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="custom-heading-holder align-center">
+                                        <p class="custom-heading" style="font-size:18px;font-weight:400;color:#69656f">
+                                            @description
+                                        </p>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 50px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="vc_row vc_inner section vc_row-fluid" id="row-64e554554d58b">
+                                        <div class="row-inner clearfix row-background-transparent">
+                                            <div class="row-outer-holder">
+                                                <div class="wrapper">
+                                                    <div class="row-inner-holder align-right">
+
+
+                                                        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+
+                                                        <div style="text-align:center ;">
+                                                            <p style="    margin: 30px 50px 30px 50px;font-size: 20px; font-weight: 400; ">
+                                                                @description2
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
