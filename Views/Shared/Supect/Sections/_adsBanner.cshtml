@@ -10,7 +10,7 @@
     }
 
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/themes/supect-1/images/logo.png";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ?baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/themes/supect-1/images/logo.png";
     string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "اگر دوست داری یک وب سایت پزشکی داشته باشی";
     string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "همین الان درخواستتو ثبت کن تا کارشناسان ما باهاتون تماس بگیرن";
     string buttonTitle = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 : "الان به مشاور وصل شو";

@@ -1,0 +1,65 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2020/02/rack-mount-1.jpg";
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : " 1- سرورهای رک مونتRack - Mount Servers";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "● اندازه استاندارد و مشخص● به رک های استاندارد ، دیتاسنتر ها و مراکز داده جای میگیرند● نصب به صورت افقی● مناسب برای محیط هایی با فضای محدود و استفاده بالا● امکانات مدیریت پیشرفته ،مدیریت پیشرفته با انعطاف پذیری بالا و توانایی تشخیص و رفع خطاهای سخت افزاری";
+
+
+}
+
+
+
+
+
+
+<div class="row-inner-holder align-right">
+    <div class="academy-free-ebooks wpb_column vc_column_container vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+                <div class="wpb_single_image wpb_content_element vc_align_left responsive-style">
+
+                    <figure class="wpb_wrapper vc_figure">
+                        <div class="vc_single_image-wrapper   vc_box_border_grey">
+                            <img width="600" height="450" src="@image" class="vc_single_image-img attachment-large" alt=" " decoding="async" fetchpriority="high" sizes="(max-width: 600px) 100vw, 600px">
+                        </div>
+                    </figure>
+                </div>
+                <div class="vc_empty_space" style="height: 35px">
+                    <span class="vc_empty_space_inner"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center-in-tablet academy-category-hero-inner wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+                <div class="custom-heading-holder align-right section-title center-in-tablet">
+                </div>
+                <div class="vc_empty_space" style="height: 10px">
+                    <span class="vc_empty_space_inner"></span>
+                </div>
+                <div class="custom-heading-holder align-right  center-in-tablet">
+                    <h3 class="custom-heading" style="text-align:justify;">
+                        @header
+                    </h3>
+                </div>
+                <div class="course-income-content" style="margin-top: 20px;">
+                    <p>
+                        @description
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

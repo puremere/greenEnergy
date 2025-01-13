@@ -1,0 +1,218 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "/webAssets/supect/Assets/wp-content/uploads/2018/02/cost-startup-1.jpg";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "هزینه مالی در راه اندازی استارت اپ معمولا چقدر است؟";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "در اینجا چندین عاملی که می‌تواند تأثیرگذار باشد و برآورد هزینه مالی را تعیین کند را بررسی می کنیم :";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "محصول یا خدمات";
+    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "توسعه محصول یا خدمات";
+    string title4 = Model.dataList.SingleOrDefault(x => x.title == "title4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title4").title2 : "بازاریابی و فروش";
+    string title5 = Model.dataList.SingleOrDefault(x => x.title == "title5").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title5").title2 : "تیم و منابع انسانی";
+    string title6 = Model.dataList.SingleOrDefault(x => x.title == "title6").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title6").title2 : "هزینه های متفرقه";
+
+    string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : " هزینه‌ها بسته به نوع محصول یا خدماتی که قصد ارائه آنها را دارید ، متفاوت خواهد بود.برای مثال، استارت‌آپ‌های فناوری‌محور ممکن است نیاز به سرمایه‌گذاری بیشتری برای توسعه نرم‌افزار و سخت‌افزار داشته باشند ";
+    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : "هزینه‌ها برای توسعه و آزمایش محصول یا خدمات نیاز به سرمایه‌گذاری اولیه دارند. این شامل هزینه‌های مربوط به تحقیق و توسعه، طراحی، تولید نمونه، و آزمایش‌های بازاری است. ";
+    string description3 = Model.dataList.SingleOrDefault(x => x.title == "description3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description3").title2 : " برای جذب مشتریان و افزایش فروش، نیاز به بودجه بازاریابی و فروش دارید.هزینه‌های مربوط به تبلیغات، رویدادهای تبلیغاتی، و استراتژی‌های بازاریابی دیجیتال ممکن است بالا باشد.";
+    string description4 = Model.dataList.SingleOrDefault(x => x.title == "description4").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description4").title2 : " استخدام کارکنان، پرداخت حقوق و دستمزد، و فرآیند آموزش و توسعه تیم نیاز به سرمایه‌گذاری دارد. هزینه‌های مربوط به منابع انسانی می‌تواند یکی از بزرگترین هزینه‌ها در راه‌اندازی یک استارت‌آپ باشد";
+    string description5 = Model.dataList.SingleOrDefault(x => x.title == "description5").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description5").title2 : "این شامل هزینه‌های مختلفی مانند حقوق مستأجری، بیمه، مالیات، و سایر هزینه‌های اداری و عملیاتی است که باید در نظر گرفته شود ";
+
+}
+
+
+
+<section id="costs-startup">
+    <div class="row-outer-holder" style="padding-top:100px;padding-bottom:70px">
+        <div class="wrapper">
+            <div class="row-inner-holder align-right">
+                <div class="autoheight-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-5 vc_col-xs-12">
+                    <div class="vc_column-inner ">
+                        <div class="wpb_wrapper">
+                            <div class="wpb_single_image wpb_content_element vc_align_center   right-in-tablet responsive-style">
+
+                                <figure class="wpb_wrapper vc_figure">
+                                    <div class="vc_single_image-wrapper   vc_box_border_grey">
+                                        <img width="389" height="449" src="@image" class="vc_single_image-img attachment-full" alt="" decoding="async" sizes="(max-width: 389px) 100vw, 389px">
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="vc_empty_space" style="height: 30px">
+                                <span class="vc_empty_space_inner"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="autoheight-tablet wpb_column vc_column_container column-content-middle vc_col-sm-12 vc_col-md-7 vc_col-xs-12">
+                    <div class="vc_column-inner ">
+                        <div class="wpb_wrapper text-responsive">
+                            <div class="custom-heading-holder align-right">
+                                <h2 class="custom-heading">@header</h2>
+                            </div>
+                            <div class="vc_empty_space" style="height: 10px">
+                                <span class="vc_empty_space_inner"></span>
+                            </div>
+                            <div class="custom-heading-holder align-right">
+                                <h3 class="custom-heading" style="font-size:18px;font-weight:400;color:#69656f; text-align: justify;">
+                                    @title1
+                                </h3>
+                            </div>
+                            <div class="vc_empty_space" style="height: 50px">
+                                <span class="vc_empty_space_inner"></span>
+                            </div>
+                            <div class="vc_row vc_inner section vc_row-fluid" id="row-64e57c30abcba">
+                                <div class="row-inner clearfix row-background-transparent">
+                                    <div class="row-outer-holder">
+                                        <div class="wrapper">
+                                            <div class="row-inner-holder align-right">
+                                                <div class="wpb_column vc_column_container vc_col-sm-6">
+                                                    <div class="vc_column-inner ">
+                                                        <div class="wpb_wrapper">
+                                                            <div class="icon-box3-icon"></div>
+                                                            <div class="icon-box3-inner">
+                                                                <h4 class="icon-box3-title">@title2</h4>
+                                                                <div class="icon-box3-text">
+                                                                    <p>
+                                                                        <span style="font-size: 14px;text-align: justify;">
+                                                                            @description1
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="vc_empty_space" style="height: 30px">
+                                                                <span class="vc_empty_space_inner"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="wpb_column vc_column_container vc_col-sm-6">
+                                                    <div class="vc_column-inner ">
+                                                        <div class="wpb_wrapper">
+                                                            <div class="icon-box3-icon"></div>
+                                                            <div class="icon-box3-inner">
+                                                                <h4 class="icon-box3-title">
+                                                                    @title3
+                                                                </h4>
+                                                                <div class="icon-box3-text">
+                                                                    <p style="text-align: justify;">
+                                                                        <span style="font-size: 14px;">
+                                                                            @description2
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="vc_empty_space" style="height: 30px">
+                                                                <span class="vc_empty_space_inner"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vc_row vc_inner section vc_row-fluid" id="row-64e57c30abf72">
+                                <div class="row-inner clearfix row-background-transparent">
+                                    <div class="row-outer-holder">
+                                        <div class="wrapper">
+                                            <div class="row-inner-holder align-right">
+                                                <div class="wpb_column vc_column_container vc_col-sm-6">
+                                                    <div class="vc_column-inner ">
+                                                        <div class="wpb_wrapper">
+                                                            <div class="icon-box3-icon"></div>
+                                                            <div class="icon-box3-inner">
+                                                                <h4 class="icon-box3-title">
+                                                                    @title4
+                                                                </h4>
+                                                                <div class="icon-box3-text">
+                                                                    <p style="text-align: justify;">
+                                                                        @description3
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="vc_empty_space" style="height: 30px">
+                                                                <span class="vc_empty_space_inner"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="wpb_column vc_column_container vc_col-sm-6">
+                                                    <div class="vc_column-inner ">
+                                                        <div class="wpb_wrapper">
+                                                            <div class="icon-box3 clearfix align-right icon-box3-icon-right">
+                                                                <div class="icon-box3-icon"></div>
+                                                                <div class="icon-box3-inner">
+                                                                    <h4 class="icon-box3-title">
+                                                                        @title5
+                                                                    </h4>
+                                                                    <div class="icon-box3-text">
+                                                                        <p style="text-align: justify;">
+                                                                            <span style="font-size: 14px;">
+                                                                                @description4
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="vc_empty_space" style="height: 30px">
+                                                                <span class="vc_empty_space_inner"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vc_row vc_inner section vc_row-fluid" id="row-64e57c30abf72">
+                                <div class="row-inner clearfix row-background-transparent">
+                                    <div class="row-outer-holder">
+                                        <div class="wrapper">
+                                            <div class="row-inner-holder align-right">
+                                                <div class="wpb_column vc_column_container vc_col-sm-6" style=" position: relative; right: 217px;">
+                                                    <div class="vc_column-inner ">
+                                                        <div class="wpb_wrapper">
+                                                            <div class="icon-box3-icon"></div>
+                                                            <div class="icon-box3-inner">
+                                                                <h4 class="icon-box3-title">
+                                                                    @title6
+                                                                </h4>
+                                                                <div class="icon-box3-text">
+                                                                    <p style="text-align: justify;">
+                                                                        @description5
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="vc_empty_space" style="height: 30px">
+                                                                <span class="vc_empty_space_inner"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -8,18 +8,22 @@
     {
         finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
     }
-
-
-
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
 
-    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "با انواع سرورها بیشتر آشنا بشید";
-    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " سرورهای فیزیکی از انواع مختلفی بر راساس نیاز،قابلیتها و ویژگی های فنی طراحی می شوند.برخی از این مدل ها عبارتند از";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "تایتلی را وارد کنید";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "قیمت طراحی وب‌سایت پزشکی در سوپکت بستگی به ویژگی‌ها و امکانات مورد نظر شما دارد. ما با ارائه بسته‌های مختلف، سعی داریم تا نیازهای متنوع پزشکان و کلینیک‌ها را برآورده کنیم. از طراحی‌های ساده تا پیچیده، تمام خدمات ما با کیفیت بالا و قیمت‌های مناسب ارائه می‌شود. همچنین، ما در سوپکت به شما این امکان را می‌دهیم که با مشاوره رایگان، بهترین گزینه را بر اساس بودجه و نیازهای خود انتخاب کنید. هدف ما این است که شما بتوانید با حداقل هزینه، یک وب‌سایت کارآمد و جذاب داشته باشید که به رشد و موفقیت کسب‌وکار شما کمک کند.";
 
 
 }
 
 
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
 
 <section id="category-server">
     <div class="vc_row vc_inner section vc_row-fluid flex-row-reverse" id="row-64e57b6140f93" style="margin-top:30px;">
@@ -32,66 +36,14 @@
                 </span>
             </h2>
             <p style="font-size:20px;">
-               @description
+                @description
             </p>
         </div>
         <div class="row-inner clearfix row-background-transparent">
             <div class="row-outer-holder" style="padding-bottom:25px;margin-top: 52px;">
                 <div class="wrapper">
-                    <div class="row-inner-holder align-right">
-                        <div class="academy-free-ebooks wpb_column vc_column_container vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
-                            <div class="vc_column-inner ">
-                                <div class="wpb_wrapper">
-                                    <div class="wpb_single_image wpb_content_element vc_align_left responsive-style">
 
-                                        <figure class="wpb_wrapper vc_figure">
-                                            <div class="vc_single_image-wrapper   vc_box_border_grey">
-                                                <img width="600" height="450" src="/Assets/wp-content/uploads/2020/02/rack-mount-1.jpg" class="vc_single_image-img attachment-large" alt=" " decoding="async" fetchpriority="high" sizes="(max-width: 600px) 100vw, 600px">
-                                            </div>
-                                        </figure>
-                                    </div>
-                                    <div class="vc_empty_space" style="height: 35px">
-                                        <span class="vc_empty_space_inner"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="center-in-tablet academy-category-hero-inner wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-12 vc_col-md-6 vc_col-xs-12">
-                            <div class="vc_column-inner ">
-                                <div class="wpb_wrapper">
-                                    <div class="custom-heading-holder align-right section-title center-in-tablet">
-                                    </div>
-                                    <div class="vc_empty_space" style="height: 10px">
-                                        <span class="vc_empty_space_inner"></span>
-                                    </div>
-                                    <div class="custom-heading-holder align-right  center-in-tablet">
-                                        <h3 class="custom-heading" style="text-align:justify;">
-                                            1- سرورهای رک مونت
-                                            Rack-Mount Servers
-                                        </h3>
-                                    </div>
-                                    <div class="course-income-content" style="margin-top: 20px;">
-                                        <ul>
-                                            <li><strong></strong>● اندازه استاندارد و مشخص</li>
-                                            <li>
-                                                <strong></strong>● به رک های استاندارد ، دیتاسنتر ها و مراکز داده
-                                                جای میگیرند
-                                            </li>
-                                            <li><strong></strong>● نصب به صورت افقی </li>
-                                            <li>
-                                                <strong></strong>● مناسب برای محیط هایی با فضای محدود و استفاده بالا
-                                            </li>
-                                            <li>
-                                                <strong></strong>● امکانات مدیریت پیشرفته ،مدیریت پیشرفته با انعطاف
-                                                پذیری بالا و توانایی تشخیص و رفع خطاهای سخت افزاری
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
 
 
                 </div>

@@ -1,0 +1,190 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "/webAssets/supect/Assets/wp-content/uploads/2018/11/organic-1.png";
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "/webAssets/supect/Assets/wp-content/uploads/2018/11/ads-1.png";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "دیده شدن در صفحه ی اول گوگل به 2 روش اصلی انجام میشود";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "به صورت طبیعی یا ارگانیک";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "استفاده از گوگل ادز Google Ads";
+
+    string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : "تمامی کار  هایی که یک سئو کار برای سایت شما انجام میدهد تا به صفحه ی اول بیایید . این موارد شامل: تحقیق و استفاده از  کلمات کلیدی  ، تحلیل رقبا و چیدمان استراتژی ، لینک سازی ها ، استفاده از  ابزار ها و اقدامات لازم برای رتبه ی بالا گرفتن است.";
+    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : " که قبل تر به نام گوگل ادورز Google AdWords ،  شناخته میشد ، پلتفرم  تبلیغاتی  آنلاین است  که توسط شرکت  گوگل ارائه  شده و انواع تبلیغات را  در بر میکیرد  که شامل متنی  ،ویدیویی  ،بنری و سایر  گزینه های  نمایشی است.  این تبلیغات  هم در خود گوگل و هم در وب سایت های شریک گوگل ، نشان داده میشود ";
+
+}
+
+
+
+
+<section>
+    <div class="vc_row section vc_row-fluid" style="border-width:1px 0 1px 0;border-color:#ededed" id="row-64e575d8a9cd8">
+        <div class="row-inner clearfix row-background-color" style="background-color:#f9f8fc">
+            <div class="row-outer-holder" style="padding-top:100px;padding-bottom:100px">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-2">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper"></div>
+                            </div>
+                        </div>
+                        <div class="wpb_column vc_column_container vc_col-sm-8">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-center">
+                                        <h2 class="custom-heading">
+                                            @header
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 30px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="tabs tabs-style1 align-center analysis-tabs" id="tabs-64e575d8a9edc">
+                                        <ul class="tabs-title-holder">
+                                            <li class="tab-title" data-tab-id="tab-64e575d8a9f23">
+                                                <h4 class="tab-title-inner">@title1 </h4>
+                                            </li>
+                                            <li class="tab-title active" data-tab-id="tab-64e575d8a9f2a">
+                                                <h4 class="tab-title-inner">@title2</h4>
+                                            </li>
+                                        </ul>
+                                        <div class="tabs-content-holder">
+                                            <div class="tabs-content-inner" style="height: auto;">
+                                                <div class="tab-content tab-64e575d8a9f23">
+                                                    <div class="tab-content-inner" style="opacity: 0;">
+                                                        <div class="vc_row vc_inner section vc_row-fluid" id="row-64e575d8a9ff2">
+                                                            <div class="row-inner clearfix row-background-transparent row-columns-equal-height">
+                                                                <div class="row-outer-holder">
+                                                                    <div class="wrapper">
+                                                                        <div class="row-inner-holder align-right">
+                                                                            <div class="wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-8">
+                                                                                <div class="vc_column-inner ">
+                                                                                    <div class="wpb_wrapper">
+                                                                                        <div class="custom-heading-holder align-right">
+                                                                                            <h3 class="custom-heading"></h3>
+                                                                                        </div>
+                                                                                        <div class="vc_empty_space" style="height: 10px">
+                                                                                            <span class="vc_empty_space_inner"></span>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>
+                                                                                                    <span style="font-size: 15px;">
+                                                                                                        @description1
+
+                                                                                                    </span>
+                                                                                                </p>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-4">
+                                                                                <div class="vc_column-inner ">
+                                                                                    <div class="wpb_wrapper">
+                                                                                        <div class="wpb_single_image wpb_content_element vc_align_center">
+
+                                                                                            <figure class="wpb_wrapper vc_figure">
+                                                                                                <div class="vc_single_image-wrapper   vc_box_border_grey">
+                                                                                                    <img width="150" height="150" src="@image1" class="vc_single_image-img attachment-full" alt="" decoding="async" sizes="(max-width: 150px) 100vw, 150px">
+                                                                                                </div>
+                                                                                            </figure>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-content tab-64e575d8a9f2a active">
+                                                    <div class="tab-content-inner" style="opacity: 1;">
+                                                        <div class="vc_row vc_inner section vc_row-fluid" id="row-64e575d8aa5ed">
+                                                            <div class="row-inner clearfix row-background-transparent row-columns-equal-height">
+                                                                <div class="row-outer-holder">
+                                                                    <div class="wrapper">
+                                                                        <div class="row-inner-holder align-right">
+                                                                            <div class="wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-8">
+                                                                                <div class="vc_column-inner ">
+                                                                                    <div class="wpb_wrapper">
+                                                                                        <div class="custom-heading-holder align-right">
+                                                                                            <h3 class="custom-heading"></h3>
+                                                                                        </div>
+                                                                                        <div class="vc_empty_space" style="height: 10px">
+                                                                                            <span class="vc_empty_space_inner"></span>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>
+                                                                                                    <span style="font-size: 15px;">
+
+                                                                                                        @description2
+                                                                                                    </span>
+                                                                                                </p>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-4">
+                                                                                <div class="vc_column-inner ">
+                                                                                    <div class="wpb_wrapper">
+                                                                                        <div class="wpb_single_image wpb_content_element vc_align_center">
+
+                                                                                            <figure class="wpb_wrapper vc_figure">
+                                                                                                <div class="vc_single_image-wrapper   vc_box_border_grey">
+                                                                                                    <img width="150" height="150" src="@image2" class="vc_single_image-img attachment-full" alt="" decoding="async" sizes="(max-width: 150px) 100vw, 150px">
+                                                                                                </div>
+                                                                                            </figure>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vc_empty_space" style="height: 32px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wpb_column vc_column_container vc_col-sm-2">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
