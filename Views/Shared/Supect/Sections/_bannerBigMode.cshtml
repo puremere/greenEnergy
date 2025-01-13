@@ -1,0 +1,78 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2023/02/hp-banner-1.jpg";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سرورهای HP ";
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "سرور های فیزیکی HP یکی از برند های مطرح در زمینه ساخت سرور های فیزیکی هستند.و به دلیل کیفیت ساخت و پشتیبانی قوی ،در محیط های تجاری و صنعتی بسیار مناسب هستند.مدل ها و سری های بسیار متععدی دارد که بر اساس نیاز از حجم کم و کارآمد تا سرور های بزرگ و باعملکرد بسیار بالا را فراهم می کنند . این سرور ها از فناوری های تکنولوژی پردازند ه ای Intel Xeon ،ذخیره سازی RAID و پشتیبانی از انواع شبکه های مبتنی بر Ethernet استفاده می کنند. یکی از معروف ترین خطوط سرورهای HP که با انعطاف پذیری و قابلیت های متعدد برای انواع ماربرد ها مناسب است ، HP ProLiant می باشد. از لحاظ امنیتی با قابلیت هایی مانند TPM(Trust Platform Management) و ابزار های مدیریتی متوعی مانند iLo(Integrated Lights -out) تقویت شده اند. سرور های HP با قابلیت های مدیریتی پیشرفته مانند HPE OneView و HPE Insight Control ،به مدیران IT کمک می کند تا عملکرد ،مصرف انرژی و موجودی را کنترل کرده و بهبود ببخشند. سرور های اچ پی مدام در حال به روز رسانی و ارتقاء محصولات خود است تا با نیاز روز دنیاو توسعه های فناوری همگام باشد..";
+
+    string buttontitle1 = Model.dataList.SingleOrDefault(x => x.title == "buttontitle1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttontitle1").title2 : " ثبت درخواست ";
+    string buttontitle2 = Model.dataList.SingleOrDefault(x => x.title == "buttontitle2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttontitle2").title2 : " مشاوره رایگان";
+
+
+}
+
+@*img_image,header,description,buttontitle1,buttontitle2s,style*@
+
+<section id="company-server">
+    <div class="course-header-holder" style="margin: 50px;">
+        <div class="row flex-row-reverse">
+            <div class="column kt-col-xs-12 kt-col-md-6">
+                <div class="course-header-image-holder">
+                    <img width="1924" height="1240 " style="    position: relative;top: 96px;" src="@image" alt=" ">
+                </div>
+            </div>
+            <div class="column kt-col-xs-12 kt-col-md-6">
+                <div class="course-header-inner d-flex flex-column h-100">
+                    <div class="flex-grow-1 pt-25">
+
+                        <div class="mb-20 clearfix">
+
+                            <h2 itemprop="name" class="product_title entry-title">@header</h2>
+                        </div>
+                        <div class="woocommerce-product-details__short-description">
+                            <p>
+                                @description
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="w-100 pt-25">
+
+                        <div class="course-header-buttons row m-n5 align-items-center">
+
+                            <div class="column kt-col-xs-12 kt-col-sm-6 p-5">
+                                <div class="course-header-purchase-holder">
+                                    <a href="../../contact-us" target="_self" class="button button-default kt-modal-button" data-modal="contact">
+                                        @buttontitle1
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="column kt-col-xs-12 kt-col-sm-auto mr-auto p-5">
+                                <div class="page-header-phone justify-content-center">
+                                    <i class="elegant-icon icon_phone text-larger ml-8"></i>
+                                    <span class="text-xxs ml-12">@buttontitle2</span>
+                                    <a class="text-xxs" href="tel:+982191017049">91017049</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

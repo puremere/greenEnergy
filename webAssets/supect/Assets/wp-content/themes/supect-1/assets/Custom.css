@@ -769,6 +769,15 @@ h2 {
     border-radius: 10px;
 }
 
+.seprator-style2 {
+    margin: 0 328px;
+    text-align: center !important;
+    line-height: 53px;
+    padding: 40px;
+    font-size: 21px !important;
+    border-radius: 10px;
+}
+
 .desc-style {
     padding-top: 50px;
     padding-bottom: 100px
@@ -1516,6 +1525,15 @@ h2 {
         box-shadow: 0 3px 12px rgb(70 72 77 / 9%);
         border-radius: 10px;
         font-weight:400;
+    }
+    .seprator-style2 {
+        margin: 0 12px;
+        text-align: justify !important;
+        line-height: 40px;
+        padding: 25px;
+        font-size: 13px !important;
+        border-radius: 10px;
+        font-weight: 400;
     }
 }
 @media only screen and (max-width: 1200px) {

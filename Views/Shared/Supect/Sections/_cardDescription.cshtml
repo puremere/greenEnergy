@@ -1,0 +1,68 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "برخی شرکت های سازنده ی سرور های سخت افزاری(فیزیکی)";
+
+
+
+}
+
+@*header,style*@
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+
+<section id="company-server">
+    <div class="vc_row section vc_row-fluid" id="row-64e57271248f6">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="custom-heading-holder align-center section-title">
+                                        <h2 class="custom-heading">
+                                            @header
+                                        </h2>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 10px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="custom-heading-holder align-center section-subtitle">
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 45px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                    <div class="academy-articles">
+                                        <div class="row related-courses-section">
+
+                                            @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

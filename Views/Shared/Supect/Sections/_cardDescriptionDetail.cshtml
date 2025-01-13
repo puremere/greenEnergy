@@ -1,0 +1,85 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "webAssets/supect/Assets/wp-content/uploads/2021/02/hpe-1.jpg";
+    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/08/dell-1.jpg";
+
+    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : " ✔ Hewlett Packard Enterprise(HPE)";
+    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "✔ Dell Technologies";
+
+    string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : " یکی از بزرگ ترین تولید کنندگان سرور های سخت افزاری و سایر تجهیزات مرتبط است.این شرکت محصولات متنوعی شامل سرور های رک مونت ، سرور های برجی ،ذخیره سازی داده و تجهیزات شبکه را تولید می کنند .";
+    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : " یکی دیگر از پیشرو های صنعت سرور ها و تجهیزات شبکه Dell است.شامل محصولات سرور های رک مونت ، سرور های برجی ، ذخیره سازی داده و تجهیزات شبکه را تولید می کنند .";
+
+    string lable1 = Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 : " COMPANY";
+    string lable2 = Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 : " COMPANY";
+
+
+}
+
+
+@*img_image1,img_image2,title1,title2,description1,description2,lable1,lable2,style*@
+
+
+<div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+    <div class="course-item-holder">
+        <a class="course-item-image-holder">
+            <img class="kt-lazyload loaded" width="481" height="310" alt=" " src="@image1">
+        </a>
+        <div class="course-item-desc-holder">
+            <h3 class="course-item-title">
+                <a style="font-size: 17px;">
+                    @title1
+                </a>
+            </h3>
+            <div class="course-item-details">
+                <div class="course-item-types">
+                    <span class="course-item-type course-item-type-article">@lable1</span>
+                </div>
+                <div>
+                    <i class="blog-item-popular elegant-icon " title="  "></i>
+                    <i class="blog-item-suggested elegant-icon " title=" "></i>
+                </div>
+            </div>
+            <span class="course-item-content">
+                @description1
+            </span>
+
+        </div>
+    </div>
+</div>
+<div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+    <div class="course-item-holder">
+        <a class="course-item-image-holder">
+            <img class="kt-lazyload loaded" width="481" height="310" alt="" src="@image2">
+        </a>
+        <div class="course-item-desc-holder">
+            <h3 class="course-item-title">
+                <a>@title2</a>
+            </h3>
+            <div class="course-item-details">
+                <div class="course-item-types">
+                    <span class="course-item-type course-item-type-article">@lable2</span>
+                </div>
+                <div>
+                    <i class="blog-item-popular elegant-icon " title=""></i>
+                </div>
+            </div>
+            <span class="course-item-content">
+                @description2
+            </span>
+
+        </div>
+    </div>
+</div>
