@@ -1,6 +1,7 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
 @using greenEnergy.ViewModel;
 @{
+
     string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
     styleVM styleModel = new greenEnergy.ViewModel.styleVM();
     string finalStyle = "";
@@ -10,14 +11,13 @@
     }
 
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2017/05/%d9%85%d8%b1%d8%a7%d8%ad%d9%84-%d8%ab%d8%a8%d8%aa-%d8%af%d8%b1%d8%ae%d9%88%d8%a7%d8%b3%d8%aa-%d9%be%d8%b2%d8%b4%da%a9%db%8c.jpg";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2017/05/%d9%85%d8%b1%d8%a7%d8%ad%d9%84-%d8%ab%d8%a8%d8%aa-%d8%af%d8%b1%d8%ae%d9%88%d8%a7%d8%b3%d8%aa-%d9%be%d8%b2%d8%b4%da%a9%db%8c.jpg";
     string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "فرآیند ثبت درخواست وب سایت پزشکی از شرکت سوپکت";
     string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "در اینجا یک متن بنویسید";
 
 
 
 }
-
 
 
 

@@ -13,7 +13,7 @@
 
     string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
 
-    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2017/05/بنر-نهایی-حقوقی.jpg";
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2017/05/بنر-نهایی-حقوقی.jpg";
     string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "سوپکت دوست دیجیتال شما";
     string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : " ، طراحی سایت برای وکلا یک ابزار ضروری است که به وکلا و دفاتر حقوقی در جذب مشتریان جدید، افزایش اعتبار و بهبود ارتباط با مراجعین کمک می‌کند. یک وب‌سایت حرفه‌ای می‌تواند به عنوان ویترینی آنلاین، اطلاعات و خدمات حقوقی را به راحتی در دسترس مخاطبان قرار دهد و موجب رشد کسب‌وکار شما شود.با توجه به اهمیت این ابزار، پیشنهاد می‌شود که وکلا برای رسیدن به بهترین نتیجه، با شرکت سوپکت همکاری کنند و از این فرصت برای ارتقای حرفه خود بهره‌مند شوند.";
     string buttonTitle1 = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle1").title2 : "ثبت درخواست";
