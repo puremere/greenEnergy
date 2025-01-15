@@ -24,10 +24,10 @@
     <div data-wow-duration="1.5s" class="wow fadeInUp kt-cta kt-cta-light web-banner-1">
         <img width="80" height="80" alt="" src="@image">
         <div class="kt-cta-inner">
-            <h4>@title</h4>
-            <div class="kt-cta-text">@description </div>
+            <h4>@Html.Raw(@title)</h4>
+            <div class="kt-cta-text">@Html.Raw(@description) </div>
 
         </div>
-        <a href="@buttonURL" class="button button-orange" style="background:#6955ff ;">@buttonTitle</a>
+        <a href="@buttonURL" class="button button-orange" style="background:#6955ff ;">@Html.Raw(@buttonTitle)</a>
     </div>
 </section>

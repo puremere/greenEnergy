@@ -1,0 +1,169 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    //string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    //styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    //string finalStyle = "";
+    //if (!string.IsNullOrEmpty(style))
+    //{
+    //    finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    //}
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+}
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+
+
+<link href="/webAssets/supect/Assets/portfolio/css/bootstrap.min.css?ver=1.2.0" rel="stylesheet">
+<link href="/webAssets/supect/Assets/portfolio/css/font-awesome/css/all.min.css?ver=1.2.0" rel="stylesheet">
+<link href="/webAssets/supect/Assets/portfolio/css/main.css?ver=1.2.0" rel="stylesheet">
+<style>
+    .card {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: unset !important;
+        padding: 0px !important;
+    }
+
+    p {
+        text-align: center !important;
+        color: white !important;
+    }
+</style>
+<div class="page-content">
+    <div class="container">
+
+        <div class="container px-0 py-4">
+            <div class="pp-category-filter">
+                <div class="row">
+                    <div class="col-sm-12" style="text-align:right">
+                        <a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="all">همه</a>
+                        @{
+                            List<string> finalTagList = new List<string>();
+                            if (Model.typeID != new Guid("00000000-0000-0000-0000-000000000000") && Model.typeID != null)
+                            {
+
+                                if (Model.childList != null)
+                                {
+                                    foreach (var child in Model.childList)
+                                    {
+                                        if (child.tags != null)
+                                        {
+                                            foreach (var tagdetail in child.tags)
+                                            {
+                                                if (!finalTagList.Contains(tagdetail.title))
+                                                {
+                                                    finalTagList.Add(tagdetail.title);
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+
+
+                                }
+                            }
+                            else
+                            {
+                                if(Model.contentChild != null)
+                                {
+                                    foreach(var child in Model.contentChild)
+                                    {
+                                        string tag = child.dataList.SingleOrDefault(x => x.title == "tag").title2 != "" ? child.dataList.SingleOrDefault(x => x.title == "tag").title2 : "";
+                                        List<string> tagDetailList = tag.Trim(',').Split(',').ToList();
+                                        foreach(var detailtag in tagDetailList)
+                                        {
+                                            if (!finalTagList.Contains(detailtag))
+                                            {
+                                                finalTagList.Add(detailtag);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            foreach (var item in finalTagList)
+                            {
+                                <a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="@item">@item</a>
+                            }
+
+
+                        }
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <div class="pp-gallery">
+                <div class="card-columns">
+                    @if (Model.typeID != new Guid("00000000-0000-0000-0000-000000000000") && Model.typeID != null)
+                    {
+
+                        foreach (var section in Model.childList)
+                        {
+                            string image = baseImage + section.image;
+
+                            string title = section.title;
+                            string catTitle = section.categoryName;
+                            string description = section.description;
+                            string url = section.url;
+                            string taghint = "";
+                            if (section.tags != null)
+                            {
+                                foreach (var tagDet in section.tags)
+                                {
+                                    taghint += "\"" + tagDet.title + "\"" + ",";
+                                    taghint = taghint.Trim(',');
+                                }
+                            }
+
+                            <div class="card" data-groups="[@taghint]">
+                                <a href="@url">
+                                    <figure class="pp-effect">
+                                        <img class="img-fluid" src="@image" alt="Nature" />
+                                        <figcaption>
+                                            <div class="h4"> @Html.Raw(@title)</div>
+
+                                        </figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+                        }
+
+
+
+
+                    }
+                    else
+                    {
+                        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="pp-section"></div>
+    </div>
+</div>
+<script src="/webAssets/supect/Assets/portfolio/scripts/jquery.min.js?ver=1.2.0"></script>
+<script src="/webAssets/supect/Assets/portfolio/scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
+<script src="/webAssets/supect/Assets/portfolio/scripts/main.js?ver=1.2.0"></script>
+<script src="/webAssets/supect/Assets/portfolio/scripts/main.js?ver=1.2.0"></script>

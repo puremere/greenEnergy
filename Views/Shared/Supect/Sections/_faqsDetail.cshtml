@@ -26,7 +26,7 @@
 <div class="course-chapter">
     <div class="course-chapter-title">
         <h3 class="course-chapter-title-inner index-boxs-style">
-            @title
+            @Html.Raw(@title)
         </h3>
         <span class="course-chapter-time"></span>
     </div>
@@ -34,7 +34,7 @@
         <div class="course-chapter-content-inner">
             <div class="course-chapter-description">
                 <p style="box-sizing: border-box; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: IRANSans; padding: 0px; vertical-align: baseline; margin: 0px 0px 10px; border: 0px; color: #181522; text-align: right;">
-                    @description
+                    @Html.Raw(@description)
                 </p>
             </div>
         </div>

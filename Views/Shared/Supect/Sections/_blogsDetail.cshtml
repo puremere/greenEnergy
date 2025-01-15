@@ -1,0 +1,65 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string image = Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/02/about-2.jpg";
+
+    string title = Model.dataList.SingleOrDefault(x => x.title == "title").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title").title2 : "تعهد کاری";
+
+    string description = Model.dataList.SingleOrDefault(x => x.title == "description").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description").title2 : "تیم ما با ترکیب دانش فنی و تجربه گسترده، متعهد است تا راه‌حل‌های  خلاقانه و کارآمدی ارائه دهد که نیازهای شهروندان و سازمان‌ها را به   بهترین   شکل ممکن برآورده کند. شعار ما «سوپکت، دوست دیجیتال شما» .";
+
+    string url = Model.dataList.SingleOrDefault(x => x.title == "url1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "url1").title2 : "#";
+
+    string catTitle = Model.dataList.SingleOrDefault(x => x.title == "catTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "catTitle").title2 : "تکنولوژی";
+
+}
+
+
+
+
+
+<div class="related-courses-section row" style="display:contents">
+    <div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+        <div class="course-item-holder">
+            <a href="@url"
+               class="course-item-image-holder">
+                <img width="481" height="310" alt=" "
+                     src="@image" />
+            </a>
+            <div class="course-item-desc-holder">
+                <h3 class="course-item-title">
+                    <a href="@url">
+                        @Html.Raw(@title)
+
+                    </a>
+                </h3>
+                <div class="course-item-details">
+                    <div class="course-item-types">
+                        <span class="course-item-type course-item-type-online">
+                            @Html.Raw(@catTitle)
+
+                        </span>
+                    </div>
+                </div>
+
+                <span class="course-item-content">
+                    @Html.Raw(@description)
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

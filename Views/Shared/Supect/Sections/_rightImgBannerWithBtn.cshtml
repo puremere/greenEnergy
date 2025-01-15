@@ -52,7 +52,8 @@
                                 <div class="wpb_wrapper">
                                     <div class="custom-heading-holder align-right section-title center-in-tablet">
                                         <h2 class="custom-heading web-title-main-responsive">
-                                            @header
+                                            @Html.Raw(@header)
+
                                         </h2>
                                     </div>
                                     <div class="vc_empty_space" style="height: 10px">
@@ -63,7 +64,8 @@
                                         <div class="wpb_wrapper margin-left-section">
 
                                             <p class="web-text-main-responsive">
-                                                @description
+                                                @Html.Raw(@description)
+
                                             </p>
 
                                         </div>
@@ -73,8 +75,8 @@
                                     </div>
                                     <div class="hero-buttons">
                                         <div class="btn-style">
-                                            <i class="button button-default kt-modal-button" data-modal="contact">@buttonTitle1</i>
-                                            <i class="button button-gray kt-modal-button" data-modal="contact">@buttonTitle2</i>
+                                            <i class="button button-default kt-modal-button" data-modal="contact"> @Html.Raw(@buttonTitle1)</i>
+                                            <i class="button button-gray kt-modal-button" data-modal="contact"> @Html.Raw(@buttonTitle2)</i>
                                         </div>
                                     </div>
                                 </div>

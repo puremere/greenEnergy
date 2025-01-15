@@ -27,14 +27,14 @@
 
 <section class="course-whats-learn-section course-single-section pb-20">
     <h2 class="course-single-section-title" style="text-align:center;padding-bottom:10px;">
-        @header
+        @Html.Raw(@header)
     </h2>
     <div class="kt-row" style="display: flex;">
         @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
     </div>
     <div style="text-align: center;margin: 0 53px 0 53px; font-size: 20px;">
         <p style="font-weight:500 ;">
-            @description
+            @Html.Raw(@description)
         </p>
     </div>
 </section>

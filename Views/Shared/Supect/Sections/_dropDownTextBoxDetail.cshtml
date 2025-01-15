@@ -22,12 +22,12 @@
 <div class="accordion anti-radus">
     <div class="accordion-title">
         <h4 class="accordion-title-inner">
-            @title
+            @Html.Raw(@title)
         </h4>
     </div>
     <div class="accordion-content" style="height: 0px;">
         <div class="accordion-content-inner">
-            <p>@description</p>
+            <p> @Html.Raw(@description)</p>
         </div>
     </div>
 </div>

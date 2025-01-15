@@ -33,7 +33,7 @@
                                 <div class="wpb_wrapper">
                                     <div class="custom-heading-holder align-right section-title center-in-tablet">
                                         <h2 class="custom-heading web-title-main-responsive">
-                                            @header
+                                            @Html.Raw(@header)
                                         </h2>
                                     </div>
                                     <div class="vc_empty_space" style="height: 10px">
@@ -44,9 +44,10 @@
                                         <div class="wpb_wrapper margin-left-section">
 
                                             <p class="web-text-main-responsive">
-                                                @description1
+                                                @Html.Raw(@description1)
+
                                             </p>
-                                            <p class="web-text-main-responsive"><strong>@description2</strong></p>
+                                            <p class="web-text-main-responsive"><strong> @Html.Raw(@description2)</strong></p>
 
                                         </div>
                                     </div>

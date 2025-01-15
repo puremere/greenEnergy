@@ -399,7 +399,28 @@ namespace greenEnergy.Controllers
             return RedirectToAction("page", "Home");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> removeSectionFromHome(sectionVM model)
+        {
+            responseModel responsemodel = new responseModel();
+            responsemodel = await methods.PostData(model, responsemodel, "/removeSection", Request.Cookies["adminToken"].Value);
+            if (responsemodel.status != 200)
+                TempData["er"] = responsemodel.message;
+            else
+            {
 
+                if (!string.IsNullOrEmpty(responsemodel.message))
+                {
+                    string fname = Path.Combine(Server.MapPath("/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/"), responsemodel.message);
+                    bool exists = System.IO.File.Exists(fname);
+                    if (exists)
+                        System.IO.File.Delete(fname);
+
+                }
+            }
+            return Redirect("~/");
+        }
 
         // contents
         public async Task<ActionResult> Content(string id,string contentID)

@@ -25,6 +25,7 @@
 }
 
 
+
 <section id="company-server">
     <div class="course-header-holder" style="margin: 50px;">
         <div class="row flex-row-reverse">
@@ -39,11 +40,12 @@
 
                         <div class="mb-20 clearfix">
 
-                            <h2 itemprop="name" class="product_title entry-title">@header</h2>
+                            <h2 itemprop="name" class="product_title entry-title">@Html.Raw(@header)</h2>
                         </div>
                         <div class="woocommerce-product-details__short-description">
                             <p>
-                                @description
+                                @Html.Raw(@description)
+
                             </p>
                         </div>
 
@@ -56,14 +58,14 @@
                             <div class="column kt-col-xs-12 kt-col-sm-6 p-5">
                                 <div class="course-header-purchase-holder">
                                     <a href="../../contact-us" target="_self" class="button button-default kt-modal-button" data-modal="contact">
-                                        @buttontitle1
+                                        @Html.Raw(@buttontitle1)
                                     </a>
                                 </div>
                             </div>
                             <div class="column kt-col-xs-12 kt-col-sm-auto mr-auto p-5">
                                 <div class="page-header-phone justify-content-center">
                                     <i class="elegant-icon icon_phone text-larger ml-8"></i>
-                                    <span class="text-xxs ml-12">@buttontitle2</span>
+                                    <span class="text-xxs ml-12">@Html.Raw(@buttontitle2)</span>
                                     <a class="text-xxs" href="tel:+982191017049">91017049</a>
                                 </div>
                             </div>

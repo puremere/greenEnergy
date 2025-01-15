@@ -47,19 +47,19 @@
         <div class="wrapper">
             <div class="hero-inner">
                 <h1 class="hero-title">
-                    @header
+                    @Html.Raw(@header)
                 </h1>
                 <h2 class="hero-subtitle">
-                    @title
+                    @Html.Raw(@title)
                 </h2>
                 <div class="hero-text">
-                    @description
+                    @Html.Raw(@description)
                 </div>
                 <div class="hero-buttons">
                     <a href="@buttonURL">
-                        <i class="button button-default kt-modal-button">@buttonText2</i>
+                        <i class="button button-default kt-modal-button"> @Html.Raw(@buttonText2)</i>
                     </a>
-                    <i class="button button-gray kt-modal-button" data-modal="contact">@buttonText1</i>
+                    <i class="button button-gray kt-modal-button" data-modal="contact"> @Html.Raw(@buttonText1)</i>
                 </div>
             </div>
             <div class="hero-badges row index-box-padding">

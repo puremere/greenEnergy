@@ -43,7 +43,7 @@
                                 <div class="wpb_wrapper">
                                     <div class="custom-heading-holder align-center">
                                         <h2 class="custom-heading">
-                                            @header
+                                            @Html.Raw(@header)
                                         </h2>
                                     </div>
                                     <div class="vc_empty_space" style="height: 30px">
@@ -52,10 +52,10 @@
                                     <div class="tabs tabs-style1 align-center analysis-tabs" id="tabs-64e575d8a9edc">
                                         <ul class="tabs-title-holder">
                                             <li class="tab-title" data-tab-id="tab-64e575d8a9f23">
-                                                <h4 class="tab-title-inner">@title1 </h4>
+                                                <h4 class="tab-title-inner"> @Html.Raw(@title1) </h4>
                                             </li>
                                             <li class="tab-title active" data-tab-id="tab-64e575d8a9f2a">
-                                                <h4 class="tab-title-inner">@title2</h4>
+                                                <h4 class="tab-title-inner"> @Html.Raw(@title2)</h4>
                                             </li>
                                         </ul>
                                         <div class="tabs-content-holder">
@@ -81,7 +81,7 @@
                                                                                             <div class="wpb_wrapper">
                                                                                                 <p>
                                                                                                     <span style="font-size: 15px;">
-                                                                                                        @description1
+                                                                                                        @Html.Raw(@description1)
 
                                                                                                     </span>
                                                                                                 </p>
@@ -134,7 +134,8 @@
                                                                                                 <p>
                                                                                                     <span style="font-size: 15px;">
 
-                                                                                                        @description2
+                                                                                                        @Html.Raw(@description2)
+
                                                                                                     </span>
                                                                                                 </p>
 

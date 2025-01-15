@@ -71,7 +71,7 @@
                                                             <div class="wpb_wrapper">
                                                                 <div class="custom-heading-holder align-right section-title center-in-tablet">
                                                                     <h1 class="custom-heading">
-                                                                        @header
+                                                                        @Html.Raw(@header)
                                                                     </h1>
                                                                 </div>
                                                                 <div class="vc_empty_space" style="height: 10px">
@@ -80,7 +80,7 @@
                                                                 <div class="custom-heading-holder align-right section-subtitle center-in-tablet">
                                                                     <p class="custom-heading text-responsive"
                                                                        style="text-align: justify;line-height: 40px;">
-                                                                                                 @description                        <br />
+                                                                        @Html.Raw(@description )                       
 
 
                                                                     </p>
@@ -91,8 +91,8 @@
 
                                                                 <div class="hero-buttons">
                                                                     <div class="btn-style">
-                                                                        <i class="button button-default kt-modal-button" data-modal="contact">@buttonText1</i>
-                                                                        <i class="button button-gray kt-modal-button" data-modal="contact">@buttonText2</i>
+                                                                        <i class="button button-default kt-modal-button" data-modal="contact"> @Html.Raw(@buttonText1)</i>
+                                                                        <i class="button button-gray kt-modal-button" data-modal="contact"> @Html.Raw(@buttonText2)</i>
                                                                     </div>
                                                                 </div>
                                                                 <div class="wpb_raw_code wpb_content_element wpb_raw_html">
@@ -100,9 +100,10 @@
                                                                         <div class="page-header-phone">
                                                                             <i class="elegant-icon icon_phone"></i>
                                                                             <span>
-                                                                                @requestTitle
+                                                                                @Html.Raw(@requestTitle)
+
                                                                             </span>
-                                                                            <a href="@buttonURL">@buttonTitle</a>
+                                                                            <a href="@buttonURL"> @Html.Raw(@buttonTitle)</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>

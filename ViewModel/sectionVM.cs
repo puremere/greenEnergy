@@ -279,6 +279,9 @@ namespace greenEnergy.ViewModel
         public string description { get; set; }
         public string parentCategory { get; set; }
         public Guid typeID { get; set; }
+        public List<Guid> catID { get; set; }
+        public List<Guid> tagID { get; set; }
+        
     }
     public class contentVM
     {
@@ -498,6 +501,9 @@ namespace greenEnergy.ViewModel
         public List<poseVM> poseList { get; set; }
         public List<sectionVM> childList { get; set; }
         public List<pageContentVM> contentChild { get; set; }
+        public List<categoryVM> catListVM { get; set; }
+        public List<secTagVM> tagListVM { get; set; }
+
 
         public string htmlName { get; set; }
         public int index { get; set; }

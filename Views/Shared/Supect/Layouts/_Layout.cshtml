@@ -885,22 +885,46 @@
         }
     </style>
     <script>
-        wow = new WOW(
-            {
-                boxClass: 'wow',      // default
-                animateClass: 'animated', // default
-                offset: 0,          // default
-                mobile: true,       // default
-                live: true        // default
-            }
-        )
-        wow.init();
+      //  wow = new WOW(
+        //    {
+          //      boxClass: 'wow',      // default
+            //    animateClass: 'animated', // default
+              //  offset: 0,          // default
+               // mobile: true,       // default
+               // live: true        // default
+           // }
+       // )
+        //wow.init();
         $(".breadItem").click(function () {
             var idToGo = $(this).attr('idTogo');
             document.querySelector('#' + idToGo).scrollIntoView({
                 behavior: 'smooth'
             });
         })
+    </script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            menubar: false,
+
+            plugins: [
+                'code advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect | ' +
+                ' bold italic backcolor | alignleft aligncenter ' +
+                ' alignright alignjustify | bullist numlist outdent indent |' +
+                ' removeformat | help| link image | code',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ]
+        });
+        //tinymce.activeEditor.execCommand('mceDirectionRTL');
     </script>
 
     <script>
@@ -935,7 +959,7 @@
         })
     $(".submitForm").click(function(){
          var form = new FormData();
-       $(this).parent().find('input').each(function(){
+       $(this).parent().find(':input').each(function(){
 
 
 
@@ -943,6 +967,11 @@
                 {
                   var image = $(this)[0].files[0];
                   form.append('image', image);
+                }
+              else if ( $(this).is("textarea"))
+                {
+                   var value = tinymce.activeEditor.getContent();
+                   form.append('title2', value);
                 }
              else
                 {

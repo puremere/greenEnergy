@@ -33,14 +33,15 @@
                                         <div class="wpb_wrapper">
                                             <p style="display: inline-block;">
                                                 <span style="color: #ffffff; font-size: 16px;">
-                                                    @description
+                                                    @Html.Raw(@description)
+
                                                 </span>
                                             </p>
                                             <p style="display: inline-block;"></p>
                                             <div class="button-holder button-inline">
                                                 <a href="@buttonURL" target="_self"
                                                    class="button button-white" style="margin-right:15px">
-                                                    @buttonText
+                                                    @Html.Raw(@buttonText)
                                                 </a>
                                             </div>
                                         </div>

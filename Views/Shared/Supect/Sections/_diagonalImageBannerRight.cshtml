@@ -28,19 +28,19 @@
         <div class="wrapper" style="direction: ltr">
             <div class="hero-inner" style="direction: rtl; text-align: right">
                 <h2 class="hero-title">
-                    @header
+                    @Html.Raw(@header)
                 </h2>
 
                 <div class="hero-text" style="margin-top: 25px;">
-                    @description
+                    @Html.Raw(@description)
                 </div>
                 <div class="hero-badges row">
                     <div class="column ">
                         <a href="@buttonURL" class="hero-badge">
                             <img src="@image" width="60" height="60" loading="lazy" alt="اجرای پروژه های بین المللی">
                             <div class="hero-badge-inner">
-                                <span style="font-size: 16px;">@buttonText1</span>
-                                <p class="index-boxs-style">@buttonText2</p>
+                                <span style="font-size: 16px;"> @Html.Raw(@buttonText1)</span>
+                                <p class="index-boxs-style"> @Html.Raw(@buttonText2)</p>
                             </div>
                         </a>
                     </div>

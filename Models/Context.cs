@@ -118,6 +118,16 @@ namespace greenEnergy.Model // اینجا عوض شه
             modelBuilder.Entity<section>().HasOptional(s => s.SectionLayout).WithMany(x => x.sections).HasForeignKey(x => x.sectionLayoutID).WillCascadeOnDelete(false);
             modelBuilder.Entity<section>().HasOptional(s => s.Category).WithMany(x => x.sections).HasForeignKey(x => x.categoryID).WillCascadeOnDelete(false);
             modelBuilder.Entity<section>().HasRequired(s => s.Language).WithMany(x => x.Sections).HasForeignKey(x => x.languageID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<section>()
+            //    .HasMany<secTag>(s => s.SecTags)
+            //    .WithMany(c => c.sections)
+            //    .Map(cs =>
+            //    {
+            //        cs.MapLeftKey("sectionID StudentRefId");
+            //        cs.MapRightKey("secTagID");
+            //        cs.ToTable("secTagsections");
+            //    });
+
             modelBuilder.Entity<category>().HasRequired(s => s.sectionType).WithMany(x => x.Categories).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
             modelBuilder.Entity<secTag>().HasRequired(s => s.sectionType).WithMany(x => x.SecTags).HasForeignKey(x => x.sectionTypeID).WillCascadeOnDelete(false);
 
@@ -492,12 +502,20 @@ namespace greenEnergy.Model // اینجا عوض شه
 
     public class content  // JAView for app
     {
-
+        public content()
+        {
+            this.SecTags = new HashSet<secTag>();
+            this.categories = new HashSet<category>();
+        }
         [Key]
         public Guid contentID { get; set; }
+
         public Guid? sectionTypeID { get; set; }
         [ForeignKey("sectionTypeID")]
         public virtual sectionType sectionType { get; set; }
+
+
+
 
         public int priority { get; set; }
         public int useParentSection { get; set; }
@@ -526,6 +544,9 @@ namespace greenEnergy.Model // اینجا عوض شه
         public virtual ICollection<data> Datas { get; set; }
         public virtual ICollection<pose> Poses { get; set; }
         public virtual ICollection<content> childContent { get; set; }
+
+        public virtual ICollection<secTag> SecTags { get; set; }
+        public virtual ICollection<category> categories { get; set; }
     }
 
 
@@ -629,6 +650,7 @@ namespace greenEnergy.Model // اینجا عوض شه
         public secTag()
         {
             this.sections = new HashSet<section>();
+            this.contents = new HashSet<content>();
         }
         [Key]
         public Guid secTagID { get; set; }
@@ -637,9 +659,15 @@ namespace greenEnergy.Model // اینجا عوض شه
         [ForeignKey("sectiontypeID")]
         public virtual sectionType sectionType { get; set; }
         public virtual ICollection<section> sections { get; set; }
+        public virtual ICollection<content> contents { get; set; }
     }
     public class category
     {
+        public category()
+        {
+            this.contents = new HashSet<content>();
+        }
+
         [Key]
         public Guid categoryID { get; set; }
         public string title { get; set; }
@@ -647,6 +675,7 @@ namespace greenEnergy.Model // اینجا عوض شه
         [ForeignKey("sectiontypeID")]
         public virtual sectionType sectionType { get; set; }
         public virtual ICollection<section> sections { get; set; }
+        public virtual ICollection<content> contents { get; set; }
     }
     public class language
     {

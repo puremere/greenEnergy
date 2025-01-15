@@ -39,7 +39,7 @@
         <div class="course-item-desc-holder">
             <h3 class="course-item-title">
                 <a style="font-size: 17px;">
-                    @title1
+                    @Html.Raw(@title1)
                 </a>
             </h3>
             <div class="course-item-details">
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <span class="course-item-content">
-                @description1
+                @Html.Raw(@description1)
             </span>
 
         </div>
@@ -65,7 +65,7 @@
         </a>
         <div class="course-item-desc-holder">
             <h3 class="course-item-title">
-                <a>@title2</a>
+                <a> @Html.Raw(@title2)</a>
             </h3>
             <div class="course-item-details">
                 <div class="course-item-types">
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <span class="course-item-content">
-                @description2
+                @Html.Raw(@description2)
             </span>
 
         </div>

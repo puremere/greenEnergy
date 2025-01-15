@@ -34,11 +34,34 @@
                                 <p>اولویت:</p>
                                 <input required type="text" id="seachQuery" name="priority" class="form-control ">
                             </div>
-                           
+
                             <div class="row" style="margin:20px">
                                 <p>تولید دیتا از پیچ با تایپ :</p>
                                 @Html.DropDownList("typeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), "choose one", new { @class = "form-control", name = "typeID" })
 
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">طبقه بندی  صفحه  :</p>
+                                <select name="catID" class="form-control" multiple>
+                                    @foreach (var item in Model.catTypeList.list)
+                                    {
+                                        <option>انتخاب دسته بندی</option>
+                                        <option value="@item.categoryID" class="subCatItem @item.sectionTypeName">
+                                            @item.title
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">برچسب های صفحه  :</p>
+                                <select  style="height:100px" multiple name="tagID" class="form-control" >
+                                    @foreach (var item in Model.tagTypeList.list)
+                                    {
+                                        <option style="padding:10px" value="@item.tagID" class="subCatItem @item.sectionTypeName">
+                                            @item.title
+                                        </option>
+                                    }
+                                </select>
                             </div>
                             <div class="row" style="margin:20px">
                                 <p>انتخاب المان :</p>
@@ -71,7 +94,7 @@
                                 </select>
 
                             </div>
-                    
+
 
 
 
@@ -101,43 +124,43 @@
                                 <input required type="text" id="seachQuery" name="title" class="form-control ">
                             </div>
                             @*<div class="col-lg-6 mb-4 row " style="">
-                <p class=" ">Button Text:</p>
-                <div class="col-sm-10">
-                    <input required type="text" id="seachQuery" name="buttonText" class="form-control ">
+                                    <p class=" ">Button Text:</p>
+                                    <div class="col-sm-10">
+                                        <input required type="text" id="seachQuery" name="buttonText" class="form-control ">
 
-                </div>
-            </div>*@
-                        <div class="row " style="margin:20px">
-                            <p class=" ">توضیحات:</p>
-                            <input required type="text" id="seachQuery" name="description" class="form-control ">
+                                    </div>
+                                </div>*@
+                            <div class="row " style="margin:20px">
+                                <p class=" ">توضیحات:</p>
+                                <input required type="text" id="seachQuery" name="description" class="form-control ">
 
-                        </div>
+                            </div>
 
-                        <div class="row " style="margin:20px">
-                            <p class=" ">یوارال:</p>
-                            <input type="text" id="" name="url" class="form-control ">
+                            <div class="row " style="margin:20px">
+                                <p class=" ">یوارال:</p>
+                                <input type="text" id="" name="url" class="form-control ">
 
-                        </div>
-                        <div class="row " style="margin:20px">
-                            <p class=" ">متا تایتل:</p>
-                            <input required type="text" id="" name="metaTitle" class="form-control ">
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">متا تایتل:</p>
+                                <input required type="text" id="" name="metaTitle" class="form-control ">
 
-                        </div>
-                        <div class="row " style="margin:20px">
-                            <p class=" ">انتخاب قالب:</p>
-                            @Html.DropDownList("sectionLayoutID", new SelectList(Model.layoutList.layoutObjectLists, "sectionLayoutID", "menuTitle"), new { @class = "form-control", name = "sectionLayoutID" })
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">انتخاب قالب:</p>
+                                @Html.DropDownList("sectionLayoutID", new SelectList(Model.layoutList.layoutObjectLists, "sectionLayoutID", "menuTitle"), new { @class = "form-control", name = "sectionLayoutID" })
 
-                        </div>
-                        <div class="row " style="margin:20px">
-                            <p class=" ">زبان:</p>
-                            @Html.DropDownList("languateID", new SelectList(Model.layoutList.langauageList, "languageID", "title"), new { @class = "form-control", name = "languateID" })
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">زبان:</p>
+                                @Html.DropDownList("languateID", new SelectList(Model.layoutList.langauageList, "languageID", "title"), new { @class = "form-control", name = "languateID" })
 
-                        </div>
-                        <div class="row " style="margin:20px">
-                            <p class=" ">نوع صفحه:</p>
-                            @Html.DropDownList("sectinoTypeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), new { @class = "form-control", name = "sectionLayoutID" })
+                            </div>
+                            <div class="row " style="margin:20px">
+                                <p class=" ">نوع صفحه:</p>
+                                @Html.DropDownList("sectinoTypeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), new { @class = "form-control", name = "sectionLayoutID" })
 
-                        </div>
+                            </div>
                             <div class="row " style="margin:20px">
                                 <p class=" ">طبقه بندی  صفحه  :</p>
                                 <select name="categoryID" class="form-control">
@@ -179,7 +202,7 @@
 
                         </form>
                     </div>
-                  
+
 
                 </div>
 
@@ -206,12 +229,12 @@
                                 <input type="text" id="seachQuery" name="title" class="form-control ">
 
                             </div>
-                            <div id="NewList"  style="   margin-top: 20px;">
+                            <div id="NewList" style="   margin-top: 20px;">
                                 <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
                             </div>
 
                         </form>
-                     
+
                     </div>
 
                     <div class="">
@@ -220,23 +243,23 @@
                             <input hidden name="fromHome" value="1" />
                             <input hidden name="url" value="@ViewBag.url" />
                             @Html.AntiForgeryToken()
-                        <div class="row " style="">
-                            <p class="">عنوان  :</p>
-                            <input type="text" id="seachQuery" name="title" class="form-control ">
+                            <div class="row " style="">
+                                <p class="">عنوان  :</p>
+                                <input type="text" id="seachQuery" name="title" class="form-control ">
 
-                        </div>
-                        <div class=" row " style="">
-                            <p >نوع صفحه  :</p>
-                            @Html.DropDownList("sectionTypeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), new { @class = "form-control" })
+                            </div>
+                            <div class=" row " style="">
+                                <p>نوع صفحه  :</p>
+                                @Html.DropDownList("sectionTypeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), new { @class = "form-control" })
 
 
-                        </div>
-                            <div id="NewList"  style="   margin-top: 20px;">
+                            </div>
+                            <div id="NewList" style="   margin-top: 20px;">
                                 <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
                             </div>
 
                         </form>
-                   
+
                     </div>
 
                     <div class="">
@@ -255,13 +278,44 @@
                                 @Html.DropDownList("sectionTypeID", new SelectList(Model.contentListVM.typeList, "typeID", "title"), new { @class = "form-control" })
 
                             </div>
-                            <div id="NewList"  style="   margin-top: 20px;">
+                            <div id="NewList" style="   margin-top: 20px;">
                                 <button type="submit" class="btn btn-primary lgnsubmitt">تایید </button>
                             </div>
 
                         </form>
-                       
+
                     </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal fade" id="pageRemove" tabindex="-1" role="dialog" aria-pledby="exampleModalp" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalp">حذف صفحه</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <h6 class="modal-title">آیا از حذف صفحه اطمینان دارید؟</h6><button aria-label="close" class="close" data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <form action="/panel/removeSectionFromHome" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+
+                        <input hidden name="sectinoID" value="@Model.sectionID" />
+
+                        <div class="modal-footer">
+                            <button class="btn ripple btn-primary" type="submit">تایید</button>
+                            <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">لغو</button>
+                        </div>
+                    </form>
+               
+
+
                 </div>
 
             </div>
@@ -279,7 +333,13 @@
         <button style="margin:5px" type="button" class="addminButton btn btn-primary" data-toggle="modal" data-target="typePlus">
             مدیریت ماهیت صفحات
         </button>
-       
+        <button style="margin:5px" type="button" class="addminButton btn btn-primary" data-toggle="modal" data-target="pageRemove">
+            حذف صفحه
+        </button>
+        <button style="margin:5px" type="button" class="addminButton btn btn-primary" data-toggle="modal" data-target="pageRemove">
+            ویرایش صفحه
+        </button>
+
     </div>
     @section scripts{
 

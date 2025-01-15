@@ -385,11 +385,11 @@ namespace greenEnergy.Controllers
                 List<pageContentVM> response = new List<pageContentVM>();
                 if (sectinoID != null)
                 {
-                    response = await dbcontext.contents.Include(x => x.HTML).Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { htmlName = l.HTML.title, sectionID = l.sectionID, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Include(x=>x.SecTags).Include(x=>x.categories).Include(x => x.HTML).Where(x => x.sectionID == sectinoID && x.parentID == null).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { tagListVM = l.SecTags.Select(l=> new secTagVM { title = l.title, tagID = l.secTagID}).ToList(), catListVM = l.categories.Select(m=> new categoryVM { title = m.title,categoryID = m.categoryID }).ToList(), htmlName = l.HTML.title, sectionID = l.sectionID, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
                 }
                 else
                 {
-                    response = await dbcontext.contents.Include(x => x.HTML).Where(x => x.parentID == content.conentID).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { htmlName = l.HTML.title, sectionID = l.sectionID, multilayer = l.HTML.multilayer, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
+                    response = await dbcontext.contents.Include(x => x.SecTags).Include(x => x.categories).Include(x => x.HTML).Where(x => x.parentID == content.conentID).Include(x => x.Datas).OrderBy(l => l.priority).Select(l => new pageContentVM { tagListVM = l.SecTags.Select(l => new secTagVM { title = l.title, tagID = l.secTagID }).ToList(), catListVM = l.categories.Select(m => new categoryVM { title = m.title, categoryID = m.categoryID }).ToList(), htmlName = l.HTML.title, sectionID = l.sectionID, multilayer = l.HTML.multilayer, useParentSection = l.useParentSection, htmlFields = l.HTML.dataField, stackWeight = l.stackWeight, cycleFields = l.cycleFields, formID = l.formID, poseMeta = l.HTML.poseMeta, appMeta = l.HTML.appMeta, appType = l.HTML.appType, description = l.description, typeID = l.sectionTypeID, priority = l.priority, conentID = l.contentID, parentID = l.parentID, title = l.title, partialName = l.HTML.partialView, poseList = l.Poses.Select(x => new poseVM { poseID = x.poseID, title = x.title, title2 = x.title2 }).ToList(), dataList = l.Datas.Select(m => new dataVM { dataID = m.dataID, title = m.title, description = m.description, description2 = m.description2, mediaURL = m.mediaURL, title2 = m.title2, viedoIframe = m.viedoIframe }).ToList() }).ToListAsync();
                 }
 
                 foreach (var item in response)
@@ -398,12 +398,34 @@ namespace greenEnergy.Controllers
                     {
 
                         language langselected = await dbcontext.languages.SingleOrDefaultAsync(x => x.title == lang);
-                        var qrrr = dbcontext.sections.Where(x => x.sectionTypeID == item.typeID);
+                        var qrrr = dbcontext.sections.Include(x=>x.SecTags).Where(x => x.sectionTypeID == item.typeID);
                         if (langselected != null)
                         {
                             qrrr = qrrr.Where(x => x.languageID == langselected.languageID);
                         }
-                        item.childList = await qrrr.OrderByDescending(x => x.date).Select(x => new sectionVM { categoryName = x.Category.title, url = x.url, title = x.title, description = x.description, image = x.image, date = x.date, writer = x.writer, buttonText = x.buttonText }).Take(10).ToListAsync();
+
+                        if (item.tagListVM != null)
+                        {
+                            if (item.tagListVM.Count() > 0)
+                            {
+                                foreach (var tg in item.tagListVM)
+                                {
+                                    qrrr = qrrr.Where(x => x.SecTags.Any(x=>x.title.Contains(tg.title)));
+                                }
+                            }
+                        }
+                        if (item.catListVM != null)
+                        {
+                            if (item.catListVM.Count() > 0)
+                            {
+                                foreach (var at in item.catListVM)
+                                {
+                                    qrrr = qrrr.Where(x => x.categoryID == at.categoryID);
+                                }
+                            }
+                        }
+
+                        item.childList = await qrrr.OrderByDescending(x => x.date).Select(x => new sectionVM { tags = x.SecTags.Select(t => new secTagVM { title = t.title, tagID = t.secTagID }).ToList(),  categoryName = x.Category.title, url = x.url, title = x.title, description = x.description, image = x.image, date = x.date, writer = x.writer, buttonText = x.buttonText }).Take(10).ToListAsync();
                     }
                     item.contentChild = await getChildContentWeb(null, item, lang);
                 }
@@ -10075,7 +10097,52 @@ namespace greenEnergy.Controllers
             return jObject;
         }
 
+        [BasicAuthentication]
+        [System.Web.Http.HttpPost]
+        public async Task<JObject> removeSection([FromBody] sectionVM model)
+        {
+            responseModel response = new responseModel();
 
+            using (Context dbcontext = new Context())
+            {
+                try
+                {
+                    section selectedData = await dbcontext.sections.SingleOrDefaultAsync(x => x.sectionID == model.sectinoID);
+                    selectedData.SecTags.ToList().ForEach(p => dbcontext.SecTags.Remove(p));
+                    selectedData.Metas.ToList().ForEach(p => dbcontext.metas.Remove(p));
+                    
+                    content content = selectedData.Contents.First();
+                    setContentVM removeModel = new setContentVM();
+                    removeModel.contentID = content.contentID;
+
+                    removeItem(removeModel, dbcontext);
+                    await dbcontext.SaveChangesAsync();
+
+                    if (selectedData != null)
+                    {
+                        dbcontext.sections.Remove(selectedData);
+                        response.status = 200;
+                        response.message = selectedData.image;
+                        await dbcontext.SaveChangesAsync();
+                    }
+
+
+
+                }
+                catch (Exception e)
+                {
+                    response.status = 400;
+                    response.message = "Error ! ";
+
+                }
+
+
+            }
+
+            string result = JsonConvert.SerializeObject(response);
+            JObject jObject = JObject.Parse(result);
+            return jObject;
+        }
         // content 
         [System.Web.Http.HttpPost]
         public async Task<contentListVM> getContent([FromBody] sectionVM model)
@@ -10279,6 +10346,29 @@ namespace greenEnergy.Controllers
 
 
 
+                       if (model.catID != null)
+                        {
+                            if (model.catID.Count() > 0)
+                            {
+                                foreach(var item in model.catID)
+                                {
+                                    category contentCat = await dbcontext.categories.SingleOrDefaultAsync(x => x.categoryID == item);
+                                    newlItem.categories.Add(contentCat);
+                                }
+                            }
+                        }
+
+                        if (model.tagID != null)
+                        {
+                            if (model.tagID.Count() > 0)
+                            {
+                                foreach (var item in model.tagID)
+                                {
+                                    secTag contentTag = await dbcontext.SecTags.SingleOrDefaultAsync(x => x.secTagID == item);
+                                    newlItem.SecTags.Add(contentTag);
+                                }
+                            }
+                        }
 
                         if (model.typeID != new Guid("00000000-0000-0000-0000-000000000000"))
                             newlItem.sectionTypeID = model.typeID;

@@ -1,0 +1,168 @@
+﻿@model greenEnergy.ViewModel.pageContentVM
+@using greenEnergy.ViewModel;
+@{
+    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+    string finalStyle = "";
+    if (!string.IsNullOrEmpty(style))
+    {
+        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    }
+
+
+
+    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+    string header = Model.dataList.SingleOrDefault(x => x.title == "header").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "header").title2 : "آخرین اخبار و مقالات ";
+    string buttonTitle = Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "buttonTitle").title2 : "مشاهده همه مقالات";
+    string urlButton = Model.dataList.SingleOrDefault(x => x.title == "urlButton").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "urlButton").title2 : "#";
+
+
+}
+
+
+
+@if (Request.Cookies["adminToken"] != null)
+{
+    @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_controllerModalParent.cshtml", Model)
+}
+
+
+
+
+<section id="blog-content">
+    <div class="vc_row section vc_row-fluid home-courses" id="row-64e5dcf5af6f9">
+        <div class="row-inner clearfix row-background-transparent">
+            <div class="row-outer-holder" style="padding-top:75px;padding-bottom:90px">
+                <div class="wrapper">
+                    <div class="row-inner-holder align-right">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="vc_row vc_inner section vc_row-fluid"
+                                         id="row-64e5dcf5afd70">
+                                        <div class="row-inner clearfix row-background-transparent">
+                                            <div class="row-outer-holder">
+                                                <div class="wrapper">
+                                                    <div class="row-inner-holder align-right">
+                                                        <div class="wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-6 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="custom-heading-holder align-right section-title center-in-mobile">
+                                                                        <h2 class="custom-heading">
+                                                                            @Html.Raw(@header)
+                                                                        </h2>
+                                                                    </div>
+                                                                    <div class="vc_empty_space"
+                                                                         style="height: 10px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+
+                                                                    <div class="vc_empty_space"
+                                                                         style="height: 20px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="align-left center-in-mobile wpb_column vc_column_container column-vertical-content column-content-middle vc_col-sm-6 vc_col-xs-12">
+                                                            <div class="vc_column-inner ">
+                                                                <div class="wpb_wrapper">
+                                                                    <div class="button-holder button-inline">
+                                                                        <a href="@urlButton"
+                                                                           target="_self"
+                                                                           class="button button-default">
+                                                                            @Html.Raw(@buttonTitle)
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="vc_empty_space"
+                                                                         style="height: 20px">
+                                                                        <span class="vc_empty_space_inner"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vc_empty_space" style="height: 20px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+
+
+                                    @if (Model.typeID != new Guid("00000000-0000-0000-0000-000000000000") && Model.typeID != null)
+                                    {
+                                        foreach (var item in Model.childList)
+                                        {
+
+                                            string image = baseImage + item.image;
+                                           
+                                            string title = item.title;
+                                            string catTitle = item.categoryName;
+                                            string description = item.description;
+                                            string blogurl = item.url;
+
+
+
+
+                                            <div class="related-courses-section row" style="display:contents">
+                                                <div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+                                                    <div class="course-item-holder">
+                                                        <a href="@blogurl"
+                                                           class="course-item-image-holder">
+                                                            <img width="481" height="310" alt=" "
+                                                                 src="@image" />
+                                                        </a>
+                                                        <div class="course-item-desc-holder">
+                                                            <h3 class="course-item-title">
+                                                                <a href="@blogurl">
+                                                                    @Html.Raw(@title)
+
+                                                                </a>
+                                                            </h3>
+                                                            <div class="course-item-details">
+                                                                <div class="course-item-types">
+                                                                    <span class="course-item-type course-item-type-online">
+                                                                        @Html.Raw(@catTitle)
+
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <span class="course-item-content">
+                                                                @Html.Raw(@description)
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("/Views/Shared/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Layouts/_childContent.cshtml", Model)
+                                    }
+
+
+
+
+
+                                    <div class="vc_empty_space" style="height: 40px">
+                                        <span class="vc_empty_space_inner"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

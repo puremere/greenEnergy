@@ -47,7 +47,7 @@
     <div class="section" style="background-color:transparent">
         @if (!string.IsNullOrEmpty(buttonText))
         {
-            <a class="btn @buttonClass.Replace(",", " ") btn-lg page-scroll wow fadeInUp" href="@buttonLink">@buttonText</a>
+        <a class="btn @buttonClass.Replace(",", " ") btn-lg page-scroll wow fadeInUp" href="@buttonLink"> @Html.Raw(@buttonText)</a>
 
         }
     </div>

@@ -1,109 +1,109 @@
 ﻿@model greenEnergy.ViewModel.pageContentVM
-@using greenEnergy.ViewModel;
-@{
-    string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
-    styleVM styleModel = new greenEnergy.ViewModel.styleVM();
-    string finalStyle = "";
-    if (!string.IsNullOrEmpty(style))
-    {
-        finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+    @using greenEnergy.ViewModel;
+    @{
+        string style = Model.dataList.SingleOrDefault(x => x.title == "style").title2 == "" ? "" : Model.dataList.SingleOrDefault(x => x.title == "style").title2;
+        styleVM styleModel = new greenEnergy.ViewModel.styleVM();
+        string finalStyle = "";
+        if (!string.IsNullOrEmpty(style))
+        {
+            finalStyle = greenEnergy.Classes.methods.getMyStyle(style);
+        }
+
+
+
+        string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
+
+        string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/05/technology-statup-1.jpg";
+        string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/08/social-startup1.jpg";
+        string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/08/portfolio-statup-1.jpg";
+
+        string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "فناوری محور";
+        string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "اجتماعی";
+        string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "پرتفوی";
+
+        string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : " این نوع استارت آپ ها ، بر پایه ی فناوری های نوین همچون هوش مصنوعی ، اینترنت اشیاء ، بلاک چین و..ساخته می شوند وتلاش می کنند تا با بهره گیری از فناوری های پیشرفته ، مشکلات را حل و یا خدماتجدیدی را ارائه دهند";
+        string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : " این استارتاپ ها با هدف حل مسائل اجتماعی یا محیط زیستی با استفاده از تکنولوژی و مدل های کسب و کار اجتماعی برای بهبود در جوامع شکل می گیرند";
+        string description3 = Model.dataList.SingleOrDefault(x => x.title == "description3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description3").title2 : "  این استارت آپ ها به دنبال یک پلتفرم یا سامانه ای هستند که افراد یا شرکت ها بتوانند ارزهای دیجیتال ، اموال و خدمات را بر پایه ی بلاک چین و فناوری های نوین تبادل کنند";
+
+        string lable1 = Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 : " Technology oriented";
+        string lable2 = Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 : " social";
+        string lable3 = Model.dataList.SingleOrDefault(x => x.title == "lable3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable3").title2 : " Stock portfolio";
+
+
     }
 
+    <div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+        <div class="course-item-holder">
+            <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt="" src="@image1">
+            <div class="course-item-desc-holder">
+                <h3 class="course-item-title">
+                    @Html.Raw(@title1)
+                </h3>
+                <div class="course-item-details">
 
-
-    string baseImage = "/Images/" + @System.Configuration.ConfigurationManager.AppSettings["name"] + "/Uploads/";
-
-    string image1 = Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image1").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/05/technology-statup-1.jpg";
-    string image2 = Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image2").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/08/social-startup1.jpg";
-    string image3 = Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 != "" ? baseImage + Model.dataList.SingleOrDefault(x => x.title == "img_image3").title2 : "webAssets/supect/Assets/wp-content/uploads/2018/08/portfolio-statup-1.jpg";
-
-    string title1 = Model.dataList.SingleOrDefault(x => x.title == "title1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title1").title2 : "فناوری محور";
-    string title2 = Model.dataList.SingleOrDefault(x => x.title == "title2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title2").title2 : "اجتماعی";
-    string title3 = Model.dataList.SingleOrDefault(x => x.title == "title3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "title3").title2 : "پرتفوی";
-
-    string description1 = Model.dataList.SingleOrDefault(x => x.title == "description1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description1").title2 : " این نوع استارت آپ ها ، بر پایه ی فناوری های نوین همچون هوش مصنوعی ، اینترنت اشیاء ، بلاک چین و..ساخته می شوند وتلاش می کنند تا با بهره گیری از فناوری های پیشرفته ، مشکلات را حل و یا خدماتجدیدی را ارائه دهند";
-    string description2 = Model.dataList.SingleOrDefault(x => x.title == "description2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description2").title2 : " این استارتاپ ها با هدف حل مسائل اجتماعی یا محیط زیستی با استفاده از تکنولوژی و مدل های کسب و کار اجتماعی برای بهبود در جوامع شکل می گیرند";
-    string description3 = Model.dataList.SingleOrDefault(x => x.title == "description3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "description3").title2 : "  این استارت آپ ها به دنبال یک پلتفرم یا سامانه ای هستند که افراد یا شرکت ها بتوانند ارزهای دیجیتال ، اموال و خدمات را بر پایه ی بلاک چین و فناوری های نوین تبادل کنند";
-
-    string lable1 = Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable1").title2 : " Technology oriented";
-    string lable2 = Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable2").title2 : " social";
-    string lable3 = Model.dataList.SingleOrDefault(x => x.title == "lable3").title2 != "" ? Model.dataList.SingleOrDefault(x => x.title == "lable3").title2 : " Stock portfolio";
-
-
-}
-
-
-<div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
-    <div class="course-item-holder">
-        <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt="" src="@image1">
-        <div class="course-item-desc-holder">
-            <h3 class="course-item-title">
-                @title1
-            </h3>
-            <div class="course-item-details">
-
-                <div>
-                    <i class="blog-item-popular elegant-icon icon_heart" title=""></i>
+                    <div>
+                        <i class="blog-item-popular elegant-icon icon_heart" title=""></i>
+                    </div>
                 </div>
+                <span class="course-item-content">
+                    @Html.Raw(@description1)
+                </span>
+                <ul class="course-item-meta clearfix">
+                    <li>
+                        <i class="dripicons dripicons-clock"></i>
+                        <span class="course-item-type">@lable1</span>
+                    </li>
+                </ul>
             </div>
-            <span class="course-item-content">
-                @description1
-            </span>
-            <ul class="course-item-meta clearfix">
-                <li>
-                    <i class="dripicons dripicons-clock"></i>
-                    <span class="course-item-type">@lable1</span>
-                </li>
-            </ul>
         </div>
     </div>
-</div>
-<div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
-    <div class="course-item-holder">
+    <div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+        <div class="course-item-holder">
 
-        <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt="  " src="@image2">
-        <div class="course-item-desc-holder">
-            <h3 class="course-item-title"> @title2</h3>
-            <div class="course-item-details">
+            <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt="  " src="@image2">
+            <div class="course-item-desc-holder">
+                <h3 class="course-item-title">  @Html.Raw(@title2)</h3>
+                <div class="course-item-details">
 
-                <div>
-                    <i class="blog-item-popular elegant-icon icon_heart" title=" "></i>
+                    <div>
+                        <i class="blog-item-popular elegant-icon icon_heart" title=" "></i>
+                    </div>
                 </div>
+                <span class="course-item-content">
+                    @Html.Raw(@description2)
+                </span>
+                <ul class="course-item-meta clearfix">
+                    <li>
+                        <i class="dripicons dripicons-clock"></i>
+                        <span class="course-item-type">@lable2</span>
+                    </li>
+                </ul>
             </div>
-            <span class="course-item-content">
-                @description2
-            </span>
-            <ul class="course-item-meta clearfix">
-                <li>
-                    <i class="dripicons dripicons-clock"></i>
-                    <span class="course-item-type">@lable2</span>
-                </li>
-            </ul>
         </div>
     </div>
-</div>
-<div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
-    <div class="course-item-holder">
-        <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt=" " src="@image3">
-        <div class="course-item-desc-holder">
-            <h3 class="course-item-title">
-                @title3
-            </h3>
-            <div class="course-item-details">
+    <div class="column kt-col-xs-12 kt-col-sm-6 kt-col-md-4">
+        <div class="course-item-holder">
+            <img class="kt-lazyload loaded anti-radus" width="481" height="310" alt=" " src="@image3">
+            <div class="course-item-desc-holder">
+                <h3 class="course-item-title">
+                    @Html.Raw(@title3)
+                </h3>
+                <div class="course-item-details">
 
-                <div>
-                    <i class="blog-item-popular elegant-icon icon_heart" title="  "></i>
+                    <div>
+                        <i class="blog-item-popular elegant-icon icon_heart" title="  "></i>
+                    </div>
                 </div>
+                <span class="course-item-content">
+                    @Html.Raw(@description3)
+
+                </span>
+                <ul class="course-item-meta clearfix">
+                    <li>
+                        <i class="dripicons dripicons-clock"></i>
+                        <span class="course-item-type">@lable3</span>
+                    </li>
+                </ul>
             </div>
-            <span class="course-item-content">
-                @description3
-            </span>
-            <ul class="course-item-meta clearfix">
-                <li>
-                    <i class="dripicons dripicons-clock"></i>
-                    <span class="course-item-type">@lable3</span>
-                </li>
-            </ul>
         </div>
     </div>
-</div>

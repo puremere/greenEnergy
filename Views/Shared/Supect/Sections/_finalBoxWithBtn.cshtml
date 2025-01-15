@@ -55,7 +55,7 @@
                             <div class="vc_column-inner ">
                                 <div class="wpb_wrapper">
                                     <div class="custom-heading-holder align-right section-title center-in-tablet">
-                                        <h2 class="custom-heading">@header</h2>
+                                        <h2 class="custom-heading"> @Html.Raw(@header)</h2>
                                     </div>
                                     <div class="vc_empty_space" style="height: 10px">
                                         <span class="vc_empty_space_inner"></span>
@@ -70,7 +70,7 @@
                                     <div class="wpb_text_column wpb_content_element  section-text">
                                         <div class="wpb_wrapper">
                                             <p style="text-align:justify;">
-                                                @description
+                                                @Html.Raw(@description)
                                             </p>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                     <div class="button-holder button-inline">
 
                                         <a href="@btnURL" class="button kt-modal-button button-default"
-                                           data-modal="contact">@buttonTitle1</a>
+                                           data-modal="contact"> @Html.Raw(@buttonTitle1)</a>
 
                                     </div>
                                 </div>

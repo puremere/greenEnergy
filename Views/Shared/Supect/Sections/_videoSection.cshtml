@@ -43,14 +43,14 @@
                         <div class="flex-grow-1 pt-25">
 
                             <div class="mb-20 clearfix">
-                                <h1 itemprop="name" class="product_title entry-title">@header</h1>
+                                <h1 itemprop="name" class="product_title entry-title"> @Html.Raw(@header)</h1>
                             </div>
                             <div class="woocommerce-product-details__short-description">
-                                <p>@desc</p>
+                                <p> @Html.Raw(@desc)</p>
                             </div>
                             <div class="course-item-meta">
                                 <li>
-                                    <i class="dripicons dripicons-archive text-muted"></i><span class="text-muted">@timeText</span>
+                                    <i class="dripicons dripicons-archive text-muted"></i><span class="text-muted"> @Html.Raw(@timeText)</span>
                                 </li>
                             </div>
                         </div>
@@ -63,14 +63,14 @@
 
                                 <div class="column kt-col-xs-12 kt-col-sm-6 p-5">
                                     <div class="course-header-purchase-holder">
-                                        <a href="@buttonURL" class="button button-green w-100 line-height-sm kt-ajax-button">@buttonText</a>
+                                        <a href="@buttonURL" class="button button-green w-100 line-height-sm kt-ajax-button"> @Html.Raw(@buttonText)</a>
                                     </div>
                                 </div>
                                 <div class="column kt-col-xs-12 kt-col-sm-auto mr-auto p-5">
                                     <div class="page-header-phone justify-content-center">
                                         <i class="elegant-icon icon_phone text-larger ml-8"></i>
-                                        <span class="text-xxs ml-12">@btnText1</span>
-                                        <b class="text-xxs">@btnText2</b>
+                                        <span class="text-xxs ml-12"> @Html.Raw(@btnText1)</span>
+                                        <b class="text-xxs"> @Html.Raw(@btnText2)</b>
                                     </div>
                                 </div>
 
